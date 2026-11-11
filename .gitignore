@@ -1,0 +1,19 @@
+# Locally downloaded references and their provenance manifest
+/sources/
+
+# Drafting, extraction, rendering, and verification files
+/.work/
+/tmp/
+
+# Local editor and operating-system files
+/.vscode/
+/.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.tmp
+*.swp
+~$*
+__pycache__/
+*.py[cod]
+/.venv/
