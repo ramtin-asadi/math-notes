@@ -30,8 +30,8 @@ The span of $`v_1,\ldots,v_k`$ consists of all vectors $`\sum_i a_iv_i`$. The li
 A map $`T:V\to W`$ is linear if $`T(ax+by)=aT(x)+bT(y)`$. Its kernel and range are
 
 ```math
-\ker T=\{v:T(v)=0\},\qquad
-\mathop{\mathrm{range}}\nolimitsT=\{T(v):v\in V\}.
+\ker T=\lbrace v:T(v)=0\rbrace ,\qquad
+\mathop{\mathrm{range}} T=\lbrace T(v):v\in V\rbrace .
 ```
 
 Both are subspaces. The rank is the dimension of the range; the nullity is the dimension of the kernel. A matrix represents a map after bases are chosen. Changing the bases changes the matrix while leaving the underlying map unchanged.
@@ -70,9 +70,9 @@ For $`A\in\mathbb R^{m\times n}`$, keep track of the ambient dimensions:
 
 | Space | Ambient space | Dimension |
 | --- | --- | --- |
-| Column space $`\mathop{\mathrm{range}}\nolimitsA`$ | $`\mathbb R^m`$ | $`r`$ |
+| Column space $`\mathop{\mathrm{range}} A`$ | $`\mathbb R^m`$ | $`r`$ |
 | Left null space $`\ker A^\top`$ | $`\mathbb R^m`$ | $`m-r`$ |
-| Row space $`\mathop{\mathrm{range}}\nolimitsA^\top`$ | $`\mathbb R^n`$ | $`r`$ |
+| Row space $`\mathop{\mathrm{range}} A^\top`$ | $`\mathbb R^n`$ | $`r`$ |
 | Null space $`\ker A`$ | $`\mathbb R^n`$ | $`n-r`$ |
 
 Column space and left null space are orthogonal complements. Row space and null space are orthogonal complements. A vector in $`\mathbb R^n`$ cannot generally be compared with a column-space vector in $`\mathbb R^m`$ when $`m\ne n`$; they live in different spaces.
@@ -92,17 +92,17 @@ of $`V`$. Every vector in $`V`$ has an expansion in this basis. Applying $`T`$ r
 To check independence, suppose $`\sum_j a_jTv_j=0`$. Then $`\sum_j a_jv_j\in\ker T`$, so it is also a linear combination of the $`u_i`$. Independence of the extended basis forces all $`a_j=0`$. The images are consequently a basis of the range. Thus
 
 ```math
-\dim V=\dim\ker T+\dim\mathop{\mathrm{range}}\nolimitsT.
+\dim V=\dim\ker T+\dim\mathop{\mathrm{range}} T.
 ```
 
-The proof also constructs a complement $`U=\mathop{\mathrm{span}}\nolimits(v_1,\ldots,v_{n-k})`$ on which $`T`$ is one-to-one and maps onto its full range.
+The proof also constructs a complement $`U=\mathop{\mathrm{span}} (v_1,\ldots,v_{n-k})`$ on which $`T`$ is one-to-one and maps onto its full range.
 
 #### Row space and null space
 
-The equation $`Ax=0`$ says that $`x`$ is perpendicular to every row of $`A`$. Hence $`\ker A=\mathop{\mathrm{range}}\nolimits(A^\top)^\perp`$. In finite dimensions, taking orthogonal complements again gives
+The equation $`Ax=0`$ says that $`x`$ is perpendicular to every row of $`A`$. Hence $`\ker A=\mathop{\mathrm{range}} (A^\top)^\perp`$. In finite dimensions, taking orthogonal complements again gives
 
 ```math
-(\ker A)^\perp=\mathop{\mathrm{range}}\nolimits(A^\top).
+(\ker A)^\perp=\mathop{\mathrm{range}} (A^\top).
 ```
 
 This identifies the part of a parameter vector that the map can detect. Adding a null-space vector changes the input without changing the output.
@@ -123,13 +123,19 @@ There is another way to read the kernel. Two inputs $`x,y`$ give the same output
 
 #### Example LA-E19: the same operator in two bases
 
-Let $`A=\mathop{\mathrm{diag}}\nolimits(2,3)`$ in the standard basis of $`\mathbb R^2`$. Use the new basis $`p_1=(1,1)^\top`$, $`p_2=(1,-1)^\top`$.
+Let $`A=\mathop{\mathrm{diag}} (2,3)`$ in the standard basis of $`\mathbb R^2`$. Use the new basis $`p_1=(1,1)^\top`$, $`p_2=(1,-1)^\top`$.
 
-Solution. The basis matrix is $`P=\begin{pmatrix}1&1\\1&-1\end{pmatrix}`$, with inverse $`P/2`$. Multiplication gives
+Solution. The basis matrix is
+
+```math
+P=\begin{pmatrix}1&1\\[0pt] 1&-1\end{pmatrix}
+```
+
+, with inverse $`P/2`$. Multiplication gives
 
 ```math
 P^{-1}AP=\frac12
-\begin{pmatrix}5&-1\\-1&5\end{pmatrix}.
+\begin{pmatrix}5&-1\\[0pt] -1&5\end{pmatrix}.
 ```
 
 The first column says that the old vector $`Ap_1=(2,3)^\top`$ has new coordinates $`(5/2,-1/2)^\top`$. Reconstructing it as $`(5/2)p_1-(1/2)p_2`$ checks the interpretation. The new matrix has eigenvalues two and three, as expected, even though it is no longer diagonal. A diagonal appearance depends on coordinates; the operator's eigenvalues do not.
@@ -138,7 +144,7 @@ The first column says that the old vector $`Ap_1=(2,3)^\top`$ has new coordinate
 
 #### Example LA-E01: a plane and its coordinates
 
-Find a basis for $`S=\{(x,y,z):x+y+z=0\}`$.
+Find a basis for $`S=\lbrace (x,y,z):x+y+z=0\rbrace`$.
 
 Solution. Solve for $`z=-x-y`$:
 
@@ -153,10 +159,10 @@ The two displayed vectors span $`S`$. If their linear combination is zero, its f
 Let
 
 ```math
-A=\begin{pmatrix}1&2&3\\0&1&1\end{pmatrix}.
+A=\begin{pmatrix}1&2&3\\[0pt] 0&1&1\end{pmatrix}.
 ```
 
-Solution. The second row of $`Ax=0`$ gives $`x_2=-x_3`$; the first then gives $`x_1=-x_3`$. Thus $`\ker A=\mathop{\mathrm{span}}\nolimits((-1,-1,1))`$. The first two columns are independent, so $`\mathop{\mathrm{rank}}\nolimitsA=2`$. Rank-nullity reads $`3=1+2`$. For $`b=(4,1)^\top`$, setting $`x_3=t`$ gives all solutions $`(2-t,1-t,t)^\top`$.
+Solution. The second row of $`Ax=0`$ gives $`x_2=-x_3`$; the first then gives $`x_1=-x_3`$. Thus $`\ker A=\mathop{\mathrm{span}} ((-1,-1,1))`$. The first two columns are independent, so $`\mathop{\mathrm{rank}} A=2`$. Rank-nullity reads $`3=1+2`$. For $`b=(4,1)^\top`$, setting $`x_3=t`$ gives all solutions $`(2-t,1-t,t)^\top`$.
 
 #### Example LA-E03: differentiation as a linear map
 
@@ -199,7 +205,7 @@ These two vectors are independent, so the nullity is two. Rank-nullity gives ran
 
 #### Problem LA-04: decomposition for an idempotent
 
-Source: [Axler, Exercises 3B, 27](https://linear.axler.net/LADR4e.pdf). For $`P^2=P`$, prove $`V=\ker P\oplus\mathop{\mathrm{range}}\nolimitsP`$.
+Source: [Axler, Exercises 3B, 27](https://linear.axler.net/LADR4e.pdf). For $`P^2=P`$, prove $`V=\ker P\oplus\mathop{\mathrm{range}} P`$.
 
 Solution. For every $`v`$,
 
@@ -249,41 +255,59 @@ Source: [Axler, Exercises 3B, 23](https://linear.axler.net/LADR4e.pdf).
 
 Problem. For compatible finite-dimensional linear maps $`T`$ and $`S`$, prove that the rank of $`ST`$ is at most the rank of either factor.
 
-Solution. For $`T:U\to V`$ and $`S:V\to W`$, $`\mathop{\mathrm{range}}\nolimits(ST)=S(\mathop{\mathrm{range}}\nolimitsT)`$. Its dimension cannot exceed $`\dim\mathop{\mathrm{range}}\nolimitsT`$, since images of a basis of that space span the image. It is also a subspace of $`\mathop{\mathrm{range}}\nolimitsS`$, so its dimension cannot exceed $`\mathop{\mathrm{rank}}\nolimitsS`$. Therefore
+Solution. For $`T:U\to V`$ and $`S:V\to W`$, $`\mathop{\mathrm{range}} (ST)=S(\mathop{\mathrm{range}} T)`$. Its dimension cannot exceed $`\dim\mathop{\mathrm{range}} T`$, since images of a basis of that space span the image. It is also a subspace of $`\mathop{\mathrm{range}} S`$, so its dimension cannot exceed $`\mathop{\mathrm{rank}} S`$. Therefore
 
 ```math
-\mathop{\mathrm{rank}}\nolimits(ST)\le\min(\mathop{\mathrm{rank}}\nolimitsS,\mathop{\mathrm{rank}}\nolimitsT).
+\mathop{\mathrm{rank}} (ST)\le\min(\mathop{\mathrm{rank}} S,\mathop{\mathrm{rank}} T).
 ```
 
 Equality need not hold: $`T`$ can map entirely into $`\ker S`$, in which case the composition is zero even though neither map is zero.
 
 #### Problem LA-25: a parameter changes rank
 
-Constructed problem. For $`A_t=\left(\begin{smallmatrix}1&1\\1&t\end{smallmatrix}\right)`$, determine rank, kernel, and solvability for every $`t`$.
+Constructed problem. For
+
+```math
+A_t=\left(\begin{smallmatrix}1&1\\[0pt] 1&t\end{smallmatrix}\right)
+```
+
+, determine rank, kernel, and solvability for every $`t`$.
 
 Solution. Subtract the first row from the second. The reduced second row is $`(0,t-1)`$. If $`t\ne1`$, both coordinates are pivots, the rank is two, the kernel is zero, and every right-hand side has a unique solution.
 
-If $`t=1`$, the rank is one and the kernel is $`\mathop{\mathrm{span}}\nolimits((1,-1))`$. The equation $`A_1x=b`$ is solvable exactly when $`b_1=b_2`$. If that equality holds, all solutions are $`(b_1-s,s)`$ for $`s\in\mathbb R`$. Thus one parameter value changes both the number of admissible targets and the uniqueness of coefficients.
+If $`t=1`$, the rank is one and the kernel is $`\mathop{\mathrm{span}} ((1,-1))`$. The equation $`A_1x=b`$ is solvable exactly when $`b_1=b_2`$. If that equality holds, all solutions are $`(b_1-s,s)`$ for $`s\in\mathbb R`$. Thus one parameter value changes both the number of admissible targets and the uniqueness of coefficients.
 
 #### Problem LA-26: the matrix after a change of basis
 
 Constructed problem. Let $`T(x,y)=(2x+y,x+2y)`$ and use the basis $`b_1=(1,1)`$, $`b_2=(1,-1)`$.
 
-Solution. The basis matrix is $`B=\left(\begin{smallmatrix}1&1\\1&-1\end{smallmatrix}\right)`$ and $`B^{-1}=\tfrac12B`$. For an input coordinate vector $`c`$, the original vector is $`Bc`$, its image is $`ABc`$, and the coordinates of the image are $`B^{-1}ABc`$. Hence the new matrix is $`B^{-1}AB`$.
+Solution. The basis matrix is
 
-Here $`Tb_1=3b_1`$ and $`Tb_2=b_2`$, so the new matrix is $`\mathop{\mathrm{diag}}\nolimits(3,1)`$. The map has not changed; the new coordinates align with directions that it scales without mixing.
+```math
+B=\left(\begin{smallmatrix}1&1\\[0pt] 1&-1\end{smallmatrix}\right)
+```
+
+ and $`B^{-1}=\tfrac12B`$. For an input coordinate vector $`c`$, the original vector is $`Bc`$, its image is $`ABc`$, and the coordinates of the image are $`B^{-1}ABc`$. Hence the new matrix is $`B^{-1}AB`$.
+
+Here $`Tb_1=3b_1`$ and $`Tb_2=b_2`$, so the new matrix is $`\mathop{\mathrm{diag}} (3,1)`$. The map has not changed; the new coordinates align with directions that it scales without mixing.
 
 #### Problem LA-27: an inconsistent system
 
-Constructed problem. Determine all least-squares targets that are exactly solvable for $`A=\left(\begin{smallmatrix}1&0\\0&1\\1&1\end{smallmatrix}\right)`$.
+Constructed problem. Determine all least-squares targets that are exactly solvable for
+
+```math
+A=\left(\begin{smallmatrix}1&0\\[0pt] 0&1\\[0pt] 1&1\end{smallmatrix}\right)
+```
+
+.
 
 Solution. The range consists of vectors $`(s,t,s+t)`$, so $`Ax=b`$ is exactly solvable if and only if $`b_3=b_1+b_2`$. A left-null vector is $`z=(-1,-1,1)`$, and the same condition is $`z^\top b=0`$. If the condition fails, the component of $`b`$ along $`z`$ is unreachable. Section 2 shows that least squares removes that component by orthogonal projection.
 
 #### Problem LA-28: images and preimages
 
-Constructed problem. Let $`T(x,y,z)=(x+y,y+z)`$ and find the preimage of the line $`\{(s,s):s\in\mathbb R\}`$.
+Constructed problem. Let $`T(x,y,z)=(x+y,y+z)`$ and find the preimage of the line $`\lbrace (s,s):s\in\mathbb R\rbrace`$.
 
-Solution. Membership requires $`x+y=y+z`$, hence $`x=z`$. The preimage is $`\{(x,y,x)\}`$, with basis $`(1,0,1)`$ and $`(0,1,0)`$ and dimension two. The kernel of $`T`$ is generated by $`(-1,1,-1)`$, and its dimension is one. The target line contributes one additional independent image direction, giving $`2=1+1`$. A preimage under a linear map of a subspace is itself a subspace.
+Solution. Membership requires $`x+y=y+z`$, hence $`x=z`$. The preimage is $`\lbrace (x,y,x)\rbrace`$, with basis $`(1,0,1)`$ and $`(0,1,0)`$ and dimension two. The kernel of $`T`$ is generated by $`(-1,1,-1)`$, and its dimension is one. The target line contributes one additional independent image direction, giving $`2=1+1`$. A preimage under a linear map of a subspace is itself a subspace.
 
 ### 2.1 Theory
 
@@ -300,7 +324,7 @@ If the columns of $`Q`$ are an orthonormal basis of $`S`$, then $`P_S=QQ^\top`$.
 Gram-Schmidt constructs orthonormal directions from independent vectors:
 
 ```math
-u_k=a_k-\sum_{j<k}(q_j^\top a_k)q_j,\qquad q_k=u_k/\Vert u_k\Vert .
+u_k=a_k-\sum_{j\lt k}(q_j^\top a_k)q_j,\qquad q_k=u_k/\Vert u_k\Vert .
 ```
 
 Independence guarantees $`u_k\ne0`$. In numerical work, Householder QR or reorthogonalization is often more reliable than the unmodified procedure; see [Numerical Methods](07-numerical-methods.md#2-numerical-linear-algebra).
@@ -316,7 +340,7 @@ g(c)=\Vert b-ca\Vert ^2
 =b^\top b-2c\,a^\top b+c^2a^\top a.
 ```
 
-This is an upward-opening scalar quadratic because $`a^\top a>0`$. Setting $`g'(c)=0`$ gives $`c=a^\top b/(a^\top a)`$. Substituting that coefficient into $`a^\top(b-ca)`$ gives zero. Thus the perpendicular residual arises from minimization; it is also a way to solve the minimization.
+This is an upward-opening scalar quadratic because $`a^\top a\gt 0`$. Setting $`g'(c)=0`$ gives $`c=a^\top b/(a^\top a)`$. Substituting that coefficient into $`a^\top(b-ca)`$ gives zero. Thus the perpendicular residual arises from minimization; it is also a way to solve the minimization.
 
 For several independent columns, the coefficients interact. If the columns are orthonormal, each coefficient is $`q_i^\top b`$ and can be found separately. If the columns are not orthogonal, the interaction is recorded by the Gram matrix $`A^\top A`$. Its $`(i,j)`$ entry is the inner product of columns $`i`$ and $`j`$.
 
@@ -331,7 +355,7 @@ For $`v\ne0`$, consider the nonnegative squared norm of $`u-tv`$ and choose $`t=
 =\Vert u\Vert ^2-\frac{\vert \langle u,v\rangle\vert ^2}{\Vert v\Vert ^2}.
 ```
 
-Therefore $`\vert \langle u,v\rangle\vert \le\Vert u\Vert \Vert v\Vert `$. Equality holds exactly when the residual vector is zero, which means $`u`$ is a multiple of $`v`$. If $`v=0`$, both sides are zero. This proof is itself a projection calculation.
+Therefore $`\vert \langle u,v\rangle\vert \le\Vert u\Vert \Vert v\Vert`$. Equality holds exactly when the residual vector is zero, which means $`u`$ is a multiple of $`v`$. If $`v=0`$, both sides are zero. This proof is itself a projection calculation.
 
 #### Existence in rank-deficient least squares
 
@@ -364,7 +388,7 @@ Minimize $`\Vert b-Ax\Vert ^2`$ for $`A\in\mathbb R^{m\times n}`$. A minimizing 
 A^\top(A\widehat x-b)=0.
 ```
 
-These are the normal equations. If $`A`$ has independent columns, $`z^\top A^\top Az=\Vert Az\Vert ^2>0`$ for $`z\ne0`$, so
+These are the normal equations. If $`A`$ has independent columns, $`z^\top A^\top Az=\Vert Az\Vert ^2\gt 0`$ for $`z\ne0`$, so
 
 ```math
 \widehat x=(A^\top A)^{-1}A^\top b,\qquad
@@ -430,9 +454,9 @@ $`(PQ)^\top=QP=PQ`$ and $`(PQ)^2=P^2Q^2=PQ`$. Its range is the intersection of t
 For projection onto the first coordinate axis and projection onto the line $`(1,1)`$,
 
 ```math
-P=\begin{pmatrix}1&0\\0&0\end{pmatrix},\qquad
-Q=\tfrac12\begin{pmatrix}1&1\\1&1\end{pmatrix},\qquad
-PQ=\tfrac12\begin{pmatrix}1&1\\0&0\end{pmatrix}.
+P=\begin{pmatrix}1&0\\[0pt] 0&0\end{pmatrix},\qquad
+Q=\tfrac12\begin{pmatrix}1&1\\[0pt] 1&1\end{pmatrix},\qquad
+PQ=\tfrac12\begin{pmatrix}1&1\\[0pt] 0&0\end{pmatrix}.
 ```
 
 The product is neither symmetric nor idempotent. Projecting onto one set and then another need not project onto their intersection in a single pass.
@@ -454,8 +478,8 @@ Fit $`y_i=a+bt_i`$ to $`(t,y)=(0,1),(1,2),(2,2)`$.
 Solution. Here
 
 ```math
-X=\begin{pmatrix}1&0\\1&1\\1&2\end{pmatrix},\quad
-X^\top X=\begin{pmatrix}3&3\\3&5\end{pmatrix},\quad
+X=\begin{pmatrix}1&0\\[0pt] 1&1\\[0pt] 1&2\end{pmatrix},\quad
+X^\top X=\begin{pmatrix}3&3\\[0pt] 3&5\end{pmatrix},\quad
 X^\top y=\binom56.
 ```
 
@@ -485,9 +509,9 @@ Solution. Write $`v=u+w`$ with $`u\in U`$ and $`w\in U^\perp`$. By the projectio
 
 #### Problem LA-06: recognizing an orthogonal projection
 
-Source: [Axler, Exercises 6C, 9](https://linear.axler.net/LADR4e.pdf). Assume $`P^2=P`$ and $`\ker P\perp\mathop{\mathrm{range}}\nolimitsP`$.
+Source: [Axler, Exercises 6C, 9](https://linear.axler.net/LADR4e.pdf). Assume $`P^2=P`$ and $`\ker P\perp\mathop{\mathrm{range}} P`$.
 
-Solution. Problem LA-04 gives $`v=(v-Pv)+Pv`$, with the terms in the kernel and range respectively. The assumed orthogonality makes this the orthogonal decomposition relative to $`U=\mathop{\mathrm{range}}\nolimitsP`$. Therefore $`Pv=P_Uv`$. For a direct minimization check, any $`u\in U`$ satisfies
+Solution. Problem LA-04 gives $`v=(v-Pv)+Pv`$, with the terms in the kernel and range respectively. The assumed orthogonality makes this the orthogonal decomposition relative to $`U=\mathop{\mathrm{range}} P`$. Therefore $`Pv=P_Uv`$. For a direct minimization check, any $`u\in U`$ satisfies
 
 ```math
 \Vert v-u\Vert ^2=\Vert v-Pv\Vert ^2+\Vert Pv-u\Vert ^2.
@@ -497,7 +521,7 @@ The second term is nonnegative and vanishes only at $`u=Pv`$. Thus $`P`$ selects
 
 #### Problem LA-07: a closest vector in four dimensions
 
-Source: [Axler, Exercises 6C, 15](https://linear.axler.net/LADR4e.pdf). Minimize distance to $`(1,2,3,4)`$ over $`U=\mathop{\mathrm{span}}\nolimits((1,1,0,0),(1,1,1,2))`$.
+Source: [Axler, Exercises 6C, 15](https://linear.axler.net/LADR4e.pdf). Minimize distance to $`(1,2,3,4)`$ over $`U=\mathop{\mathrm{span}} ((1,1,0,0),(1,1,1,2))`$.
 
 Solution. Replace the generators by the orthogonal vectors $`a=(1,1,0,0)`$ and $`c=(0,0,1,2)`$; their span is unchanged. Then
 
@@ -520,7 +544,7 @@ Source: [Axler, Exercises 6A, 2](https://linear.axler.net/LADR4e.pdf).
 
 Problem. Let $`S`$ be a linear map between inner-product spaces. Determine exactly when $`\langle u,v\rangle_1=\langle Su,Sv\rangle`$ defines an inner product on its domain.
 
-Solution. Define $`\langle u,v\rangle_1=\langle Su,Sv\rangle`$. Symmetry and linearity follow from the original inner product and linearity of $`S`$. Nonnegativity follows from $`\langle v,v\rangle_1=\Vert Sv\Vert ^2\ge0`$. This equals zero exactly when $`Sv=0`$. Thus positive definiteness holds exactly when $`\ker S=\{0\}`$, that is, when $`S`$ is injective. For a matrix $`S`$, the induced Gram matrix is $`S^\top S`$, recovering the earlier full-column-rank criterion.
+Solution. Define $`\langle u,v\rangle_1=\langle Su,Sv\rangle`$. Symmetry and linearity follow from the original inner product and linearity of $`S`$. Nonnegativity follows from $`\langle v,v\rangle_1=\Vert Sv\Vert ^2\ge0`$. This equals zero exactly when $`Sv=0`$. Thus positive definiteness holds exactly when $`\ker S=\lbrace 0\rbrace`$, that is, when $`S`$ is injective. For a matrix $`S`$, the induced Gram matrix is $`S^\top S`$, recovering the earlier full-column-rank criterion.
 
 #### Problem LA-30: an orthogonal decomposition in two coordinates
 
@@ -548,7 +572,7 @@ Solution. For orthonormal $`e_1,\ldots,e_m`$, put $`p=\sum_i\langle v,e_i\rangle
 \Vert v\Vert ^2=\sum_i\vert \langle v,e_i\rangle\vert ^2+\Vert r\Vert ^2.
 ```
 
-The sum of coefficient squares is at most $`\Vert v\Vert ^2`$. Equality holds exactly when $`r=0`$, or $`v\in\mathop{\mathrm{span}}\nolimits(e_1,\ldots,e_m)`$. No assumption that the orthonormal list spans the whole ambient space is needed.
+The sum of coefficient squares is at most $`\Vert v\Vert ^2`$. Equality holds exactly when $`r=0`$, or $`v\in\mathop{\mathrm{span}} (e_1,\ldots,e_m)`$. No assumption that the orthonormal list spans the whole ambient space is needed.
 
 #### Problem LA-32: orthogonality between two subspaces
 
@@ -570,13 +594,19 @@ Solution. Minimize $`(1-c)^2+2(3-c)^2+(5-c)^2`$. Differentiate:
 2(c-1)+4(c-3)+2(c-5)=8c-24.
 ```
 
-Thus $`c=3`$. More generally, weights $`w_i>0`$ give $`c=\sum_iw_iy_i/\sum_iw_i`$. The weighted residual condition is $`\sum_iw_i(y_i-c)=0`$. It need not make the unweighted residual sum zero when weights differ and the observations are not symmetric.
+Thus $`c=3`$. More generally, weights $`w_i\gt 0`$ give $`c=\sum_iw_iy_i/\sum_iw_i`$. The weighted residual condition is $`\sum_iw_i(y_i-c)=0`$. It need not make the unweighted residual sum zero when weights differ and the observations are not symmetric.
 
 #### Problem LA-34: a projector that is not orthogonal
 
-Constructed problem. Study $`P=\left(\begin{smallmatrix}1&2\\0&0\end{smallmatrix}\right)`$.
+Constructed problem. Study
 
-Solution. Multiplication gives $`P^2=P`$. Its range is the horizontal axis and its kernel is $`\mathop{\mathrm{span}}\nolimits((-2,1))`$. These spaces are not perpendicular, and $`P^\top\ne P`$. For $`b=(0,1)`$, it returns $`(2,0)`$, whose distance from $`b`$ is $`\sqrt5`$. The closest horizontal-axis point is $`(0,0)`$ at distance one. Idempotence describes a projection along a complement; orthogonality is the condition that makes it a nearest-point map.
+```math
+P=\left(\begin{smallmatrix}1&2\\[0pt] 0&0\end{smallmatrix}\right)
+```
+
+.
+
+Solution. Multiplication gives $`P^2=P`$. Its range is the horizontal axis and its kernel is $`\mathop{\mathrm{span}} ((-2,1))`$. These spaces are not perpendicular, and $`P^\top\ne P`$. For $`b=(0,1)`$, it returns $`(2,0)`$, whose distance from $`b`$ is $`\sqrt5`$. The closest horizontal-axis point is $`(0,0)`$ at distance one. Idempotence describes a projection along a complement; orthogonality is the condition that makes it a nearest-point map.
 
 #### Problem LA-35: approximating a function by a straight line
 
@@ -609,7 +639,13 @@ Solution. The fitted vector is $`(b_1+b_2)\mathbf1`$. Minimizing over $`s=b_1+b_
 
 ### 3.1 Theory
 
-An eigenvector is a nonzero $`v`$ satisfying $`Av=\lambda v`$. A matrix is diagonalizable if it has a basis of eigenvectors: $`A=V\Lambda V^{-1}`$. A general matrix may fail to have enough eigenvectors. For example, $`\left(\begin{smallmatrix}1&1\\0&1\end{smallmatrix}\right)`$ has only one independent eigenvector.
+An eigenvector is a nonzero $`v`$ satisfying $`Av=\lambda v`$. A matrix is diagonalizable if it has a basis of eigenvectors: $`A=V\Lambda V^{-1}`$. A general matrix may fail to have enough eigenvectors. For example,
+
+```math
+\left(\begin{smallmatrix}1&1\\[0pt] 0&1\end{smallmatrix}\right)
+```
+
+ has only one independent eigenvector.
 
 The real spectral theorem says that a symmetric real matrix has an orthonormal eigenbasis:
 
@@ -649,7 +685,7 @@ Repeated eigenvalues do not cause a failure of diagonalization for symmetric mat
 For a symmetric block matrix
 
 ```math
-M=\begin{pmatrix}B&C\\C^\top&D\end{pmatrix},
+M=\begin{pmatrix}B&C\\[0pt] C^\top&D\end{pmatrix},
 ```
 
 assume $`B`$ is PD. Its quadratic form at $`(x,y)`$ can be rewritten as
@@ -666,13 +702,13 @@ This derivation also describes minimization over $`x`$ with $`y`$ fixed. The bes
 
 #### Positive definite and invertible
 
-For a symmetric PD matrix, $`Ax=0`$ would imply $`x^\top Ax=0`$, forcing $`x=0`$. Thus it is invertible. The converse is false: $`-I`$ and $`\mathop{\mathrm{diag}}\nolimits(1,-1)`$ are invertible but not PD. For a symmetric PSD matrix the converse does hold, because invertibility removes every zero eigenvalue and PSD removes every negative one.
+For a symmetric PD matrix, $`Ax=0`$ would imply $`x^\top Ax=0`$, forcing $`x=0`$. Thus it is invertible. The converse is false: $`-I`$ and $`\mathop{\mathrm{diag}} (1,-1)`$ are invertible but not PD. For a symmetric PSD matrix the converse does hold, because invertibility removes every zero eigenvalue and PSD removes every negative one.
 
-Its inverse is also PD: if $`A=Q\Lambda Q^\top`$ with all $`\lambda_i>0`$, then $`A^{-1}=Q\Lambda^{-1}Q^\top`$ has positive eigenvalues $`1/\lambda_i`$. Its positive square root is $`A^{1/2}=Q\Lambda^{1/2}Q^\top`$. For PSD matrices the same square root exists, with zeros kept as zeros.
+Its inverse is also PD: if $`A=Q\Lambda Q^\top`$ with all $`\lambda_i\gt 0`$, then $`A^{-1}=Q\Lambda^{-1}Q^\top`$ has positive eigenvalues $`1/\lambda_i`$. Its positive square root is $`A^{1/2}=Q\Lambda^{1/2}Q^\top`$. For PSD matrices the same square root exists, with zeros kept as zeros.
 
 #### Spectral theorem in finite dimensions
 
-For symmetric $`A`$, the continuous function $`x^\top Ax`$ has a maximum on the unit sphere, which is compact. Let $`q`$ be a maximizer. For every $`h\perp q`$, differentiate the form along $`(q+th)/\Vert q+th\Vert `$ at $`t=0`$. Its derivative is $`2h^\top Aq`$, so maximality gives $`h^\top Aq=0`$. Therefore $`Aq`$ is parallel to $`q`$ and $`Aq=\lambda q`$.
+For symmetric $`A`$, the continuous function $`x^\top Ax`$ has a maximum on the unit sphere, which is compact. Let $`q`$ be a maximizer. For every $`h\perp q`$, differentiate the form along $`(q+th)/\Vert q+th\Vert`$ at $`t=0`$. Its derivative is $`2h^\top Aq`$, so maximality gives $`h^\top Aq=0`$. Therefore $`Aq`$ is parallel to $`q`$ and $`Aq=\lambda q`$.
 
 The orthogonal complement of $`q`$ is invariant: if $`x\perp q`$, then $`q^\top Ax=(Aq)^\top x=\lambda q^\top x=0`$. Restrict $`A`$ to that complement and repeat. Induction on dimension yields an orthonormal eigenbasis.
 
@@ -694,29 +730,53 @@ Every square real matrix decomposes as $`A=S+K`$, where $`S=(A+A^\top)/2`$ is sy
 x^\top Kx=(x^\top Kx)^\top=x^\top K^\top x=-x^\top Kx,
 ```
 
-so $`x^\top Kx=0`$. The quadratic form sees only $`S`$. In particular, a rotation matrix $`\begin{pmatrix}0&-1\\1&0\end{pmatrix}`$ has quadratic expression zero for every $`x`$, but is not a symmetric positive-semidefinite operator. Whenever positivity is stated for an operator in these notes, symmetry is included.
+so $`x^\top Kx=0`$. The quadratic form sees only $`S`$. In particular, a rotation matrix
 
-Symmetry also ensures an orthonormal eigenbasis. A general matrix can lack any eigenbasis. For $`J=\begin{pmatrix}1&1\\0&1\end{pmatrix}`$, the only eigenspace is the first coordinate axis, yet the matrix acts on a two-dimensional space. Its powers are $`J^n=\begin{pmatrix}1&n\\0&1\end{pmatrix}`$. Knowing its eigenvalue is one does not describe the linear growth caused by the off-diagonal part.
+```math
+\begin{pmatrix}0&-1\\[0pt] 1&0\end{pmatrix}
+```
+
+ has quadratic expression zero for every $`x`$, but is not a symmetric positive-semidefinite operator. Whenever positivity is stated for an operator in these notes, symmetry is included.
+
+Symmetry also ensures an orthonormal eigenbasis. A general matrix can lack any eigenbasis. For
+
+```math
+J=\begin{pmatrix}1&1\\[0pt] 0&1\end{pmatrix}
+```
+
+, the only eigenspace is the first coordinate axis, yet the matrix acts on a two-dimensional space. Its powers are
+
+```math
+J^n=\begin{pmatrix}1&n\\[0pt] 0&1\end{pmatrix}
+```
+
+. Knowing its eigenvalue is one does not describe the linear growth caused by the off-diagonal part.
 
 #### A positive square root
 
-If $`A=Q\mathop{\mathrm{diag}}\nolimits(\lambda_i)Q^\top`$ is PSD, define
+If $`A=Q\mathop{\mathrm{diag}} (\lambda_i)Q^\top`$ is PSD, define
 
 ```math
-A^{1/2}=Q\mathop{\mathrm{diag}}\nolimits(\sqrt{\lambda_i})Q^\top.
+A^{1/2}=Q\mathop{\mathrm{diag}} (\sqrt{\lambda_i})Q^\top.
 ```
 
 This matrix is symmetric PSD and squares to $`A`$. If $`A`$ is PD, its square root is invertible and gives $`x^\top Ax=\Vert A^{1/2}x\Vert ^2`$. This identity turns a positive quadratic form into an ordinary squared length after a coordinate transformation.
 
 The symmetric PSD square root is unique. Any such root $`B`$ commutes with $`A=B^2`$. Thus each eigenspace of $`A`$ is invariant under $`B`$. Diagonalize the symmetric restriction of $`B`$ on each one. Its eigenvalues must be nonnegative numbers whose squares equal the corresponding $`\lambda_i`$, forcing them to equal $`\sqrt{\lambda_i}`$.
 
-A change of variables in a quadratic form gives $`P^\top AP`$, called a congruence, whereas an operator basis change gives $`P^{-1}AP`$, a similarity. Congruence preserves the signs available in the form when $`P`$ is invertible, but need not preserve eigenvalues. Taking $`A=I`$ and $`P=\mathop{\mathrm{diag}}\nolimits(2,3)`$ gives form matrix $`\mathop{\mathrm{diag}}\nolimits(4,9)`$.
+A change of variables in a quadratic form gives $`P^\top AP`$, called a congruence, whereas an operator basis change gives $`P^{-1}AP`$, a similarity. Congruence preserves the signs available in the form when $`P`$ is invertible, but need not preserve eigenvalues. Taking $`A=I`$ and $`P=\mathop{\mathrm{diag}} (2,3)`$ gives form matrix $`\mathop{\mathrm{diag}} (4,9)`$.
 
 #### Example LA-E20: whitening a covariance form
 
-Let $`\Sigma=\begin{pmatrix}5&3\\3&5\end{pmatrix}`$. Find a transformation making its covariance identity.
+Let
 
-Solution. Along $`q_+=(1,1)^\top/\sqrt2`$ and $`q_-=(1,-1)^\top/\sqrt2`$, the variances are eight and two. Set $`C=\mathop{\mathrm{diag}}\nolimits(1/\sqrt8,1/\sqrt2)Q^\top`$. Then $`C\Sigma C^\top=I`$. For a centered random vector $`X`$ with this covariance, $`CX`$ has uncorrelated unit-variance coordinates.
+```math
+\Sigma=\begin{pmatrix}5&3\\[0pt] 3&5\end{pmatrix}
+```
+
+. Find a transformation making its covariance identity.
+
+Solution. Along $`q_+=(1,1)^\top/\sqrt2`$ and $`q_-=(1,-1)^\top/\sqrt2`$, the variances are eight and two. Set $`C=\mathop{\mathrm{diag}} (1/\sqrt8,1/\sqrt2)Q^\top`$. Then $`C\Sigma C^\top=I`$. For a centered random vector $`X`$ with this covariance, $`CX`$ has uncorrelated unit-variance coordinates.
 
 This does not imply independence without an additional distributional assumption. If $`X`$ is jointly Gaussian, the transformed vector is Gaussian and the identity covariance does imply independent coordinates. The linear algebra establishes covariance normalization; probability assumptions determine the stronger interpretation.
 
@@ -724,19 +784,31 @@ This does not imply independence without an additional distributional assumption
 
 #### Example LA-E07: a symmetric matrix with coupled coordinates
 
-Diagonalize $`A=\left(\begin{smallmatrix}2&1\\1&2\end{smallmatrix}\right)`$.
+Diagonalize
 
-Solution. The directions $`q_1=(1,1)/\sqrt2`$ and $`q_2=(1,-1)/\sqrt2`$ have eigenvalues $`3`$ and $`1`$. Thus $`Q=(q_1,q_2)`$ and $`A=Q\mathop{\mathrm{diag}}\nolimits(3,1)Q^\top`$. For $`x=(2,0)`$ the eigenbasis coordinates are $`(\sqrt2,\sqrt2)`$, and $`x^\top Ax=3(2)+1(2)=8`$. Since both eigenvalues are positive, $`A`$ is PD.
+```math
+A=\left(\begin{smallmatrix}2&1\\[0pt] 1&2\end{smallmatrix}\right)
+```
+
+.
+
+Solution. The directions $`q_1=(1,1)/\sqrt2`$ and $`q_2=(1,-1)/\sqrt2`$ have eigenvalues $`3`$ and $`1`$. Thus $`Q=(q_1,q_2)`$ and $`A=Q\mathop{\mathrm{diag}} (3,1)Q^\top`$. For $`x=(2,0)`$ the eigenbasis coordinates are $`(\sqrt2,\sqrt2)`$, and $`x^\top Ax=3(2)+1(2)=8`$. Since both eigenvalues are positive, $`A`$ is PD.
 
 #### Example LA-E08: an indefinite form
 
-Classify $`B=\left(\begin{smallmatrix}1&2\\2&1\end{smallmatrix}\right)`$.
+Classify
+
+```math
+B=\left(\begin{smallmatrix}1&2\\[0pt] 2&1\end{smallmatrix}\right)
+```
+
+.
 
 Solution. Along $`(1,1)`$ the eigenvalue is $`3`$; along $`(1,-1)`$ it is $`-1`$. Hence $`x^\top Bx`$ can have either sign. Positive diagonal entries have not guaranteed PSD: the off-diagonal terms make some directions negative.
 
 #### Example LA-E09: covariance rank
 
-Let $`X`$ contain $`n`$ observations on $`p`$ variables, and let $`H=I-\mathbf1\mathbf1^\top/n`$ center each column. For $`n>1`$, the sample covariance is $`S=X^\top HX/(n-1)`$.
+Let $`X`$ contain $`n`$ observations on $`p`$ variables, and let $`H=I-\mathbf1\mathbf1^\top/n`$ center each column. For $`n\gt 1`$, the sample covariance is $`S=X^\top HX/(n-1)`$.
 
 Solution. Since $`H^\top=H^2=H`$,
 
@@ -744,7 +816,7 @@ Solution. Since $`H^\top=H^2=H`$,
 a^\top Sa=\Vert HXa\Vert ^2/(n-1)\ge0.
 ```
 
-Also $`\mathop{\mathrm{rank}}\nolimitsS=\mathop{\mathrm{rank}}\nolimits(HX)\le\min(p,n-1)`$. Therefore $`p\ge n`$ guarantees singularity. For $`p<n`$, singularity is still possible if a centered variable is an exact linear combination of others. Invertibility requires the centered columns to be independent.
+Also $`\mathop{\mathrm{rank}} S=\mathop{\mathrm{rank}} (HX)\le\min(p,n-1)`$. Therefore $`p\ge n`$ guarantees singularity. For $`p\lt n`$, singularity is still possible if a centered variable is an exact linear combination of others. Invertibility requires the centered columns to be independent.
 
 ### 3.4 Selected exercises
 
@@ -764,9 +836,9 @@ Every term is nonnegative. If the sum is zero, $`x_1=x_4=0`$ and all neighboring
 
 Source: [Axler, Exercises 7C, 4](https://linear.axler.net/LADR4e.pdf).
 
-Problem. For every dimension $`n>1`$, construct a symmetric matrix with all entries strictly positive whose quadratic form is not positive semidefinite.
+Problem. For every dimension $`n\gt 1`$, construct a symmetric matrix with all entries strictly positive whose quadratic form is not positive semidefinite.
 
-Solution. For any $`n>1`$, let $`J`$ be the all-ones matrix and put $`A=2J-I`$. Its diagonal entries are one and its off-diagonal entries are two, all positive. It is symmetric. Yet $`x=e_1-e_2`$ satisfies $`Jx=0`$, so $`x^\top Ax=-\Vert x\Vert ^2=-2`$. Thus $`A`$ is not PSD. Entrywise positivity and nonnegativity of a quadratic form are different properties.
+Solution. For any $`n\gt 1`$, let $`J`$ be the all-ones matrix and put $`A=2J-I`$. Its diagonal entries are one and its off-diagonal entries are two, all positive. It is symmetric. Yet $`x=e_1-e_2`$ satisfies $`Jx=0`$, so $`x^\top Ax=-\Vert x\Vert ^2=-2`$. Thus $`A`$ is not PSD. Entrywise positivity and nonnegativity of a quadratic form are different properties.
 
 #### Problem LA-10: shifting eigenvalues
 
@@ -800,7 +872,7 @@ Source: [Axler, Exercises 7C, 7](https://linear.axler.net/LADR4e.pdf).
 
 Problem. Show that adding a positive-semidefinite operator to a positive-definite operator preserves positive definiteness and invertibility.
 
-Solution. Let $`S`$ be PD and $`T`$ PSD. For nonzero $`x`$, $`x^\top(S+T)x=x^\top Sx+x^\top Tx>0+0`$. Hence $`S+T`$ is PD and invertible. A quantitative form is $`\lambda_{\min}(S+T)\ge\lambda_{\min}(S)`$, obtained by minimizing the Rayleigh quotient over unit vectors. Commutativity is unnecessary for this lower bound.
+Solution. Let $`S`$ be PD and $`T`$ PSD. For nonzero $`x`$, $`x^\top(S+T)x=x^\top Sx+x^\top Tx\gt 0+0`$. Hence $`S+T`$ is PD and invertible. A quantitative form is $`\lambda_{\min}(S+T)\ge\lambda_{\min}(S)`$, obtained by minimizing the Rayleigh quotient over unit vectors. Commutativity is unnecessary for this lower bound.
 
 #### Problem LA-39: changing variables in a positive form
 
@@ -829,7 +901,7 @@ Solution. If $`ST`$ is positive, it is self-adjoint, so $`ST=(ST)^\top=TS`$. Con
 Constructed problem. Diagonalize
 
 ```math
-A=\begin{pmatrix}2&1&0\\1&2&0\\0&0&4\end{pmatrix}
+A=\begin{pmatrix}2&1&0\\[0pt] 1&2&0\\[0pt] 0&0&4\end{pmatrix}
 ```
 
 and minimize its quadratic form on the unit sphere.
@@ -850,21 +922,45 @@ Since both terms are nonnegative, this expression is zero exactly when $`x\in\ke
 
 #### Problem LA-43: a two-by-two positivity criterion
 
-Constructed problem. Characterize PSD matrices $`A=\left(\begin{smallmatrix}a&c\\c&b\end{smallmatrix}\right)`$.
+Constructed problem. Characterize PSD matrices
 
-Solution. Necessity gives $`a,b\ge0`$ by testing the coordinate vectors. If $`a>0`$, complete the square:
+```math
+A=\left(\begin{smallmatrix}a&c\\[0pt] c&b\end{smallmatrix}\right)
+```
+
+.
+
+Solution. Necessity gives $`a,b\ge0`$ by testing the coordinate vectors. If $`a\gt 0`$, complete the square:
 
 ```math
 ax^2+2cxy+by^2=a(x+cy/a)^2+(b-c^2/a)y^2.
 ```
 
-Nonnegativity for every $`(x,y)`$ requires and is implied by $`ab-c^2\ge0`$. If $`a=0`$, nonnegativity forces $`c=0`$: otherwise fix $`y=1`$ and send $`x`$ in the direction making $`2cx+b`$ negative. Thus the full PSD criterion is $`a\ge0`$, $`b\ge0`$, and $`ab-c^2\ge0`$. PD requires $`a>0`$ and $`ab-c^2>0`$.
+Nonnegativity for every $`(x,y)`$ requires and is implied by $`ab-c^2\ge0`$. If $`a=0`$, nonnegativity forces $`c=0`$: otherwise fix $`y=1`$ and send $`x`$ in the direction making $`2cx+b`$ negative. Thus the full PSD criterion is $`a\ge0`$, $`b\ge0`$, and $`ab-c^2\ge0`$. PD requires $`a\gt 0`$ and $`ab-c^2\gt 0`$.
 
 #### Problem LA-44: a diagonalizable matrix without an orthogonal eigenbasis
 
-Constructed problem. Study $`A=\left(\begin{smallmatrix}1&1\\0&2\end{smallmatrix}\right)`$.
+Constructed problem. Study
 
-Solution. The eigenvector directions are $`v_1=(1,0)`$ for eigenvalue one and $`v_2=(1,1)`$ for eigenvalue two. They are independent, so $`A=V\mathop{\mathrm{diag}}\nolimits(1,2)V^{-1}`$. Their inner product is one, and scaling either vector cannot make it zero. Thus this diagonalizable matrix has no orthogonal eigenbasis. Indeed $`A^\top A=\left(\begin{smallmatrix}1&1\\1&5\end{smallmatrix}\right)`$ differs from $`AA^\top=\left(\begin{smallmatrix}2&2\\2&4\end{smallmatrix}\right)`$, so it is not normal.
+```math
+A=\left(\begin{smallmatrix}1&1\\[0pt] 0&2\end{smallmatrix}\right)
+```
+
+.
+
+Solution. The eigenvector directions are $`v_1=(1,0)`$ for eigenvalue one and $`v_2=(1,1)`$ for eigenvalue two. They are independent, so $`A=V\mathop{\mathrm{diag}} (1,2)V^{-1}`$. Their inner product is one, and scaling either vector cannot make it zero. Thus this diagonalizable matrix has no orthogonal eigenbasis. Indeed
+
+```math
+A^\top A=\left(\begin{smallmatrix}1&1\\[0pt] 1&5\end{smallmatrix}\right)
+```
+
+ differs from
+
+```math
+AA^\top=\left(\begin{smallmatrix}2&2\\[0pt] 2&4\end{smallmatrix}\right)
+```
+
+, so it is not normal.
 
 ### 4.1 Theory
 
@@ -874,7 +970,7 @@ Every real $`m\times n`$ matrix admits a singular value decomposition
 A=U\Sigma V^\top.
 ```
 
-Here $`U`$ and $`V`$ are orthogonal, and the rectangular diagonal matrix $`\Sigma`$ has entries $`\sigma_1\ge\cdots\ge\sigma_r>0`$ followed by zeros. The rank is $`r`$. Singular values are the square roots of the eigenvalues of $`A^\top A`$.
+Here $`U`$ and $`V`$ are orthogonal, and the rectangular diagonal matrix $`\Sigma`$ has entries $`\sigma_1\ge\cdots\ge\sigma_r\gt 0`$ followed by zeros. The rank is $`r`$. Singular values are the square roots of the eigenvalues of $`A^\top A`$.
 
 The SVD separates a map into input directions, stretches, and output directions:
 
@@ -889,7 +985,7 @@ The Moore-Penrose pseudoinverse reverses the nonzero stretches:
 A^+=\sum_{i=1}^r\sigma_i^{-1}v_iu_i^\top.
 ```
 
-Then $`AA^+`$ projects onto $`\mathop{\mathrm{range}}\nolimitsA`$, and $`A^+A`$ projects onto $`(\ker A)^\perp`$. The vector $`A^+b`$ has the smallest Euclidean norm among all least-squares solutions.
+Then $`AA^+`$ projects onto $`\mathop{\mathrm{range}} A`$, and $`A^+A`$ projects onto $`(\ker A)^\perp`$. The vector $`A^+b`$ has the smallest Euclidean norm among all least-squares solutions.
 
 ### 4.2 Derivations and proofs
 
@@ -922,7 +1018,7 @@ For a centered observation vector $`x`$, reconstruction using a unit direction $
 \Vert x-ww^\top x\Vert ^2=\Vert x\Vert ^2-(w^\top x)^2.
 ```
 
-Average this identity over the sample. The first term is fixed, so minimizing reconstruction error is equivalent to maximizing projected variance. For $`k`$ orthonormal columns of $`W`$, the same calculation gives residual sum of squares $`\Vert X\Vert _F^2-\mathop{\mathrm{tr}}\nolimits(W^\top X^\top XW)`$. The spectral argument selects the leading $`k`$ eigenvectors.
+Average this identity over the sample. The first term is fixed, so minimizing reconstruction error is equivalent to maximizing projected variance. For $`k`$ orthonormal columns of $`W`$, the same calculation gives residual sum of squares $`\Vert X\Vert _F^2-\mathop{\mathrm{tr}} (W^\top X^\top XW)`$. The spectral argument selects the leading $`k`$ eigenvectors.
 
 Centering is part of this statement. Without centering, the leading singular direction can describe the mean offset instead of variation around the mean. If a leading eigenvalue is repeated, the best principal subspace may be unique at a larger dimension even though an individual first principal direction is not.
 
@@ -938,16 +1034,16 @@ For a zero eigenvalue, $`\Vert Av_i\Vert ^2=0`$ implies $`Av_i=0`$. Extend the p
 
 #### Best low-rank approximation
 
-The truncated matrix $`A_k=\sum_{i=1}^k\sigma_i u_iv_i^\top`$ has rank at most $`k`$ and error $`\Vert A-A_k\Vert _2=\sigma_{k+1}`$. For any matrix $`B`$ of rank at most $`k`$, its restriction to $`\mathop{\mathrm{span}}\nolimits(v_1,\ldots,v_{k+1})`$ has a nonzero kernel vector. Normalize one to $`z`$. Then $`Bz=0`$ and
+The truncated matrix $`A_k=\sum_{i=1}^k\sigma_i u_iv_i^\top`$ has rank at most $`k`$ and error $`\Vert A-A_k\Vert _2=\sigma_{k+1}`$. For any matrix $`B`$ of rank at most $`k`$, its restriction to $`\mathop{\mathrm{span}} (v_1,\ldots,v_{k+1})`$ has a nonzero kernel vector. Normalize one to $`z`$. Then $`Bz=0`$ and
 
 ```math
 \Vert A-B\Vert _2\ge\Vert (A-B)z\Vert =\Vert Az\Vert \ge\sigma_{k+1}.
 ```
 
-This proves spectral-norm optimality. In Frobenius norm, orthogonal projection of $`A`$ onto a fixed output subspace $`S`$ is $`P_SA`$, with residual squared $`\Vert A\Vert _F^2-\mathop{\mathrm{tr}}\nolimits(P_SAA^\top)`$. Among spaces of dimension at most $`k`$, the trace is largest for the first $`k`$ left singular vectors: in an eigenbasis it is $`\sum_i\sigma_i^2p_i`$, where $`0\le p_i\le1`$ and $`\sum_i p_i\le k`$. Allocating those weights to the largest eigenvalues gives
+This proves spectral-norm optimality. In Frobenius norm, orthogonal projection of $`A`$ onto a fixed output subspace $`S`$ is $`P_SA`$, with residual squared $`\Vert A\Vert _F^2-\mathop{\mathrm{tr}} (P_SAA^\top)`$. Among spaces of dimension at most $`k`$, the trace is largest for the first $`k`$ left singular vectors: in an eigenbasis it is $`\sum_i\sigma_i^2p_i`$, where $`0\le p_i\le1`$ and $`\sum_i p_i\le k`$. Allocating those weights to the largest eigenvalues gives
 
 ```math
-\min_{\mathop{\mathrm{rank}}\nolimitsB\le k}\Vert A-B\Vert _F^2=\sum_{i>k}\sigma_i^2.
+\min_{\mathop{\mathrm{rank}} B\le k}\Vert A-B\Vert _F^2=\sum_{i\gt k}\sigma_i^2.
 ```
 
 #### PCA as maximum variance
@@ -958,10 +1054,10 @@ For centered data with covariance $`S`$, the variance along a unit direction $`w
 
 Let $`X`$ be an $`n\times p`$ data matrix with observations in rows. The centering matrix is $`H=I-\mathbf1\mathbf1^\top/n`$. It is symmetric and idempotent, kills the constant vector, and has rank $`n-1`$. The centered matrix $`Z=HX`$ has zero column means.
 
-The sample covariance is $`S=Z^\top Z/(n-1)`$ for $`n>1`$. Since a Gram matrix has the same rank as its underlying matrix,
+The sample covariance is $`S=Z^\top Z/(n-1)`$ for $`n\gt 1`$. Since a Gram matrix has the same rank as its underlying matrix,
 
 ```math
-\mathop{\mathrm{rank}}\nolimits(S)=\mathop{\mathrm{rank}}\nolimits(Z)
+\mathop{\mathrm{rank}} (S)=\mathop{\mathrm{rank}} (Z)
 \le\min(p,n-1).
 ```
 
@@ -971,10 +1067,10 @@ For a unit direction $`q`$, the rank-one reconstruction of all centered rows is 
 
 ```math
 \Vert Z-Zqq^\top\Vert _F^2
-=\mathop{\mathrm{tr}}\nolimits(Z^\top Z)-q^\top Z^\top Zq.
+=\mathop{\mathrm{tr}} (Z^\top Z)-q^\top Z^\top Zq.
 ```
 
-Minimizing reconstruction error is therefore equivalent to maximizing projected variance. With $`k`$ orthonormal directions collected in $`Q_k`$, the captured sum is $`\mathop{\mathrm{tr}}\nolimits(Q_k^\top Z^\top ZQ_k)`$.
+Minimizing reconstruction error is therefore equivalent to maximizing projected variance. With $`k`$ orthonormal directions collected in $`Q_k`$, the captured sum is $`\mathop{\mathrm{tr}} (Q_k^\top Z^\top ZQ_k)`$.
 
 To justify choosing the top eigenvectors, let $`v_i`$ be an orthonormal eigenbasis with descending eigenvalues $`\lambda_i`$. Put $`w_i=\Vert Q_k^\top v_i\Vert ^2`$. These numbers satisfy $`0\le w_i\le1`$ and $`\sum_iw_i=k`$. The captured variance is $`\sum_i\lambda_iw_i`$, which cannot exceed $`\sum_{i=1}^k\lambda_i`$: moving any weight from a lower eigenvalue to an available higher one cannot decrease the sum. Equality is attained by the leading eigenvectors.
 
@@ -984,7 +1080,7 @@ If the cutoff eigenvalue is tied, different subspaces within the tied eigenspace
 
 Use the four observations $`(2,0),(-2,0),(0,1),(0,-1)`$.
 
-Solution. The mean is zero and the scatter matrix is $`Z^\top Z=\mathop{\mathrm{diag}}\nolimits(8,2)`$. The sample covariance eigenvalues are $`8/3`$ and $`2/3`$. The first coordinate is the leading principal direction and captures $`8/(8+2)=80\%`$ of the variance.
+Solution. The mean is zero and the scatter matrix is $`Z^\top Z=\mathop{\mathrm{diag}} (8,2)`$. The sample covariance eigenvalues are $`8/3`$ and $`2/3`$. The first coordinate is the leading principal direction and captures $`8/(8+2)=80\%`$ of the variance.
 
 Keeping only that coordinate reconstructs the first two observations exactly and maps the other two to zero. Their squared errors are one each, totaling two, equal to the discarded scatter eigenvalue.
 
@@ -994,19 +1090,43 @@ If each coordinate is first divided by its sample standard deviation, the covari
 
 #### Example LA-E10: an explicit rectangular SVD
 
-Let $`A=\left(\begin{smallmatrix}3&0\\0&2\\0&0\end{smallmatrix}\right)`$.
+Let
 
-Solution. The coordinate directions already give the SVD, with singular values $`3,2`$. The best rank-one approximation keeps only the entry $`3`$. Its spectral and Frobenius errors are both $`2`$. The pseudoinverse is $`\left(\begin{smallmatrix}1/3&0&0\\0&1/2&0\end{smallmatrix}\right)`$, so $`A^+(6,6,7)^\top=(2,3)^\top`$ and the residual $`(0,0,7)^\top`$ cannot be fitted.
+```math
+A=\left(\begin{smallmatrix}3&0\\[0pt] 0&2\\[0pt] 0&0\end{smallmatrix}\right)
+```
+
+.
+
+Solution. The coordinate directions already give the SVD, with singular values $`3,2`$. The best rank-one approximation keeps only the entry $`3`$. Its spectral and Frobenius errors are both $`2`$. The pseudoinverse is
+
+```math
+\left(\begin{smallmatrix}1/3&0&0\\[0pt] 0&1/2&0\end{smallmatrix}\right)
+```
+
+, so $`A^+(6,6,7)^\top=(2,3)^\top`$ and the residual $`(0,0,7)^\top`$ cannot be fitted.
 
 #### Example LA-E11: rank-deficient least squares
 
-Minimize $`\Vert Ax-b\Vert ^2`$ for $`A=\left(\begin{smallmatrix}1&1\\2&2\end{smallmatrix}\right)`$ and $`b=(1,0)^\top`$.
+Minimize $`\Vert Ax-b\Vert ^2`$ for
+
+```math
+A=\left(\begin{smallmatrix}1&1\\[0pt] 2&2\end{smallmatrix}\right)
+```
+
+ and $`b=(1,0)^\top`$.
 
 Solution. Only $`s=x_1+x_2`$ affects the fit. Minimize $`(s-1)^2+4s^2`$, whose derivative is $`10s-2`$. Hence $`s=1/5`$. All minimizers are $`(t,1/5-t)`$; the smallest norm occurs at equal coordinates, $`x^+=(1/10,1/10)`$. The fitted vector is $`(1/5,2/5)`$, and the residual $`(4/5,-2/5)`$ is perpendicular to $`(1,2)`$.
 
 #### Example LA-E12: two principal directions
 
-Let $`S=\left(\begin{smallmatrix}5&4\\4&5\end{smallmatrix}\right)`$.
+Let
+
+```math
+S=\left(\begin{smallmatrix}5&4\\[0pt] 4&5\end{smallmatrix}\right)
+```
+
+.
 
 Solution. The unit eigenvectors are $`(1,1)/\sqrt2`$ and $`(1,-1)/\sqrt2`$, with eigenvalues $`9`$ and $`1`$. The first component explains $`9/(9+1)=90\%`$ of total variance. A one-dimensional reconstruction keeps the common movement of the coordinates and removes their difference. If the variables have different units, standardizing them changes the covariance matrix and can change these directions.
 
@@ -1016,19 +1136,25 @@ Solution. The unit eigenvectors are $`(1,1)/\sqrt2`$ and $`(1,-1)/\sqrt2`$, with
 
 Source: [Axler, Exercises 6C, 21(a,b,c)](https://linear.axler.net/LADR4e.pdf). Let $`T(a,b,c)=(a+b+c,2b+3c)`$.
 
-Solution. Its matrix is $`A=\left(\begin{smallmatrix}1&1&1\\0&2&3\end{smallmatrix}\right)`$. Independent rows make it surjective. Therefore
+Solution. Its matrix is
+
+```math
+A=\left(\begin{smallmatrix}1&1&1\\[0pt] 0&2&3\end{smallmatrix}\right)
+```
+
+. Independent rows make it surjective. Therefore
 
 ```math
 A^+=A^\top(AA^\top)^{-1},\quad
-AA^\top=\begin{pmatrix}3&5\\5&13\end{pmatrix},\quad
-(AA^\top)^{-1}=\frac1{14}\begin{pmatrix}13&-5\\-5&3\end{pmatrix}.
+AA^\top=\begin{pmatrix}3&5\\[0pt] 5&13\end{pmatrix},\quad
+(AA^\top)^{-1}=\frac1{14}\begin{pmatrix}13&-5\\[0pt] -5&3\end{pmatrix}.
 ```
 
 Multiplying yields
 
 ```math
 A^+\binom xy=\frac1{14}
-\begin{pmatrix}13x-5y\\3x+y\\-2x+4y\end{pmatrix}.
+\begin{pmatrix}13x-5y\\[0pt] 3x+y\\[0pt] -2x+4y\end{pmatrix}.
 ```
 
 Direct multiplication gives $`AA^+=I_2`$, the projection onto the full range. A kernel basis is $`n=(1,-3,2)^\top`$, with $`\Vert n\Vert ^2=14`$. Another multiplication gives
@@ -1043,7 +1169,7 @@ This is the projection onto the kernel's orthogonal complement, establishing bot
 
 Source: [Axler, Exercises 7E, 5](https://linear.axler.net/LADR4e.pdf). For $`T(x,y)=(-4y,x)`$, find the singular values.
 
-Solution. Its matrix satisfies $`A^\top A=\mathop{\mathrm{diag}}\nolimits(1,16)`$, so the singular values in decreasing order are $`4,1`$. One SVD uses $`v_1=e_2,v_2=e_1`$ and $`u_1=-e_1,u_2=e_2`$. Then $`Av_1=4u_1`$ and $`Av_2=u_2`$. The eigenvalues of $`A`$ itself are imaginary, which does not affect the real nonnegative singular values.
+Solution. Its matrix satisfies $`A^\top A=\mathop{\mathrm{diag}} (1,16)`$, so the singular values in decreasing order are $`4,1`$. One SVD uses $`v_1=e_2,v_2=e_1`$ and $`u_1=-e_1,u_2=e_2`$. Then $`Av_1=4u_1`$ and $`Av_2=u_2`$. The eigenvalues of $`A`$ itself are imaginary, which does not affect the real nonnegative singular values.
 
 #### Problem LA-13: singular values of a self-adjoint operator
 
@@ -1051,7 +1177,7 @@ Source: [Axler, Exercises 7E, 7](https://linear.axler.net/LADR4e.pdf).
 
 Problem. Relate the singular values of a self-adjoint operator to its eigenvalues. Extend the argument to a complex normal operator.
 
-Solution. For a real symmetric matrix, $`A=Q\Lambda Q^\top`$ gives $`A^\top A=Q\Lambda^2Q^\top`$. The singular values are therefore $`\vert \lambda_i\vert `$, sorted in decreasing order. For a complex normal operator, the spectral theorem gives $`A=Q\Lambda Q^*`$ and $`A^*A=Q\vert \Lambda\vert ^2Q^*`$, proving the same conclusion. Self-adjointness or normality is needed: a nonzero nilpotent matrix can have only zero eigenvalues and still have a positive singular value.
+Solution. For a real symmetric matrix, $`A=Q\Lambda Q^\top`$ gives $`A^\top A=Q\Lambda^2Q^\top`$. The singular values are therefore $`\vert \lambda_i\vert`$, sorted in decreasing order. For a complex normal operator, the spectral theorem gives $`A=Q\Lambda Q^*`$ and $`A^*A=Q\vert \Lambda\vert ^2Q^*`$, proving the same conclusion. Self-adjointness or normality is needed: a nonzero nilpotent matrix can have only zero eigenvalues and still have a positive singular value.
 
 ## 5. Conditioning and regularization
 
@@ -1087,7 +1213,7 @@ Solution. Expand $`x=\sum_i c_iv_i`$ in the full right singular basis, including
 =\sigma_{\min}^2\Vert x\Vert ^2.
 ```
 
-Taking square roots proves the bound. When $`\sigma_{\min}>0`$, the map is injective and cannot collapse any nonzero direction. When $`\sigma_{\min}=0`$, the inequality still holds but provides no positive lower bound.
+Taking square roots proves the bound. When $`\sigma_{\min}\gt 0`$, the map is injective and cannot collapse any nonzero direction. When $`\sigma_{\min}=0`$, the inequality still holds but provides no positive lower bound.
 
 #### Problem LA-48: transposing a pseudoinverse
 
@@ -1099,22 +1225,34 @@ Solution. From the SVD, $`A^+=\sum_i\sigma_i^{-1}v_iu_i^\top`$. Its transpose is
 
 #### Problem LA-49: a non-diagonal rank-one approximation
 
-Constructed problem. Find the best rank-one approximation to $`A=\left(\begin{smallmatrix}2&1\\1&2\end{smallmatrix}\right)`$.
+Constructed problem. Find the best rank-one approximation to
+
+```math
+A=\left(\begin{smallmatrix}2&1\\[0pt] 1&2\end{smallmatrix}\right)
+```
+
+.
 
 Solution. Its symmetric eigendecomposition has eigenvalues $`3,1`$ with unit directions $`q_1=(1,1)/\sqrt2`$, $`q_2=(1,-1)/\sqrt2`$. Both eigenvalues are positive, so this is also an SVD. Keep the first term:
 
 ```math
 A_1=3q_1q_1^\top
-=\frac32\begin{pmatrix}1&1\\1&1\end{pmatrix}.
+=\frac32\begin{pmatrix}1&1\\[0pt] 1&1\end{pmatrix}.
 ```
 
-The residual is $`q_2q_2^\top=\tfrac12\left(\begin{smallmatrix}1&-1\\-1&1\end{smallmatrix}\right)`$, with spectral and Frobenius norm one. The best-approximation theorem proves that no rank-one matrix can reduce either error below one.
+The residual is
+
+```math
+q_2q_2^\top=\tfrac12\left(\begin{smallmatrix}1&-1\\[0pt] -1&1\end{smallmatrix}\right)
+```
+
+, with spectral and Frobenius norm one. The best-approximation theorem proves that no rank-one matrix can reduce either error below one.
 
 #### Problem LA-50: a rank-one pseudoinverse
 
 Constructed problem. For nonzero $`a\in\mathbb R^m`$ and $`b\in\mathbb R^n`$, find $`(ab^\top)^+`$.
 
-Solution. Normalize the vectors: $`u=a/\Vert a\Vert `$, $`v=b/\Vert b\Vert `$. Then $`ab^\top=(\Vert a\Vert \Vert b\Vert )uv^\top`$ is a one-term SVD. Reversing its only nonzero singular value gives
+Solution. Normalize the vectors: $`u=a/\Vert a\Vert`$, $`v=b/\Vert b\Vert`$. Then $`ab^\top=(\Vert a\Vert \Vert b\Vert )uv^\top`$ is a one-term SVD. Reversing its only nonzero singular value gives
 
 ```math
 (ab^\top)^+=\frac{ba^\top}{\Vert a\Vert ^2\Vert b\Vert ^2}.
@@ -1129,8 +1267,8 @@ Constructed problem. The four centered observations are $`(2,1),(-2,-1),(1,2),(-
 Solution. The column sums vanish. Summing outer products gives
 
 ```math
-X^\top X=\begin{pmatrix}10&8\\8&10\end{pmatrix},\qquad
-S=\frac13\begin{pmatrix}10&8\\8&10\end{pmatrix}.
+X^\top X=\begin{pmatrix}10&8\\[0pt] 8&10\end{pmatrix},\qquad
+S=\frac13\begin{pmatrix}10&8\\[0pt] 8&10\end{pmatrix}.
 ```
 
 The eigenvectors are $`(1,1)/\sqrt2`$ and $`(1,-1)/\sqrt2`$, with covariance eigenvalues $`6`$ and $`2/3`$. Total variance is $`20/3`$, so the shares are $`9/10`$ and $`1/10`$. The leading scores are $`3/\sqrt2,-3/\sqrt2,3/\sqrt2,-3/\sqrt2`$. Reconstructing each observation from its leading score produces $`(3/2,3/2)`$ or its negative. The residual sum of squares is the discarded eigenvalue of $`X^\top X`$, namely two.
@@ -1139,11 +1277,11 @@ The eigenvectors are $`(1,1)/\sqrt2`$ and $`(1,-1)/\sqrt2`$, with covariance eig
 
 Constructed problem. Find two distinct best rank-one approximations to $`I_2`$.
 
-Solution. Both $`\mathop{\mathrm{diag}}\nolimits(1,0)`$ and $`\mathop{\mathrm{diag}}\nolimits(0,1)`$ have rank one and leave a residual with spectral norm one and Frobenius norm one. The two singular values of $`I_2`$ are tied at one, so either direction can be retained. More generally $`ww^\top`$ is best for every unit $`w`$. Its residual is the orthogonal projector onto the perpendicular line. A spectral gap between the last retained and first discarded singular values removes this particular ambiguity in the optimal subspace.
+Solution. Both $`\mathop{\mathrm{diag}} (1,0)`$ and $`\mathop{\mathrm{diag}} (0,1)`$ have rank one and leave a residual with spectral norm one and Frobenius norm one. The two singular values of $`I_2`$ are tied at one, so either direction can be retained. More generally $`ww^\top`$ is best for every unit $`w`$. Its residual is the orthogonal projector onto the perpendicular line. A spectral gap between the last retained and first discarded singular values removes this particular ambiguity in the optimal subspace.
 
 ### 5.1 Theory
 
-The induced matrix norm is $`\Vert A\Vert =\sup_{\Vert x\Vert =1}\Vert Ax\Vert `$. For the Euclidean norm it equals the largest singular value. For invertible $`A`$,
+The induced matrix norm is $`\Vert A\Vert =\sup_{\Vert x\Vert =1}\Vert Ax\Vert`$. For the Euclidean norm it equals the largest singular value. For invertible $`A`$,
 
 ```math
 \kappa_2(A)=\Vert A\Vert _2\Vert A^{-1}\Vert _2
@@ -1152,15 +1290,15 @@ The induced matrix norm is $`\Vert A\Vert =\sup_{\Vert x\Vert =1}\Vert Ax\Vert `
 
 Conditioning describes sensitivity of the mathematical problem to changes in its inputs. Stability describes how an algorithm handles rounding. A stable algorithm can still produce a sensitive answer when the problem is ill-conditioned.
 
-Ridge regularization minimizes $`\Vert Ax-b\Vert ^2+\lambda\Vert x\Vert ^2`$ for $`\lambda>0`$. It adds curvature in directions where the data give little or no information. It also changes the objective being solved; reducing sensitivity generally introduces shrinkage.
+Ridge regularization minimizes $`\Vert Ax-b\Vert ^2+\lambda\Vert x\Vert ^2`$ for $`\lambda\gt 0`$. It adds curvature in directions where the data give little or no information. It also changes the objective being solved; reducing sensitivity generally introduces shrinkage.
 
 ### 5.2 Derivations and proofs
 
 #### Absolute and relative sensitivity
 
-An absolute perturbation bound compares $`\Vert \delta x\Vert `$ with the size of the input change. A relative bound divides by the original sizes. These answer different questions when the true output is small. Relative error is undefined at a zero exact output, so an absolute error or a scale chosen independently of that output is needed there.
+An absolute perturbation bound compares $`\Vert \delta x\Vert`$ with the size of the input change. A relative bound divides by the original sizes. These answer different questions when the true output is small. Relative error is undefined at a zero exact output, so an absolute error or a scale chosen independently of that output is needed there.
 
-For fixed invertible $`A`$, $`x=A^{-1}b`$ and $`\delta x=A^{-1}\delta b`$ exactly. Thus the absolute condition number with respect to $`b`$ in the chosen norm is $`\Vert A^{-1}\Vert `$. At a particular nonzero $`b`$, the relative condition number is $`\Vert A^{-1}\Vert \Vert b\Vert /\Vert A^{-1}b\Vert `$, which is at most $`\kappa(A)`$. The usual matrix condition number is a bound over right-hand-side directions; it need not equal the sensitivity at every particular $`b`$.
+For fixed invertible $`A`$, $`x=A^{-1}b`$ and $`\delta x=A^{-1}\delta b`$ exactly. Thus the absolute condition number with respect to $`b`$ in the chosen norm is $`\Vert A^{-1}\Vert`$. At a particular nonzero $`b`$, the relative condition number is $`\Vert A^{-1}\Vert \Vert b\Vert /\Vert A^{-1}b\Vert`$, which is at most $`\kappa(A)`$. The usual matrix condition number is a bound over right-hand-side directions; it need not equal the sensitivity at every particular $`b`$.
 
 #### Normal equations square the condition number
 
@@ -1187,7 +1325,7 @@ Suppose $`Ax=b`$ and $`(A+E)(x+\delta x)=b+e`$. Subtracting gives
 (A+E)\delta x=e-Ex.
 ```
 
-If $`\Vert A^{-1}E\Vert <1`$, the series $`\sum_{j\ge0}(-A^{-1}E)^j`$ converges and inverts $`I+A^{-1}E`$. Thus
+If $`\Vert A^{-1}E\Vert \lt 1`$, the series $`\sum_{j\ge0}(-A^{-1}E)^j`$ converges and inverts $`I+A^{-1}E`$. Thus
 
 ```math
 \Vert \delta x\Vert \le
@@ -1195,7 +1333,7 @@ If $`\Vert A^{-1}E\Vert <1`$, the series $`\sum_{j\ge0}(-A^{-1}E)^j`$ converges 
 (\Vert e\Vert +\Vert E\Vert \Vert x\Vert ).
 ```
 
-For $`b\ne0`$, $`x\ne0`$, and $`\kappa(A)\Vert E\Vert /\Vert A\Vert <1`$, this implies
+For $`b\ne0`$, $`x\ne0`$, and $`\kappa(A)\Vert E\Vert /\Vert A\Vert \lt 1`$, this implies
 
 ```math
 \frac{\Vert \delta x\Vert }{\Vert x\Vert }
@@ -1205,7 +1343,7 @@ For $`b\ne0`$, $`x\ne0`$, and $`\kappa(A)\Vert E\Vert /\Vert A\Vert <1`$, this i
 \left(\frac{\Vert e\Vert }{\Vert b\Vert }+\frac{\Vert E\Vert }{\Vert A\Vert }\right).
 ```
 
-We used $`\Vert b\Vert \le\Vert A\Vert \Vert x\Vert `$ to express the right-hand-side perturbation relatively. This is an upper bound; particular perturbation directions may have much smaller effects.
+We used $`\Vert b\Vert \le\Vert A\Vert \Vert x\Vert`$ to express the right-hand-side perturbation relatively. This is an upper bound; particular perturbation directions may have much smaller effects.
 
 #### Ridge in singular directions
 
@@ -1220,7 +1358,7 @@ Unregularized inversion uses $`1/\sigma_i`$; ridge replaces it by the bounded fa
 
 #### General quadratic regularization
 
-Consider $`\min_x\Vert Ax-b\Vert ^2+\lambda\Vert Lx\Vert ^2`$ with $`\lambda>0`$. The matrix $`L`$ can penalize selected coordinates or differences between neighboring coordinates. Its normal equation is
+Consider $`\min_x\Vert Ax-b\Vert ^2+\lambda\Vert Lx\Vert ^2`$ with $`\lambda\gt 0`$. The matrix $`L`$ can penalize selected coordinates or differences between neighboring coordinates. Its normal equation is
 
 ```math
 (A^\top A+\lambda L^\top L)x=A^\top b.
@@ -1229,7 +1367,7 @@ Consider $`\min_x\Vert Ax-b\Vert ^2+\lambda\Vert Lx\Vert ^2`$ with $`\lambda>0`$
 For any direction $`h`$, the associated quadratic form is $`\Vert Ah\Vert ^2+\lambda\Vert Lh\Vert ^2`$. It vanishes exactly when $`h`$ belongs to both kernels. Consequently the objective has a unique minimizer precisely when
 
 ```math
-\ker A\cap\ker L=\{0\}.
+\ker A\cap\ker L=\lbrace 0\rbrace .
 ```
 
 Penalizing some directions does not cure an unidentified direction left unpenalized by $`L`$. The standard ridge choice $`L=I`$ always gives a positive-definite system, but a penalty excluding an intercept requires checking the joint-kernel condition.
@@ -1260,7 +1398,7 @@ Let $`A=(1,1)`$ and $`L=(1,-1)`$. Minimize $`(x_1+x_2-b)^2+\lambda(x_1-x_2)^2`$.
 Solution. The data identify the sum, while the penalty controls the difference. Their kernels are the opposite lines and intersect only at zero. The unique solution is $`x_1=x_2=b/2`$ for every positive $`\lambda`$, with objective zero. The normal matrix is
 
 ```math
-\begin{pmatrix}1+\lambda&1-\lambda\\1-\lambda&1+\lambda\end{pmatrix},
+\begin{pmatrix}1+\lambda&1-\lambda\\[0pt] 1-\lambda&1+\lambda\end{pmatrix},
 ```
 
 whose eigenvalues are two in the common direction and $`2\lambda`$ in the difference direction. If $`L`$ were instead equal to $`A`$, both terms would ignore the difference direction and uniqueness would fail. The direction penalized matters as much as the size of the penalty.
@@ -1269,19 +1407,19 @@ whose eigenvalues are two in the common direction and $`2\lambda`$ in the differ
 
 #### Example LA-E13: a sensitive direction
 
-For $`A=\mathop{\mathrm{diag}}\nolimits(1,10^{-6})`$ and $`b=(1,10^{-6})`$, the solution is $`(1,1)`$. Change only the second coordinate of $`b`$ by $`10^{-6}`$.
+For $`A=\mathop{\mathrm{diag}} (1,10^{-6})`$ and $`b=(1,10^{-6})`$, the solution is $`(1,1)`$. Change only the second coordinate of $`b`$ by $`10^{-6}`$.
 
 Solution. The new solution is $`(1,2)`$. An input perturbation of norm $`10^{-6}`$ has produced an output perturbation of norm one. The condition number is $`10^6`$. With $`\lambda=10^{-4}`$, the second ridge coordinate is $`10^{-12}/(10^{-12}+10^{-4})`$, about $`10^{-8}`$. It is insensitive but strongly shrunk relative to the unregularized value.
 
 #### Example LA-E14: covariance shrinkage
 
-Let $`S=Q\mathop{\mathrm{diag}}\nolimits(4,0)Q^\top`$. Add $`\lambda I`$.
+Let $`S=Q\mathop{\mathrm{diag}} (4,0)Q^\top`$. Add $`\lambda I`$.
 
 Solution. The eigenvectors stay the same and the eigenvalues become $`4+\lambda,\lambda`$. For $`\lambda=1/10`$, the condition number is $`4.1/0.1=41`$. Adding a scalar multiple of the identity makes a PSD covariance matrix invertible. Shrinkage toward a different target need not preserve the original eigenvectors.
 
 #### Example LA-E15: a small residual with a large error
 
-Use $`A=\mathop{\mathrm{diag}}\nolimits(1,\varepsilon)`$, $`b=(1,0)`$, and an approximate solution $`\widetilde x=(1,1)`$.
+Use $`A=\mathop{\mathrm{diag}} (1,\varepsilon)`$, $`b=(1,0)`$, and an approximate solution $`\widetilde x=(1,1)`$.
 
 Solution. The exact solution is $`(1,0)`$. The error has norm one, but the residual $`b-A\widetilde x=(0,-\varepsilon)`$ has norm $`\varepsilon`$. The relation $`x-\widetilde x=A^{-1}r`$ explains this. Reporting a tiny residual without the conditioning can overstate accuracy.
 
@@ -1291,19 +1429,19 @@ Solution. The exact solution is $`(1,0)`$. The error has norm one, but the resid
 
 Source: [Axler, Exercises 7F, 1](https://linear.axler.net/LADR4e.pdf).
 
-Problem. Prove the reverse triangle inequality $`\lvert\Vert S\Vert -\Vert T\Vert \rvert\le\Vert S-T\Vert `$ for induced operator norms.
+Problem. Prove the reverse triangle inequality $`\lvert\Vert S\Vert -\Vert T\Vert \rvert\le\Vert S-T\Vert`$ for induced operator norms.
 
-Solution. For unit $`x`$, $`\Vert Sx\Vert \le\Vert (S-T)x\Vert +\Vert Tx\Vert \le\Vert S-T\Vert +\Vert T\Vert `$. Taking the supremum gives $`\Vert S\Vert -\Vert T\Vert \le\Vert S-T\Vert `$. Interchanging $`S,T`$ gives the opposite signed inequality. Combining them proves $`\vert \Vert S\Vert -\Vert T\Vert \vert \le\Vert S-T\Vert `$.
+Solution. For unit $`x`$, $`\Vert Sx\Vert \le\Vert (S-T)x\Vert +\Vert Tx\Vert \le\Vert S-T\Vert +\Vert T\Vert`$. Taking the supremum gives $`\Vert S\Vert -\Vert T\Vert \le\Vert S-T\Vert`$. Interchanging $`S,T`$ gives the opposite signed inequality. Combining them proves $`\vert \Vert S\Vert -\Vert T\Vert \vert \le\Vert S-T\Vert`$.
 
 #### Problem LA-15: stability of invertibility
 
 Source: [Axler, Exercises 7F, 8(a,b)](https://linear.axler.net/LADR4e.pdf).
 
-Problem. First show that $`\Vert I-T\Vert <1`$ implies invertibility. Then prove that every sufficiently small operator-norm perturbation of an invertible $`S`$ remains invertible, giving an explicit radius.
+Problem. First show that $`\Vert I-T\Vert \lt 1`$ implies invertibility. Then prove that every sufficiently small operator-norm perturbation of an invertible $`S`$ remains invertible, giving an explicit radius.
 
-Solution. If $`\Vert I-T\Vert <1`$, the geometric operator series $`R=\sum_{k=0}^\infty(I-T)^k`$ converges in norm. Multiplying its finite partial sum by $`T`$ gives $`I-(I-T)^{N+1}`$, which tends to $`I`$. Hence $`RT=TR=I`$.
+Solution. If $`\Vert I-T\Vert \lt 1`$, the geometric operator series $`R=\sum_{k=0}^\infty(I-T)^k`$ converges in norm. Multiplying its finite partial sum by $`T`$ gives $`I-(I-T)^{N+1}`$, which tends to $`I`$. Hence $`RT=TR=I`$.
 
-For invertible $`S`$, factor $`T=S[I+S^{-1}(T-S)]`$. The hypothesis $`\Vert T-S\Vert <1/\Vert S^{-1}\Vert `$ makes the bracket's difference from $`I`$ have norm below one. Part (a) makes the bracket invertible, and the product is invertible. This gives a concrete neighborhood of $`S`$ containing no singular matrices.
+For invertible $`S`$, factor $`T=S[I+S^{-1}(T-S)]`$. The hypothesis $`\Vert T-S\Vert \lt 1/\Vert S^{-1}\Vert`$ makes the bracket's difference from $`I`$ have norm below one. Part (a) makes the bracket invertible, and the product is invertible. This gives a concrete neighborhood of $`S`$ containing no singular matrices.
 
 #### Problem LA-16: positive definiteness under perturbation
 
@@ -1311,11 +1449,11 @@ Source: [Axler, Exercises 7F, 16](https://linear.axler.net/LADR4e.pdf).
 
 Problem. Let $`S`$ be a positive-definite self-adjoint operator. Find an operator-norm neighborhood within the self-adjoint operators in which positivity is preserved.
 
-Solution. Let $`S`$ be PD, let $`m=\lambda_{\min}(S)>0`$, and let $`T`$ be symmetric with $`\Vert T-S\Vert _2<m`$. For nonzero $`x`$,
+Solution. Let $`S`$ be PD, let $`m=\lambda_{\min}(S)\gt 0`$, and let $`T`$ be symmetric with $`\Vert T-S\Vert _2\lt m`$. For nonzero $`x`$,
 
 ```math
 x^\top Tx=x^\top Sx+x^\top(T-S)x
-\ge(m-\Vert T-S\Vert _2)\Vert x\Vert ^2>0.
+\ge(m-\Vert T-S\Vert _2)\Vert x\Vert ^2\gt 0.
 ```
 
 Thus one can choose $`\delta=m`$, and in fact nearby $`T`$ is PD as well as PSD. Symmetry is needed to call $`T`$ a positive operator; a small nonsymmetric perturbation can preserve a positive quadratic form without producing a self-adjoint operator.
@@ -1328,9 +1466,9 @@ Thus one can choose $`\delta=m`$, and in fact nearby $`T`$ is PD as well as PSD.
 
 Source: [Axler, Exercises 7F, 5](https://linear.axler.net/LADR4e.pdf).
 
-Problem. Prove submultiplicativity $`\Vert ST\Vert \le\Vert S\Vert \Vert T\Vert `$ for compatible induced operator norms.
+Problem. Prove submultiplicativity $`\Vert ST\Vert \le\Vert S\Vert \Vert T\Vert`$ for compatible induced operator norms.
 
-Solution. For every unit vector $`x`$, $`\Vert STx\Vert \le\Vert S\Vert \Vert Tx\Vert \le\Vert S\Vert \Vert T\Vert `$. Taking the supremum over $`x`$ gives $`\Vert ST\Vert \le\Vert S\Vert \Vert T\Vert `$. If $`Tx=0`$, the first inequality still holds. The proof uses induced norms with compatible input, intermediate, and output vector norms; arbitrary matrix-entry norms need not obey the same formula without an additional constant.
+Solution. For every unit vector $`x`$, $`\Vert STx\Vert \le\Vert S\Vert \Vert Tx\Vert \le\Vert S\Vert \Vert T\Vert`$. Taking the supremum over $`x`$ gives $`\Vert ST\Vert \le\Vert S\Vert \Vert T\Vert`$. If $`Tx=0`$, the first inequality still holds. The proof uses induced norms with compatible input, intermediate, and output vector norms; arbitrary matrix-entry norms need not obey the same formula without an additional constant.
 
 #### Problem LA-54: the norm of a Gram matrix
 
@@ -1354,24 +1492,24 @@ Source: [Axler, Exercises 7F, 6](https://linear.axler.net/LADR4e.pdf).
 
 Problem. Determine whether $`\Vert ST\Vert _2=\Vert TS\Vert _2`$ must hold for two square matrices. Supply a proof or a counterexample.
 
-Solution. The assertion $`\Vert ST\Vert =\Vert TS\Vert `$ is false. Set
+Solution. The assertion $`\Vert ST\Vert =\Vert TS\Vert`$ is false. Set
 
 ```math
-S=\begin{pmatrix}1&0\\0&0\end{pmatrix},\qquad
-T=\begin{pmatrix}0&1\\0&0\end{pmatrix}.
+S=\begin{pmatrix}1&0\\[0pt] 0&0\end{pmatrix},\qquad
+T=\begin{pmatrix}0&1\\[0pt] 0&0\end{pmatrix}.
 ```
 
 Then $`ST=T`$, with norm one, but $`TS=0`$, with norm zero. Matrix products act in order: $`TS`$ first removes the second input coordinate, leaving nothing for $`T`$ to transfer into the first coordinate.
 
 #### Problem LA-57: a nearly singular pair of equations
 
-Constructed problem. Solve $`x+y=2`$, $`x+(1+\varepsilon)y=2+\varepsilon`$ for $`\varepsilon>0`$, and then perturb the second right-hand side by $`\delta`$.
+Constructed problem. Solve $`x+y=2`$, $`x+(1+\varepsilon)y=2+\varepsilon`$ for $`\varepsilon\gt 0`$, and then perturb the second right-hand side by $`\delta`$.
 
 Solution. Subtraction gives $`\varepsilon y=\varepsilon`$, so the exact solution is $`(1,1)`$. After perturbation, $`\varepsilon\widetilde y=\varepsilon+\delta`$, so $`\widetilde y=1+\delta/\varepsilon`$ and $`\widetilde x=1-\delta/\varepsilon`$. The error norm is $`\sqrt2\vert \delta\vert /\varepsilon`$. The equations become nearly duplicates as $`\varepsilon\downarrow0`$, and the subtraction needed to identify $`y`$ divides a small difference by another small number.
 
 #### Problem LA-58: a residual-based error bound
 
-Constructed problem. If $`A`$ is PD with $`\lambda_{\min}(A)=m>0`$, bound the error of an approximate solution using its residual.
+Constructed problem. If $`A`$ is PD with $`\lambda_{\min}(A)=m\gt 0`$, bound the error of an approximate solution using its residual.
 
 Solution. With $`r=b-A\widetilde x`$ and exact solution $`x`$, $`A(x-\widetilde x)=r`$. The inverse norm is $`1/m`$, so $`\Vert x-\widetilde x\Vert _2\le\Vert r\Vert _2/m`$. Equality is possible when $`r`$ lies along an eigenvector for $`m`$. To guarantee solution error at most $`\eta`$, the residual should therefore be at most $`m\eta`$. A stopping rule based only on a fixed residual tolerance can fail to control error uniformly across differently conditioned systems.
 
@@ -1391,13 +1529,13 @@ For a zero singular direction, $`x_\lambda`$ has coefficient zero and the error 
 
 #### Problem LA-60: shrinkage toward a general positive target
 
-Constructed problem. Let $`S`$ be PSD, $`T`$ PD, and $`S_\alpha=(1-\alpha)S+\alpha T`$ for $`0<\alpha\le1`$. Prove invertibility and give a lower eigenvalue bound.
+Constructed problem. Let $`S`$ be PSD, $`T`$ PD, and $`S_\alpha=(1-\alpha)S+\alpha T`$ for $`0\lt \alpha\le1`$. Prove invertibility and give a lower eigenvalue bound.
 
 Solution. For a unit vector $`x`$,
 
 ```math
 x^\top S_\alpha x=(1-\alpha)x^\top Sx+\alpha x^\top Tx
-\ge\alpha\lambda_{\min}(T)>0.
+\ge\alpha\lambda_{\min}(T)\gt 0.
 ```
 
 Thus $`S_\alpha`$ is PD and $`\lambda_{\min}(S_\alpha)\ge\alpha\lambda_{\min}(T)`$. Its largest eigenvalue is at most $`(1-\alpha)\lambda_{\max}(S)+\alpha\lambda_{\max}(T)`$, giving a condition-number upper bound by dividing by the earlier lower bound. Unlike an identity target, a general $`T`$ need not share eigenvectors with $`S`$.
@@ -1420,7 +1558,7 @@ Useful identities are
 \nabla_x\Vert Ax-b\Vert ^2=2A^\top(Ax-b).
 ```
 
-For a matrix variable, the Frobenius inner product is $`\langle G,H\rangle_F=\mathop{\mathrm{tr}}\nolimits(G^\top H)`$. Define the matrix gradient by $`df=\mathop{\mathrm{tr}}\nolimits((\nabla_Xf)^\top dX)`$. This convention avoids ambiguous numerator-layout and denominator-layout derivative tables.
+For a matrix variable, the Frobenius inner product is $`\langle G,H\rangle_F=\mathop{\mathrm{tr}} (G^\top H)`$. Define the matrix gradient by $`df=\mathop{\mathrm{tr}} ((\nabla_Xf)^\top dX)`$. This convention avoids ambiguous numerator-layout and denominator-layout derivative tables.
 
 ### 6.2 Derivations and proofs
 
@@ -1428,7 +1566,7 @@ For a matrix variable, the Frobenius inner product is $`\langle G,H\rangle_F=\ma
 
 For $`A\in\mathbb R^{m\times n}`$ and $`x\in\mathbb R^n`$, the residual $`Ax-b`$ has $`m`$ coordinates. Its gradient with respect to $`x`$ must have $`n`$ coordinates. The expression $`A^\top(Ax-b)`$ has the right size; $`A(Ax-b)`$ may not even be defined. Checking dimensions catches many derivative mistakes before any algebra.
 
-For $`X\in\mathbb R^{n\times k}`$, a gradient with respect to $`X`$ has the same shape as $`X`$. The differential convention $`\mathop{\mathrm{tr}}\nolimits(G^\top dX)`$ makes this visible. A trace is a scalar, and cyclic rearrangement is allowed only when the resulting products are defined. One cannot arbitrarily swap factors: $`\mathop{\mathrm{tr}}\nolimits(ABC)=\mathop{\mathrm{tr}}\nolimits(BCA)`$, but usually $`\mathop{\mathrm{tr}}\nolimits(ABC)\ne\mathop{\mathrm{tr}}\nolimits(ACB)`$.
+For $`X\in\mathbb R^{n\times k}`$, a gradient with respect to $`X`$ has the same shape as $`X`$. The differential convention $`\mathop{\mathrm{tr}} (G^\top dX)`$ makes this visible. A trace is a scalar, and cyclic rearrangement is allowed only when the resulting products are defined. One cannot arbitrarily swap factors: $`\mathop{\mathrm{tr}} (ABC)=\mathop{\mathrm{tr}} (BCA)`$, but usually $`\mathop{\mathrm{tr}} (ABC)\ne\mathop{\mathrm{tr}} (ACB)`$.
 
 #### A quadratic minimum along feasible directions
 
@@ -1456,10 +1594,10 @@ For an invertible matrix $`X`$, differentiate $`XX^{-1}=I`$:
 \qquad d(X^{-1})=-X^{-1}(dX)X^{-1}.
 ```
 
-For PD $`X`$, the determinant expansion $`\det(I+\varepsilon H)=1+\varepsilon\mathop{\mathrm{tr}}\nolimitsH+O(\varepsilon^2)`$ gives
+For PD $`X`$, the determinant expansion $`\det(I+\varepsilon H)=1+\varepsilon\mathop{\mathrm{tr}} H+O(\varepsilon^2)`$ gives
 
 ```math
-d\log\det X=\mathop{\mathrm{tr}}\nolimits(X^{-1}dX).
+d\log\det X=\mathop{\mathrm{tr}} (X^{-1}dX).
 ```
 
 To justify that expansion, use the permutation definition of a determinant. The linear terms come from choosing a single diagonal $`\varepsilon H_{ii}`$ and all other diagonal ones; any nonidentity permutation requires at least two off-diagonal factors and contributes at order at least two. The gradient of $`\log\det X`$ is $`X^{-\top}`$, which equals $`X^{-1}`$ on symmetric PD matrices.
@@ -1496,11 +1634,11 @@ Stationarity gives $`Hx-g+C\nu=0`$, so $`x=H^{-1}(g-C\nu)`$. Substitution yields
 \nu=(C^\top H^{-1}C)^{-1}(C^\top H^{-1}g-d).
 ```
 
-The inverse exists because $`z^\top C^\top H^{-1}Cz>0`$ for nonzero $`z`$. For a feasible displacement $`h`$ with $`C^\top h=0`$, the linear objective change vanishes at this point and the remaining change is $`\tfrac12h^\top Hh>0`$. This proves uniqueness on the feasible set.
+The inverse exists because $`z^\top C^\top H^{-1}Cz\gt 0`$ for nonzero $`z`$. For a feasible displacement $`h`$ with $`C^\top h=0`$, the linear objective change vanishes at this point and the remaining change is $`\tfrac12h^\top Hh\gt 0`$. This proves uniqueness on the feasible set.
 
 #### Matrix-valued unknowns and the Frobenius gradient
 
-For a matrix variable $`X`$, a differential is a scalar linear function of a perturbation $`H`$. The Frobenius gradient $`G`$ is defined by $`Df(X)[H]=\mathop{\mathrm{tr}}\nolimits(G^\top H)`$. This convention specifies both the dimensions and transpose placement.
+For a matrix variable $`X`$, a differential is a scalar linear function of a perturbation $`H`$. The Frobenius gradient $`G`$ is defined by $`Df(X)[H]=\mathop{\mathrm{tr}} (G^\top H)`$. This convention specifies both the dimensions and transpose placement.
 
 Let $`A\in\mathbb R^{m\times p}`$, $`X\in\mathbb R^{p\times q}`$, $`B\in\mathbb R^{q\times n}`$, and $`C\in\mathbb R^{m\times n}`$. For
 
@@ -1508,7 +1646,7 @@ Let $`A\in\mathbb R^{m\times p}`$, $`X\in\mathbb R^{p\times q}`$, $`B\in\mathbb 
 f(X)=\frac12\Vert AXB-C\Vert _F^2,
 ```
 
-put $`R=AXB-C`$. Expanding $`f(X+hH)`$ to first order gives $`Df(X)[H]=\mathop{\mathrm{tr}}\nolimits(R^\top AHB)`$. Cyclic movement inside the trace yields
+put $`R=AXB-C`$. Expanding $`f(X+hH)`$ to first order gives $`Df(X)[H]=\mathop{\mathrm{tr}} (R^\top AHB)`$. Cyclic movement inside the trace yields
 
 ```math
 \nabla_Xf=A^\top(AXB-C)B^\top.
@@ -1518,7 +1656,7 @@ The gradient has size $`p\times q`$, matching $`X`$. Its Hessian acts on a pertu
 
 The objective is strictly convex when the map $`H\mapsto AHB`$ has no nonzero kernel. Full column rank of $`A`$ and full row rank of $`B`$ ensure this. Rank deficiency can leave whole perturbation directions invisible to the objective.
 
-For the separate expression $`f(X)=\mathop{\mathrm{tr}}\nolimits(X^\top AXB)`$ with square compatible $`A,B`$, differentiating both copies of $`X`$ gives
+For the separate expression $`f(X)=\mathop{\mathrm{tr}} (X^\top AXB)`$ with square compatible $`A,B`$, differentiating both copies of $`X`$ gives
 
 ```math
 \nabla_Xf=AXB+A^\top XB^\top.
@@ -1528,24 +1666,30 @@ Only when both fixed matrices are symmetric does this simplify to $`2AXB`$. Trea
 
 #### Example LA-E23: a rectangular-objective derivative
 
-Take $`A=\mathop{\mathrm{diag}}\nolimits(1,2)`$, $`B=\mathop{\mathrm{diag}}\nolimits(1,3)`$, and let $`C`$ be the two-by-two all-ones matrix. Minimize $`\tfrac12\Vert AXB-C\Vert _F^2`$.
+Take $`A=\mathop{\mathrm{diag}} (1,2)`$, $`B=\mathop{\mathrm{diag}} (1,3)`$, and let $`C`$ be the two-by-two all-ones matrix. Minimize $`\tfrac12\Vert AXB-C\Vert _F^2`$.
 
 Solution. Both fixed matrices are invertible, so exact fit is possible and unique:
 
 ```math
 X^*=A^{-1}CB^{-1}
-=\begin{pmatrix}1&1/3\\1/2&1/6\end{pmatrix}.
+=\begin{pmatrix}1&1/3\\[0pt] 1/2&1/6\end{pmatrix}.
 ```
 
 Multiplying $`AX^*B`$ gives $`C`$. The residual and the Frobenius gradient are both zero. For any perturbation $`H\ne0`$, invertibility gives $`AHB\ne0`$ and the loss increases by $`\tfrac12\Vert AHB\Vert _F^2`$. This checks uniqueness through the objective itself.
 
-For symmetric positive-definite $`X`$, another useful differential is $`D\log\det X[H]=\mathop{\mathrm{tr}}\nolimits(X^{-1}H)`$. In a symmetric direction its second derivative is $`-\mathop{\mathrm{tr}}\nolimits(X^{-1}HX^{-1}H)`$. Writing $`K=X^{-1/2}HX^{-1/2}`$ makes this $`-\mathop{\mathrm{tr}}\nolimits(K^2)\le0`$, proving concavity of log determinant on the positive-definite cone. The domain is essential: an arbitrary real matrix need not have a positive determinant or a real logarithm.
+For symmetric positive-definite $`X`$, another useful differential is $`D\log\det X[H]=\mathop{\mathrm{tr}} (X^{-1}H)`$. In a symmetric direction its second derivative is $`-\mathop{\mathrm{tr}} (X^{-1}HX^{-1}H)`$. Writing $`K=X^{-1/2}HX^{-1/2}`$ makes this $`-\mathop{\mathrm{tr}} (K^2)\le0`$, proving concavity of log determinant on the positive-definite cone. The domain is essential: an arbitrary real matrix need not have a positive determinant or a real logarithm.
 
 ### 6.3 Worked examples
 
 #### Example LA-E16: differentiating a nonsymmetric expression
 
-Let $`A=\left(\begin{smallmatrix}1&3\\0&2\end{smallmatrix}\right)`$.
+Let
+
+```math
+A=\left(\begin{smallmatrix}1&3\\[0pt] 0&2\end{smallmatrix}\right)
+```
+
+.
 
 Solution. Since $`x^\top Ax=x_1^2+3x_1x_2+2x_2^2`$, the gradient is $`(2x_1+3x_2,3x_1+4x_2)^\top`$. It equals $`(A+A^\top)x`$, not $`2Ax`$. The Hessian has determinant $`8-9=-1`$, so the quadratic is indefinite.
 
@@ -1559,7 +1703,7 @@ Solution. The Lagrangian $`L=w^\top\Sigma w-\eta(\mathbf1^\top w-1)`$ gives $`2\
 w^*=\frac{\Sigma^{-1}\mathbf1}{\mathbf1^\top\Sigma^{-1}\mathbf1}.
 ```
 
-The denominator is positive because $`\Sigma^{-1}`$ is PD. Every other feasible $`w=w^*+h`$ has $`\mathbf1^\top h=0`$, and the objective difference is $`h^\top\Sigma h>0`$ unless $`h=0`$. With $`\Sigma=\mathop{\mathrm{diag}}\nolimits(1,4)`$, the weights are $`(4/5,1/5)`$ and the minimum variance is $`4/5`$.
+The denominator is positive because $`\Sigma^{-1}`$ is PD. Every other feasible $`w=w^*+h`$ has $`\mathbf1^\top h=0`$, and the objective difference is $`h^\top\Sigma h\gt 0`$ unless $`h=0`$. With $`\Sigma=\mathop{\mathrm{diag}} (1,4)`$, the weights are $`(4/5,1/5)`$ and the minimum variance is $`4/5`$.
 
 #### Example LA-E18: a matrix gradient
 
@@ -1568,9 +1712,9 @@ For $`F(X)=\tfrac12\Vert AX-B\Vert _F^2`$, find $`\nabla_XF`$.
 Solution. Write $`R=AX-B`$. Then
 
 ```math
-dF=\mathop{\mathrm{tr}}\nolimits(R^\top dR)
-=\mathop{\mathrm{tr}}\nolimits(R^\top A\,dX)
-=\mathop{\mathrm{tr}}\nolimits([A^\top R]^\top dX).
+dF=\mathop{\mathrm{tr}} (R^\top dR)
+=\mathop{\mathrm{tr}} (R^\top A\,dX)
+=\mathop{\mathrm{tr}} ([A^\top R]^\top dX).
 ```
 
 Hence $`\nabla_XF=A^\top(AX-B)`$. Each column is an ordinary least-squares gradient, consistent with the sum-of-column-errors interpretation.
@@ -1583,11 +1727,11 @@ These problems are constructed for these notes.
 
 For symmetric PSD $`H`$, characterize the minimizers of $`f(x)=\tfrac12x^\top Hx-g^\top x`$.
 
-Solution. Decompose $`g=g_R+g_N`$ into $`\mathop{\mathrm{range}}\nolimitsH`$ and $`\ker H`$. If $`g_N\ne0`$, set $`x=tg_N`$. The quadratic term is zero and $`f(x)=-t\Vert g_N\Vert ^2\to-\infty`$, so no minimum exists. If $`g_N=0`$, then $`g`$ lies in the range and the equation $`Hx=g`$ is solvable. Its solutions are $`H^+g+z`$, $`z\in\ker H`$. Expanding around any such solution gives a nonnegative difference $`\tfrac12h^\top Hh`$. All these solutions are minimizers; uniqueness occurs exactly when $`H`$ is PD.
+Solution. Decompose $`g=g_R+g_N`$ into $`\mathop{\mathrm{range}} H`$ and $`\ker H`$. If $`g_N\ne0`$, set $`x=tg_N`$. The quadratic term is zero and $`f(x)=-t\Vert g_N\Vert ^2\to-\infty`$, so no minimum exists. If $`g_N=0`$, then $`g`$ lies in the range and the equation $`Hx=g`$ is solvable. Its solutions are $`H^+g+z`$, $`z\in\ker H`$. Expanding around any such solution gives a nonnegative difference $`\tfrac12h^\top Hh`$. All these solutions are minimizers; uniqueness occurs exactly when $`H`$ is PD.
 
 #### Problem LA-18: a singular covariance with a budget constraint
 
-Set $`\Sigma=\mathop{\mathrm{diag}}\nolimits(1,0)`$ and minimize $`w^\top\Sigma w`$ under $`w_1+w_2=1`$.
+Set $`\Sigma=\mathop{\mathrm{diag}} (1,0)`$ and minimize $`w^\top\Sigma w`$ under $`w_1+w_2=1`$.
 
 Solution. Substitution gives the objective $`w_1^2`$, uniquely minimized at $`(0,1)`$ with value zero. The inverse-based formula cannot be used because $`\Sigma`$ is singular. Replacing the inverse by $`\Sigma^+`$ in that formula would give $`(1,0)`$, which is wrong. A null direction satisfying the budget can dominate every positive-variance direction. In general solve the constrained problem using its null space or its KKT system, and check curvature along feasible directions.
 
@@ -1599,7 +1743,7 @@ Solution. The unconstrained minimizer $`(-1,2)`$ is infeasible. Use constraints 
 
 #### Problem LA-20: ridge with an unpenalized intercept
 
-Minimize $`\Vert y-a\mathbf1-Xb\Vert ^2+\lambda\Vert b\Vert ^2`$, with $`\lambda>0`$.
+Minimize $`\Vert y-a\mathbf1-Xb\Vert ^2+\lambda\Vert b\Vert ^2`$, with $`\lambda\gt 0`$.
 
 Solution. Differentiating in $`a`$ gives $`a=\bar y-\bar x^\top b`$, where $`\bar x^\top=\mathbf1^\top X/n`$. Substituting centers both sides:
 
@@ -1614,7 +1758,7 @@ The intercept follows from the earlier equation. Since $`X^\top HX`$ is PSD, add
 
 #### Problem LA-61: weighted ridge regression
 
-Constructed problem. Minimize $`(y-Xb)^\top W(y-Xb)+\lambda b^\top Rb`$, with $`W`$ PD, $`R`$ PSD, and $`\lambda>0`$.
+Constructed problem. Minimize $`(y-Xb)^\top W(y-Xb)+\lambda b^\top Rb`$, with $`W`$ PD, $`R`$ PSD, and $`\lambda\gt 0`$.
 
 Solution. Differentiate the two quadratic terms:
 
@@ -1632,12 +1776,12 @@ Solution. A perturbation $`dg`$ changes the optimum by $`dx^*=H^{-1}dg`$. The mi
 
 #### Problem LA-63: optimizing a trace expression
 
-Constructed problem. For symmetric PD $`H`$ and a given $`G\in\mathbb R^{n\times k}`$, minimize $`F(X)=\tfrac12\mathop{\mathrm{tr}}\nolimits(X^\top HX)-\mathop{\mathrm{tr}}\nolimits(G^\top X)`$.
+Constructed problem. For symmetric PD $`H`$ and a given $`G\in\mathbb R^{n\times k}`$, minimize $`F(X)=\tfrac12\mathop{\mathrm{tr}} (X^\top HX)-\mathop{\mathrm{tr}} (G^\top X)`$.
 
 Solution. Write $`X`$ and $`G`$ in columns. The trace expression is $`\sum_{j=1}^k[\tfrac12x_j^\top Hx_j-g_j^\top x_j]`$. Each column has the unique minimum $`x_j=H^{-1}g_j`$. Therefore $`X^*=H^{-1}G`$. Equivalently the matrix gradient is $`HX-G`$, and
 
 ```math
-F(X)-F(X^*)=\tfrac12\mathop{\mathrm{tr}}\nolimits((X-X^*)^\top H(X-X^*))\ge0,
+F(X)-F(X^*)=\tfrac12\mathop{\mathrm{tr}} ((X-X^*)^\top H(X-X^*))\ge0,
 ```
 
 with equality only at $`X=X^*`$.
@@ -1652,7 +1796,7 @@ Solution. The second equality sets $`x_3=x_1=t`$, and the first gives $`x_2=1-2t
 f(t)=2t^2+(1-2t)^2=6t^2-4t+1.
 ```
 
-Its derivative is $`12t-4`$, so $`t=1/3`$ and $`x=(1/3,1/3,1/3)`$. The second derivative is $`12>0`$, proving uniqueness on the feasible line. The minimum is $`1/3`$. Eliminating constraints first has reduced a three-variable constrained problem to an ordinary scalar quadratic.
+Its derivative is $`12t-4`$, so $`t=1/3`$ and $`x=(1/3,1/3,1/3)`$. The second derivative is $`12\gt 0`$, proving uniqueness on the feasible line. The minimum is $`1/3`$. Eliminating constraints first has reduced a three-variable constrained problem to an ordinary scalar quadratic.
 
 #### Problem LA-65: curvature only on a feasible line
 
@@ -1668,16 +1812,16 @@ Solution. The inverse differential gives
 
 ```math
 df=-a^\top X^{-1}(dX)X^{-1}a
-=-\mathop{\mathrm{tr}}\nolimits(X^{-1}aa^\top X^{-1}dX).
+=-\mathop{\mathrm{tr}} (X^{-1}aa^\top X^{-1}dX).
 ```
 
 Thus $`\nabla_Xf=-X^{-1}aa^\top X^{-1}`$ on symmetric matrices. Along a PSD direction $`H`$, $`df[H]=-(X^{-1}a)^\top H(X^{-1}a)\le0`$. Increasing the matrix in the PSD order can only decrease this inverse quadratic, as long as the path stays PD.
 
 #### Problem LA-67: a log-determinant optimum
 
-Constructed problem. For PD $`S`$, minimize $`F(X)=\mathop{\mathrm{tr}}\nolimits(SX)-\log\det X`$ over PD $`X`$.
+Constructed problem. For PD $`S`$, minimize $`F(X)=\mathop{\mathrm{tr}} (SX)-\log\det X`$ over PD $`X`$.
 
-Solution. Stationarity gives $`S-X^{-1}=0`$, so $`X^*=S^{-1}`$. To verify global optimality without assuming it, set $`Y=S^{1/2}XS^{1/2}`$. Then $`\mathop{\mathrm{tr}}\nolimits(SX)=\mathop{\mathrm{tr}}\nolimitsY`$ and $`\log\det X=\log\det Y-\log\det S`$. Hence, up to a constant,
+Solution. Stationarity gives $`S-X^{-1}=0`$, so $`X^*=S^{-1}`$. To verify global optimality without assuming it, set $`Y=S^{1/2}XS^{1/2}`$. Then $`\mathop{\mathrm{tr}} (SX)=\mathop{\mathrm{tr}} Y`$ and $`\log\det X=\log\det Y-\log\det S`$. Hence, up to a constant,
 
 ```math
 F(X)=\sum_i(\lambda_i(Y)-\log\lambda_i(Y)).
@@ -1689,7 +1833,7 @@ For a positive scalar $`t`$, $`t-\log t`$ has unique minimum one at $`t=1`$. Thu
 
 Constructed problem. Let $`w(\Sigma)=\Sigma^{-1}\mathbf1/(\mathbf1^\top\Sigma^{-1}\mathbf1)`$ for PD $`\Sigma`$. Find its first-order change under a symmetric perturbation $`E`$.
 
-Solution. Write $`a=\Sigma^{-1}\mathbf1`$ and $`s=\mathbf1^\top a>0`$. The inverse formula gives $`da=-\Sigma^{-1}Ea`$ and $`ds=-a^\top Ea`$. Applying the scalar quotient rule componentwise,
+Solution. Write $`a=\Sigma^{-1}\mathbf1`$ and $`s=\mathbf1^\top a\gt 0`$. The inverse formula gives $`da=-\Sigma^{-1}Ea`$ and $`ds=-a^\top Ea`$. Applying the scalar quotient rule componentwise,
 
 ```math
 dw=-\frac{\Sigma^{-1}Ea}{s}
@@ -1710,7 +1854,25 @@ For an ordinary Euclidean projection, all coordinate errors receive the same wei
 
 #### Problem LA-69: weighted line fit, case 1
 
-Let $`x=\begin{pmatrix}1\\2\end{pmatrix}`$, $`y=\begin{pmatrix}4\\1\end{pmatrix}`$, and $`W=\begin{pmatrix}3&0\\0&1\end{pmatrix}`$. Find the scalar $`a_*`$ minimizing $`g(a)=(y-ax)^\top W(y-ax)`$, its fitted vector, the projection matrix, and the minimum loss.
+Let
+
+```math
+x=\begin{pmatrix}1\\[0pt] 2\end{pmatrix}
+```
+
+,
+
+```math
+y=\begin{pmatrix}4\\[0pt] 1\end{pmatrix}
+```
+
+, and
+
+```math
+W=\begin{pmatrix}3&0\\[0pt] 0&1\end{pmatrix}
+```
+
+. Find the scalar $`a_*`$ minimizing $`g(a)=(y-ax)^\top W(y-ax)`$, its fitted vector, the projection matrix, and the minimum loss.
 
 Solution. First expand the scalar quadratic rather than trying to invert a rectangular vector:
 
@@ -1718,20 +1880,20 @@ Solution. First expand the scalar quadratic rather than trying to invert a recta
 g(a)=y^\top Wy-2a\,x^\top Wy+a^2x^\top Wx.
 ```
 
-Here $`x^\top Wx=7>0`$ and $`x^\top Wy=14`$. The derivative is $`g'(a)=-2x^\top Wy+2a x^\top Wx`$, so
+Here $`x^\top Wx=7\gt 0`$ and $`x^\top Wy=14`$. The derivative is $`g'(a)=-2x^\top Wy+2a x^\top Wx`$, so
 
 ```math
 a_*=\frac{x^\top Wy}{x^\top Wx}=2,\qquad
-\hat y=a_*x=\begin{pmatrix}2\\4\end{pmatrix},\qquad
-r=y-\hat y=\begin{pmatrix}2\\-3\end{pmatrix}.
+\hat y=a_*x=\begin{pmatrix}2\\[0pt] 4\end{pmatrix},\qquad
+r=y-\hat y=\begin{pmatrix}2\\[0pt] -3\end{pmatrix}.
 ```
 
-The second derivative is $`2x^\top Wx=14>0`$. Thus the stationary point is the unique minimum, even when the fitted coefficient is negative. There is no restriction requiring a projection to point along the positive direction of $`x`$.
+The second derivative is $`2x^\top Wx=14\gt 0`$. Thus the stationary point is the unique minimum, even when the fitted coefficient is negative. There is no restriction requiring a projection to point along the positive direction of $`x`$.
 
 For an arbitrary input vector $`z`$, the same derivation gives $`P_Wz=x(x^\top Wz)/(x^\top Wx)`$. Therefore
 
 ```math
-P_W=\frac{xx^\top W}{x^\top Wx}=\begin{pmatrix}\frac{3}{7}&\frac{2}{7}\\\frac{6}{7}&\frac{4}{7}\end{pmatrix}.
+P_W=\frac{xx^\top W}{x^\top Wx}=\begin{pmatrix}\frac{3}{7}&\frac{2}{7}\\[0pt] \frac{6}{7}&\frac{4}{7}\end{pmatrix}.
 ```
 
 Multiplying this matrix by $`y`$ recovers the fitted vector above. Also $`P_Wx=x`$, so applying the projection twice changes nothing: $`P_W^2=P_W`$. The matrix need not be symmetric in ordinary coordinates; its weighted symmetry is $`P_W^\top W=WP_W`$.
@@ -1746,7 +1908,25 @@ Finally, writing $`a=a_*+h`$ and expanding the loss shows $`g(a)-g(a_*)=7h^2`$. 
 
 #### Problem LA-70: weighted line fit, case 2
 
-Let $`x=\begin{pmatrix}2\\-1\end{pmatrix}`$, $`y=\begin{pmatrix}1\\3\end{pmatrix}`$, and $`W=\begin{pmatrix}1&0\\0&4\end{pmatrix}`$. Find the scalar $`a_*`$ minimizing $`g(a)=(y-ax)^\top W(y-ax)`$, its fitted vector, the projection matrix, and the minimum loss.
+Let
+
+```math
+x=\begin{pmatrix}2\\[0pt] -1\end{pmatrix}
+```
+
+,
+
+```math
+y=\begin{pmatrix}1\\[0pt] 3\end{pmatrix}
+```
+
+, and
+
+```math
+W=\begin{pmatrix}1&0\\[0pt] 0&4\end{pmatrix}
+```
+
+. Find the scalar $`a_*`$ minimizing $`g(a)=(y-ax)^\top W(y-ax)`$, its fitted vector, the projection matrix, and the minimum loss.
 
 Solution. First expand the scalar quadratic rather than trying to invert a rectangular vector:
 
@@ -1754,20 +1934,20 @@ Solution. First expand the scalar quadratic rather than trying to invert a recta
 g(a)=y^\top Wy-2a\,x^\top Wy+a^2x^\top Wx.
 ```
 
-Here $`x^\top Wx=8>0`$ and $`x^\top Wy=-10`$. The derivative is $`g'(a)=-2x^\top Wy+2a x^\top Wx`$, so
+Here $`x^\top Wx=8\gt 0`$ and $`x^\top Wy=-10`$. The derivative is $`g'(a)=-2x^\top Wy+2a x^\top Wx`$, so
 
 ```math
 a_*=\frac{x^\top Wy}{x^\top Wx}=-\frac{5}{4},\qquad
-\hat y=a_*x=\begin{pmatrix}-\frac{5}{2}\\\frac{5}{4}\end{pmatrix},\qquad
-r=y-\hat y=\begin{pmatrix}\frac{7}{2}\\\frac{7}{4}\end{pmatrix}.
+\hat y=a_*x=\begin{pmatrix}-\frac{5}{2}\\[0pt] \frac{5}{4}\end{pmatrix},\qquad
+r=y-\hat y=\begin{pmatrix}\frac{7}{2}\\[0pt] \frac{7}{4}\end{pmatrix}.
 ```
 
-The second derivative is $`2x^\top Wx=16>0`$. Thus the stationary point is the unique minimum, even when the fitted coefficient is negative. There is no restriction requiring a projection to point along the positive direction of $`x`$.
+The second derivative is $`2x^\top Wx=16\gt 0`$. Thus the stationary point is the unique minimum, even when the fitted coefficient is negative. There is no restriction requiring a projection to point along the positive direction of $`x`$.
 
 For an arbitrary input vector $`z`$, the same derivation gives $`P_Wz=x(x^\top Wz)/(x^\top Wx)`$. Therefore
 
 ```math
-P_W=\frac{xx^\top W}{x^\top Wx}=\begin{pmatrix}\frac{1}{2}&-1\\-\frac{1}{4}&\frac{1}{2}\end{pmatrix}.
+P_W=\frac{xx^\top W}{x^\top Wx}=\begin{pmatrix}\frac{1}{2}&-1\\[0pt] -\frac{1}{4}&\frac{1}{2}\end{pmatrix}.
 ```
 
 Multiplying this matrix by $`y`$ recovers the fitted vector above. Also $`P_Wx=x`$, so applying the projection twice changes nothing: $`P_W^2=P_W`$. The matrix need not be symmetric in ordinary coordinates; its weighted symmetry is $`P_W^\top W=WP_W`$.
@@ -1782,7 +1962,25 @@ Finally, writing $`a=a_*+h`$ and expanding the loss shows $`g(a)-g(a_*)=8h^2`$. 
 
 #### Problem LA-71: weighted line fit, case 3
 
-Let $`x=\begin{pmatrix}1\\1\end{pmatrix}`$, $`y=\begin{pmatrix}-1\\4\end{pmatrix}`$, and $`W=\begin{pmatrix}2&0\\0&5\end{pmatrix}`$. Find the scalar $`a_*`$ minimizing $`g(a)=(y-ax)^\top W(y-ax)`$, its fitted vector, the projection matrix, and the minimum loss.
+Let
+
+```math
+x=\begin{pmatrix}1\\[0pt] 1\end{pmatrix}
+```
+
+,
+
+```math
+y=\begin{pmatrix}-1\\[0pt] 4\end{pmatrix}
+```
+
+, and
+
+```math
+W=\begin{pmatrix}2&0\\[0pt] 0&5\end{pmatrix}
+```
+
+. Find the scalar $`a_*`$ minimizing $`g(a)=(y-ax)^\top W(y-ax)`$, its fitted vector, the projection matrix, and the minimum loss.
 
 Solution. First expand the scalar quadratic rather than trying to invert a rectangular vector:
 
@@ -1790,20 +1988,20 @@ Solution. First expand the scalar quadratic rather than trying to invert a recta
 g(a)=y^\top Wy-2a\,x^\top Wy+a^2x^\top Wx.
 ```
 
-Here $`x^\top Wx=7>0`$ and $`x^\top Wy=18`$. The derivative is $`g'(a)=-2x^\top Wy+2a x^\top Wx`$, so
+Here $`x^\top Wx=7\gt 0`$ and $`x^\top Wy=18`$. The derivative is $`g'(a)=-2x^\top Wy+2a x^\top Wx`$, so
 
 ```math
 a_*=\frac{x^\top Wy}{x^\top Wx}=\frac{18}{7},\qquad
-\hat y=a_*x=\begin{pmatrix}\frac{18}{7}\\\frac{18}{7}\end{pmatrix},\qquad
-r=y-\hat y=\begin{pmatrix}-\frac{25}{7}\\\frac{10}{7}\end{pmatrix}.
+\hat y=a_*x=\begin{pmatrix}\frac{18}{7}\\[0pt] \frac{18}{7}\end{pmatrix},\qquad
+r=y-\hat y=\begin{pmatrix}-\frac{25}{7}\\[0pt] \frac{10}{7}\end{pmatrix}.
 ```
 
-The second derivative is $`2x^\top Wx=14>0`$. Thus the stationary point is the unique minimum, even when the fitted coefficient is negative. There is no restriction requiring a projection to point along the positive direction of $`x`$.
+The second derivative is $`2x^\top Wx=14\gt 0`$. Thus the stationary point is the unique minimum, even when the fitted coefficient is negative. There is no restriction requiring a projection to point along the positive direction of $`x`$.
 
 For an arbitrary input vector $`z`$, the same derivation gives $`P_Wz=x(x^\top Wz)/(x^\top Wx)`$. Therefore
 
 ```math
-P_W=\frac{xx^\top W}{x^\top Wx}=\begin{pmatrix}\frac{2}{7}&\frac{5}{7}\\\frac{2}{7}&\frac{5}{7}\end{pmatrix}.
+P_W=\frac{xx^\top W}{x^\top Wx}=\begin{pmatrix}\frac{2}{7}&\frac{5}{7}\\[0pt] \frac{2}{7}&\frac{5}{7}\end{pmatrix}.
 ```
 
 Multiplying this matrix by $`y`$ recovers the fitted vector above. Also $`P_Wx=x`$, so applying the projection twice changes nothing: $`P_W^2=P_W`$. The matrix need not be symmetric in ordinary coordinates; its weighted symmetry is $`P_W^\top W=WP_W`$.
@@ -1818,7 +2016,25 @@ Finally, writing $`a=a_*+h`$ and expanding the loss shows $`g(a)-g(a_*)=7h^2`$. 
 
 #### Problem LA-72: weighted line fit, case 4
 
-Let $`x=\begin{pmatrix}3\\1\end{pmatrix}`$, $`y=\begin{pmatrix}2\\-2\end{pmatrix}`$, and $`W=\begin{pmatrix}1&0\\0&2\end{pmatrix}`$. Find the scalar $`a_*`$ minimizing $`g(a)=(y-ax)^\top W(y-ax)`$, its fitted vector, the projection matrix, and the minimum loss.
+Let
+
+```math
+x=\begin{pmatrix}3\\[0pt] 1\end{pmatrix}
+```
+
+,
+
+```math
+y=\begin{pmatrix}2\\[0pt] -2\end{pmatrix}
+```
+
+, and
+
+```math
+W=\begin{pmatrix}1&0\\[0pt] 0&2\end{pmatrix}
+```
+
+. Find the scalar $`a_*`$ minimizing $`g(a)=(y-ax)^\top W(y-ax)`$, its fitted vector, the projection matrix, and the minimum loss.
 
 Solution. First expand the scalar quadratic rather than trying to invert a rectangular vector:
 
@@ -1826,20 +2042,20 @@ Solution. First expand the scalar quadratic rather than trying to invert a recta
 g(a)=y^\top Wy-2a\,x^\top Wy+a^2x^\top Wx.
 ```
 
-Here $`x^\top Wx=11>0`$ and $`x^\top Wy=2`$. The derivative is $`g'(a)=-2x^\top Wy+2a x^\top Wx`$, so
+Here $`x^\top Wx=11\gt 0`$ and $`x^\top Wy=2`$. The derivative is $`g'(a)=-2x^\top Wy+2a x^\top Wx`$, so
 
 ```math
 a_*=\frac{x^\top Wy}{x^\top Wx}=\frac{2}{11},\qquad
-\hat y=a_*x=\begin{pmatrix}\frac{6}{11}\\\frac{2}{11}\end{pmatrix},\qquad
-r=y-\hat y=\begin{pmatrix}\frac{16}{11}\\-\frac{24}{11}\end{pmatrix}.
+\hat y=a_*x=\begin{pmatrix}\frac{6}{11}\\[0pt] \frac{2}{11}\end{pmatrix},\qquad
+r=y-\hat y=\begin{pmatrix}\frac{16}{11}\\[0pt] -\frac{24}{11}\end{pmatrix}.
 ```
 
-The second derivative is $`2x^\top Wx=22>0`$. Thus the stationary point is the unique minimum, even when the fitted coefficient is negative. There is no restriction requiring a projection to point along the positive direction of $`x`$.
+The second derivative is $`2x^\top Wx=22\gt 0`$. Thus the stationary point is the unique minimum, even when the fitted coefficient is negative. There is no restriction requiring a projection to point along the positive direction of $`x`$.
 
 For an arbitrary input vector $`z`$, the same derivation gives $`P_Wz=x(x^\top Wz)/(x^\top Wx)`$. Therefore
 
 ```math
-P_W=\frac{xx^\top W}{x^\top Wx}=\begin{pmatrix}\frac{9}{11}&\frac{6}{11}\\\frac{3}{11}&\frac{2}{11}\end{pmatrix}.
+P_W=\frac{xx^\top W}{x^\top Wx}=\begin{pmatrix}\frac{9}{11}&\frac{6}{11}\\[0pt] \frac{3}{11}&\frac{2}{11}\end{pmatrix}.
 ```
 
 Multiplying this matrix by $`y`$ recovers the fitted vector above. Also $`P_Wx=x`$, so applying the projection twice changes nothing: $`P_W^2=P_W`$. The matrix need not be symmetric in ordinary coordinates; its weighted symmetry is $`P_W^\top W=WP_W`$.
@@ -1854,7 +2070,25 @@ Finally, writing $`a=a_*+h`$ and expanding the loss shows $`g(a)-g(a_*)=11h^2`$.
 
 #### Problem LA-73: weighted line fit, case 5
 
-Let $`x=\begin{pmatrix}1\\-2\end{pmatrix}`$, $`y=\begin{pmatrix}3\\2\end{pmatrix}`$, and $`W=\begin{pmatrix}4&0\\0&1\end{pmatrix}`$. Find the scalar $`a_*`$ minimizing $`g(a)=(y-ax)^\top W(y-ax)`$, its fitted vector, the projection matrix, and the minimum loss.
+Let
+
+```math
+x=\begin{pmatrix}1\\[0pt] -2\end{pmatrix}
+```
+
+,
+
+```math
+y=\begin{pmatrix}3\\[0pt] 2\end{pmatrix}
+```
+
+, and
+
+```math
+W=\begin{pmatrix}4&0\\[0pt] 0&1\end{pmatrix}
+```
+
+. Find the scalar $`a_*`$ minimizing $`g(a)=(y-ax)^\top W(y-ax)`$, its fitted vector, the projection matrix, and the minimum loss.
 
 Solution. First expand the scalar quadratic rather than trying to invert a rectangular vector:
 
@@ -1862,20 +2096,20 @@ Solution. First expand the scalar quadratic rather than trying to invert a recta
 g(a)=y^\top Wy-2a\,x^\top Wy+a^2x^\top Wx.
 ```
 
-Here $`x^\top Wx=8>0`$ and $`x^\top Wy=8`$. The derivative is $`g'(a)=-2x^\top Wy+2a x^\top Wx`$, so
+Here $`x^\top Wx=8\gt 0`$ and $`x^\top Wy=8`$. The derivative is $`g'(a)=-2x^\top Wy+2a x^\top Wx`$, so
 
 ```math
 a_*=\frac{x^\top Wy}{x^\top Wx}=1,\qquad
-\hat y=a_*x=\begin{pmatrix}1\\-2\end{pmatrix},\qquad
-r=y-\hat y=\begin{pmatrix}2\\4\end{pmatrix}.
+\hat y=a_*x=\begin{pmatrix}1\\[0pt] -2\end{pmatrix},\qquad
+r=y-\hat y=\begin{pmatrix}2\\[0pt] 4\end{pmatrix}.
 ```
 
-The second derivative is $`2x^\top Wx=16>0`$. Thus the stationary point is the unique minimum, even when the fitted coefficient is negative. There is no restriction requiring a projection to point along the positive direction of $`x`$.
+The second derivative is $`2x^\top Wx=16\gt 0`$. Thus the stationary point is the unique minimum, even when the fitted coefficient is negative. There is no restriction requiring a projection to point along the positive direction of $`x`$.
 
 For an arbitrary input vector $`z`$, the same derivation gives $`P_Wz=x(x^\top Wz)/(x^\top Wx)`$. Therefore
 
 ```math
-P_W=\frac{xx^\top W}{x^\top Wx}=\begin{pmatrix}\frac{1}{2}&-\frac{1}{4}\\-1&\frac{1}{2}\end{pmatrix}.
+P_W=\frac{xx^\top W}{x^\top Wx}=\begin{pmatrix}\frac{1}{2}&-\frac{1}{4}\\[0pt] -1&\frac{1}{2}\end{pmatrix}.
 ```
 
 Multiplying this matrix by $`y`$ recovers the fitted vector above. Also $`P_Wx=x`$, so applying the projection twice changes nothing: $`P_W^2=P_W`$. The matrix need not be symmetric in ordinary coordinates; its weighted symmetry is $`P_W^\top W=WP_W`$.
@@ -1890,7 +2124,25 @@ Finally, writing $`a=a_*+h`$ and expanding the loss shows $`g(a)-g(a_*)=8h^2`$. 
 
 #### Problem LA-74: weighted line fit, case 6
 
-Let $`x=\begin{pmatrix}2\\3\end{pmatrix}`$, $`y=\begin{pmatrix}-1\\5\end{pmatrix}`$, and $`W=\begin{pmatrix}3&0\\0&2\end{pmatrix}`$. Find the scalar $`a_*`$ minimizing $`g(a)=(y-ax)^\top W(y-ax)`$, its fitted vector, the projection matrix, and the minimum loss.
+Let
+
+```math
+x=\begin{pmatrix}2\\[0pt] 3\end{pmatrix}
+```
+
+,
+
+```math
+y=\begin{pmatrix}-1\\[0pt] 5\end{pmatrix}
+```
+
+, and
+
+```math
+W=\begin{pmatrix}3&0\\[0pt] 0&2\end{pmatrix}
+```
+
+. Find the scalar $`a_*`$ minimizing $`g(a)=(y-ax)^\top W(y-ax)`$, its fitted vector, the projection matrix, and the minimum loss.
 
 Solution. First expand the scalar quadratic rather than trying to invert a rectangular vector:
 
@@ -1898,20 +2150,20 @@ Solution. First expand the scalar quadratic rather than trying to invert a recta
 g(a)=y^\top Wy-2a\,x^\top Wy+a^2x^\top Wx.
 ```
 
-Here $`x^\top Wx=30>0`$ and $`x^\top Wy=24`$. The derivative is $`g'(a)=-2x^\top Wy+2a x^\top Wx`$, so
+Here $`x^\top Wx=30\gt 0`$ and $`x^\top Wy=24`$. The derivative is $`g'(a)=-2x^\top Wy+2a x^\top Wx`$, so
 
 ```math
 a_*=\frac{x^\top Wy}{x^\top Wx}=\frac{4}{5},\qquad
-\hat y=a_*x=\begin{pmatrix}\frac{8}{5}\\\frac{12}{5}\end{pmatrix},\qquad
-r=y-\hat y=\begin{pmatrix}-\frac{13}{5}\\\frac{13}{5}\end{pmatrix}.
+\hat y=a_*x=\begin{pmatrix}\frac{8}{5}\\[0pt] \frac{12}{5}\end{pmatrix},\qquad
+r=y-\hat y=\begin{pmatrix}-\frac{13}{5}\\[0pt] \frac{13}{5}\end{pmatrix}.
 ```
 
-The second derivative is $`2x^\top Wx=60>0`$. Thus the stationary point is the unique minimum, even when the fitted coefficient is negative. There is no restriction requiring a projection to point along the positive direction of $`x`$.
+The second derivative is $`2x^\top Wx=60\gt 0`$. Thus the stationary point is the unique minimum, even when the fitted coefficient is negative. There is no restriction requiring a projection to point along the positive direction of $`x`$.
 
 For an arbitrary input vector $`z`$, the same derivation gives $`P_Wz=x(x^\top Wz)/(x^\top Wx)`$. Therefore
 
 ```math
-P_W=\frac{xx^\top W}{x^\top Wx}=\begin{pmatrix}\frac{2}{5}&\frac{2}{5}\\\frac{3}{5}&\frac{3}{5}\end{pmatrix}.
+P_W=\frac{xx^\top W}{x^\top Wx}=\begin{pmatrix}\frac{2}{5}&\frac{2}{5}\\[0pt] \frac{3}{5}&\frac{3}{5}\end{pmatrix}.
 ```
 
 Multiplying this matrix by $`y`$ recovers the fitted vector above. Also $`P_Wx=x`$, so applying the projection twice changes nothing: $`P_W^2=P_W`$. The matrix need not be symmetric in ordinary coordinates; its weighted symmetry is $`P_W^\top W=WP_W`$.
@@ -1930,13 +2182,19 @@ At the design points $`-1,0,1`$, the intercept column and slope column are ortho
 
 #### Problem LA-75: three-observation regression, case 1
 
-Fit $`y_i=a+bt_i+r_i`$ at $`t=(-1,0,1)`$ to $`y=\begin{pmatrix}1\\2\\5\end{pmatrix}`$ by least squares. Find the residual and prove that the answer is unique.
+Fit $`y_i=a+bt_i+r_i`$ at $`t=(-1,0,1)`$ to
+
+```math
+y=\begin{pmatrix}1\\[0pt] 2\\[0pt] 5\end{pmatrix}
+```
+
+ by least squares. Find the residual and prove that the answer is unique.
 
 Solution. The design matrix and its Gram matrix are
 
 ```math
-X=\begin{pmatrix}1&-1\\1&0\\1&1\end{pmatrix},\qquad
-X^\top X=\begin{pmatrix}3&0\\0&2\end{pmatrix}.
+X=\begin{pmatrix}1&-1\\[0pt] 1&0\\[0pt] 1&1\end{pmatrix},\qquad
+X^\top X=\begin{pmatrix}3&0\\[0pt] 0&2\end{pmatrix}.
 ```
 
 Both diagonal entries are positive. The two columns are independent, and the quadratic loss has a positive-definite Hessian $`2X^\top X`$. The normal equations consequently have one solution:
@@ -1948,7 +2206,7 @@ Both diagonal entries are positive. The two columns are independent, and the qua
 Substitution gives $`a=\frac{8}{3}`$ and $`b=2`$. Evaluating the fitted line at each of the original design points gives
 
 ```math
-\hat y=\begin{pmatrix}\frac{2}{3}\\\frac{8}{3}\\\frac{14}{3}\end{pmatrix},\qquad r=y-\hat y=\begin{pmatrix}\frac{1}{3}\\-\frac{2}{3}\\\frac{1}{3}\end{pmatrix}.
+\hat y=\begin{pmatrix}\frac{2}{3}\\[0pt] \frac{8}{3}\\[0pt] \frac{14}{3}\end{pmatrix},\qquad r=y-\hat y=\begin{pmatrix}\frac{1}{3}\\[0pt] -\frac{2}{3}\\[0pt] \frac{1}{3}\end{pmatrix}.
 ```
 
 The residuals sum to zero because the model contains an intercept. Their weighted sum using the design points is also zero: $`-r_0+r_2=0`$. These are the two entries of $`X^\top r=0`$. They are useful arithmetic checks after solving the normal equations.
@@ -1956,8 +2214,8 @@ The residuals sum to zero because the model contains an intercept. Their weighte
 There is a more informative expression for the entire residual. Define the second difference $`d=y_0-2y_1+y_2=2`$. Direct substitution into the fitted values gives
 
 ```math
-r=\frac d6\begin{pmatrix}1\\-2\\1\end{pmatrix},\qquad
-\mathop{\mathrm{SSE}}\nolimits=\frac{d^2}6=\frac{2}{3}.
+r=\frac d6\begin{pmatrix}1\\[0pt] -2\\[0pt] 1\end{pmatrix},\qquad
+\mathop{\mathrm{SSE}} =\frac{d^2}6=\frac{2}{3}.
 ```
 
 The residual direction is perpendicular to both design columns and spans the one-dimensional orthogonal complement of the fitted plane. Thus all the failure of a line to fit three observations is summarized by one number, $`d`$.
@@ -1966,13 +2224,19 @@ For any proposed change $`h`$ in the two coefficients, orthogonality gives $`\Ve
 
 #### Problem LA-76: three-observation regression, case 2
 
-Fit $`y_i=a+bt_i+r_i`$ at $`t=(-1,0,1)`$ to $`y=\begin{pmatrix}4\\1\\2\end{pmatrix}`$ by least squares. Find the residual and prove that the answer is unique.
+Fit $`y_i=a+bt_i+r_i`$ at $`t=(-1,0,1)`$ to
+
+```math
+y=\begin{pmatrix}4\\[0pt] 1\\[0pt] 2\end{pmatrix}
+```
+
+ by least squares. Find the residual and prove that the answer is unique.
 
 Solution. The design matrix and its Gram matrix are
 
 ```math
-X=\begin{pmatrix}1&-1\\1&0\\1&1\end{pmatrix},\qquad
-X^\top X=\begin{pmatrix}3&0\\0&2\end{pmatrix}.
+X=\begin{pmatrix}1&-1\\[0pt] 1&0\\[0pt] 1&1\end{pmatrix},\qquad
+X^\top X=\begin{pmatrix}3&0\\[0pt] 0&2\end{pmatrix}.
 ```
 
 Both diagonal entries are positive. The two columns are independent, and the quadratic loss has a positive-definite Hessian $`2X^\top X`$. The normal equations consequently have one solution:
@@ -1984,7 +2248,7 @@ Both diagonal entries are positive. The two columns are independent, and the qua
 Substitution gives $`a=\frac{7}{3}`$ and $`b=-1`$. Evaluating the fitted line at each of the original design points gives
 
 ```math
-\hat y=\begin{pmatrix}\frac{10}{3}\\\frac{7}{3}\\\frac{4}{3}\end{pmatrix},\qquad r=y-\hat y=\begin{pmatrix}\frac{2}{3}\\-\frac{4}{3}\\\frac{2}{3}\end{pmatrix}.
+\hat y=\begin{pmatrix}\frac{10}{3}\\[0pt] \frac{7}{3}\\[0pt] \frac{4}{3}\end{pmatrix},\qquad r=y-\hat y=\begin{pmatrix}\frac{2}{3}\\[0pt] -\frac{4}{3}\\[0pt] \frac{2}{3}\end{pmatrix}.
 ```
 
 The residuals sum to zero because the model contains an intercept. Their weighted sum using the design points is also zero: $`-r_0+r_2=0`$. These are the two entries of $`X^\top r=0`$. They are useful arithmetic checks after solving the normal equations.
@@ -1992,8 +2256,8 @@ The residuals sum to zero because the model contains an intercept. Their weighte
 There is a more informative expression for the entire residual. Define the second difference $`d=y_0-2y_1+y_2=4`$. Direct substitution into the fitted values gives
 
 ```math
-r=\frac d6\begin{pmatrix}1\\-2\\1\end{pmatrix},\qquad
-\mathop{\mathrm{SSE}}\nolimits=\frac{d^2}6=\frac{8}{3}.
+r=\frac d6\begin{pmatrix}1\\[0pt] -2\\[0pt] 1\end{pmatrix},\qquad
+\mathop{\mathrm{SSE}} =\frac{d^2}6=\frac{8}{3}.
 ```
 
 The residual direction is perpendicular to both design columns and spans the one-dimensional orthogonal complement of the fitted plane. Thus all the failure of a line to fit three observations is summarized by one number, $`d`$.
@@ -2002,13 +2266,19 @@ For any proposed change $`h`$ in the two coefficients, orthogonality gives $`\Ve
 
 #### Problem LA-77: three-observation regression, case 3
 
-Fit $`y_i=a+bt_i+r_i`$ at $`t=(-1,0,1)`$ to $`y=\begin{pmatrix}-2\\0\\4\end{pmatrix}`$ by least squares. Find the residual and prove that the answer is unique.
+Fit $`y_i=a+bt_i+r_i`$ at $`t=(-1,0,1)`$ to
+
+```math
+y=\begin{pmatrix}-2\\[0pt] 0\\[0pt] 4\end{pmatrix}
+```
+
+ by least squares. Find the residual and prove that the answer is unique.
 
 Solution. The design matrix and its Gram matrix are
 
 ```math
-X=\begin{pmatrix}1&-1\\1&0\\1&1\end{pmatrix},\qquad
-X^\top X=\begin{pmatrix}3&0\\0&2\end{pmatrix}.
+X=\begin{pmatrix}1&-1\\[0pt] 1&0\\[0pt] 1&1\end{pmatrix},\qquad
+X^\top X=\begin{pmatrix}3&0\\[0pt] 0&2\end{pmatrix}.
 ```
 
 Both diagonal entries are positive. The two columns are independent, and the quadratic loss has a positive-definite Hessian $`2X^\top X`$. The normal equations consequently have one solution:
@@ -2020,7 +2290,7 @@ Both diagonal entries are positive. The two columns are independent, and the qua
 Substitution gives $`a=\frac{2}{3}`$ and $`b=3`$. Evaluating the fitted line at each of the original design points gives
 
 ```math
-\hat y=\begin{pmatrix}-\frac{7}{3}\\\frac{2}{3}\\\frac{11}{3}\end{pmatrix},\qquad r=y-\hat y=\begin{pmatrix}\frac{1}{3}\\-\frac{2}{3}\\\frac{1}{3}\end{pmatrix}.
+\hat y=\begin{pmatrix}-\frac{7}{3}\\[0pt] \frac{2}{3}\\[0pt] \frac{11}{3}\end{pmatrix},\qquad r=y-\hat y=\begin{pmatrix}\frac{1}{3}\\[0pt] -\frac{2}{3}\\[0pt] \frac{1}{3}\end{pmatrix}.
 ```
 
 The residuals sum to zero because the model contains an intercept. Their weighted sum using the design points is also zero: $`-r_0+r_2=0`$. These are the two entries of $`X^\top r=0`$. They are useful arithmetic checks after solving the normal equations.
@@ -2028,8 +2298,8 @@ The residuals sum to zero because the model contains an intercept. Their weighte
 There is a more informative expression for the entire residual. Define the second difference $`d=y_0-2y_1+y_2=2`$. Direct substitution into the fitted values gives
 
 ```math
-r=\frac d6\begin{pmatrix}1\\-2\\1\end{pmatrix},\qquad
-\mathop{\mathrm{SSE}}\nolimits=\frac{d^2}6=\frac{2}{3}.
+r=\frac d6\begin{pmatrix}1\\[0pt] -2\\[0pt] 1\end{pmatrix},\qquad
+\mathop{\mathrm{SSE}} =\frac{d^2}6=\frac{2}{3}.
 ```
 
 The residual direction is perpendicular to both design columns and spans the one-dimensional orthogonal complement of the fitted plane. Thus all the failure of a line to fit three observations is summarized by one number, $`d`$.
@@ -2038,13 +2308,19 @@ For any proposed change $`h`$ in the two coefficients, orthogonality gives $`\Ve
 
 #### Problem LA-78: three-observation regression, case 4
 
-Fit $`y_i=a+bt_i+r_i`$ at $`t=(-1,0,1)`$ to $`y=\begin{pmatrix}3\\3\\3\end{pmatrix}`$ by least squares. Find the residual and prove that the answer is unique.
+Fit $`y_i=a+bt_i+r_i`$ at $`t=(-1,0,1)`$ to
+
+```math
+y=\begin{pmatrix}3\\[0pt] 3\\[0pt] 3\end{pmatrix}
+```
+
+ by least squares. Find the residual and prove that the answer is unique.
 
 Solution. The design matrix and its Gram matrix are
 
 ```math
-X=\begin{pmatrix}1&-1\\1&0\\1&1\end{pmatrix},\qquad
-X^\top X=\begin{pmatrix}3&0\\0&2\end{pmatrix}.
+X=\begin{pmatrix}1&-1\\[0pt] 1&0\\[0pt] 1&1\end{pmatrix},\qquad
+X^\top X=\begin{pmatrix}3&0\\[0pt] 0&2\end{pmatrix}.
 ```
 
 Both diagonal entries are positive. The two columns are independent, and the quadratic loss has a positive-definite Hessian $`2X^\top X`$. The normal equations consequently have one solution:
@@ -2056,7 +2332,7 @@ Both diagonal entries are positive. The two columns are independent, and the qua
 Substitution gives $`a=3`$ and $`b=0`$. Evaluating the fitted line at each of the original design points gives
 
 ```math
-\hat y=\begin{pmatrix}3\\3\\3\end{pmatrix},\qquad r=y-\hat y=\begin{pmatrix}0\\0\\0\end{pmatrix}.
+\hat y=\begin{pmatrix}3\\[0pt] 3\\[0pt] 3\end{pmatrix},\qquad r=y-\hat y=\begin{pmatrix}0\\[0pt] 0\\[0pt] 0\end{pmatrix}.
 ```
 
 The residuals sum to zero because the model contains an intercept. Their weighted sum using the design points is also zero: $`-r_0+r_2=0`$. These are the two entries of $`X^\top r=0`$. They are useful arithmetic checks after solving the normal equations.
@@ -2064,8 +2340,8 @@ The residuals sum to zero because the model contains an intercept. Their weighte
 There is a more informative expression for the entire residual. Define the second difference $`d=y_0-2y_1+y_2=0`$. Direct substitution into the fitted values gives
 
 ```math
-r=\frac d6\begin{pmatrix}1\\-2\\1\end{pmatrix},\qquad
-\mathop{\mathrm{SSE}}\nolimits=\frac{d^2}6=0.
+r=\frac d6\begin{pmatrix}1\\[0pt] -2\\[0pt] 1\end{pmatrix},\qquad
+\mathop{\mathrm{SSE}} =\frac{d^2}6=0.
 ```
 
 The residual direction is perpendicular to both design columns and spans the one-dimensional orthogonal complement of the fitted plane. Thus all the failure of a line to fit three observations is summarized by one number, $`d`$.
@@ -2074,13 +2350,19 @@ For any proposed change $`h`$ in the two coefficients, orthogonality gives $`\Ve
 
 #### Problem LA-79: three-observation regression, case 5
 
-Fit $`y_i=a+bt_i+r_i`$ at $`t=(-1,0,1)`$ to $`y=\begin{pmatrix}2\\-1\\2\end{pmatrix}`$ by least squares. Find the residual and prove that the answer is unique.
+Fit $`y_i=a+bt_i+r_i`$ at $`t=(-1,0,1)`$ to
+
+```math
+y=\begin{pmatrix}2\\[0pt] -1\\[0pt] 2\end{pmatrix}
+```
+
+ by least squares. Find the residual and prove that the answer is unique.
 
 Solution. The design matrix and its Gram matrix are
 
 ```math
-X=\begin{pmatrix}1&-1\\1&0\\1&1\end{pmatrix},\qquad
-X^\top X=\begin{pmatrix}3&0\\0&2\end{pmatrix}.
+X=\begin{pmatrix}1&-1\\[0pt] 1&0\\[0pt] 1&1\end{pmatrix},\qquad
+X^\top X=\begin{pmatrix}3&0\\[0pt] 0&2\end{pmatrix}.
 ```
 
 Both diagonal entries are positive. The two columns are independent, and the quadratic loss has a positive-definite Hessian $`2X^\top X`$. The normal equations consequently have one solution:
@@ -2092,7 +2374,7 @@ Both diagonal entries are positive. The two columns are independent, and the qua
 Substitution gives $`a=1`$ and $`b=0`$. Evaluating the fitted line at each of the original design points gives
 
 ```math
-\hat y=\begin{pmatrix}1\\1\\1\end{pmatrix},\qquad r=y-\hat y=\begin{pmatrix}1\\-2\\1\end{pmatrix}.
+\hat y=\begin{pmatrix}1\\[0pt] 1\\[0pt] 1\end{pmatrix},\qquad r=y-\hat y=\begin{pmatrix}1\\[0pt] -2\\[0pt] 1\end{pmatrix}.
 ```
 
 The residuals sum to zero because the model contains an intercept. Their weighted sum using the design points is also zero: $`-r_0+r_2=0`$. These are the two entries of $`X^\top r=0`$. They are useful arithmetic checks after solving the normal equations.
@@ -2100,8 +2382,8 @@ The residuals sum to zero because the model contains an intercept. Their weighte
 There is a more informative expression for the entire residual. Define the second difference $`d=y_0-2y_1+y_2=6`$. Direct substitution into the fitted values gives
 
 ```math
-r=\frac d6\begin{pmatrix}1\\-2\\1\end{pmatrix},\qquad
-\mathop{\mathrm{SSE}}\nolimits=\frac{d^2}6=6.
+r=\frac d6\begin{pmatrix}1\\[0pt] -2\\[0pt] 1\end{pmatrix},\qquad
+\mathop{\mathrm{SSE}} =\frac{d^2}6=6.
 ```
 
 The residual direction is perpendicular to both design columns and spans the one-dimensional orthogonal complement of the fitted plane. Thus all the failure of a line to fit three observations is summarized by one number, $`d`$.
@@ -2110,13 +2392,19 @@ For any proposed change $`h`$ in the two coefficients, orthogonality gives $`\Ve
 
 #### Problem LA-80: three-observation regression, case 6
 
-Fit $`y_i=a+bt_i+r_i`$ at $`t=(-1,0,1)`$ to $`y=\begin{pmatrix}5\\0\\-3\end{pmatrix}`$ by least squares. Find the residual and prove that the answer is unique.
+Fit $`y_i=a+bt_i+r_i`$ at $`t=(-1,0,1)`$ to
+
+```math
+y=\begin{pmatrix}5\\[0pt] 0\\[0pt] -3\end{pmatrix}
+```
+
+ by least squares. Find the residual and prove that the answer is unique.
 
 Solution. The design matrix and its Gram matrix are
 
 ```math
-X=\begin{pmatrix}1&-1\\1&0\\1&1\end{pmatrix},\qquad
-X^\top X=\begin{pmatrix}3&0\\0&2\end{pmatrix}.
+X=\begin{pmatrix}1&-1\\[0pt] 1&0\\[0pt] 1&1\end{pmatrix},\qquad
+X^\top X=\begin{pmatrix}3&0\\[0pt] 0&2\end{pmatrix}.
 ```
 
 Both diagonal entries are positive. The two columns are independent, and the quadratic loss has a positive-definite Hessian $`2X^\top X`$. The normal equations consequently have one solution:
@@ -2128,7 +2416,7 @@ Both diagonal entries are positive. The two columns are independent, and the qua
 Substitution gives $`a=\frac{2}{3}`$ and $`b=-4`$. Evaluating the fitted line at each of the original design points gives
 
 ```math
-\hat y=\begin{pmatrix}\frac{14}{3}\\\frac{2}{3}\\-\frac{10}{3}\end{pmatrix},\qquad r=y-\hat y=\begin{pmatrix}\frac{1}{3}\\-\frac{2}{3}\\\frac{1}{3}\end{pmatrix}.
+\hat y=\begin{pmatrix}\frac{14}{3}\\[0pt] \frac{2}{3}\\[0pt] -\frac{10}{3}\end{pmatrix},\qquad r=y-\hat y=\begin{pmatrix}\frac{1}{3}\\[0pt] -\frac{2}{3}\\[0pt] \frac{1}{3}\end{pmatrix}.
 ```
 
 The residuals sum to zero because the model contains an intercept. Their weighted sum using the design points is also zero: $`-r_0+r_2=0`$. These are the two entries of $`X^\top r=0`$. They are useful arithmetic checks after solving the normal equations.
@@ -2136,8 +2424,8 @@ The residuals sum to zero because the model contains an intercept. Their weighte
 There is a more informative expression for the entire residual. Define the second difference $`d=y_0-2y_1+y_2=2`$. Direct substitution into the fitted values gives
 
 ```math
-r=\frac d6\begin{pmatrix}1\\-2\\1\end{pmatrix},\qquad
-\mathop{\mathrm{SSE}}\nolimits=\frac{d^2}6=\frac{2}{3}.
+r=\frac d6\begin{pmatrix}1\\[0pt] -2\\[0pt] 1\end{pmatrix},\qquad
+\mathop{\mathrm{SSE}} =\frac{d^2}6=\frac{2}{3}.
 ```
 
 The residual direction is perpendicular to both design columns and spans the one-dimensional orthogonal complement of the fitted plane. Thus all the failure of a line to fit three observations is summarized by one number, $`d`$.
@@ -2150,20 +2438,26 @@ For a symmetric matrix with equal diagonal entries, the directions $`(1,1)`$ and
 
 #### Problem LA-81: equal-diagonal quadratic form, case 1
 
-Diagonalize $`A=\begin{pmatrix}5&3\\3&5\end{pmatrix}`$. Classify its quadratic form and determine whether it could be a covariance matrix.
+Diagonalize
+
+```math
+A=\begin{pmatrix}5&3\\[0pt] 3&5\end{pmatrix}
+```
+
+. Classify its quadratic form and determine whether it could be a covariance matrix.
 
 Solution. Normalize the two natural directions:
 
 ```math
-q_+=\frac1{\sqrt2}\begin{pmatrix}1\\1\end{pmatrix},
+q_+=\frac1{\sqrt2}\begin{pmatrix}1\\[0pt] 1\end{pmatrix},
 \qquad
-q_-=\frac1{\sqrt2}\begin{pmatrix}1\\-1\end{pmatrix}.
+q_-=\frac1{\sqrt2}\begin{pmatrix}1\\[0pt] -1\end{pmatrix}.
 ```
 
 Their inner product is zero and each has norm one. Multiplication gives $`Aq_+=8q_+`$ and $`Aq_-=2q_-`$. Hence, with $`Q=(q_+,q_-)`$,
 
 ```math
-A=Q\begin{pmatrix}8&0\\0&2\end{pmatrix}Q^\top.
+A=Q\begin{pmatrix}8&0\\[0pt] 0&2\end{pmatrix}Q^\top.
 ```
 
 Every vector has a unique expansion $`x=u q_++w q_-`$, where $`u=(x_1+x_2)/\sqrt2`$ and $`w=(x_1-x_2)/\sqrt2`$. The quadratic form becomes
@@ -2174,7 +2468,13 @@ x^\top Ax=8u^2+(2)w^2.
 
 This expression proves that $`A`$ is positive definite. It also identifies the direction responsible for each part of the classification; checking only the two diagonal entries would miss this information.
 
-Both eigenvalues are positive, so the inverse exists and is $`\begin{pmatrix}\frac{5}{16}&-\frac{3}{16}\\-\frac{3}{16}&\frac{5}{16}\end{pmatrix}`$.
+Both eigenvalues are positive, so the inverse exists and is
+
+```math
+\begin{pmatrix}\frac{5}{16}&-\frac{3}{16}\\[0pt] -\frac{3}{16}&\frac{5}{16}\end{pmatrix}
+```
+
+.
 
 As independent checks, the trace is $`10=8+(2)`$ and the determinant is $`16=(8)(2)`$. For nonzero $`x`$, the Rayleigh quotient is a weighted average of the two eigenvalues:
 
@@ -2187,20 +2487,26 @@ It lies between $`2`$ and $`8`$, with equality at the corresponding eigenvector.
 
 #### Problem LA-82: equal-diagonal quadratic form, case 2
 
-Diagonalize $`A=\begin{pmatrix}2&2\\2&2\end{pmatrix}`$. Classify its quadratic form and determine whether it could be a covariance matrix.
+Diagonalize
+
+```math
+A=\begin{pmatrix}2&2\\[0pt] 2&2\end{pmatrix}
+```
+
+. Classify its quadratic form and determine whether it could be a covariance matrix.
 
 Solution. Normalize the two natural directions:
 
 ```math
-q_+=\frac1{\sqrt2}\begin{pmatrix}1\\1\end{pmatrix},
+q_+=\frac1{\sqrt2}\begin{pmatrix}1\\[0pt] 1\end{pmatrix},
 \qquad
-q_-=\frac1{\sqrt2}\begin{pmatrix}1\\-1\end{pmatrix}.
+q_-=\frac1{\sqrt2}\begin{pmatrix}1\\[0pt] -1\end{pmatrix}.
 ```
 
 Their inner product is zero and each has norm one. Multiplication gives $`Aq_+=4q_+`$ and $`Aq_-=0q_-`$. Hence, with $`Q=(q_+,q_-)`$,
 
 ```math
-A=Q\begin{pmatrix}4&0\\0&0\end{pmatrix}Q^\top.
+A=Q\begin{pmatrix}4&0\\[0pt] 0&0\end{pmatrix}Q^\top.
 ```
 
 Every vector has a unique expansion $`x=u q_++w q_-`$, where $`u=(x_1+x_2)/\sqrt2`$ and $`w=(x_1-x_2)/\sqrt2`$. The quadratic form becomes
@@ -2224,20 +2530,26 @@ It lies between $`0`$ and $`4`$, with equality at the corresponding eigenvector.
 
 #### Problem LA-83: equal-diagonal quadratic form, case 3
 
-Diagonalize $`A=\begin{pmatrix}2&3\\3&2\end{pmatrix}`$. Classify its quadratic form and determine whether it could be a covariance matrix.
+Diagonalize
+
+```math
+A=\begin{pmatrix}2&3\\[0pt] 3&2\end{pmatrix}
+```
+
+. Classify its quadratic form and determine whether it could be a covariance matrix.
 
 Solution. Normalize the two natural directions:
 
 ```math
-q_+=\frac1{\sqrt2}\begin{pmatrix}1\\1\end{pmatrix},
+q_+=\frac1{\sqrt2}\begin{pmatrix}1\\[0pt] 1\end{pmatrix},
 \qquad
-q_-=\frac1{\sqrt2}\begin{pmatrix}1\\-1\end{pmatrix}.
+q_-=\frac1{\sqrt2}\begin{pmatrix}1\\[0pt] -1\end{pmatrix}.
 ```
 
 Their inner product is zero and each has norm one. Multiplication gives $`Aq_+=5q_+`$ and $`Aq_-=-1q_-`$. Hence, with $`Q=(q_+,q_-)`$,
 
 ```math
-A=Q\begin{pmatrix}5&0\\0&-1\end{pmatrix}Q^\top.
+A=Q\begin{pmatrix}5&0\\[0pt] 0&-1\end{pmatrix}Q^\top.
 ```
 
 Every vector has a unique expansion $`x=u q_++w q_-`$, where $`u=(x_1+x_2)/\sqrt2`$ and $`w=(x_1-x_2)/\sqrt2`$. The quadratic form becomes
@@ -2261,20 +2573,26 @@ It lies between $`-1`$ and $`5`$, with equality at the corresponding eigenvector
 
 #### Problem LA-84: equal-diagonal quadratic form, case 4
 
-Diagonalize $`A=\begin{pmatrix}4&-3\\-3&4\end{pmatrix}`$. Classify its quadratic form and determine whether it could be a covariance matrix.
+Diagonalize
+
+```math
+A=\begin{pmatrix}4&-3\\[0pt] -3&4\end{pmatrix}
+```
+
+. Classify its quadratic form and determine whether it could be a covariance matrix.
 
 Solution. Normalize the two natural directions:
 
 ```math
-q_+=\frac1{\sqrt2}\begin{pmatrix}1\\1\end{pmatrix},
+q_+=\frac1{\sqrt2}\begin{pmatrix}1\\[0pt] 1\end{pmatrix},
 \qquad
-q_-=\frac1{\sqrt2}\begin{pmatrix}1\\-1\end{pmatrix}.
+q_-=\frac1{\sqrt2}\begin{pmatrix}1\\[0pt] -1\end{pmatrix}.
 ```
 
 Their inner product is zero and each has norm one. Multiplication gives $`Aq_+=1q_+`$ and $`Aq_-=7q_-`$. Hence, with $`Q=(q_+,q_-)`$,
 
 ```math
-A=Q\begin{pmatrix}1&0\\0&7\end{pmatrix}Q^\top.
+A=Q\begin{pmatrix}1&0\\[0pt] 0&7\end{pmatrix}Q^\top.
 ```
 
 Every vector has a unique expansion $`x=u q_++w q_-`$, where $`u=(x_1+x_2)/\sqrt2`$ and $`w=(x_1-x_2)/\sqrt2`$. The quadratic form becomes
@@ -2285,7 +2603,13 @@ x^\top Ax=1u^2+(7)w^2.
 
 This expression proves that $`A`$ is positive definite. It also identifies the direction responsible for each part of the classification; checking only the two diagonal entries would miss this information.
 
-Both eigenvalues are positive, so the inverse exists and is $`\begin{pmatrix}\frac{4}{7}&\frac{3}{7}\\\frac{3}{7}&\frac{4}{7}\end{pmatrix}`$.
+Both eigenvalues are positive, so the inverse exists and is
+
+```math
+\begin{pmatrix}\frac{4}{7}&\frac{3}{7}\\[0pt] \frac{3}{7}&\frac{4}{7}\end{pmatrix}
+```
+
+.
 
 As independent checks, the trace is $`8=1+(7)`$ and the determinant is $`7=(1)(7)`$. For nonzero $`x`$, the Rayleigh quotient is a weighted average of the two eigenvalues:
 
@@ -2298,20 +2622,26 @@ It lies between $`1`$ and $`7`$, with equality at the corresponding eigenvector.
 
 #### Problem LA-85: equal-diagonal quadratic form, case 5
 
-Diagonalize $`A=\begin{pmatrix}3&0\\0&3\end{pmatrix}`$. Classify its quadratic form and determine whether it could be a covariance matrix.
+Diagonalize
+
+```math
+A=\begin{pmatrix}3&0\\[0pt] 0&3\end{pmatrix}
+```
+
+. Classify its quadratic form and determine whether it could be a covariance matrix.
 
 Solution. Normalize the two natural directions:
 
 ```math
-q_+=\frac1{\sqrt2}\begin{pmatrix}1\\1\end{pmatrix},
+q_+=\frac1{\sqrt2}\begin{pmatrix}1\\[0pt] 1\end{pmatrix},
 \qquad
-q_-=\frac1{\sqrt2}\begin{pmatrix}1\\-1\end{pmatrix}.
+q_-=\frac1{\sqrt2}\begin{pmatrix}1\\[0pt] -1\end{pmatrix}.
 ```
 
 Their inner product is zero and each has norm one. Multiplication gives $`Aq_+=3q_+`$ and $`Aq_-=3q_-`$. Hence, with $`Q=(q_+,q_-)`$,
 
 ```math
-A=Q\begin{pmatrix}3&0\\0&3\end{pmatrix}Q^\top.
+A=Q\begin{pmatrix}3&0\\[0pt] 0&3\end{pmatrix}Q^\top.
 ```
 
 Every vector has a unique expansion $`x=u q_++w q_-`$, where $`u=(x_1+x_2)/\sqrt2`$ and $`w=(x_1-x_2)/\sqrt2`$. The quadratic form becomes
@@ -2322,7 +2652,13 @@ x^\top Ax=3u^2+(3)w^2.
 
 This expression proves that $`A`$ is positive definite. It also identifies the direction responsible for each part of the classification; checking only the two diagonal entries would miss this information.
 
-Both eigenvalues are positive, so the inverse exists and is $`\begin{pmatrix}\frac{1}{3}&0\\0&\frac{1}{3}\end{pmatrix}`$.
+Both eigenvalues are positive, so the inverse exists and is
+
+```math
+\begin{pmatrix}\frac{1}{3}&0\\[0pt] 0&\frac{1}{3}\end{pmatrix}
+```
+
+.
 
 As independent checks, the trace is $`6=3+(3)`$ and the determinant is $`9=(3)(3)`$. For nonzero $`x`$, the Rayleigh quotient is a weighted average of the two eigenvalues:
 
@@ -2335,20 +2671,26 @@ It lies between $`3`$ and $`3`$, with equality at the corresponding eigenvector.
 
 #### Problem LA-86: equal-diagonal quadratic form, case 6
 
-Diagonalize $`A=\begin{pmatrix}1&-1\\-1&1\end{pmatrix}`$. Classify its quadratic form and determine whether it could be a covariance matrix.
+Diagonalize
+
+```math
+A=\begin{pmatrix}1&-1\\[0pt] -1&1\end{pmatrix}
+```
+
+. Classify its quadratic form and determine whether it could be a covariance matrix.
 
 Solution. Normalize the two natural directions:
 
 ```math
-q_+=\frac1{\sqrt2}\begin{pmatrix}1\\1\end{pmatrix},
+q_+=\frac1{\sqrt2}\begin{pmatrix}1\\[0pt] 1\end{pmatrix},
 \qquad
-q_-=\frac1{\sqrt2}\begin{pmatrix}1\\-1\end{pmatrix}.
+q_-=\frac1{\sqrt2}\begin{pmatrix}1\\[0pt] -1\end{pmatrix}.
 ```
 
 Their inner product is zero and each has norm one. Multiplication gives $`Aq_+=0q_+`$ and $`Aq_-=2q_-`$. Hence, with $`Q=(q_+,q_-)`$,
 
 ```math
-A=Q\begin{pmatrix}0&0\\0&2\end{pmatrix}Q^\top.
+A=Q\begin{pmatrix}0&0\\[0pt] 0&2\end{pmatrix}Q^\top.
 ```
 
 Every vector has a unique expansion $`x=u q_++w q_-`$, where $`u=(x_1+x_2)/\sqrt2`$ and $`w=(x_1-x_2)/\sqrt2`$. The quadratic form becomes
@@ -2376,13 +2718,37 @@ A rank-one matrix can produce only multiples of one vector. Fitting data first p
 
 #### Problem LA-87: rank-one pseudoinverse, case 1
 
-Let $`a=\begin{pmatrix}1\\2\end{pmatrix}`$, $`b=\begin{pmatrix}1\\1\end{pmatrix}`$, $`A=ab^\top`$, and $`y=\begin{pmatrix}3\\1\end{pmatrix}`$. Find every least-squares solution of $`Ax\approx y`$ and identify the one with smallest Euclidean norm.
-
-Solution. Since $`Ax=a(b^\top x)`$, the scalar $`b^\top x`$ determines the entire output. The column space of $`A=\begin{pmatrix}1&1\\2&2\end{pmatrix}`$ is the line spanned by $`a`$. Projecting $`y`$ onto this line gives
+Let
 
 ```math
-\hat y=a\frac{a^\top y}{a^\top a}=\begin{pmatrix}1\\2\end{pmatrix},\qquad
-r=y-\hat y=\begin{pmatrix}2\\-1\end{pmatrix}.
+a=\begin{pmatrix}1\\[0pt] 2\end{pmatrix}
+```
+
+,
+
+```math
+b=\begin{pmatrix}1\\[0pt] 1\end{pmatrix}
+```
+
+, $`A=ab^\top`$, and
+
+```math
+y=\begin{pmatrix}3\\[0pt] 1\end{pmatrix}
+```
+
+. Find every least-squares solution of $`Ax\approx y`$ and identify the one with smallest Euclidean norm.
+
+Solution. Since $`Ax=a(b^\top x)`$, the scalar $`b^\top x`$ determines the entire output. The column space of
+
+```math
+A=\begin{pmatrix}1&1\\[0pt] 2&2\end{pmatrix}
+```
+
+ is the line spanned by $`a`$. Projecting $`y`$ onto this line gives
+
+```math
+\hat y=a\frac{a^\top y}{a^\top a}=\begin{pmatrix}1\\[0pt] 2\end{pmatrix},\qquad
+r=y-\hat y=\begin{pmatrix}2\\[0pt] -1\end{pmatrix}.
 ```
 
 Here $`a^\top a=5`$, $`b^\top b=2`$, and $`a^\top y=5`$. The check $`a^\top r=0`$ proves that no other output on the line can reduce the squared residual. Every least-squares coefficient vector must therefore satisfy the single equation $`b^\top x=1`$.
@@ -2390,16 +2756,22 @@ Here $`a^\top a=5`$, $`b^\top b=2`$, and $`a^\top y=5`$. The check $`a^\top r=0`
 The vector parallel to $`b`$ satisfying that equation is
 
 ```math
-x_+=\frac{b\,a^\top y}{(a^\top a)(b^\top b)}=\begin{pmatrix}\frac{1}{2}\\\frac{1}{2}\end{pmatrix}.
+x_+=\frac{b\,a^\top y}{(a^\top a)(b^\top b)}=\begin{pmatrix}\frac{1}{2}\\[0pt] \frac{1}{2}\end{pmatrix}.
 ```
 
 Consequently the pseudoinverse is
 
 ```math
-A^+=\frac{ba^\top}{(a^\top a)(b^\top b)}=\begin{pmatrix}\frac{1}{10}&\frac{1}{5}\\\frac{1}{10}&\frac{1}{5}\end{pmatrix}.
+A^+=\frac{ba^\top}{(a^\top a)(b^\top b)}=\begin{pmatrix}\frac{1}{10}&\frac{1}{5}\\[0pt] \frac{1}{10}&\frac{1}{5}\end{pmatrix}.
 ```
 
-The null space consists of vectors perpendicular to $`b`$. In two dimensions it is spanned by $`z=\begin{pmatrix}-1\\1\end{pmatrix}`$. All least-squares solutions are thus $`x=x_++tz`$ for real $`t`$. They give exactly the same fitted vector because $`Az=0`$.
+The null space consists of vectors perpendicular to $`b`$. In two dimensions it is spanned by
+
+```math
+z=\begin{pmatrix}-1\\[0pt] 1\end{pmatrix}
+```
+
+. All least-squares solutions are thus $`x=x_++tz`$ for real $`t`$. They give exactly the same fitted vector because $`Az=0`$.
 
 The minimum-norm claim requires one further check. Since $`x_+`$ is parallel to $`b`$ while $`z`$ is perpendicular to $`b`$, their inner product is zero. Hence
 
@@ -2411,13 +2783,37 @@ The minimum occurs uniquely at $`t=0`$. This explains both parts of the pseudoin
 
 #### Problem LA-88: rank-one pseudoinverse, case 2
 
-Let $`a=\begin{pmatrix}2\\-1\end{pmatrix}`$, $`b=\begin{pmatrix}1\\-2\end{pmatrix}`$, $`A=ab^\top`$, and $`y=\begin{pmatrix}1\\4\end{pmatrix}`$. Find every least-squares solution of $`Ax\approx y`$ and identify the one with smallest Euclidean norm.
-
-Solution. Since $`Ax=a(b^\top x)`$, the scalar $`b^\top x`$ determines the entire output. The column space of $`A=\begin{pmatrix}2&-4\\-1&2\end{pmatrix}`$ is the line spanned by $`a`$. Projecting $`y`$ onto this line gives
+Let
 
 ```math
-\hat y=a\frac{a^\top y}{a^\top a}=\begin{pmatrix}-\frac{4}{5}\\\frac{2}{5}\end{pmatrix},\qquad
-r=y-\hat y=\begin{pmatrix}\frac{9}{5}\\\frac{18}{5}\end{pmatrix}.
+a=\begin{pmatrix}2\\[0pt] -1\end{pmatrix}
+```
+
+,
+
+```math
+b=\begin{pmatrix}1\\[0pt] -2\end{pmatrix}
+```
+
+, $`A=ab^\top`$, and
+
+```math
+y=\begin{pmatrix}1\\[0pt] 4\end{pmatrix}
+```
+
+. Find every least-squares solution of $`Ax\approx y`$ and identify the one with smallest Euclidean norm.
+
+Solution. Since $`Ax=a(b^\top x)`$, the scalar $`b^\top x`$ determines the entire output. The column space of
+
+```math
+A=\begin{pmatrix}2&-4\\[0pt] -1&2\end{pmatrix}
+```
+
+ is the line spanned by $`a`$. Projecting $`y`$ onto this line gives
+
+```math
+\hat y=a\frac{a^\top y}{a^\top a}=\begin{pmatrix}-\frac{4}{5}\\[0pt] \frac{2}{5}\end{pmatrix},\qquad
+r=y-\hat y=\begin{pmatrix}\frac{9}{5}\\[0pt] \frac{18}{5}\end{pmatrix}.
 ```
 
 Here $`a^\top a=5`$, $`b^\top b=5`$, and $`a^\top y=-2`$. The check $`a^\top r=0`$ proves that no other output on the line can reduce the squared residual. Every least-squares coefficient vector must therefore satisfy the single equation $`b^\top x=-\frac{2}{5}`$.
@@ -2425,16 +2821,22 @@ Here $`a^\top a=5`$, $`b^\top b=5`$, and $`a^\top y=-2`$. The check $`a^\top r=0
 The vector parallel to $`b`$ satisfying that equation is
 
 ```math
-x_+=\frac{b\,a^\top y}{(a^\top a)(b^\top b)}=\begin{pmatrix}-\frac{2}{25}\\\frac{4}{25}\end{pmatrix}.
+x_+=\frac{b\,a^\top y}{(a^\top a)(b^\top b)}=\begin{pmatrix}-\frac{2}{25}\\[0pt] \frac{4}{25}\end{pmatrix}.
 ```
 
 Consequently the pseudoinverse is
 
 ```math
-A^+=\frac{ba^\top}{(a^\top a)(b^\top b)}=\begin{pmatrix}\frac{2}{25}&-\frac{1}{25}\\-\frac{4}{25}&\frac{2}{25}\end{pmatrix}.
+A^+=\frac{ba^\top}{(a^\top a)(b^\top b)}=\begin{pmatrix}\frac{2}{25}&-\frac{1}{25}\\[0pt] -\frac{4}{25}&\frac{2}{25}\end{pmatrix}.
 ```
 
-The null space consists of vectors perpendicular to $`b`$. In two dimensions it is spanned by $`z=\begin{pmatrix}2\\1\end{pmatrix}`$. All least-squares solutions are thus $`x=x_++tz`$ for real $`t`$. They give exactly the same fitted vector because $`Az=0`$.
+The null space consists of vectors perpendicular to $`b`$. In two dimensions it is spanned by
+
+```math
+z=\begin{pmatrix}2\\[0pt] 1\end{pmatrix}
+```
+
+. All least-squares solutions are thus $`x=x_++tz`$ for real $`t`$. They give exactly the same fitted vector because $`Az=0`$.
 
 The minimum-norm claim requires one further check. Since $`x_+`$ is parallel to $`b`$ while $`z`$ is perpendicular to $`b`$, their inner product is zero. Hence
 
@@ -2446,13 +2848,37 @@ The minimum occurs uniquely at $`t=0`$. This explains both parts of the pseudoin
 
 #### Problem LA-89: rank-one pseudoinverse, case 3
 
-Let $`a=\begin{pmatrix}1\\3\end{pmatrix}`$, $`b=\begin{pmatrix}2\\1\end{pmatrix}`$, $`A=ab^\top`$, and $`y=\begin{pmatrix}-1\\2\end{pmatrix}`$. Find every least-squares solution of $`Ax\approx y`$ and identify the one with smallest Euclidean norm.
-
-Solution. Since $`Ax=a(b^\top x)`$, the scalar $`b^\top x`$ determines the entire output. The column space of $`A=\begin{pmatrix}2&1\\6&3\end{pmatrix}`$ is the line spanned by $`a`$. Projecting $`y`$ onto this line gives
+Let
 
 ```math
-\hat y=a\frac{a^\top y}{a^\top a}=\begin{pmatrix}\frac{1}{2}\\\frac{3}{2}\end{pmatrix},\qquad
-r=y-\hat y=\begin{pmatrix}-\frac{3}{2}\\\frac{1}{2}\end{pmatrix}.
+a=\begin{pmatrix}1\\[0pt] 3\end{pmatrix}
+```
+
+,
+
+```math
+b=\begin{pmatrix}2\\[0pt] 1\end{pmatrix}
+```
+
+, $`A=ab^\top`$, and
+
+```math
+y=\begin{pmatrix}-1\\[0pt] 2\end{pmatrix}
+```
+
+. Find every least-squares solution of $`Ax\approx y`$ and identify the one with smallest Euclidean norm.
+
+Solution. Since $`Ax=a(b^\top x)`$, the scalar $`b^\top x`$ determines the entire output. The column space of
+
+```math
+A=\begin{pmatrix}2&1\\[0pt] 6&3\end{pmatrix}
+```
+
+ is the line spanned by $`a`$. Projecting $`y`$ onto this line gives
+
+```math
+\hat y=a\frac{a^\top y}{a^\top a}=\begin{pmatrix}\frac{1}{2}\\[0pt] \frac{3}{2}\end{pmatrix},\qquad
+r=y-\hat y=\begin{pmatrix}-\frac{3}{2}\\[0pt] \frac{1}{2}\end{pmatrix}.
 ```
 
 Here $`a^\top a=10`$, $`b^\top b=5`$, and $`a^\top y=5`$. The check $`a^\top r=0`$ proves that no other output on the line can reduce the squared residual. Every least-squares coefficient vector must therefore satisfy the single equation $`b^\top x=\frac{1}{2}`$.
@@ -2460,16 +2886,22 @@ Here $`a^\top a=10`$, $`b^\top b=5`$, and $`a^\top y=5`$. The check $`a^\top r=0
 The vector parallel to $`b`$ satisfying that equation is
 
 ```math
-x_+=\frac{b\,a^\top y}{(a^\top a)(b^\top b)}=\begin{pmatrix}\frac{1}{5}\\\frac{1}{10}\end{pmatrix}.
+x_+=\frac{b\,a^\top y}{(a^\top a)(b^\top b)}=\begin{pmatrix}\frac{1}{5}\\[0pt] \frac{1}{10}\end{pmatrix}.
 ```
 
 Consequently the pseudoinverse is
 
 ```math
-A^+=\frac{ba^\top}{(a^\top a)(b^\top b)}=\begin{pmatrix}\frac{1}{25}&\frac{3}{25}\\\frac{1}{50}&\frac{3}{50}\end{pmatrix}.
+A^+=\frac{ba^\top}{(a^\top a)(b^\top b)}=\begin{pmatrix}\frac{1}{25}&\frac{3}{25}\\[0pt] \frac{1}{50}&\frac{3}{50}\end{pmatrix}.
 ```
 
-The null space consists of vectors perpendicular to $`b`$. In two dimensions it is spanned by $`z=\begin{pmatrix}-1\\2\end{pmatrix}`$. All least-squares solutions are thus $`x=x_++tz`$ for real $`t`$. They give exactly the same fitted vector because $`Az=0`$.
+The null space consists of vectors perpendicular to $`b`$. In two dimensions it is spanned by
+
+```math
+z=\begin{pmatrix}-1\\[0pt] 2\end{pmatrix}
+```
+
+. All least-squares solutions are thus $`x=x_++tz`$ for real $`t`$. They give exactly the same fitted vector because $`Az=0`$.
 
 The minimum-norm claim requires one further check. Since $`x_+`$ is parallel to $`b`$ while $`z`$ is perpendicular to $`b`$, their inner product is zero. Hence
 
@@ -2481,13 +2913,37 @@ The minimum occurs uniquely at $`t=0`$. This explains both parts of the pseudoin
 
 #### Problem LA-90: rank-one pseudoinverse, case 4
 
-Let $`a=\begin{pmatrix}3\\1\end{pmatrix}`$, $`b=\begin{pmatrix}1\\-1\end{pmatrix}`$, $`A=ab^\top`$, and $`y=\begin{pmatrix}2\\5\end{pmatrix}`$. Find every least-squares solution of $`Ax\approx y`$ and identify the one with smallest Euclidean norm.
-
-Solution. Since $`Ax=a(b^\top x)`$, the scalar $`b^\top x`$ determines the entire output. The column space of $`A=\begin{pmatrix}3&-3\\1&-1\end{pmatrix}`$ is the line spanned by $`a`$. Projecting $`y`$ onto this line gives
+Let
 
 ```math
-\hat y=a\frac{a^\top y}{a^\top a}=\begin{pmatrix}\frac{33}{10}\\\frac{11}{10}\end{pmatrix},\qquad
-r=y-\hat y=\begin{pmatrix}-\frac{13}{10}\\\frac{39}{10}\end{pmatrix}.
+a=\begin{pmatrix}3\\[0pt] 1\end{pmatrix}
+```
+
+,
+
+```math
+b=\begin{pmatrix}1\\[0pt] -1\end{pmatrix}
+```
+
+, $`A=ab^\top`$, and
+
+```math
+y=\begin{pmatrix}2\\[0pt] 5\end{pmatrix}
+```
+
+. Find every least-squares solution of $`Ax\approx y`$ and identify the one with smallest Euclidean norm.
+
+Solution. Since $`Ax=a(b^\top x)`$, the scalar $`b^\top x`$ determines the entire output. The column space of
+
+```math
+A=\begin{pmatrix}3&-3\\[0pt] 1&-1\end{pmatrix}
+```
+
+ is the line spanned by $`a`$. Projecting $`y`$ onto this line gives
+
+```math
+\hat y=a\frac{a^\top y}{a^\top a}=\begin{pmatrix}\frac{33}{10}\\[0pt] \frac{11}{10}\end{pmatrix},\qquad
+r=y-\hat y=\begin{pmatrix}-\frac{13}{10}\\[0pt] \frac{39}{10}\end{pmatrix}.
 ```
 
 Here $`a^\top a=10`$, $`b^\top b=2`$, and $`a^\top y=11`$. The check $`a^\top r=0`$ proves that no other output on the line can reduce the squared residual. Every least-squares coefficient vector must therefore satisfy the single equation $`b^\top x=\frac{11}{10}`$.
@@ -2495,16 +2951,22 @@ Here $`a^\top a=10`$, $`b^\top b=2`$, and $`a^\top y=11`$. The check $`a^\top r=
 The vector parallel to $`b`$ satisfying that equation is
 
 ```math
-x_+=\frac{b\,a^\top y}{(a^\top a)(b^\top b)}=\begin{pmatrix}\frac{11}{20}\\-\frac{11}{20}\end{pmatrix}.
+x_+=\frac{b\,a^\top y}{(a^\top a)(b^\top b)}=\begin{pmatrix}\frac{11}{20}\\[0pt] -\frac{11}{20}\end{pmatrix}.
 ```
 
 Consequently the pseudoinverse is
 
 ```math
-A^+=\frac{ba^\top}{(a^\top a)(b^\top b)}=\begin{pmatrix}\frac{3}{20}&\frac{1}{20}\\-\frac{3}{20}&-\frac{1}{20}\end{pmatrix}.
+A^+=\frac{ba^\top}{(a^\top a)(b^\top b)}=\begin{pmatrix}\frac{3}{20}&\frac{1}{20}\\[0pt] -\frac{3}{20}&-\frac{1}{20}\end{pmatrix}.
 ```
 
-The null space consists of vectors perpendicular to $`b`$. In two dimensions it is spanned by $`z=\begin{pmatrix}1\\1\end{pmatrix}`$. All least-squares solutions are thus $`x=x_++tz`$ for real $`t`$. They give exactly the same fitted vector because $`Az=0`$.
+The null space consists of vectors perpendicular to $`b`$. In two dimensions it is spanned by
+
+```math
+z=\begin{pmatrix}1\\[0pt] 1\end{pmatrix}
+```
+
+. All least-squares solutions are thus $`x=x_++tz`$ for real $`t`$. They give exactly the same fitted vector because $`Az=0`$.
 
 The minimum-norm claim requires one further check. Since $`x_+`$ is parallel to $`b`$ while $`z`$ is perpendicular to $`b`$, their inner product is zero. Hence
 
@@ -2516,13 +2978,37 @@ The minimum occurs uniquely at $`t=0`$. This explains both parts of the pseudoin
 
 #### Problem LA-91: rank-one pseudoinverse, case 5
 
-Let $`a=\begin{pmatrix}1\\-1\end{pmatrix}`$, $`b=\begin{pmatrix}3\\2\end{pmatrix}`$, $`A=ab^\top`$, and $`y=\begin{pmatrix}4\\1\end{pmatrix}`$. Find every least-squares solution of $`Ax\approx y`$ and identify the one with smallest Euclidean norm.
-
-Solution. Since $`Ax=a(b^\top x)`$, the scalar $`b^\top x`$ determines the entire output. The column space of $`A=\begin{pmatrix}3&2\\-3&-2\end{pmatrix}`$ is the line spanned by $`a`$. Projecting $`y`$ onto this line gives
+Let
 
 ```math
-\hat y=a\frac{a^\top y}{a^\top a}=\begin{pmatrix}\frac{3}{2}\\-\frac{3}{2}\end{pmatrix},\qquad
-r=y-\hat y=\begin{pmatrix}\frac{5}{2}\\\frac{5}{2}\end{pmatrix}.
+a=\begin{pmatrix}1\\[0pt] -1\end{pmatrix}
+```
+
+,
+
+```math
+b=\begin{pmatrix}3\\[0pt] 2\end{pmatrix}
+```
+
+, $`A=ab^\top`$, and
+
+```math
+y=\begin{pmatrix}4\\[0pt] 1\end{pmatrix}
+```
+
+. Find every least-squares solution of $`Ax\approx y`$ and identify the one with smallest Euclidean norm.
+
+Solution. Since $`Ax=a(b^\top x)`$, the scalar $`b^\top x`$ determines the entire output. The column space of
+
+```math
+A=\begin{pmatrix}3&2\\[0pt] -3&-2\end{pmatrix}
+```
+
+ is the line spanned by $`a`$. Projecting $`y`$ onto this line gives
+
+```math
+\hat y=a\frac{a^\top y}{a^\top a}=\begin{pmatrix}\frac{3}{2}\\[0pt] -\frac{3}{2}\end{pmatrix},\qquad
+r=y-\hat y=\begin{pmatrix}\frac{5}{2}\\[0pt] \frac{5}{2}\end{pmatrix}.
 ```
 
 Here $`a^\top a=2`$, $`b^\top b=13`$, and $`a^\top y=3`$. The check $`a^\top r=0`$ proves that no other output on the line can reduce the squared residual. Every least-squares coefficient vector must therefore satisfy the single equation $`b^\top x=\frac{3}{2}`$.
@@ -2530,16 +3016,22 @@ Here $`a^\top a=2`$, $`b^\top b=13`$, and $`a^\top y=3`$. The check $`a^\top r=0
 The vector parallel to $`b`$ satisfying that equation is
 
 ```math
-x_+=\frac{b\,a^\top y}{(a^\top a)(b^\top b)}=\begin{pmatrix}\frac{9}{26}\\\frac{3}{13}\end{pmatrix}.
+x_+=\frac{b\,a^\top y}{(a^\top a)(b^\top b)}=\begin{pmatrix}\frac{9}{26}\\[0pt] \frac{3}{13}\end{pmatrix}.
 ```
 
 Consequently the pseudoinverse is
 
 ```math
-A^+=\frac{ba^\top}{(a^\top a)(b^\top b)}=\begin{pmatrix}\frac{3}{26}&-\frac{3}{26}\\\frac{1}{13}&-\frac{1}{13}\end{pmatrix}.
+A^+=\frac{ba^\top}{(a^\top a)(b^\top b)}=\begin{pmatrix}\frac{3}{26}&-\frac{3}{26}\\[0pt] \frac{1}{13}&-\frac{1}{13}\end{pmatrix}.
 ```
 
-The null space consists of vectors perpendicular to $`b`$. In two dimensions it is spanned by $`z=\begin{pmatrix}-2\\3\end{pmatrix}`$. All least-squares solutions are thus $`x=x_++tz`$ for real $`t`$. They give exactly the same fitted vector because $`Az=0`$.
+The null space consists of vectors perpendicular to $`b`$. In two dimensions it is spanned by
+
+```math
+z=\begin{pmatrix}-2\\[0pt] 3\end{pmatrix}
+```
+
+. All least-squares solutions are thus $`x=x_++tz`$ for real $`t`$. They give exactly the same fitted vector because $`Az=0`$.
 
 The minimum-norm claim requires one further check. Since $`x_+`$ is parallel to $`b`$ while $`z`$ is perpendicular to $`b`$, their inner product is zero. Hence
 
@@ -2551,13 +3043,37 @@ The minimum occurs uniquely at $`t=0`$. This explains both parts of the pseudoin
 
 #### Problem LA-92: rank-one pseudoinverse, case 6
 
-Let $`a=\begin{pmatrix}2\\3\end{pmatrix}`$, $`b=\begin{pmatrix}2\\-3\end{pmatrix}`$, $`A=ab^\top`$, and $`y=\begin{pmatrix}1\\-2\end{pmatrix}`$. Find every least-squares solution of $`Ax\approx y`$ and identify the one with smallest Euclidean norm.
-
-Solution. Since $`Ax=a(b^\top x)`$, the scalar $`b^\top x`$ determines the entire output. The column space of $`A=\begin{pmatrix}4&-6\\6&-9\end{pmatrix}`$ is the line spanned by $`a`$. Projecting $`y`$ onto this line gives
+Let
 
 ```math
-\hat y=a\frac{a^\top y}{a^\top a}=\begin{pmatrix}-\frac{8}{13}\\-\frac{12}{13}\end{pmatrix},\qquad
-r=y-\hat y=\begin{pmatrix}\frac{21}{13}\\-\frac{14}{13}\end{pmatrix}.
+a=\begin{pmatrix}2\\[0pt] 3\end{pmatrix}
+```
+
+,
+
+```math
+b=\begin{pmatrix}2\\[0pt] -3\end{pmatrix}
+```
+
+, $`A=ab^\top`$, and
+
+```math
+y=\begin{pmatrix}1\\[0pt] -2\end{pmatrix}
+```
+
+. Find every least-squares solution of $`Ax\approx y`$ and identify the one with smallest Euclidean norm.
+
+Solution. Since $`Ax=a(b^\top x)`$, the scalar $`b^\top x`$ determines the entire output. The column space of
+
+```math
+A=\begin{pmatrix}4&-6\\[0pt] 6&-9\end{pmatrix}
+```
+
+ is the line spanned by $`a`$. Projecting $`y`$ onto this line gives
+
+```math
+\hat y=a\frac{a^\top y}{a^\top a}=\begin{pmatrix}-\frac{8}{13}\\[0pt] -\frac{12}{13}\end{pmatrix},\qquad
+r=y-\hat y=\begin{pmatrix}\frac{21}{13}\\[0pt] -\frac{14}{13}\end{pmatrix}.
 ```
 
 Here $`a^\top a=13`$, $`b^\top b=13`$, and $`a^\top y=-4`$. The check $`a^\top r=0`$ proves that no other output on the line can reduce the squared residual. Every least-squares coefficient vector must therefore satisfy the single equation $`b^\top x=-\frac{4}{13}`$.
@@ -2565,16 +3081,22 @@ Here $`a^\top a=13`$, $`b^\top b=13`$, and $`a^\top y=-4`$. The check $`a^\top r
 The vector parallel to $`b`$ satisfying that equation is
 
 ```math
-x_+=\frac{b\,a^\top y}{(a^\top a)(b^\top b)}=\begin{pmatrix}-\frac{8}{169}\\\frac{12}{169}\end{pmatrix}.
+x_+=\frac{b\,a^\top y}{(a^\top a)(b^\top b)}=\begin{pmatrix}-\frac{8}{169}\\[0pt] \frac{12}{169}\end{pmatrix}.
 ```
 
 Consequently the pseudoinverse is
 
 ```math
-A^+=\frac{ba^\top}{(a^\top a)(b^\top b)}=\begin{pmatrix}\frac{4}{169}&\frac{6}{169}\\-\frac{6}{169}&-\frac{9}{169}\end{pmatrix}.
+A^+=\frac{ba^\top}{(a^\top a)(b^\top b)}=\begin{pmatrix}\frac{4}{169}&\frac{6}{169}\\[0pt] -\frac{6}{169}&-\frac{9}{169}\end{pmatrix}.
 ```
 
-The null space consists of vectors perpendicular to $`b`$. In two dimensions it is spanned by $`z=\begin{pmatrix}3\\2\end{pmatrix}`$. All least-squares solutions are thus $`x=x_++tz`$ for real $`t`$. They give exactly the same fitted vector because $`Az=0`$.
+The null space consists of vectors perpendicular to $`b`$. In two dimensions it is spanned by
+
+```math
+z=\begin{pmatrix}3\\[0pt] 2\end{pmatrix}
+```
+
+. All least-squares solutions are thus $`x=x_++tz`$ for real $`t`$. They give exactly the same fitted vector because $`Az=0`$.
 
 The minimum-norm claim requires one further check. Since $`x_+`$ is parallel to $`b`$ while $`z`$ is perpendicular to $`b`$, their inner product is zero. Hence
 
@@ -2598,7 +3120,7 @@ Solution. Eliminate the equality by writing $`x_2=1-x_1`$. The objective on the 
 g(x_1)=1x_1^2+(4)(1-x_1)^2.
 ```
 
-Its derivative is $`g'(x_1)=2(5)x_1-2(4)(1)`$ and its second derivative is $`2(5)>0`$. Therefore
+Its derivative is $`g'(x_1)=2(5)x_1-2(4)(1)`$ and its second derivative is $`2(5)\gt 0`$. Therefore
 
 ```math
 x_1^*=\frac{h_2s}{h_1+h_2}=\frac{4}{5},\qquad
@@ -2627,7 +3149,7 @@ Solution. Eliminate the equality by writing $`x_2=2-x_1`$. The objective on the 
 g(x_1)=2x_1^2+(3)(2-x_1)^2.
 ```
 
-Its derivative is $`g'(x_1)=2(5)x_1-2(3)(2)`$ and its second derivative is $`2(5)>0`$. Therefore
+Its derivative is $`g'(x_1)=2(5)x_1-2(3)(2)`$ and its second derivative is $`2(5)\gt 0`$. Therefore
 
 ```math
 x_1^*=\frac{h_2s}{h_1+h_2}=\frac{6}{5},\qquad
@@ -2656,7 +3178,7 @@ Solution. Eliminate the equality by writing $`x_2=1-x_1`$. The objective on the 
 g(x_1)=0x_1^2+(5)(1-x_1)^2.
 ```
 
-Its derivative is $`g'(x_1)=2(5)x_1-2(5)(1)`$ and its second derivative is $`2(5)>0`$. Therefore
+Its derivative is $`g'(x_1)=2(5)x_1-2(5)(1)`$ and its second derivative is $`2(5)\gt 0`$. Therefore
 
 ```math
 x_1^*=\frac{h_2s}{h_1+h_2}=1,\qquad
@@ -2685,7 +3207,7 @@ Solution. Eliminate the equality by writing $`x_2=1-x_1`$. The objective on the 
 g(x_1)=-1x_1^2+(3)(1-x_1)^2.
 ```
 
-Its derivative is $`g'(x_1)=2(2)x_1-2(3)(1)`$ and its second derivative is $`2(2)>0`$. Therefore
+Its derivative is $`g'(x_1)=2(2)x_1-2(3)(1)`$ and its second derivative is $`2(2)\gt 0`$. Therefore
 
 ```math
 x_1^*=\frac{h_2s}{h_1+h_2}=\frac{3}{2},\qquad
@@ -2714,7 +3236,7 @@ Solution. Eliminate the equality by writing $`x_2=-2-x_1`$. The objective on the
 g(x_1)=4x_1^2+(1)(-2-x_1)^2.
 ```
 
-Its derivative is $`g'(x_1)=2(5)x_1-2(1)(-2)`$ and its second derivative is $`2(5)>0`$. Therefore
+Its derivative is $`g'(x_1)=2(5)x_1-2(1)(-2)`$ and its second derivative is $`2(5)\gt 0`$. Therefore
 
 ```math
 x_1^*=\frac{h_2s}{h_1+h_2}=-\frac{2}{5},\qquad
@@ -2743,7 +3265,7 @@ Solution. Eliminate the equality by writing $`x_2=1-x_1`$. The objective on the 
 g(x_1)=3x_1^2+(3)(1-x_1)^2.
 ```
 
-Its derivative is $`g'(x_1)=2(6)x_1-2(3)(1)`$ and its second derivative is $`2(6)>0`$. Therefore
+Its derivative is $`g'(x_1)=2(6)x_1-2(3)(1)`$ and its second derivative is $`2(6)\gt 0`$. Therefore
 
 ```math
 x_1^*=\frac{h_2s}{h_1+h_2}=\frac{1}{2},\qquad
@@ -2768,13 +3290,13 @@ A residual measures how well a computed vector satisfies the supplied equations.
 
 #### Problem LA-99: weak-direction sensitivity, case 1
 
-Let $`A=\mathop{\mathrm{diag}}\nolimits(1,\frac{1}{10})`$ and $`b=(1,\frac{1}{10})^\top`$. Replace the second component of $`b`$ by $`\frac{11}{100}`$. Compute the old and new solutions, the original-system residual, and the condition number.
+Let $`A=\mathop{\mathrm{diag}} (1,\frac{1}{10})`$ and $`b=(1,\frac{1}{10})^\top`$. Replace the second component of $`b`$ by $`\frac{11}{100}`$. Compute the old and new solutions, the original-system residual, and the condition number.
 
 Solution. The original equations read $`x_1=1`$ and $`\frac{1}{10}x_2=\frac{1}{10}`$, so $`x=(1,1)^\top`$. Only the second right-hand-side component changes. Dividing that changed equation by the small diagonal entry gives
 
 ```math
-\tilde x=\begin{pmatrix}1\\\frac{11}{10}\end{pmatrix},\qquad
-\Delta x=\begin{pmatrix}0\\\frac{1}{10}\end{pmatrix}.
+\tilde x=\begin{pmatrix}1\\[0pt] \frac{11}{10}\end{pmatrix},\qquad
+\Delta x=\begin{pmatrix}0\\[0pt] \frac{1}{10}\end{pmatrix}.
 ```
 
 The input perturbation has norm $`\vert \delta\vert =\frac{1}{100}`$, while the solution perturbation has norm $`\vert \delta\vert /\varepsilon=\frac{1}{10}`$. Division by $`\varepsilon`$ is the source of the amplification.
@@ -2782,7 +3304,7 @@ The input perturbation has norm $`\vert \delta\vert =\frac{1}{100}`$, while the 
 Now evaluate the new solution in the original equations. With residual convention $`r=b-A\tilde x`$,
 
 ```math
-r=\begin{pmatrix}0\\-\frac{1}{100}\end{pmatrix},\qquad
+r=\begin{pmatrix}0\\[0pt] -\frac{1}{100}\end{pmatrix},\qquad
 \Vert r\Vert _2=\frac{1}{100}.
 ```
 
@@ -2799,13 +3321,13 @@ The general absolute bound $`\Vert \Delta x\Vert _2\le\Vert A^{-1}\Vert _2\Vert 
 
 #### Problem LA-100: weak-direction sensitivity, case 2
 
-Let $`A=\mathop{\mathrm{diag}}\nolimits(1,\frac{1}{100})`$ and $`b=(1,\frac{1}{100})^\top`$. Replace the second component of $`b`$ by $`\frac{11}{1000}`$. Compute the old and new solutions, the original-system residual, and the condition number.
+Let $`A=\mathop{\mathrm{diag}} (1,\frac{1}{100})`$ and $`b=(1,\frac{1}{100})^\top`$. Replace the second component of $`b`$ by $`\frac{11}{1000}`$. Compute the old and new solutions, the original-system residual, and the condition number.
 
 Solution. The original equations read $`x_1=1`$ and $`\frac{1}{100}x_2=\frac{1}{100}`$, so $`x=(1,1)^\top`$. Only the second right-hand-side component changes. Dividing that changed equation by the small diagonal entry gives
 
 ```math
-\tilde x=\begin{pmatrix}1\\\frac{11}{10}\end{pmatrix},\qquad
-\Delta x=\begin{pmatrix}0\\\frac{1}{10}\end{pmatrix}.
+\tilde x=\begin{pmatrix}1\\[0pt] \frac{11}{10}\end{pmatrix},\qquad
+\Delta x=\begin{pmatrix}0\\[0pt] \frac{1}{10}\end{pmatrix}.
 ```
 
 The input perturbation has norm $`\vert \delta\vert =\frac{1}{1000}`$, while the solution perturbation has norm $`\vert \delta\vert /\varepsilon=\frac{1}{10}`$. Division by $`\varepsilon`$ is the source of the amplification.
@@ -2813,7 +3335,7 @@ The input perturbation has norm $`\vert \delta\vert =\frac{1}{1000}`$, while the
 Now evaluate the new solution in the original equations. With residual convention $`r=b-A\tilde x`$,
 
 ```math
-r=\begin{pmatrix}0\\-\frac{1}{1000}\end{pmatrix},\qquad
+r=\begin{pmatrix}0\\[0pt] -\frac{1}{1000}\end{pmatrix},\qquad
 \Vert r\Vert _2=\frac{1}{1000}.
 ```
 
@@ -2830,13 +3352,13 @@ The general absolute bound $`\Vert \Delta x\Vert _2\le\Vert A^{-1}\Vert _2\Vert 
 
 #### Problem LA-101: weak-direction sensitivity, case 3
 
-Let $`A=\mathop{\mathrm{diag}}\nolimits(1,\frac{1}{1000})`$ and $`b=(1,\frac{1}{1000})^\top`$. Replace the second component of $`b`$ by $`\frac{1}{500}`$. Compute the old and new solutions, the original-system residual, and the condition number.
+Let $`A=\mathop{\mathrm{diag}} (1,\frac{1}{1000})`$ and $`b=(1,\frac{1}{1000})^\top`$. Replace the second component of $`b`$ by $`\frac{1}{500}`$. Compute the old and new solutions, the original-system residual, and the condition number.
 
 Solution. The original equations read $`x_1=1`$ and $`\frac{1}{1000}x_2=\frac{1}{1000}`$, so $`x=(1,1)^\top`$. Only the second right-hand-side component changes. Dividing that changed equation by the small diagonal entry gives
 
 ```math
-\tilde x=\begin{pmatrix}1\\2\end{pmatrix},\qquad
-\Delta x=\begin{pmatrix}0\\1\end{pmatrix}.
+\tilde x=\begin{pmatrix}1\\[0pt] 2\end{pmatrix},\qquad
+\Delta x=\begin{pmatrix}0\\[0pt] 1\end{pmatrix}.
 ```
 
 The input perturbation has norm $`\vert \delta\vert =\frac{1}{1000}`$, while the solution perturbation has norm $`\vert \delta\vert /\varepsilon=1`$. Division by $`\varepsilon`$ is the source of the amplification.
@@ -2844,7 +3366,7 @@ The input perturbation has norm $`\vert \delta\vert =\frac{1}{1000}`$, while the
 Now evaluate the new solution in the original equations. With residual convention $`r=b-A\tilde x`$,
 
 ```math
-r=\begin{pmatrix}0\\-\frac{1}{1000}\end{pmatrix},\qquad
+r=\begin{pmatrix}0\\[0pt] -\frac{1}{1000}\end{pmatrix},\qquad
 \Vert r\Vert _2=\frac{1}{1000}.
 ```
 
@@ -2861,13 +3383,13 @@ The general absolute bound $`\Vert \Delta x\Vert _2\le\Vert A^{-1}\Vert _2\Vert 
 
 #### Problem LA-102: weak-direction sensitivity, case 4
 
-Let $`A=\mathop{\mathrm{diag}}\nolimits(1,\frac{1}{10000})`$ and $`b=(1,\frac{1}{10000})^\top`$. Replace the second component of $`b`$ by $`\frac{101}{1000000}`$. Compute the old and new solutions, the original-system residual, and the condition number.
+Let $`A=\mathop{\mathrm{diag}} (1,\frac{1}{10000})`$ and $`b=(1,\frac{1}{10000})^\top`$. Replace the second component of $`b`$ by $`\frac{101}{1000000}`$. Compute the old and new solutions, the original-system residual, and the condition number.
 
 Solution. The original equations read $`x_1=1`$ and $`\frac{1}{10000}x_2=\frac{1}{10000}`$, so $`x=(1,1)^\top`$. Only the second right-hand-side component changes. Dividing that changed equation by the small diagonal entry gives
 
 ```math
-\tilde x=\begin{pmatrix}1\\\frac{101}{100}\end{pmatrix},\qquad
-\Delta x=\begin{pmatrix}0\\\frac{1}{100}\end{pmatrix}.
+\tilde x=\begin{pmatrix}1\\[0pt] \frac{101}{100}\end{pmatrix},\qquad
+\Delta x=\begin{pmatrix}0\\[0pt] \frac{1}{100}\end{pmatrix}.
 ```
 
 The input perturbation has norm $`\vert \delta\vert =\frac{1}{1000000}`$, while the solution perturbation has norm $`\vert \delta\vert /\varepsilon=\frac{1}{100}`$. Division by $`\varepsilon`$ is the source of the amplification.
@@ -2875,7 +3397,7 @@ The input perturbation has norm $`\vert \delta\vert =\frac{1}{1000000}`$, while 
 Now evaluate the new solution in the original equations. With residual convention $`r=b-A\tilde x`$,
 
 ```math
-r=\begin{pmatrix}0\\-\frac{1}{1000000}\end{pmatrix},\qquad
+r=\begin{pmatrix}0\\[0pt] -\frac{1}{1000000}\end{pmatrix},\qquad
 \Vert r\Vert _2=\frac{1}{1000000}.
 ```
 
@@ -2892,13 +3414,13 @@ The general absolute bound $`\Vert \Delta x\Vert _2\le\Vert A^{-1}\Vert _2\Vert 
 
 #### Problem LA-103: weak-direction sensitivity, case 5
 
-Let $`A=\mathop{\mathrm{diag}}\nolimits(1,\frac{1}{1000000})`$ and $`b=(1,\frac{1}{1000000})^\top`$. Replace the second component of $`b`$ by $`\frac{1}{500000}`$. Compute the old and new solutions, the original-system residual, and the condition number.
+Let $`A=\mathop{\mathrm{diag}} (1,\frac{1}{1000000})`$ and $`b=(1,\frac{1}{1000000})^\top`$. Replace the second component of $`b`$ by $`\frac{1}{500000}`$. Compute the old and new solutions, the original-system residual, and the condition number.
 
 Solution. The original equations read $`x_1=1`$ and $`\frac{1}{1000000}x_2=\frac{1}{1000000}`$, so $`x=(1,1)^\top`$. Only the second right-hand-side component changes. Dividing that changed equation by the small diagonal entry gives
 
 ```math
-\tilde x=\begin{pmatrix}1\\2\end{pmatrix},\qquad
-\Delta x=\begin{pmatrix}0\\1\end{pmatrix}.
+\tilde x=\begin{pmatrix}1\\[0pt] 2\end{pmatrix},\qquad
+\Delta x=\begin{pmatrix}0\\[0pt] 1\end{pmatrix}.
 ```
 
 The input perturbation has norm $`\vert \delta\vert =\frac{1}{1000000}`$, while the solution perturbation has norm $`\vert \delta\vert /\varepsilon=1`$. Division by $`\varepsilon`$ is the source of the amplification.
@@ -2906,7 +3428,7 @@ The input perturbation has norm $`\vert \delta\vert =\frac{1}{1000000}`$, while 
 Now evaluate the new solution in the original equations. With residual convention $`r=b-A\tilde x`$,
 
 ```math
-r=\begin{pmatrix}0\\-\frac{1}{1000000}\end{pmatrix},\qquad
+r=\begin{pmatrix}0\\[0pt] -\frac{1}{1000000}\end{pmatrix},\qquad
 \Vert r\Vert _2=\frac{1}{1000000}.
 ```
 
@@ -2923,13 +3445,13 @@ The general absolute bound $`\Vert \Delta x\Vert _2\le\Vert A^{-1}\Vert _2\Vert 
 
 #### Problem LA-104: weak-direction sensitivity, case 6
 
-Let $`A=\mathop{\mathrm{diag}}\nolimits(1,\frac{1}{1000000})`$ and $`b=(1,\frac{1}{1000000})^\top`$. Replace the second component of $`b`$ by $`-\frac{9}{1000000}`$. Compute the old and new solutions, the original-system residual, and the condition number.
+Let $`A=\mathop{\mathrm{diag}} (1,\frac{1}{1000000})`$ and $`b=(1,\frac{1}{1000000})^\top`$. Replace the second component of $`b`$ by $`-\frac{9}{1000000}`$. Compute the old and new solutions, the original-system residual, and the condition number.
 
 Solution. The original equations read $`x_1=1`$ and $`\frac{1}{1000000}x_2=\frac{1}{1000000}`$, so $`x=(1,1)^\top`$. Only the second right-hand-side component changes. Dividing that changed equation by the small diagonal entry gives
 
 ```math
-\tilde x=\begin{pmatrix}1\\-9\end{pmatrix},\qquad
-\Delta x=\begin{pmatrix}0\\-10\end{pmatrix}.
+\tilde x=\begin{pmatrix}1\\[0pt] -9\end{pmatrix},\qquad
+\Delta x=\begin{pmatrix}0\\[0pt] -10\end{pmatrix}.
 ```
 
 The input perturbation has norm $`\vert \delta\vert =\frac{1}{100000}`$, while the solution perturbation has norm $`\vert \delta\vert /\varepsilon=10`$. Division by $`\varepsilon`$ is the source of the amplification.
@@ -2937,7 +3459,7 @@ The input perturbation has norm $`\vert \delta\vert =\frac{1}{100000}`$, while t
 Now evaluate the new solution in the original equations. With residual convention $`r=b-A\tilde x`$,
 
 ```math
-r=\begin{pmatrix}0\\\frac{1}{100000}\end{pmatrix},\qquad
+r=\begin{pmatrix}0\\[0pt] \frac{1}{100000}\end{pmatrix},\qquad
 \Vert r\Vert _2=\frac{1}{100000}.
 ```
 

@@ -25,11 +25,11 @@ Contents:
 
 ### 1.1 Theory
 
-If $`x`$ is exact and $`\widehat x`$ is an approximation, absolute error is $`\vert \widehat x-x\vert `$ and relative error is that quantity divided by $`\vert x\vert `$, when $`x\ne0`$. A relative error at a zero answer is undefined; choose an absolute scale instead.
+If $`x`$ is exact and $`\widehat x`$ is an approximation, absolute error is $`\vert \widehat x-x\vert`$ and relative error is that quantity divided by $`\vert x\vert`$, when $`x\ne0`$. A relative error at a zero answer is undefined; choose an absolute scale instead.
 
 A floating-point number stores a sign, a finite significand, and an exponent. Binary64 has 53 binary digits of significand precision, including the leading bit for normal numbers. The spacing immediately above one is $`2^{-52}`$, often called machine epsilon. Unit roundoff for rounding to nearest is $`u=2^{-53}`$. Naming the convention avoids a factor-of-two ambiguity.
 
-For an ordinary operation whose exact result remains in the normal representable range, the usual model is $`\mathop{\mathrm{fl}}\nolimits(a\circ b)=(a\circ b)(1+\delta)`$ with $`\vert \delta\vert \le u`$. Overflow, underflow, subnormal results, division by zero, and invalid operations require separate treatment.
+For an ordinary operation whose exact result remains in the normal representable range, the usual model is $`\mathop{\mathrm{fl}} (a\circ b)=(a\circ b)(1+\delta)`$ with $`\vert \delta\vert \le u`$. Overflow, underflow, subnormal results, division by zero, and invalid operations require separate treatment.
 
 Truncation error comes from replacing an exact mathematical operation with a finite approximation, such as a finite Taylor sum or a difference quotient. Roundoff error comes from finite representation and arithmetic. Refining an approximation can decrease truncation error while increasing the influence of roundoff.
 
@@ -45,7 +45,7 @@ For differentiable $`f`$ and nonzero $`x,f(x)`$, a small relative input perturba
 \kappa_f(x)=\left\vert \frac{xf'(x)}{f(x)}\right\vert .
 ```
 
-The absolute condition number is $`\vert f'(x)\vert `$. A large relative number can arise because the output is close to zero even when the absolute sensitivity is moderate.
+The absolute condition number is $`\vert f'(x)\vert`$. A large relative number can arise because the output is close to zero even when the absolute sensitivity is moderate.
 
 #### Cancellation and reformulation
 
@@ -61,18 +61,18 @@ Subtraction itself may be exactly representable; the danger is amplification of 
 
 #### Unit roundoff and accumulated summation error
 
-In binary64 arithmetic with rounding to nearest, the gap from one to the next larger representable number is $`2^{-52}`$. The unit roundoff used in standard relative-error bounds is half that gap, $`u=2^{-53}`$. For an elementary operation whose exact result remains in the normal range, a common model is $`\mathop{\mathrm{fl}}\nolimits(a\circ b)=(a\circ b)(1+\delta)`$ with $`\vert \delta\vert \le u`$. Overflow, underflow, and exceptional inputs require separate treatment.
+In binary64 arithmetic with rounding to nearest, the gap from one to the next larger representable number is $`2^{-52}`$. The unit roundoff used in standard relative-error bounds is half that gap, $`u=2^{-53}`$. For an elementary operation whose exact result remains in the normal range, a common model is $`\mathop{\mathrm{fl}} (a\circ b)=(a\circ b)(1+\delta)`$ with $`\vert \delta\vert \le u`$. Overflow, underflow, and exceptional inputs require separate treatment.
 
-Repeated rounding errors do not simply add as signed relative errors. A useful product bound is $`\prod_{i=1}^n(1+\delta_i)=1+\theta_n`$ with $`\vert \theta_n\vert \le\gamma_n=nu/(1-nu)`$ when $`nu<1`$. Expanding the products or bounding them by a geometric series gives this estimate.
+Repeated rounding errors do not simply add as signed relative errors. A useful product bound is $`\prod_{i=1}^n(1+\delta_i)=1+\theta_n`$ with $`\vert \theta_n\vert \le\gamma_n=nu/(1-nu)`$ when $`nu\lt 1`$. Expanding the products or bounding them by a geometric series gives this estimate.
 
 Sequential summation then satisfies
 
 ```math
-\left\vert \mathop{\mathrm{fl}}\nolimits\left(\sum_{i=1}^n x_i\right)-\sum_{i=1}^n x_i\right\vert
+\left\vert \mathop{\mathrm{fl}} \left(\sum_{i=1}^n x_i\right)-\sum_{i=1}^n x_i\right\vert
 \le\gamma_{n-1}\sum_{i=1}^n\vert x_i\vert .
 ```
 
-The relative error bound divides by the magnitude of the exact sum. Its condition factor is $`\sum\vert x_i\vert /\vert \sum x_i\vert `$ when the sum is nonzero. Cancellation can make this factor large. If the exact sum is zero, relative error against that sum is undefined and an absolute scale must be used.
+The relative error bound divides by the magnitude of the exact sum. Its condition factor is $`\sum\vert x_i\vert /\vert \sum x_i\vert`$ when the sum is nonzero. Cancellation can make this factor large. If the exact sum is zero, relative error against that sum is undefined and an absolute scale must be used.
 
 Pairwise summation arranges additions in a balanced tree. Each input passes through only about $`\lceil\log_2n\rceil`$ rounding stages, producing a corresponding smaller depth-based bound. This changes the algorithmic error without changing the mathematical sum or its conditioning.
 
@@ -83,7 +83,7 @@ Solve $`x^2+10^8x+1=0`$ accurately.
 Solution. The direct formula computes one root as $`(-10^8+\sqrt{10^{16}-4})/2`$. Its numerator subtracts nearly equal numbers, and the small root can lose many digits. Instead set
 
 ```math
-q=-\frac12\left(b+\mathop{\mathrm{sign}}\nolimits(b)\sqrt{b^2-4ac}\right),
+q=-\frac12\left(b+\mathop{\mathrm{sign}} (b)\sqrt{b^2-4ac}\right),
 \qquad x_1=q/a,\qquad x_2=c/q.
 ```
 
@@ -99,7 +99,7 @@ In binary64 round-to-nearest, adding one to $`2^{53}`$ lies exactly between adja
 
 #### Example NM-E02: relative sensitivity near a zero
 
-For $`f(x)=\log x`$, $`\kappa_f(x)=1/\vert \log x\vert `$. At $`x`$ near one the output is near zero, making relative sensitivity large. The absolute condition number $`1/x`$ is near one. An absolute error can remain small while its fraction of a tiny exact logarithm is large.
+For $`f(x)=\log x`$, $`\kappa_f(x)=1/\vert \log x\vert`$. At $`x`$ near one the output is near zero, making relative sensitivity large. The absolute condition number $`1/x`$ is near one. An absolute error can remain small while its fraction of a tiny exact logarithm is large.
 
 ### 1.4 Selected exercises
 
@@ -109,7 +109,7 @@ Source: [FNC, Exercise 1.2.1(a–d)](https://fncbook.com/python/conditioning/).
 
 Problem. Find the relative condition numbers of a power, logarithm, cosine, and exponential, specifying where the relative definitions apply.
 
-Solution. Apply $`\vert xf'/f\vert `$ on domains where it is defined. For $`f=x^p`$ on $`x>0`$, it is $`\vert p\vert `$. For $`\log x`$, with $`x>0`$ and $`x\ne1`$, it is $`1/\vert \log x\vert `$. For $`\cos x`$ away from its zeros, it is $`\vert x\tan x\vert `$. For $`e^x`$ at nonzero input, it is $`\vert x\vert `$. At zero input the relative-input definition needs a limiting convention; the corresponding absolute condition numbers remain well-defined. These are local sensitivities, not finite-perturbation error guarantees of arbitrary size.
+Solution. Apply $`\vert xf'/f\vert`$ on domains where it is defined. For $`f=x^p`$ on $`x\gt 0`$, it is $`\vert p\vert`$. For $`\log x`$, with $`x\gt 0`$ and $`x\ne1`$, it is $`1/\vert \log x\vert`$. For $`\cos x`$ away from its zeros, it is $`\vert x\tan x\vert`$. For $`e^x`$ at nonzero input, it is $`\vert x\vert`$. At zero input the relative-input definition needs a limiting convention; the corresponding absolute condition numbers remain well-defined. These are local sensitivities, not finite-perturbation error guarantees of arbitrary size.
 
 #### Problem NM-02: composed functions
 
@@ -120,7 +120,7 @@ Problem. Find the relative condition numbers of $`\sqrt{x+5}`$, $`\cos(2\pi x)`$
 Solution. Direct differentiation gives, respectively,
 
 ```math
-\kappa_{\sqrt{x+5}}=\left\vert \frac{x}{2(x+5)}\right\vert ,\quad x>-5,
+\kappa_{\sqrt{x+5}}=\left\vert \frac{x}{2(x+5)}\right\vert ,\quad x\gt -5,
 ```
 
 ```math
@@ -160,13 +160,13 @@ Adding more terms reduces truncation error but cannot recover digits lost throug
 
 #### Problem NM-05: a stable quadratic root formula
 
-Constructed problem. For $`x^2-bx+1=0`$ with large $`b>2`$, compute the small root without subtracting nearly equal numbers.
+Constructed problem. For $`x^2-bx+1=0`$ with large $`b\gt 2`$, compute the small root without subtracting nearly equal numbers.
 
 Solution. The direct small root $`(b-\sqrt{b^2-4})/2`$ suffers cancellation. The large root is $`r_+=(b+\sqrt{b^2-4})/2`$, and the product of the roots is one, so $`r_-=1/r_+`$. The latter avoids the dangerous subtraction. Separate overflow protection may still be needed when forming $`b^2`$ for extremely large $`b`$; an algebraically improved formula is not automatically safe over the entire machine range.
 
 #### Problem NM-06: perturbing a repeated root
 
-Constructed problem. Compare roots of $`(x-1)^2=0`$ and $`(x-1)^2-\varepsilon=0`$ for $`\varepsilon>0`$.
+Constructed problem. Compare roots of $`(x-1)^2=0`$ and $`(x-1)^2-\varepsilon=0`$ for $`\varepsilon\gt 0`$.
 
 Solution. The perturbed roots are $`1\pm\sqrt\varepsilon`$. A coefficient perturbation of order $`\varepsilon`$ produces root changes of order $`\sqrt\varepsilon`$, whose ratio to $`\varepsilon`$ diverges. The repeated-root problem is ill-conditioned. A stable algorithm cannot remove this mathematical sensitivity.
 
@@ -196,7 +196,7 @@ The second term is fixed. The first becomes zero at the unique triangular-system
 
 #### Residual and forward error
 
-If $`A`$ is invertible, define $`r=b-A\widehat x`$. Then $`A(x-\widehat x)=r`$, so $`\Vert x-\widehat x\Vert \le\Vert A^{-1}\Vert \Vert r\Vert `$. Since $`\Vert b\Vert \le\Vert A\Vert \Vert x\Vert `$,
+If $`A`$ is invertible, define $`r=b-A\widehat x`$. Then $`A(x-\widehat x)=r`$, so $`\Vert x-\widehat x\Vert \le\Vert A^{-1}\Vert \Vert r\Vert`$. Since $`\Vert b\Vert \le\Vert A\Vert \Vert x\Vert`$,
 
 ```math
 \frac{\Vert x-\widehat x\Vert }{\Vert x\Vert }
@@ -214,8 +214,8 @@ A thin QR factorization $`A=QR`$ gives $`\Vert Ax-b\Vert ^2=\Vert Rx-Q^\top b\Ve
 Cholesky is appropriate for a supplied SPD matrix, but applying it to a rounded Gram matrix does not recover information already lost in forming that matrix. The Cholesky recurrence is
 
 ```math
-L_{jj}=\sqrt{a_{jj}-\sum_{k<j}L_{jk}^2},\qquad
-L_{ij}=\frac{a_{ij}-\sum_{k<j}L_{ik}L_{jk}}{L_{jj}}.
+L_{jj}=\sqrt{a_{jj}-\sum_{k\lt j}L_{jk}^2},\qquad
+L_{ij}=\frac{a_{ij}-\sum_{k\lt j}L_{ik}L_{jk}}{L_{jj}}.
 ```
 
 Positive Schur complements of an SPD matrix make the exact radicands positive. A computed nonpositive radicand can reflect loss of definiteness through rounding or a matrix that was never SPD.
@@ -225,8 +225,8 @@ Positive Schur complements of an SPD matrix make the exact radicands positive. A
 Take
 
 ```math
-A=\begin{pmatrix}1&1\\\epsilon&0\\0&\epsilon\end{pmatrix},
-\qquad b=\begin{pmatrix}0\\\epsilon\\-\epsilon\end{pmatrix},
+A=\begin{pmatrix}1&1\\[0pt] \epsilon&0\\[0pt] 0&\epsilon\end{pmatrix},
+\qquad b=\begin{pmatrix}0\\[0pt] \epsilon\\[0pt] -\epsilon\end{pmatrix},
 \qquad \epsilon=10^{-8}.
 ```
 
@@ -234,7 +234,7 @@ Solution. The exact solution is $`x=(1,-1)^\top`$. The columns are independent. 
 
 ```math
 A^\top A=
-\begin{pmatrix}1+\epsilon^2&1\\1&1+\epsilon^2\end{pmatrix},
+\begin{pmatrix}1+\epsilon^2&1\\[0pt] 1&1+\epsilon^2\end{pmatrix},
 ```
 
 with eigenvalues $`2+\epsilon^2`$ and $`\epsilon^2`$. Thus $`\kappa_2(A)\approx\sqrt2\,10^8`$, while the Gram condition number is about $`2\cdot10^{16}`$.
@@ -247,11 +247,29 @@ QR avoids this specific loss, though it cannot remove the original condition num
 
 #### Example NM-E03: Cholesky by hand
 
-For $`A=\left(\begin{smallmatrix}4&2\\2&3\end{smallmatrix}\right)`$, write $`L=\left(\begin{smallmatrix}l_{11}&0\\l_{21}&l_{22}\end{smallmatrix}\right)`$. Matching entries gives $`l_{11}=2`$, $`l_{21}=1`$, and $`l_{22}=\sqrt2`$. All roots are positive. To solve $`Ax=(6,5)^\top`$, forward substitution gives $`y=(3,\sqrt2)`$ and backward substitution gives $`x=(1,1)`$.
+For
+
+```math
+A=\left(\begin{smallmatrix}4&2\\[0pt] 2&3\end{smallmatrix}\right)
+```
+
+, write
+
+```math
+L=\left(\begin{smallmatrix}l_{11}&0\\[0pt] l_{21}&l_{22}\end{smallmatrix}\right)
+```
+
+. Matching entries gives $`l_{11}=2`$, $`l_{21}=1`$, and $`l_{22}=\sqrt2`$. All roots are positive. To solve $`Ax=(6,5)^\top`$, forward substitution gives $`y=(3,\sqrt2)`$ and backward substitution gives $`x=(1,1)`$.
 
 #### Example NM-E04: why pivoting is useful
 
-For $`A=\left(\begin{smallmatrix}\varepsilon&1\\1&1\end{smallmatrix}\right)`$ with small nonzero $`\varepsilon`$, unpivoted elimination uses multiplier $`1/\varepsilon`$, producing large intermediate entries. Swapping rows first uses multiplier $`\varepsilon`$, keeping them moderate. The original matrix remains well-conditioned as $`\varepsilon\to0`$; the large intermediates are a feature of the unpivoted algorithm.
+For
+
+```math
+A=\left(\begin{smallmatrix}\varepsilon&1\\[0pt] 1&1\end{smallmatrix}\right)
+```
+
+ with small nonzero $`\varepsilon`$, unpivoted elimination uses multiplier $`1/\varepsilon`$, producing large intermediate entries. Swapping rows first uses multiplier $`\varepsilon`$, keeping them moderate. The original matrix remains well-conditioned as $`\varepsilon\to0`$; the large intermediates are a feature of the unpivoted algorithm.
 
 ### 2.4 Selected exercises
 
@@ -283,7 +301,7 @@ Solution. For thin full-rank QR, every least-squares fit solves $`Rx=Q^\top b`$,
 
 Source: [FNC, Exercise 2.8.6(a–c)](https://fncbook.com/python/condition-number/).
 
-Problem. Let $`A_n=I-2N`$ where $`N`$ has ones on the first superdiagonal. Find its inverse and infinity-norm condition number for $`n>1`$.
+Problem. Let $`A_n=I-2N`$ where $`N`$ has ones on the first superdiagonal. Find its inverse and infinity-norm condition number for $`n\gt 1`$.
 
 Solution. Let $`A_n=I-2N`$, where $`N`$ has ones on its first superdiagonal and $`N^n=0`$. The finite geometric identity gives
 
@@ -291,7 +309,19 @@ Solution. Let $`A_n=I-2N`$, where $`N`$ has ones on its first superdiagonal and 
 A_n^{-1}=I+2N+4N^2+\cdots+2^{n-1}N^{n-1}.
 ```
 
-Thus $`(A_n^{-1})_{ij}=2^{j-i}`$ for $`j\ge i`$ and zero below. In particular $`A_2^{-1}=\left(\begin{smallmatrix}1&2\\0&1\end{smallmatrix}\right)`$ and $`A_3^{-1}=\left(\begin{smallmatrix}1&2&4\\0&1&2\\0&0&1\end{smallmatrix}\right)`$. The largest inverse row sum is $`2^n-1`$, while $`\Vert A_n\Vert _\infty=3`$ for $`n>1`$. Hence $`\kappa_\infty(A_n)=3(2^n-1)`$: a triangular matrix can be exponentially ill-conditioned.
+Thus $`(A_n^{-1})_{ij}=2^{j-i}`$ for $`j\ge i`$ and zero below. In particular
+
+```math
+A_2^{-1}=\left(\begin{smallmatrix}1&2\\[0pt] 0&1\end{smallmatrix}\right)
+```
+
+ and
+
+```math
+A_3^{-1}=\left(\begin{smallmatrix}1&2&4\\[0pt] 0&1&2\\[0pt] 0&0&1\end{smallmatrix}\right)
+```
+
+. The largest inverse row sum is $`2^n-1`$, while $`\Vert A_n\Vert _\infty=3`$ for $`n\gt 1`$. Hence $`\kappa_\infty(A_n)=3(2^n-1)`$: a triangular matrix can be exponentially ill-conditioned.
 
 ### 2.5 Additional solved problems
 
@@ -313,7 +343,7 @@ Solution. Compute $`r=b-A\widehat x`$, solve $`A\delta=r`$, and set $`\widehat x
 
 Bisection applies to a continuous real function with opposite signs at the endpoints. The intermediate value theorem guarantees a root. Halve the interval and retain a half with a sign change. It gives a reliable location bound without derivatives, although it does not exploit a particularly smooth root.
 
-Fixed-point iteration rewrites a root equation as $`x=g(x)`$ and iterates $`x_{k+1}=g(x_k)`$. A closed invariant interval and a uniform derivative bound $`\vert g'\vert \le q<1`$ give a contraction and convergence. A derivative bound without invariance or completeness is insufficient for a global existence claim.
+Fixed-point iteration rewrites a root equation as $`x=g(x)`$ and iterates $`x_{k+1}=g(x_k)`$. A closed invariant interval and a uniform derivative bound $`\vert g'\vert \le q\lt 1`$ give a contraction and convergence. A derivative bound without invariance or completeness is insufficient for a global existence claim.
 
 Newton uses the tangent line: $`x_{k+1}=x_k-f(x_k)/f'(x_k)`$. It is locally quadratic near a sufficiently smooth simple root, but a poor starting point, a small derivative, or a multiple root can change its behavior. Bracketing safeguards combine reliability with fast local steps.
 
@@ -331,7 +361,7 @@ This bound assumes exact sign decisions and arithmetic. In finite precision, an 
 
 #### Local Newton convergence
 
-Assume $`f(r)=0`$, $`\vert f'\vert \ge m>0`$, and $`\vert f''\vert \le M`$ in a neighborhood of $`r`$. Taylor expansion from $`x_k`$ to $`r`$ gives
+Assume $`f(r)=0`$, $`\vert f'\vert \ge m\gt 0`$, and $`\vert f''\vert \le M`$ in a neighborhood of $`r`$. Taylor expansion from $`x_k`$ to $`r`$ gives
 
 ```math
 0=f(x_k)+f'(x_k)(r-x_k)+\frac12f''(\xi_k)(r-x_k)^2.
@@ -347,7 +377,7 @@ Choose the initial error small enough that the bound remains inside the neighbor
 
 #### A local Newton theorem with a neighborhood check
 
-Let $`r`$ be a simple root, and suppose $`f`$ is twice continuously differentiable on a closed interval around it, with $`\vert f'(x)\vert \ge m>0`$ and $`\vert f''(x)\vert \le M`$. Taylor-expand $`f(r)`$ about the current iterate $`x`$:
+Let $`r`$ be a simple root, and suppose $`f`$ is twice continuously differentiable on a closed interval around it, with $`\vert f'(x)\vert \ge m\gt 0`$ and $`\vert f''(x)\vert \le M`$. Taylor-expand $`f(r)`$ about the current iterate $`x`$:
 
 ```math
 0=f(x)+f'(x)(r-x)+\frac12f''(\xi)(r-x)^2.
@@ -359,7 +389,7 @@ For the Newton update $`N(x)=x-f(x)/f'(x)`$, this gives
 \vert N(x)-r\vert \le\frac M{2m}\vert x-r\vert ^2.
 ```
 
-Choose a radius $`\delta`$ inside the regularity interval such that $`C\delta<1`$, where $`C=M/(2m)`$. If $`\vert x_0-r\vert \le\delta`$, the estimate keeps the next iterate in the same interval and reduces the error by at least factor $`C\delta`$. Induction proves convergence and the quadratic error estimate.
+Choose a radius $`\delta`$ inside the regularity interval such that $`C\delta\lt 1`$, where $`C=M/(2m)`$. If $`\vert x_0-r\vert \le\delta`$, the estimate keeps the next iterate in the same interval and reduces the error by at least factor $`C\delta`$. Induction proves convergence and the quadratic error estimate.
 
 The neighborhood check closes the proof: it prevents an estimate requiring local derivative bounds from being applied after an iterate has left their domain. A formula for the asymptotic error constant alone does not supply that invariance.
 
@@ -389,7 +419,7 @@ For $`f(x)=x^2-2`$, the update is $`x_{k+1}=(x_k+2/x_k)/2`$. Starting from $`3/2
 
 #### Example NM-E06: a bisection count
 
-For $`f(x)=x^3-2`$ on $`[1,2]`$, require midpoint error at most $`10^{-3}`$. The bound is $`2^{-(n+1)}`$. Since $`2^{-10}<10^{-3}`$, nine halvings suffice for this midpoint convention. Specifying whether $`n`$ counts midpoint evaluations or completed halvings avoids an indexing ambiguity.
+For $`f(x)=x^3-2`$ on $`[1,2]`$, require midpoint error at most $`10^{-3}`$. The bound is $`2^{-(n+1)}`$. Since $`2^{-10}\lt 10^{-3}`$, nine halvings suffice for this midpoint convention. Specifying whether $`n`$ counts midpoint evaluations or completed halvings avoids an indexing ambiguity.
 
 ### 3.4 Selected exercises
 
@@ -405,17 +435,17 @@ Solution. For $`g=1+x-x^2/9`$ at $`p=3`$, $`g(3)=3`$ and $`g'(3)=1/3`$. For $`g=
 
 Source: [FNC, Exercise 4.2.5](https://fncbook.com/python/fixed-point/).
 
-Problem. Examine whether the iteration $`x_{k+1}=a/x_k^{m-1}`$ locally computes the positive $`m`$th root of $`a>0`$ for integer $`m>1`$.
+Problem. Examine whether the iteration $`x_{k+1}=a/x_k^{m-1}`$ locally computes the positive $`m`$th root of $`a\gt 0`$ for integer $`m\gt 1`$.
 
-Solution. For $`g(x)=a/x^{m-1}`$ and positive root $`p=a^{1/m}`$, $`g'(p)=-(m-1)`$. For $`m>2`$ the fixed point is repelling, so nearby nonexact starts generally move away. At $`m=2`$ the derivative is $`-1`$, and the derivative test alone is inconclusive. But $`g(g(x))=x`$, producing a two-cycle unless $`x=p`$. Thus none of the integer values $`m>1`$ yields local convergence from all sufficiently close starts, apart from starting at the exact root itself.
+Solution. For $`g(x)=a/x^{m-1}`$ and positive root $`p=a^{1/m}`$, $`g'(p)=-(m-1)`$. For $`m\gt 2`$ the fixed point is repelling, so nearby nonexact starts generally move away. At $`m=2`$ the derivative is $`-1`$, and the derivative test alone is inconclusive. But $`g(g(x))=x`$, producing a two-cycle unless $`x=p`$. Thus none of the integer values $`m\gt 1`$ yields local convergence from all sufficiently close starts, apart from starting at the exact root itself.
 
 #### Problem NM-15: choosing a constant derivative scale
 
 Source: [FNC, Exercise 4.2.7](https://fncbook.com/python/fixed-point/).
 
-Problem. For $`g(x)=x-f(x)/c`$ near a simple root $`p`$ with $`f'(p)>0`$, determine the constant scales $`c`$ giving a local contraction.
+Problem. For $`g(x)=x-f(x)/c`$ near a simple root $`p`$ with $`f'(p)\gt 0`$, determine the constant scales $`c`$ giving a local contraction.
 
-Solution. For $`g(x)=x-f(x)/c`$, a root $`p`$ is a fixed point and $`g'(p)=1-f'(p)/c`$. With $`f'(p)>0`$, the condition $`\vert 1-f'(p)/c\vert <1`$ is equivalent to $`c>f'(p)/2`$. Derivative continuity then supplies a local contraction neighborhood. A negative $`c`$ fails this criterion. Choosing $`c=f'(p)`$ makes the derivative zero, but the true derivative at the unknown root is not usually available in advance.
+Solution. For $`g(x)=x-f(x)/c`$, a root $`p`$ is a fixed point and $`g'(p)=1-f'(p)/c`$. With $`f'(p)\gt 0`$, the condition $`\vert 1-f'(p)/c\vert \lt 1`$ is equivalent to $`c\gt f'(p)/2`$. Derivative continuity then supplies a local contraction neighborhood. A negative $`c`$ fails this criterion. Choosing $`c=f'(p)`$ makes the derivative zero, but the true derivative at the unknown root is not usually available in advance.
 
 #### Problem NM-16: division-free reciprocal Newton iteration
 
@@ -423,15 +453,15 @@ Source: [FNC, Exercise 4.3.5](https://fncbook.com/python/newton/).
 
 Problem. Derive a division-free Newton iteration for the reciprocal of $`b\ne0`$ and prove its error recursion and convergence condition.
 
-Solution. For $`f(x)=1/x-b`$, $`f'=-1/x^2`$. Newton simplifies to $`x_{k+1}=2x_k-bx_k^2=x_k(2-bx_k)`$, using only multiplication and subtraction. If $`e_k=1-bx_k`$, then $`e_{k+1}=e_k^2`$. Thus $`\vert e_0\vert <1`$ gives quadratic convergence to the reciprocal. The iteration formula can be evaluated without division, though a suitable initial scale is still required.
+Solution. For $`f(x)=1/x-b`$, $`f'=-1/x^2`$. Newton simplifies to $`x_{k+1}=2x_k-bx_k^2=x_k(2-bx_k)`$, using only multiplication and subtraction. If $`e_k=1-bx_k`$, then $`e_{k+1}=e_k^2`$. Thus $`\vert e_0\vert \lt 1`$ gives quadratic convergence to the reciprocal. The iteration formula can be evaluated without division, though a suitable initial scale is still required.
 
 #### Problem NM-17: Newton can cycle
 
 Source: [FNC, Exercise 4.3.6](https://fncbook.com/python/newton/).
 
-Problem. Analyze Newton's method for $`f(x)=\mathop{\mathrm{sign}}\nolimits(x)\sqrt{\vert x\vert }`$ from a nonzero starting value.
+Problem. Analyze Newton's method for $`f(x)=\mathop{\mathrm{sign}} (x)\sqrt{\vert x\vert }`$ from a nonzero starting value.
 
-Solution. For $`f(x)=\mathop{\mathrm{sign}}\nolimits(x)\sqrt{\vert x\vert }`$ and $`x\ne0`$, $`f'(x)=1/(2\sqrt{\vert x\vert })`$. Hence $`f/f'=2x`$ and Newton gives $`x_{k+1}=-x_k`$. Every nonzero start alternates forever between two points. The root is zero, where the function is not differentiable with a finite derivative. The smooth simple-root theorem does not apply.
+Solution. For $`f(x)=\mathop{\mathrm{sign}} (x)\sqrt{\vert x\vert }`$ and $`x\ne0`$, $`f'(x)=1/(2\sqrt{\vert x\vert })`$. Hence $`f/f'=2x`$ and Newton gives $`x_{k+1}=-x_k`$. Every nonzero start alternates forever between two points. The root is zero, where the function is not differentiable with a finite derivative. The smooth simple-root theorem does not apply.
 
 ### 3.5 Additional solved problems
 
@@ -454,7 +484,7 @@ f(x-\alpha\nabla f(x))
 \le f(x)-\alpha(1-\alpha L/2)\Vert \nabla f(x)\Vert ^2.
 ```
 
-Thus $`0<\alpha<2/L`$ ensures a strict decrease whenever the gradient is nonzero. For general nonconvex functions, decreasing values need not imply finding a global optimum.
+Thus $`0\lt \alpha\lt 2/L`$ ensures a strict decrease whenever the gradient is nonzero. For general nonconvex functions, decreasing values need not imply finding a global optimum.
 
 Projected gradient uses $`x_{k+1}=\Pi_C(x_k-\alpha\nabla f(x_k))`$ for a closed convex feasible set $`C`$. Its fixed-point condition is equivalent to $`\nabla f(x^*)^\top(y-x^*)\ge0`$ for every $`y\in C`$. This is the first-order optimality condition for a differentiable convex objective.
 
@@ -464,7 +494,7 @@ Projected gradient uses $`x_{k+1}=\Pi_C(x_k-\alpha\nabla f(x_k))`$ for a closed 
 
 For $`f(x)=\tfrac12x^\top Hx-b^\top x`$ with $`H`$ PD, let $`x^*=H^{-1}b`$. The error satisfies $`e_{k+1}=(I-\alpha H)e_k`$. In an orthonormal eigenbasis, each error coordinate is multiplied by $`1-\alpha\lambda_i`$.
 
-Convergence for all starts therefore holds exactly when $`\vert 1-\alpha\lambda_i\vert <1`$ for every eigenvalue, or $`0<\alpha<2/\lambda_{\max}`$. The optimal fixed step for the worst Euclidean contraction factor is $`\alpha^*=2/(\lambda_{\min}+\lambda_{\max})`$, giving factor $`(\kappa-1)/(\kappa+1)`$. Ill-conditioning slows descent because no single step can move equally efficiently in both steep and flat directions.
+Convergence for all starts therefore holds exactly when $`\vert 1-\alpha\lambda_i\vert \lt 1`$ for every eigenvalue, or $`0\lt \alpha\lt 2/\lambda_{\max}`$. The optimal fixed step for the worst Euclidean contraction factor is $`\alpha^*=2/(\lambda_{\min}+\lambda_{\max})`$, giving factor $`(\kappa-1)/(\kappa+1)`$. Ill-conditioning slows descent because no single step can move equally efficiently in both steep and flat directions.
 
 #### Projection characterization
 
@@ -485,7 +515,7 @@ f(x-\eta\nabla f(x))
 \le f(x)-\eta(1-L\eta/2)\Vert \nabla f(x)\Vert ^2.
 ```
 
-Thus every nonstationary step decreases the objective for $`0<\eta<2/L`$. With $`\eta=1/L`$, the decrease is at least $`\Vert \nabla f(x)\Vert ^2/(2L)`$.
+Thus every nonstationary step decreases the objective for $`0\lt \eta\lt 2/L`$. With $`\eta=1/L`$, the decrease is at least $`\Vert \nabla f(x)\Vert ^2/(2L)`$.
 
 If $`f`$ is also $`\mu`$-strongly convex, minimizing its quadratic lower bound gives $`f(x)-f^*\le\Vert \nabla f(x)\Vert ^2/(2\mu)`$. Combining yields $`f(x_{k+1})-f^*\le(1-\mu/L)(f(x_k)-f^*)`$. This is a global linear-rate bound under both assumptions.
 
@@ -504,7 +534,7 @@ Projected gradient therefore checks a constrained stationarity condition. The gr
 
 #### Example NM-E20: projecting onto a simplex
 
-Project $`z=(1.2,0.3,-0.2)`$ onto $`C=\{x:x_i\ge0,\ \sum_i x_i=1\}`$.
+Project $`z=(1.2,0.3,-0.2)`$ onto $`C=\lbrace x:x_i\ge0,\ \sum_i x_i=1\rbrace`$.
 
 Solution. The KKT conditions for minimizing $`\tfrac12\Vert x-z\Vert ^2`$ give $`x_i=\max(z_i-\tau,0)`$ with a scalar $`\tau`$ chosen to make the coordinates sum to one.
 
@@ -516,7 +546,7 @@ Simply clipping negative entries and renormalizing would give $`(0.8,0.2,0)`$, a
 
 #### Example NM-E07: one fast and one slow direction
 
-Let $`H=\mathop{\mathrm{diag}}\nolimits(1,9)`$ and choose $`\alpha=0.2`$. Error multipliers are $`0.8`$ and $`-0.8`$, so both coordinates converge at rate $`0.8`$, with the second alternating. At $`\alpha=0.25`$, the second multiplier is $`-1.25`$ and generic iterates diverge. The optimal constant step is $`2/(1+9)=0.2`$.
+Let $`H=\mathop{\mathrm{diag}} (1,9)`$ and choose $`\alpha=0.2`$. Error multipliers are $`0.8`$ and $`-0.8`$, so both coordinates converge at rate $`0.8`$, with the second alternating. At $`\alpha=0.25`$, the second multiplier is $`-1.25`$ and generic iterates diverge. The optimal constant step is $`2/(1+9)=0.2`$.
 
 #### Example NM-E08: projecting onto a half-line
 
@@ -538,7 +568,7 @@ Solution. The squared distance is the sum of three coordinate squared distances,
 
 #### Problem NM-21: a simplex projection
 
-Constructed problem. Project $`(2,1)`$ onto $`\{x_1,x_2\ge0:x_1+x_2=1\}`$.
+Constructed problem. Project $`(2,1)`$ onto $`\lbrace x_1,x_2\ge0:x_1+x_2=1\rbrace`$.
 
 Solution. Substitute $`x_2=1-x_1`$ with $`0\le x_1\le1`$. The distance objective is $`(x_1-2)^2+(-x_1)^2=2x_1^2-4x_1+4`$. Its unconstrained minimum is at one, which is feasible. The projection is $`(1,0)`$. This happens to be an endpoint; a general simplex projection finds a common threshold and clips, rather than clipping to a box and then normalizing arbitrarily.
 
@@ -592,13 +622,13 @@ For sufficient higher smoothness, the leading signed term is $`T_h-I=(h^2/12)[f'
 
 #### Monte Carlo variance and a control variate
 
-For $`I=E[f(U)]`$ and iid draws, $`\widehat I=N^{-1}\sum_if(U_i)`$ is unbiased with variance $`\mathop{\mathrm{Var}}\nolimits(f(U))/N`$. If $`g`$ has known mean $`\mu_g`$, use
+For $`I=E[f(U)]`$ and iid draws, $`\widehat I=N^{-1}\sum_if(U_i)`$ is unbiased with variance $`\mathop{\mathrm{Var}} (f(U))/N`$. If $`g`$ has known mean $`\mu_g`$, use
 
 ```math
 \widehat I_c=\frac1N\sum_i[f(U_i)-c(g(U_i)-\mu_g)].
 ```
 
-It remains unbiased for fixed $`c`$. Its per-draw variance is $`\mathop{\mathrm{Var}}\nolimits(f)-2c\mathop{\mathrm{Cov}}\nolimits(f,g)+c^2\mathop{\mathrm{Var}}\nolimits(g)`$. Minimize this quadratic to obtain $`c^*=\mathop{\mathrm{Cov}}\nolimits(f,g)/\mathop{\mathrm{Var}}\nolimits(g)`$ when the denominator is positive. The minimized variance is $`\mathop{\mathrm{Var}}\nolimits(f)(1-\rho_{fg}^2)`$. Estimating $`c`$ on the same sample requires an additional finite-sample analysis, though regular plug-in choices can retain first-order efficiency.
+It remains unbiased for fixed $`c`$. Its per-draw variance is $`\mathop{\mathrm{Var}} (f)-2c\mathop{\mathrm{Cov}} (f,g)+c^2\mathop{\mathrm{Var}} (g)`$. Minimize this quadratic to obtain $`c^*=\mathop{\mathrm{Cov}} (f,g)/\mathop{\mathrm{Var}} (g)`$ when the denominator is positive. The minimized variance is $`\mathop{\mathrm{Var}} (f)(1-\rho_{fg}^2)`$. Estimating $`c`$ on the same sample requires an additional finite-sample analysis, though regular plug-in choices can retain first-order efficiency.
 
 #### Quadrature error comes from interpolation error
 
@@ -638,7 +668,7 @@ For $`\int_0^1x^2dx=1/3`$, the composite trapezoid on $`n`$ equal cells satisfie
 
 #### Example NM-E11: controlling Monte Carlo variance
 
-For $`U\sim U(0,1)`$, take $`f(U)=U^2`$ and $`g(U)=U`$, whose mean is one half. The covariance is $`EU^3-EU^2EU=1/4-1/6=1/12`$, equal to $`\mathop{\mathrm{Var}}\nolimits(U)`$. Thus $`c^*=1`$. The raw per-draw variance is $`1/5-1/9=4/45`$, while the controlled variance is $`4/45-1/12=1/180`$, a factor-sixteen reduction.
+For $`U\sim U(0,1)`$, take $`f(U)=U^2`$ and $`g(U)=U`$, whose mean is one half. The covariance is $`EU^3-EU^2EU=1/4-1/6=1/12`$, equal to $`\mathop{\mathrm{Var}} (U)`$. Thus $`c^*=1`$. The raw per-draw variance is $`1/5-1/9=4/45`$, while the controlled variance is $`4/45-1/12=1/180`$, a factor-sixteen reduction.
 
 ### 5.4 Selected exercises
 
@@ -742,7 +772,7 @@ Solution. $`Y=U^2-U+1/2`$ has mean $`1/3`$ and variance $`1/180`$. Averaging $`N
 
 Constructed problem. For $`I=\int f(x)p(x)dx`$, derive an estimator using draws from density $`q`$.
 
-Solution. Where $`q>0`$ whenever $`f p\ne0`$, write $`I=E_q[f(X)p(X)/q(X)]`$. The iid sample average of these weights is unbiased when integrable. Its variance is $`N^{-1}[\int f(x)^2p(x)^2/q(x)dx-I^2]`$ when finite. A proposal with very small $`q`$ in an important region can produce enormous or infinite variance even if it visits that region occasionally.
+Solution. Where $`q\gt 0`$ whenever $`f p\ne0`$, write $`I=E_q[f(X)p(X)/q(X)]`$. The iid sample average of these weights is unbiased when integrable. Its variance is $`N^{-1}[\int f(x)^2p(x)^2/q(x)dx-I^2]`$ when finite. A proposal with very small $`q`$ in an important region can produce enormous or infinite variance even if it visits that region occasionally.
 
 #### Problem NM-31: quadrature with a nonsmooth endpoint
 
@@ -760,7 +790,7 @@ The local one-step defect compares an exact solution advanced one step with the 
 
 Runge-Kutta methods combine several derivative evaluations. The explicit midpoint and Heun methods are second-order; merely using two evaluations does not guarantee that order. Coefficients must satisfy the appropriate Taylor-matching conditions.
 
-Absolute stability concerns the numerical solution of $`y'=\lambda y`$ for $`\mathop{\mathrm{Re}}\nolimits\lambda<0`$. A method can be high-order on smooth solutions and still unstable for a step too large relative to rapidly decaying components. Stiffness makes explicit stability limits much smaller than the time scale on which the main solution changes.
+Absolute stability concerns the numerical solution of $`y'=\lambda y`$ for $`\mathop{\mathrm{Re}} \lambda\lt 0`$. A method can be high-order on smooth solutions and still unstable for a step too large relative to rapidly decaying components. Stiffness makes explicit stability limits much smaller than the time scale on which the main solution changes.
 
 ### 6.2 Derivations and proofs
 
@@ -779,13 +809,13 @@ With exact initial data, iterate the bound:
 \le\frac{Ch}{L}(e^{LT}-1),\quad nh\le T,
 ```
 
-for $`L>0`$. For $`L=0`$, the sum gives $`CTh`$. A second-order local defect has accumulated over order $`1/h`$ steps, yielding first-order global error.
+for $`L\gt 0`$. For $`L=0`$, the sum gives $`CTh`$. A second-order local defect has accumulated over order $`1/h`$ steps, yielding first-order global error.
 
 #### Stability of Euler methods
 
-For $`y'=\lambda y`$, explicit Euler gives $`y_n=(1+h\lambda)^ny_0`$. Stability requires $`\vert 1+h\lambda\vert \le1`$; strict inequality gives decay of that mode. For real $`\lambda<0`$, this means $`0<h\le2/\vert \lambda\vert `$, with a nondecaying oscillation at the upper endpoint.
+For $`y'=\lambda y`$, explicit Euler gives $`y_n=(1+h\lambda)^ny_0`$. Stability requires $`\vert 1+h\lambda\vert \le1`$; strict inequality gives decay of that mode. For real $`\lambda\lt 0`$, this means $`0\lt h\le2/\vert \lambda\vert`$, with a nondecaying oscillation at the upper endpoint.
 
-Implicit Euler gives amplification $`1/(1-h\lambda)`$. If $`\mathop{\mathrm{Re}}\nolimits\lambda\le0`$, then $`\vert 1-h\lambda\vert \ge1`$, so it is stable throughout the left half-plane. This is A-stability. It also damps very negative real modes to zero as $`h\vert \lambda\vert \to\infty`$.
+Implicit Euler gives amplification $`1/(1-h\lambda)`$. If $`\mathop{\mathrm{Re}} \lambda\le0`$, then $`\vert 1-h\lambda\vert \ge1`$, so it is stable throughout the left half-plane. This is A-stability. It also damps very negative real modes to zero as $`h\vert \lambda\vert \to\infty`$.
 
 #### A second-order step
 
@@ -805,7 +835,7 @@ Suppose a one-step method has local error at most $`Ch^{p+1}`$ when started from
 \vert e_{n+1}\vert \le(1+Lh)\vert e_n\vert +Ch^{p+1}.
 ```
 
-Starting from exact initial data and summing the geometric series gives, for $`L>0`$,
+Starting from exact initial data and summing the geometric series gives, for $`L\gt 0`$,
 
 ```math
 \vert e_n\vert \le
@@ -898,7 +928,7 @@ Solution. Let the per-step defect be bounded by $`Ch^{p+1}+u`$, with roundoff pe
 \vert e_n\vert \le\frac{e^{LT}-1}{L}(Ch^p+u/h)
 ```
 
-for $`L>0`$, and the limiting $`T(Ch^p+u/h)`$ form for $`L=0`$. This worst-case bound allows all roundoff errors to align. Smaller $`h`$ reduces the truncation term but enlarges the accumulated-roundoff term.
+for $`L\gt 0`$, and the limiting $`T(Ch^p+u/h)`$ form for $`L=0`$. This worst-case bound allows all roundoff errors to align. Smaller $`h`$ reduces the truncation term but enlarges the accumulated-roundoff term.
 
 #### Problem NM-36: error versus stability
 
@@ -910,7 +940,7 @@ Solution. For $`y'=-y`$ with $`h=10`$, implicit Euler gives one-step multiplier 
 
 Constructed problem. Consider $`\dot x=-x`$, $`\dot y=-1000y`$.
 
-Solution. Explicit Euler must use $`h<0.002`$ for strict stability of the fast component, even if only the slowly varying $`x`$ is of primary interest after the rapid transient. An implicit method can remain stable at a larger step, but should still resolve any transient whose accuracy matters. Stiffness describes the mismatch between fast numerical stability restrictions and slower solution features.
+Solution. Explicit Euler must use $`h\lt 0.002`$ for strict stability of the fast component, even if only the slowly varying $`x`$ is of primary interest after the rapid transient. An implicit method can remain stable at a larger step, but should still resolve any transient whose accuracy matters. Stiffness describes the mismatch between fast numerical stability restrictions and slower solution features.
 
 #### Problem NM-38: order estimation from step halving
 
@@ -946,7 +976,7 @@ G=1+\lambda(e^{i\theta}-2+e^{-i\theta})
 =1-4\lambda\sin^2(\theta/2).
 ```
 
-For all modes to have $`\vert G\vert \le1`$, require $`0\le\lambda\le1/2`$. If $`\lambda>1/2`$, the highest-frequency mode $`\theta=\pi`$ has $`G=1-4\lambda<-1`$ and grows with alternating sign.
+For all modes to have $`\vert G\vert \le1`$, require $`0\le\lambda\le1/2`$. If $`\lambda\gt 1/2`$, the highest-frequency mode $`\theta=\pi`$ has $`G=1-4\lambda\lt -1`$ and grows with alternating sign.
 
 #### Consistency and a convergence bound
 
@@ -1026,7 +1056,7 @@ Source: [FNC, Exercise 11.1.2](https://fncbook.com/python/blackscholes/).
 
 Problem. Verify the heat equation for $`t^{-1/2}e^{-x^2/(4t)}`$ at positive times and explain its singular initial behavior.
 
-Solution. Let $`u=t^{-1/2}e^{-x^2/(4t)}`$ for $`t>0`$. Logarithmic differentiation gives $`u_t/u=-1/(2t)+x^2/(4t^2)`$. Also $`u_x/u=-x/(2t)`$ and $`u_{xx}/u=-1/(2t)+x^2/(4t^2)`$. Thus $`u_t=u_{xx}`$. The time-zero limit is singular; it is not a classical initial function at the origin. Multiplication by $`1/\sqrt{4\pi}`$ gives the normalized Gaussian heat kernel.
+Solution. Let $`u=t^{-1/2}e^{-x^2/(4t)}`$ for $`t\gt 0`$. Logarithmic differentiation gives $`u_t/u=-1/(2t)+x^2/(4t^2)`$. Also $`u_x/u=-x/(2t)`$ and $`u_{xx}/u=-1/(2t)+x^2/(4t^2)`$. Thus $`u_t=u_{xx}`$. The time-zero limit is singular; it is not a classical initial function at the origin. Multiplication by $`1/\sqrt{4\pi}`$ gives the normalized Gaussian heat kernel.
 
 #### Problem NM-41: a mixed-boundary eigenproblem
 
@@ -1034,7 +1064,7 @@ Source: [MIT 18.330, Homework 6, Problem 1(a)](https://ocw.mit.edu/courses/18-33
 
 Problem. Find all eigenvalues and eigenfunctions of $`-v''=\lambda v`$ on $`(0,1)`$ with $`v'(0)=0`$ and $`v(1)=0`$, excluding trivial solutions.
 
-Solution. Solve $`-v''=\lambda v`$ with $`v'(0)=0`$, $`v(1)=0`$. For $`\lambda=\omega^2>0`$, the general solution is $`A\cos\omega x+B\sin\omega x`$. The first boundary sets $`B=0`$ and the second requires $`\cos\omega=0`$. Thus $`\omega_n=(n+1/2)\pi`$, $`\lambda_n=(n+1/2)^2\pi^2`$, and $`v_n(x)=\cos[(n+1/2)\pi x]`$, $`n=0,1,\ldots`$. At $`\lambda=0`$, the affine solution is forced to zero. For negative $`\lambda`$, hyperbolic solutions and the two boundary conditions likewise give only zero. The first three nonzero modes have zero, one, and two interior sign changes respectively.
+Solution. Solve $`-v''=\lambda v`$ with $`v'(0)=0`$, $`v(1)=0`$. For $`\lambda=\omega^2\gt 0`$, the general solution is $`A\cos\omega x+B\sin\omega x`$. The first boundary sets $`B=0`$ and the second requires $`\cos\omega=0`$. Thus $`\omega_n=(n+1/2)\pi`$, $`\lambda_n=(n+1/2)^2\pi^2`$, and $`v_n(x)=\cos[(n+1/2)\pi x]`$, $`n=0,1,\ldots`$. At $`\lambda=0`$, the affine solution is forced to zero. For negative $`\lambda`$, hyperbolic solutions and the two boundary conditions likewise give only zero. The first three nonzero modes have zero, one, and two interior sign changes respectively.
 
 #### Problem NM-42: a Neumann compatibility condition
 
@@ -1252,16 +1282,34 @@ An LU factorization records elimination in a lower-triangular multiplier matrix 
 
 #### Problem NM-53: two-by-two LU solve, case 1
 
-Solve $`Ax=b`$ for $`A=\begin{pmatrix}2&1\\4&3\end{pmatrix}`$ and $`b=\begin{pmatrix}3\\7\end{pmatrix}`$ using an unpivoted LU factorization. Check the residual and discuss the first pivot.
+Solve $`Ax=b`$ for
+
+```math
+A=\begin{pmatrix}2&1\\[0pt] 4&3\end{pmatrix}
+```
+
+ and
+
+```math
+b=\begin{pmatrix}3\\[0pt] 7\end{pmatrix}
+```
+
+ using an unpivoted LU factorization. Check the residual and discuss the first pivot.
 
 Solution. The first pivot is $`a_{11}=2\ne0`$. Eliminate the lower-left entry using multiplier $`\ell=a_{21}/a_{11}=2`$. This gives
 
 ```math
-L=\begin{pmatrix}1&0\\2&1\end{pmatrix},\qquad
-U=\begin{pmatrix}2&1\\0&1\end{pmatrix}.
+L=\begin{pmatrix}1&0\\[0pt] 2&1\end{pmatrix},\qquad
+U=\begin{pmatrix}2&1\\[0pt] 0&1\end{pmatrix}.
 ```
 
-Multiplication verifies $`LU=A`$. Both diagonal entries of $`U`$ are nonzero, so the solve can proceed. Forward substitution in $`Lz=b`$ gives $`z_1=b_1`$ and $`z_2=b_2-\ell b_1`$, hence $`z=\begin{pmatrix}3\\1\end{pmatrix}`$.
+Multiplication verifies $`LU=A`$. Both diagonal entries of $`U`$ are nonzero, so the solve can proceed. Forward substitution in $`Lz=b`$ gives $`z_1=b_1`$ and $`z_2=b_2-\ell b_1`$, hence
+
+```math
+z=\begin{pmatrix}3\\[0pt] 1\end{pmatrix}
+```
+
+.
 
 Back substitution in $`Ux=z`$ yields
 
@@ -1270,7 +1318,13 @@ x_2=z_2/u_{22}=1,\qquad
 x_1=(z_1-u_{12}x_2)/u_{11}=1.
 ```
 
-Substituting the vector $`x=\begin{pmatrix}1\\1\end{pmatrix}`$ into the original equations gives $`Ax=b`$ exactly. With exact fractions, the residual is zero; floating-point substitution should instead report a small norm scaled by $`\Vert A\Vert \Vert x\Vert +\Vert b\Vert `$.
+Substituting the vector
+
+```math
+x=\begin{pmatrix}1\\[0pt] 1\end{pmatrix}
+```
+
+ into the original equations gives $`Ax=b`$ exactly. With exact fractions, the residual is zero; floating-point substitution should instead report a small norm scaled by $`\Vert A\Vert \Vert x\Vert +\Vert b\Vert`$.
 
 For comparison, the infinity-norm condition number is $`\kappa_\infty(A)=21\approx 21.000000`$. This measures sensitivity of the supplied system. The multiplier magnitude $`\vert \ell\vert =2`$ describes this particular elimination step. A tiny first pivot can create a large multiplier even when the condition number is moderate.
 
@@ -1278,16 +1332,34 @@ Partial pivoting compares the magnitudes in the current column and swaps rows be
 
 #### Problem NM-54: two-by-two LU solve, case 2
 
-Solve $`Ax=b`$ for $`A=\begin{pmatrix}4&-1\\2&3\end{pmatrix}`$ and $`b=\begin{pmatrix}1\\5\end{pmatrix}`$ using an unpivoted LU factorization. Check the residual and discuss the first pivot.
+Solve $`Ax=b`$ for
+
+```math
+A=\begin{pmatrix}4&-1\\[0pt] 2&3\end{pmatrix}
+```
+
+ and
+
+```math
+b=\begin{pmatrix}1\\[0pt] 5\end{pmatrix}
+```
+
+ using an unpivoted LU factorization. Check the residual and discuss the first pivot.
 
 Solution. The first pivot is $`a_{11}=4\ne0`$. Eliminate the lower-left entry using multiplier $`\ell=a_{21}/a_{11}=\frac{1}{2}`$. This gives
 
 ```math
-L=\begin{pmatrix}1&0\\\frac{1}{2}&1\end{pmatrix},\qquad
-U=\begin{pmatrix}4&-1\\0&\frac{7}{2}\end{pmatrix}.
+L=\begin{pmatrix}1&0\\[0pt] \frac{1}{2}&1\end{pmatrix},\qquad
+U=\begin{pmatrix}4&-1\\[0pt] 0&\frac{7}{2}\end{pmatrix}.
 ```
 
-Multiplication verifies $`LU=A`$. Both diagonal entries of $`U`$ are nonzero, so the solve can proceed. Forward substitution in $`Lz=b`$ gives $`z_1=b_1`$ and $`z_2=b_2-\ell b_1`$, hence $`z=\begin{pmatrix}1\\\frac{9}{2}\end{pmatrix}`$.
+Multiplication verifies $`LU=A`$. Both diagonal entries of $`U`$ are nonzero, so the solve can proceed. Forward substitution in $`Lz=b`$ gives $`z_1=b_1`$ and $`z_2=b_2-\ell b_1`$, hence
+
+```math
+z=\begin{pmatrix}1\\[0pt] \frac{9}{2}\end{pmatrix}
+```
+
+.
 
 Back substitution in $`Ux=z`$ yields
 
@@ -1296,7 +1368,13 @@ x_2=z_2/u_{22}=\frac{9}{7},\qquad
 x_1=(z_1-u_{12}x_2)/u_{11}=\frac{4}{7}.
 ```
 
-Substituting the vector $`x=\begin{pmatrix}\frac{4}{7}\\\frac{9}{7}\end{pmatrix}`$ into the original equations gives $`Ax=b`$ exactly. With exact fractions, the residual is zero; floating-point substitution should instead report a small norm scaled by $`\Vert A\Vert \Vert x\Vert +\Vert b\Vert `$.
+Substituting the vector
+
+```math
+x=\begin{pmatrix}\frac{4}{7}\\[0pt] \frac{9}{7}\end{pmatrix}
+```
+
+ into the original equations gives $`Ax=b`$ exactly. With exact fractions, the residual is zero; floating-point substitution should instead report a small norm scaled by $`\Vert A\Vert \Vert x\Vert +\Vert b\Vert`$.
 
 For comparison, the infinity-norm condition number is $`\kappa_\infty(A)=\frac{15}{7}\approx 2.142857`$. This measures sensitivity of the supplied system. The multiplier magnitude $`\vert \ell\vert =\frac{1}{2}`$ describes this particular elimination step. A tiny first pivot can create a large multiplier even when the condition number is moderate.
 
@@ -1304,16 +1382,34 @@ Partial pivoting compares the magnitudes in the current column and swaps rows be
 
 #### Problem NM-55: two-by-two LU solve, case 3
 
-Solve $`Ax=b`$ for $`A=\begin{pmatrix}1&2\\3&7\end{pmatrix}`$ and $`b=\begin{pmatrix}4\\11\end{pmatrix}`$ using an unpivoted LU factorization. Check the residual and discuss the first pivot.
+Solve $`Ax=b`$ for
+
+```math
+A=\begin{pmatrix}1&2\\[0pt] 3&7\end{pmatrix}
+```
+
+ and
+
+```math
+b=\begin{pmatrix}4\\[0pt] 11\end{pmatrix}
+```
+
+ using an unpivoted LU factorization. Check the residual and discuss the first pivot.
 
 Solution. The first pivot is $`a_{11}=1\ne0`$. Eliminate the lower-left entry using multiplier $`\ell=a_{21}/a_{11}=3`$. This gives
 
 ```math
-L=\begin{pmatrix}1&0\\3&1\end{pmatrix},\qquad
-U=\begin{pmatrix}1&2\\0&1\end{pmatrix}.
+L=\begin{pmatrix}1&0\\[0pt] 3&1\end{pmatrix},\qquad
+U=\begin{pmatrix}1&2\\[0pt] 0&1\end{pmatrix}.
 ```
 
-Multiplication verifies $`LU=A`$. Both diagonal entries of $`U`$ are nonzero, so the solve can proceed. Forward substitution in $`Lz=b`$ gives $`z_1=b_1`$ and $`z_2=b_2-\ell b_1`$, hence $`z=\begin{pmatrix}4\\-1\end{pmatrix}`$.
+Multiplication verifies $`LU=A`$. Both diagonal entries of $`U`$ are nonzero, so the solve can proceed. Forward substitution in $`Lz=b`$ gives $`z_1=b_1`$ and $`z_2=b_2-\ell b_1`$, hence
+
+```math
+z=\begin{pmatrix}4\\[0pt] -1\end{pmatrix}
+```
+
+.
 
 Back substitution in $`Ux=z`$ yields
 
@@ -1322,7 +1418,13 @@ x_2=z_2/u_{22}=-1,\qquad
 x_1=(z_1-u_{12}x_2)/u_{11}=6.
 ```
 
-Substituting the vector $`x=\begin{pmatrix}6\\-1\end{pmatrix}`$ into the original equations gives $`Ax=b`$ exactly. With exact fractions, the residual is zero; floating-point substitution should instead report a small norm scaled by $`\Vert A\Vert \Vert x\Vert +\Vert b\Vert `$.
+Substituting the vector
+
+```math
+x=\begin{pmatrix}6\\[0pt] -1\end{pmatrix}
+```
+
+ into the original equations gives $`Ax=b`$ exactly. With exact fractions, the residual is zero; floating-point substitution should instead report a small norm scaled by $`\Vert A\Vert \Vert x\Vert +\Vert b\Vert`$.
 
 For comparison, the infinity-norm condition number is $`\kappa_\infty(A)=90\approx 90.000000`$. This measures sensitivity of the supplied system. The multiplier magnitude $`\vert \ell\vert =3`$ describes this particular elimination step. A tiny first pivot can create a large multiplier even when the condition number is moderate.
 
@@ -1330,16 +1432,34 @@ Partial pivoting compares the magnitudes in the current column and swaps rows be
 
 #### Problem NM-56: two-by-two LU solve, case 4
 
-Solve $`Ax=b`$ for $`A=\begin{pmatrix}\frac{1}{10000}&1\\1&1\end{pmatrix}`$ and $`b=\begin{pmatrix}1\\2\end{pmatrix}`$ using an unpivoted LU factorization. Check the residual and discuss the first pivot.
+Solve $`Ax=b`$ for
+
+```math
+A=\begin{pmatrix}\frac{1}{10000}&1\\[0pt] 1&1\end{pmatrix}
+```
+
+ and
+
+```math
+b=\begin{pmatrix}1\\[0pt] 2\end{pmatrix}
+```
+
+ using an unpivoted LU factorization. Check the residual and discuss the first pivot.
 
 Solution. The first pivot is $`a_{11}=\frac{1}{10000}\ne0`$. Eliminate the lower-left entry using multiplier $`\ell=a_{21}/a_{11}=10000`$. This gives
 
 ```math
-L=\begin{pmatrix}1&0\\10000&1\end{pmatrix},\qquad
-U=\begin{pmatrix}\frac{1}{10000}&1\\0&-9999\end{pmatrix}.
+L=\begin{pmatrix}1&0\\[0pt] 10000&1\end{pmatrix},\qquad
+U=\begin{pmatrix}\frac{1}{10000}&1\\[0pt] 0&-9999\end{pmatrix}.
 ```
 
-Multiplication verifies $`LU=A`$. Both diagonal entries of $`U`$ are nonzero, so the solve can proceed. Forward substitution in $`Lz=b`$ gives $`z_1=b_1`$ and $`z_2=b_2-\ell b_1`$, hence $`z=\begin{pmatrix}1\\-9998\end{pmatrix}`$.
+Multiplication verifies $`LU=A`$. Both diagonal entries of $`U`$ are nonzero, so the solve can proceed. Forward substitution in $`Lz=b`$ gives $`z_1=b_1`$ and $`z_2=b_2-\ell b_1`$, hence
+
+```math
+z=\begin{pmatrix}1\\[0pt] -9998\end{pmatrix}
+```
+
+.
 
 Back substitution in $`Ux=z`$ yields
 
@@ -1348,7 +1468,13 @@ x_2=z_2/u_{22}=\frac{9998}{9999},\qquad
 x_1=(z_1-u_{12}x_2)/u_{11}=\frac{10000}{9999}.
 ```
 
-Substituting the vector $`x=\begin{pmatrix}\frac{10000}{9999}\\\frac{9998}{9999}\end{pmatrix}`$ into the original equations gives $`Ax=b`$ exactly. With exact fractions, the residual is zero; floating-point substitution should instead report a small norm scaled by $`\Vert A\Vert \Vert x\Vert +\Vert b\Vert `$.
+Substituting the vector
+
+```math
+x=\begin{pmatrix}\frac{10000}{9999}\\[0pt] \frac{9998}{9999}\end{pmatrix}
+```
+
+ into the original equations gives $`Ax=b`$ exactly. With exact fractions, the residual is zero; floating-point substitution should instead report a small norm scaled by $`\Vert A\Vert \Vert x\Vert +\Vert b\Vert`$.
 
 For comparison, the infinity-norm condition number is $`\kappa_\infty(A)=\frac{40000}{9999}\approx 4.000400`$. This measures sensitivity of the supplied system. The multiplier magnitude $`\vert \ell\vert =10000`$ describes this particular elimination step. A tiny first pivot can create a large multiplier even when the condition number is moderate.
 
@@ -1390,7 +1516,7 @@ x_{k+1}-r
 =\frac{(x_k-r)^2}{2x_k}.
 ```
 
-Positive iterates remain on or above the root after one step. An iterate above the root decreases unless already equal to it. The identity then proves convergence and quadratic error reduction near the root, since the denominator approaches $`2r>0`$.
+Positive iterates remain on or above the root after one step. An iterate above the root decreases unless already equal to it. The identity then proves convergence and quadratic error reduction near the root, since the denominator approaches $`2r\gt 0`$.
 
 A general Newton iteration does not inherit these properties automatically. A derivative close to zero or a poor initial point can cause a large step, a cycle, or departure from the domain. A safeguarded method can retain a sign-changing bracket and accept a Newton step only when it remains suitable.
 
@@ -1426,7 +1552,7 @@ x_{k+1}-r
 =\frac{(x_k-r)^2}{2x_k}.
 ```
 
-Positive iterates remain on or above the root after one step. An iterate above the root decreases unless already equal to it. The identity then proves convergence and quadratic error reduction near the root, since the denominator approaches $`2r>0`$.
+Positive iterates remain on or above the root after one step. An iterate above the root decreases unless already equal to it. The identity then proves convergence and quadratic error reduction near the root, since the denominator approaches $`2r\gt 0`$.
 
 A general Newton iteration does not inherit these properties automatically. A derivative close to zero or a poor initial point can cause a large step, a cycle, or departure from the domain. A safeguarded method can retain a sign-changing bracket and accept a Newton step only when it remains suitable.
 
@@ -1462,7 +1588,7 @@ x_{k+1}-r
 =\frac{(x_k-r)^2}{2x_k}.
 ```
 
-Positive iterates remain on or above the root after one step. An iterate above the root decreases unless already equal to it. The identity then proves convergence and quadratic error reduction near the root, since the denominator approaches $`2r>0`$.
+Positive iterates remain on or above the root after one step. An iterate above the root decreases unless already equal to it. The identity then proves convergence and quadratic error reduction near the root, since the denominator approaches $`2r\gt 0`$.
 
 A general Newton iteration does not inherit these properties automatically. A derivative close to zero or a poor initial point can cause a large step, a cycle, or departure from the domain. A safeguarded method can retain a sign-changing bracket and accept a Newton step only when it remains suitable.
 
@@ -1498,7 +1624,7 @@ x_{k+1}-r
 =\frac{(x_k-r)^2}{2x_k}.
 ```
 
-Positive iterates remain on or above the root after one step. An iterate above the root decreases unless already equal to it. The identity then proves convergence and quadratic error reduction near the root, since the denominator approaches $`2r>0`$.
+Positive iterates remain on or above the root after one step. An iterate above the root decreases unless already equal to it. The identity then proves convergence and quadratic error reduction near the root, since the denominator approaches $`2r\gt 0`$.
 
 A general Newton iteration does not inherit these properties automatically. A derivative close to zero or a poor initial point can cause a large step, a cycle, or departure from the domain. A safeguarded method can retain a sign-changing bracket and accept a Newton step only when it remains suitable.
 
@@ -1514,13 +1640,13 @@ Solution. The gradient is $`(1x_1,4x_2)^\top`$. The update is diagonal:
 
 ```math
 x_{k+1}=
-\begin{pmatrix}1-\eta1&0\\0&1-\eta4\end{pmatrix}x_k.
+\begin{pmatrix}1-\eta1&0\\[0pt] 0&1-\eta4\end{pmatrix}x_k.
 ```
 
 For the supplied step, the two multipliers are $`m_1=\frac{3}{4}`$ and $`m_2=0`$. Since both initial coordinates equal one,
 
 ```math
-x_k=\begin{pmatrix}(\frac{3}{4})^k\\(0)^k\end{pmatrix}.
+x_k=\begin{pmatrix}(\frac{3}{4})^k\\[0pt] (0)^k\end{pmatrix}.
 ```
 
 Both multipliers have magnitude below one, so every starting vector converges to zero.
@@ -1532,7 +1658,7 @@ f(x_k)=\frac12\left[1(\frac{3}{4})^{2k}
 +4(0)^{2k}\right].
 ```
 
-For convergence from every starting vector, both multiplier magnitudes must be less than one. Since the largest eigenvalue is $`4`$, the condition is $`0<\eta<2/4`$. Equality at the upper endpoint gives a persistent oscillation in that eigenvector direction.
+For convergence from every starting vector, both multiplier magnitudes must be less than one. Since the largest eigenvalue is $`4`$, the condition is $`0\lt \eta\lt 2/4`$. Equality at the upper endpoint gives a persistent oscillation in that eigenvector direction.
 
 For this two-eigenvalue quadratic, the step minimizing the worst absolute multiplier is $`\eta_*=2/(\lambda_{\min}+\lambda_{\max})`$, with contraction factor $`(\kappa-1)/(\kappa+1)`$. A high condition number makes that best factor close to one. Preconditioning changes the relative curvature before applying descent; reducing the step alone does not remove the slow weak-curvature direction.
 
@@ -1546,13 +1672,13 @@ Solution. The gradient is $`(2x_1,5x_2)^\top`$. The update is diagonal:
 
 ```math
 x_{k+1}=
-\begin{pmatrix}1-\eta2&0\\0&1-\eta5\end{pmatrix}x_k.
+\begin{pmatrix}1-\eta2&0\\[0pt] 0&1-\eta5\end{pmatrix}x_k.
 ```
 
 For the supplied step, the two multipliers are $`m_1=\frac{3}{5}`$ and $`m_2=0`$. Since both initial coordinates equal one,
 
 ```math
-x_k=\begin{pmatrix}(\frac{3}{5})^k\\(0)^k\end{pmatrix}.
+x_k=\begin{pmatrix}(\frac{3}{5})^k\\[0pt] (0)^k\end{pmatrix}.
 ```
 
 Both multipliers have magnitude below one, so every starting vector converges to zero.
@@ -1564,7 +1690,7 @@ f(x_k)=\frac12\left[2(\frac{3}{5})^{2k}
 +5(0)^{2k}\right].
 ```
 
-For convergence from every starting vector, both multiplier magnitudes must be less than one. Since the largest eigenvalue is $`5`$, the condition is $`0<\eta<2/5`$. Equality at the upper endpoint gives a persistent oscillation in that eigenvector direction.
+For convergence from every starting vector, both multiplier magnitudes must be less than one. Since the largest eigenvalue is $`5`$, the condition is $`0\lt \eta\lt 2/5`$. Equality at the upper endpoint gives a persistent oscillation in that eigenvector direction.
 
 For this two-eigenvalue quadratic, the step minimizing the worst absolute multiplier is $`\eta_*=2/(\lambda_{\min}+\lambda_{\max})`$, with contraction factor $`(\kappa-1)/(\kappa+1)`$. A high condition number makes that best factor close to one. Preconditioning changes the relative curvature before applying descent; reducing the step alone does not remove the slow weak-curvature direction.
 
@@ -1578,13 +1704,13 @@ Solution. The gradient is $`(1x_1,3x_2)^\top`$. The update is diagonal:
 
 ```math
 x_{k+1}=
-\begin{pmatrix}1-\eta1&0\\0&1-\eta3\end{pmatrix}x_k.
+\begin{pmatrix}1-\eta1&0\\[0pt] 0&1-\eta3\end{pmatrix}x_k.
 ```
 
 For the supplied step, the two multipliers are $`m_1=\frac{1}{3}`$ and $`m_2=-1`$. Since both initial coordinates equal one,
 
 ```math
-x_k=\begin{pmatrix}(\frac{1}{3})^k\\(-1)^k\end{pmatrix}.
+x_k=\begin{pmatrix}(\frac{1}{3})^k\\[0pt] (-1)^k\end{pmatrix}.
 ```
 
 The second multiplier equals minus one. With a nonzero second initial coordinate, that coordinate alternates without decaying, so the iterates do not converge to the minimum.
@@ -1596,7 +1722,7 @@ f(x_k)=\frac12\left[1(\frac{1}{3})^{2k}
 +3(-1)^{2k}\right].
 ```
 
-For convergence from every starting vector, both multiplier magnitudes must be less than one. Since the largest eigenvalue is $`3`$, the condition is $`0<\eta<2/3`$. Equality at the upper endpoint gives a persistent oscillation in that eigenvector direction.
+For convergence from every starting vector, both multiplier magnitudes must be less than one. Since the largest eigenvalue is $`3`$, the condition is $`0\lt \eta\lt 2/3`$. Equality at the upper endpoint gives a persistent oscillation in that eigenvector direction.
 
 For this two-eigenvalue quadratic, the step minimizing the worst absolute multiplier is $`\eta_*=2/(\lambda_{\min}+\lambda_{\max})`$, with contraction factor $`(\kappa-1)/(\kappa+1)`$. A high condition number makes that best factor close to one. Preconditioning changes the relative curvature before applying descent; reducing the step alone does not remove the slow weak-curvature direction.
 
@@ -1610,13 +1736,13 @@ Solution. The gradient is $`(1x_1,4x_2)^\top`$. The update is diagonal:
 
 ```math
 x_{k+1}=
-\begin{pmatrix}1-\eta1&0\\0&1-\eta4\end{pmatrix}x_k.
+\begin{pmatrix}1-\eta1&0\\[0pt] 0&1-\eta4\end{pmatrix}x_k.
 ```
 
 For the supplied step, the two multipliers are $`m_1=\frac{2}{5}`$ and $`m_2=-\frac{7}{5}`$. Since both initial coordinates equal one,
 
 ```math
-x_k=\begin{pmatrix}(\frac{2}{5})^k\\(-\frac{7}{5})^k\end{pmatrix}.
+x_k=\begin{pmatrix}(\frac{2}{5})^k\\[0pt] (-\frac{7}{5})^k\end{pmatrix}.
 ```
 
 The second multiplier has magnitude above one. From the supplied nonzero second coordinate, its magnitude grows geometrically and the method diverges.
@@ -1628,7 +1754,7 @@ f(x_k)=\frac12\left[1(\frac{2}{5})^{2k}
 +4(-\frac{7}{5})^{2k}\right].
 ```
 
-For convergence from every starting vector, both multiplier magnitudes must be less than one. Since the largest eigenvalue is $`4`$, the condition is $`0<\eta<2/4`$. Equality at the upper endpoint gives a persistent oscillation in that eigenvector direction.
+For convergence from every starting vector, both multiplier magnitudes must be less than one. Since the largest eigenvalue is $`4`$, the condition is $`0\lt \eta\lt 2/4`$. Equality at the upper endpoint gives a persistent oscillation in that eigenvector direction.
 
 For this two-eigenvalue quadratic, the step minimizing the worst absolute multiplier is $`\eta_*=2/(\lambda_{\min}+\lambda_{\max})`$, with contraction factor $`(\kappa-1)/(\kappa+1)`$. A high condition number makes that best factor close to one. Preconditioning changes the relative curvature before applying descent; reducing the step alone does not remove the slow weak-curvature direction.
 
@@ -1857,7 +1983,7 @@ For zero-boundary heat diffusion, take three interior points and $`r=\nu k/h^2=\
 Solution. The interior second-difference matrix without the $`h^{-2}`$ factor is
 
 ```math
-L=\begin{pmatrix}-2&1&0\\1&-2&1\\0&1&-2\end{pmatrix}.
+L=\begin{pmatrix}-2&1&0\\[0pt] 1&-2&1\\[0pt] 0&1&-2\end{pmatrix}.
 ```
 
 For the supplied alternating vector $`v`$, direct multiplication gives $`Lv=(-2-\sqrt2)v`$. The explicit update $`u^{n+1}=(I+rL)u^n`$ therefore preserves this direction and changes only its magnitude:
@@ -1871,10 +1997,10 @@ After three steps,
 
 ```math
 u^3\approx
-\begin{pmatrix}0.002221\\-0.003141\\0.002221\end{pmatrix}.
+\begin{pmatrix}0.002221\\[0pt] -0.003141\\[0pt] 0.002221\end{pmatrix}.
 ```
 
-This mode decays in magnitude precisely when $`\vert g\vert <1`$; a negative factor makes its sign alternate between time levels. At $`\vert g\vert >1`$, this numerical high-frequency component grows even though diffusion should dissipate it.
+This mode decays in magnitude precisely when $`\vert g\vert \lt 1`$; a negative factor makes its sign alternate between time levels. At $`\vert g\vert \gt 1`$, this numerical high-frequency component grows even though diffusion should dissipate it.
 
 On this particular three-interior-point grid, the most negative eigenvalue gives stability limit $`r\le2/(2+\sqrt2)\approx0.585786`$. On increasingly fine grids, the most negative scaled eigenvalue approaches minus four, so the familiar uniform-grid limit approaches $`r\le1/2`$.
 
@@ -1889,7 +2015,7 @@ For zero-boundary heat diffusion, take three interior points and $`r=\nu k/h^2=\
 Solution. The interior second-difference matrix without the $`h^{-2}`$ factor is
 
 ```math
-L=\begin{pmatrix}-2&1&0\\1&-2&1\\0&1&-2\end{pmatrix}.
+L=\begin{pmatrix}-2&1&0\\[0pt] 1&-2&1\\[0pt] 0&1&-2\end{pmatrix}.
 ```
 
 For the supplied alternating vector $`v`$, direct multiplication gives $`Lv=(-2-\sqrt2)v`$. The explicit update $`u^{n+1}=(I+rL)u^n`$ therefore preserves this direction and changes only its magnitude:
@@ -1903,10 +2029,10 @@ After three steps,
 
 ```math
 u^3\approx
-\begin{pmatrix}-0.250000\\0.353553\\-0.250000\end{pmatrix}.
+\begin{pmatrix}-0.250000\\[0pt] 0.353553\\[0pt] -0.250000\end{pmatrix}.
 ```
 
-This mode decays in magnitude precisely when $`\vert g\vert <1`$; a negative factor makes its sign alternate between time levels. At $`\vert g\vert >1`$, this numerical high-frequency component grows even though diffusion should dissipate it.
+This mode decays in magnitude precisely when $`\vert g\vert \lt 1`$; a negative factor makes its sign alternate between time levels. At $`\vert g\vert \gt 1`$, this numerical high-frequency component grows even though diffusion should dissipate it.
 
 On this particular three-interior-point grid, the most negative eigenvalue gives stability limit $`r\le2/(2+\sqrt2)\approx0.585786`$. On increasingly fine grids, the most negative scaled eigenvalue approaches minus four, so the familiar uniform-grid limit approaches $`r\le1/2`$.
 
@@ -1921,7 +2047,7 @@ For zero-boundary heat diffusion, take three interior points and $`r=\nu k/h^2=\
 Solution. The interior second-difference matrix without the $`h^{-2}`$ factor is
 
 ```math
-L=\begin{pmatrix}-2&1&0\\1&-2&1\\0&1&-2\end{pmatrix}.
+L=\begin{pmatrix}-2&1&0\\[0pt] 1&-2&1\\[0pt] 0&1&-2\end{pmatrix}.
 ```
 
 For the supplied alternating vector $`v`$, direct multiplication gives $`Lv=(-2-\sqrt2)v`$. The explicit update $`u^{n+1}=(I+rL)u^n`$ therefore preserves this direction and changes only its magnitude:
@@ -1935,10 +2061,10 @@ After three steps,
 
 ```math
 u^3\approx
-\begin{pmatrix}-0.815127\\1.152764\\-0.815127\end{pmatrix}.
+\begin{pmatrix}-0.815127\\[0pt] 1.152764\\[0pt] -0.815127\end{pmatrix}.
 ```
 
-This mode decays in magnitude precisely when $`\vert g\vert <1`$; a negative factor makes its sign alternate between time levels. At $`\vert g\vert >1`$, this numerical high-frequency component grows even though diffusion should dissipate it.
+This mode decays in magnitude precisely when $`\vert g\vert \lt 1`$; a negative factor makes its sign alternate between time levels. At $`\vert g\vert \gt 1`$, this numerical high-frequency component grows even though diffusion should dissipate it.
 
 On this particular three-interior-point grid, the most negative eigenvalue gives stability limit $`r\le2/(2+\sqrt2)\approx0.585786`$. On increasingly fine grids, the most negative scaled eigenvalue approaches minus four, so the familiar uniform-grid limit approaches $`r\le1/2`$.
 
@@ -1953,7 +2079,7 @@ For zero-boundary heat diffusion, take three interior points and $`r=\nu k/h^2=1
 Solution. The interior second-difference matrix without the $`h^{-2}`$ factor is
 
 ```math
-L=\begin{pmatrix}-2&1&0\\1&-2&1\\0&1&-2\end{pmatrix}.
+L=\begin{pmatrix}-2&1&0\\[0pt] 1&-2&1\\[0pt] 0&1&-2\end{pmatrix}.
 ```
 
 For the supplied alternating vector $`v`$, direct multiplication gives $`Lv=(-2-\sqrt2)v`$. The explicit update $`u^{n+1}=(I+rL)u^n`$ therefore preserves this direction and changes only its magnitude:
@@ -1967,10 +2093,10 @@ After three steps,
 
 ```math
 u^3\approx
-\begin{pmatrix}-9.949747\\14.071068\\-9.949747\end{pmatrix}.
+\begin{pmatrix}-9.949747\\[0pt] 14.071068\\[0pt] -9.949747\end{pmatrix}.
 ```
 
-This mode decays in magnitude precisely when $`\vert g\vert <1`$; a negative factor makes its sign alternate between time levels. At $`\vert g\vert >1`$, this numerical high-frequency component grows even though diffusion should dissipate it.
+This mode decays in magnitude precisely when $`\vert g\vert \lt 1`$; a negative factor makes its sign alternate between time levels. At $`\vert g\vert \gt 1`$, this numerical high-frequency component grows even though diffusion should dissipate it.
 
 On this particular three-interior-point grid, the most negative eigenvalue gives stability limit $`r\le2/(2+\sqrt2)\approx0.585786`$. On increasingly fine grids, the most negative scaled eigenvalue approaches minus four, so the familiar uniform-grid limit approaches $`r\le1/2`$.
 
@@ -1990,7 +2116,7 @@ Solution. For $`f(U)=U^p`$ with $`p=2`$, uniform moments give
 
 ```math
 I=E[U^p]=\frac1{p+1}=\frac{1}{3},\qquad
-\mathop{\mathrm{Var}}\nolimits(U^p)=\frac1{2p+1}-\frac1{(p+1)^2}=\frac{4}{45}.
+\mathop{\mathrm{Var}} (U^p)=\frac1{2p+1}-\frac1{(p+1)^2}=\frac{4}{45}.
 ```
 
 Define one controlled observation $`Y_c=U^p-c(U-1/2)`$. Its expectation remains $`I`$ for every fixed $`c`$ because the control has expectation zero.
@@ -1998,15 +2124,15 @@ Define one controlled observation $`Y_c=U^p-c(U-1/2)`$. Its expectation remains 
 The required covariance and control variance are
 
 ```math
-\mathop{\mathrm{Cov}}\nolimits(U^p,U)
+\mathop{\mathrm{Cov}} (U^p,U)
 =\frac1{p+2}-\frac1{2(p+1)}=\frac{1}{12},\qquad
-\mathop{\mathrm{Var}}\nolimits(U)=\frac1{12}.
+\mathop{\mathrm{Var}} (U)=\frac1{12}.
 ```
 
-Expanding the controlled variance gives $`\mathop{\mathrm{Var}}\nolimits(Y_c)=\mathop{\mathrm{Var}}\nolimits(U^p)-2c\mathop{\mathrm{Cov}}\nolimits(U^p,U)+c^2/12`$. Its unique minimum occurs at
+Expanding the controlled variance gives $`\mathop{\mathrm{Var}} (Y_c)=\mathop{\mathrm{Var}} (U^p)-2c\mathop{\mathrm{Cov}} (U^p,U)+c^2/12`$. Its unique minimum occurs at
 
 ```math
-c_*=\frac{\mathop{\mathrm{Cov}}\nolimits(U^p,U)}{\mathop{\mathrm{Var}}\nolimits(U)}=1.
+c_*=\frac{\mathop{\mathrm{Cov}} (U^p,U)}{\mathop{\mathrm{Var}} (U)}=1.
 ```
 
 The resulting one-draw variance is $`\frac{1}{180}`$, so a mean of $`N`$ independent controlled observations has variance $`\frac{1}{180}/N`$. The plain Monte Carlo variance is $`\frac{4}{45}/N`$. Their ratio is $`16\approx 16.000000`$.
@@ -2021,7 +2147,7 @@ Solution. For $`f(U)=U^p`$ with $`p=3`$, uniform moments give
 
 ```math
 I=E[U^p]=\frac1{p+1}=\frac{1}{4},\qquad
-\mathop{\mathrm{Var}}\nolimits(U^p)=\frac1{2p+1}-\frac1{(p+1)^2}=\frac{9}{112}.
+\mathop{\mathrm{Var}} (U^p)=\frac1{2p+1}-\frac1{(p+1)^2}=\frac{9}{112}.
 ```
 
 Define one controlled observation $`Y_c=U^p-c(U-1/2)`$. Its expectation remains $`I`$ for every fixed $`c`$ because the control has expectation zero.
@@ -2029,15 +2155,15 @@ Define one controlled observation $`Y_c=U^p-c(U-1/2)`$. Its expectation remains 
 The required covariance and control variance are
 
 ```math
-\mathop{\mathrm{Cov}}\nolimits(U^p,U)
+\mathop{\mathrm{Cov}} (U^p,U)
 =\frac1{p+2}-\frac1{2(p+1)}=\frac{3}{40},\qquad
-\mathop{\mathrm{Var}}\nolimits(U)=\frac1{12}.
+\mathop{\mathrm{Var}} (U)=\frac1{12}.
 ```
 
-Expanding the controlled variance gives $`\mathop{\mathrm{Var}}\nolimits(Y_c)=\mathop{\mathrm{Var}}\nolimits(U^p)-2c\mathop{\mathrm{Cov}}\nolimits(U^p,U)+c^2/12`$. Its unique minimum occurs at
+Expanding the controlled variance gives $`\mathop{\mathrm{Var}} (Y_c)=\mathop{\mathrm{Var}} (U^p)-2c\mathop{\mathrm{Cov}} (U^p,U)+c^2/12`$. Its unique minimum occurs at
 
 ```math
-c_*=\frac{\mathop{\mathrm{Cov}}\nolimits(U^p,U)}{\mathop{\mathrm{Var}}\nolimits(U)}=\frac{9}{10}.
+c_*=\frac{\mathop{\mathrm{Cov}} (U^p,U)}{\mathop{\mathrm{Var}} (U)}=\frac{9}{10}.
 ```
 
 The resulting one-draw variance is $`\frac{9}{700}`$, so a mean of $`N`$ independent controlled observations has variance $`\frac{9}{700}/N`$. The plain Monte Carlo variance is $`\frac{9}{112}/N`$. Their ratio is $`\frac{25}{4}\approx 6.250000`$.
@@ -2052,7 +2178,7 @@ Solution. For $`f(U)=U^p`$ with $`p=4`$, uniform moments give
 
 ```math
 I=E[U^p]=\frac1{p+1}=\frac{1}{5},\qquad
-\mathop{\mathrm{Var}}\nolimits(U^p)=\frac1{2p+1}-\frac1{(p+1)^2}=\frac{16}{225}.
+\mathop{\mathrm{Var}} (U^p)=\frac1{2p+1}-\frac1{(p+1)^2}=\frac{16}{225}.
 ```
 
 Define one controlled observation $`Y_c=U^p-c(U-1/2)`$. Its expectation remains $`I`$ for every fixed $`c`$ because the control has expectation zero.
@@ -2060,15 +2186,15 @@ Define one controlled observation $`Y_c=U^p-c(U-1/2)`$. Its expectation remains 
 The required covariance and control variance are
 
 ```math
-\mathop{\mathrm{Cov}}\nolimits(U^p,U)
+\mathop{\mathrm{Cov}} (U^p,U)
 =\frac1{p+2}-\frac1{2(p+1)}=\frac{1}{15},\qquad
-\mathop{\mathrm{Var}}\nolimits(U)=\frac1{12}.
+\mathop{\mathrm{Var}} (U)=\frac1{12}.
 ```
 
-Expanding the controlled variance gives $`\mathop{\mathrm{Var}}\nolimits(Y_c)=\mathop{\mathrm{Var}}\nolimits(U^p)-2c\mathop{\mathrm{Cov}}\nolimits(U^p,U)+c^2/12`$. Its unique minimum occurs at
+Expanding the controlled variance gives $`\mathop{\mathrm{Var}} (Y_c)=\mathop{\mathrm{Var}} (U^p)-2c\mathop{\mathrm{Cov}} (U^p,U)+c^2/12`$. Its unique minimum occurs at
 
 ```math
-c_*=\frac{\mathop{\mathrm{Cov}}\nolimits(U^p,U)}{\mathop{\mathrm{Var}}\nolimits(U)}=\frac{4}{5}.
+c_*=\frac{\mathop{\mathrm{Cov}} (U^p,U)}{\mathop{\mathrm{Var}} (U)}=\frac{4}{5}.
 ```
 
 The resulting one-draw variance is $`\frac{4}{225}`$, so a mean of $`N`$ independent controlled observations has variance $`\frac{4}{225}/N`$. The plain Monte Carlo variance is $`\frac{16}{225}/N`$. Their ratio is $`4\approx 4.000000`$.
@@ -2083,7 +2209,7 @@ Solution. For $`f(U)=U^p`$ with $`p=5`$, uniform moments give
 
 ```math
 I=E[U^p]=\frac1{p+1}=\frac{1}{6},\qquad
-\mathop{\mathrm{Var}}\nolimits(U^p)=\frac1{2p+1}-\frac1{(p+1)^2}=\frac{25}{396}.
+\mathop{\mathrm{Var}} (U^p)=\frac1{2p+1}-\frac1{(p+1)^2}=\frac{25}{396}.
 ```
 
 Define one controlled observation $`Y_c=U^p-c(U-1/2)`$. Its expectation remains $`I`$ for every fixed $`c`$ because the control has expectation zero.
@@ -2091,15 +2217,15 @@ Define one controlled observation $`Y_c=U^p-c(U-1/2)`$. Its expectation remains 
 The required covariance and control variance are
 
 ```math
-\mathop{\mathrm{Cov}}\nolimits(U^p,U)
+\mathop{\mathrm{Cov}} (U^p,U)
 =\frac1{p+2}-\frac1{2(p+1)}=\frac{5}{84},\qquad
-\mathop{\mathrm{Var}}\nolimits(U)=\frac1{12}.
+\mathop{\mathrm{Var}} (U)=\frac1{12}.
 ```
 
-Expanding the controlled variance gives $`\mathop{\mathrm{Var}}\nolimits(Y_c)=\mathop{\mathrm{Var}}\nolimits(U^p)-2c\mathop{\mathrm{Cov}}\nolimits(U^p,U)+c^2/12`$. Its unique minimum occurs at
+Expanding the controlled variance gives $`\mathop{\mathrm{Var}} (Y_c)=\mathop{\mathrm{Var}} (U^p)-2c\mathop{\mathrm{Cov}} (U^p,U)+c^2/12`$. Its unique minimum occurs at
 
 ```math
-c_*=\frac{\mathop{\mathrm{Cov}}\nolimits(U^p,U)}{\mathop{\mathrm{Var}}\nolimits(U)}=\frac{5}{7}.
+c_*=\frac{\mathop{\mathrm{Cov}} (U^p,U)}{\mathop{\mathrm{Var}} (U)}=\frac{5}{7}.
 ```
 
 The resulting one-draw variance is $`\frac{100}{4851}`$, so a mean of $`N`$ independent controlled observations has variance $`\frac{100}{4851}/N`$. The plain Monte Carlo variance is $`\frac{25}{396}/N`$. Their ratio is $`\frac{49}{16}\approx 3.062500`$.
@@ -2114,7 +2240,13 @@ These additional problems are constructed for these notes.
 
 #### Problem NM-81: residual correction as an iteration
 
-Solve $`Ax=b`$ for $`A=\begin{pmatrix}4&1\\1&3\end{pmatrix}`$ and $`b=(1,2)^\top`$ using $`x_{k+1}=x_k+B(b-Ax_k)`$ with $`B=\mathop{\mathrm{diag}}\nolimits(1/4,1/3)`$ and $`x_0=0`$. Compute two steps and prove convergence.
+Solve $`Ax=b`$ for
+
+```math
+A=\begin{pmatrix}4&1\\[0pt] 1&3\end{pmatrix}
+```
+
+ and $`b=(1,2)^\top`$ using $`x_{k+1}=x_k+B(b-Ax_k)`$ with $`B=\mathop{\mathrm{diag}} (1/4,1/3)`$ and $`x_0=0`$. Compute two steps and prove convergence.
 
 Solution. The exact inverse gives $`x^*=(1/11,7/11)^\top`$. The first residual is $`b`$, so $`x_1=(1/4,2/3)^\top`$. The recurrence can also be written
 
@@ -2129,10 +2261,10 @@ Let $`e_k=x_k-x^*`$. Since $`Ax^*=b`$,
 
 ```math
 e_{k+1}=(I-BA)e_k,\qquad
-I-BA=\begin{pmatrix}0&-1/4\\-1/3&0\end{pmatrix}.
+I-BA=\begin{pmatrix}0&-1/4\\[0pt] -1/3&0\end{pmatrix}.
 ```
 
-The infinity norm of this matrix is $`1/3<1`$, so $`\Vert e_k\Vert _\infty\le(1/3)^k\Vert e_0\Vert _\infty`$. Its spectral radius is $`1/\sqrt{12}`$, consistent with convergence.
+The infinity norm of this matrix is $`1/3\lt 1`$, so $`\Vert e_k\Vert _\infty\le(1/3)^k\Vert e_0\Vert _\infty`$. Its spectral radius is $`1/\sqrt{12}`$, consistent with convergence.
 
 The same algebra describes a residual-correction step using an approximate inverse or approximate linear solve. If the correction used the exact inverse and the residual were exact, one step would eliminate the error. In floating-point iterative refinement, residual accuracy and correction-solve accuracy both matter. Recomputing a residual more accurately can recover information lost in the initial solve, but convergence requires control of the resulting error-propagation map.
 
@@ -2143,7 +2275,7 @@ Construct an orthogonal reflection taking $`x=(3,4,0)^\top`$ to a multiple of th
 Solution. The norm of $`x`$ is five. Choose $`v=x+5e_1=(8,4,0)^\top`$ and set $`H=I-2vv^\top/(v^\top v)`$. Since $`v^\top v=80`$,
 
 ```math
-H=\begin{pmatrix}-3/5&-4/5&0\\-4/5&3/5&0\\0&0&1\end{pmatrix}.
+H=\begin{pmatrix}-3/5&-4/5&0\\[0pt] -4/5&3/5&0\\[0pt] 0&0&1\end{pmatrix}.
 ```
 
 Multiplication gives $`Hx=(-5,0,0)^\top`$ and $`Hy=(-3/5,-4/5,2)^\top`$.
@@ -2152,7 +2284,7 @@ The matrix is symmetric. Let $`P=vv^\top/(v^\top v)`$, an orthogonal rank-one pr
 
 For the matrix with columns $`x,y`$, the transformed first column has zeros below its leading entry. A second reflection acting only on the last two rows can eliminate the remaining bottom entry of the second column. The magnitude of the second diagonal factor is $`\sqrt{(-4/5)^2+2^2}=2\sqrt{29}/5`$. The product of the reflections supplies the orthogonal factor in QR.
 
-The sign choice $`v=x+\mathop{\mathrm{sign}}\nolimits(x_1)\Vert x\Vert e_1`$ avoids subtracting nearly equal first-coordinate magnitudes when the vector already points close to an axis. Either mathematical reflection can be valid, but their computed vectors can have different cancellation behavior.
+The sign choice $`v=x+\mathop{\mathrm{sign}} (x_1)\Vert x\Vert e_1`$ avoids subtracting nearly equal first-coordinate magnitudes when the vector already points close to an axis. Either mathematical reflection can be valid, but their computed vectors can have different cancellation behavior.
 
 #### Problem NM-83: Newton iteration for two equations
 
@@ -2162,12 +2294,12 @@ Solution. The vector function and Jacobian are
 
 ```math
 F(x,y)=\binom{x^2+y^2-1}{x-y},\qquad
-J(x,y)=\begin{pmatrix}2x&2y\\1&-1\end{pmatrix}.
+J(x,y)=\begin{pmatrix}2x&2y\\[0pt] 1&-1\end{pmatrix}.
 ```
 
 Solve $`J h=-F`$ rather than forming a Jacobian inverse explicitly. At $`(1,0)`$, the equations give $`h_1=0,h_2=1`$, producing $`(1,1)`$. At that point, $`h_1=h_2=-1/4`$, producing $`(3/4,3/4)`$. The next correction is $`(-1/24,-1/24)`$, producing $`(17/24,17/24)`$.
 
-The linear equation $`x-y=0`$ is satisfied exactly after the first step. Every subsequent step stays on that line. Writing $`x=y=z>0`$ reduces Newton to the scalar equation $`2z^2-1=0`$:
+The linear equation $`x-y=0`$ is satisfied exactly after the first step. Every subsequent step stays on that line. Writing $`x=y=z\gt 0`$ reduces Newton to the scalar equation $`2z^2-1=0`$:
 
 ```math
 z_{\mathrm{new}}=\frac12\left(z+\frac1{2z}\right).
@@ -2211,7 +2343,7 @@ The cancellation used the even-power trapezoidal expansion for a smooth function
 
 Estimate $`I=\int_0^1x^{-1/2}dx`$ by Monte Carlo. Determine the variance under uniform sampling and under density $`q(x)=1/(2\sqrt x)`$, and give a way to sample from the latter.
 
-Solution. Under $`U\sim\mathop{\mathrm{Uniform}}\nolimits(0,1)`$, the observation $`U^{-1/2}`$ has mean two. Its second moment is $`\int_0^1x^{-1}dx=\infty`$. The usual finite-variance Monte Carlo standard error and square-root-normal CLT therefore do not apply.
+Solution. Under $`U\sim\mathop{\mathrm{Uniform}} (0,1)`$, the observation $`U^{-1/2}`$ has mean two. Its second moment is $`\int_0^1x^{-1}dx=\infty`$. The usual finite-variance Monte Carlo standard error and square-root-normal CLT therefore do not apply.
 
 For any density positive where the integrand is nonzero, the importance-weighted observation is $`f(X)/q(X)`$ and has expectation $`\int f(x)dx`$. Its second moment is $`\int f(x)^2/q(x)dx`$, which must be checked separately.
 
@@ -2225,7 +2357,7 @@ almost surely, producing zero variance.
 
 This density is proportional to the positive integrand, the theoretical zero-variance choice. In a general integration problem its normalizing constant is the unknown integral, so the exact ideal density may not be available. Here the elementary integral is known and the example exposes the variance mechanism directly.
 
-If a mixture density $`q_\epsilon=(1-\epsilon)q+\epsilon`$ is used with $`0<\epsilon<1`$, then $`f/q_\epsilon\le2/(1-\epsilon)`$. The estimator remains unbiased and now has a bounded observation, hence finite variance. Matching the sampling density to a singularity can be more useful than merely increasing the number of uniform draws.
+If a mixture density $`q_\epsilon=(1-\epsilon)q+\epsilon`$ is used with $`0\lt \epsilon\lt 1`$, then $`f/q_\epsilon\le2/(1-\epsilon)`$. The estimator remains unbiased and now has a bounded observation, hence finite variance. Matching the sampling density to a singularity can be more useful than merely increasing the number of uniform draws.
 
 #### Problem NM-86: antithetic exponential integration at equal cost
 
@@ -2237,12 +2369,12 @@ Solution. Put $`m=e-1`$. One plain observation has variance
 V=\frac{e^2-1}{2}-(e-1)^2.
 ```
 
-The reflected input is also uniform, so both members of an antithetic pair have this same mean and variance. Their product is identically $`e`$, giving covariance $`C=e-(e-1)^2<0`$.
+The reflected input is also uniform, so both members of an antithetic pair have this same mean and variance. Their product is identically $`e`$, giving covariance $`C=e-(e-1)^2\lt 0`$.
 
 One pair average has variance $`(V+C)/2`$. Averaging $`N`$ independent pairs therefore has variance $`(V+C)/(2N)`$. The plain estimator using $`2N`$ independent observations has variance $`V/(2N)`$. The equal-evaluation variance-reduction factor is
 
 ```math
-\frac V{V+C}>1.
+\frac V{V+C}\gt 1.
 ```
 
 Both estimators are unbiased. The antithetic calculation uses one random draw to generate two function inputs, while the plain calculation uses two. The comparison has fixed the number of function evaluations, which is often the main cost; fixing random draws alone would answer a different cost question.
@@ -2284,7 +2416,7 @@ Discretize $`-u''=2`$ on $`(0,1)`$ with $`u(0)=u(1)=0`$ using centered differenc
 Solution. With two interior points, $`h=1/3`$ and the system is
 
 ```math
-9\begin{pmatrix}2&-1\\-1&2\end{pmatrix}
+9\begin{pmatrix}2&-1\\[0pt] -1&2\end{pmatrix}
 \binom{u_1}{u_2}=\binom22.
 ```
 

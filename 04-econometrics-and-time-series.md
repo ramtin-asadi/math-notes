@@ -68,13 +68,13 @@ Partition the design into a regressor of interest $`d`$ and controls $`W`$, and 
 \min_\alpha\Vert M_Wy-M_Wd\,\alpha\Vert ^2.
 ```
 
-Hence, provided $`d^\top M_Wd>0`$,
+Hence, provided $`d^\top M_Wd\gt 0`$,
 
 ```math
 \widehat\alpha=(d^\top M_Wd)^{-1}d^\top M_Wy.
 ```
 
-Residualize both the outcome and the target regressor against the same controls, then regress one residual on the other. Residualizing only the outcome while leaving the denominator $`d^\top d`$ unchanged generally gives a different answer. The condition $`d^\top M_Wd>0`$ says that the target has variation left after the controls are removed.
+Residualize both the outcome and the target regressor against the same controls, then regress one residual on the other. Residualizing only the outcome while leaving the denominator $`d^\top d`$ unchanged generally gives a different answer. The condition $`d^\top M_Wd\gt 0`$ says that the target has variation left after the controls are removed.
 
 #### A population projection is defined by its approximation class
 
@@ -125,10 +125,10 @@ Source: [MIT 14.32, Problem Set II, B.1](https://ocw.mit.edu/courses/14-32-econo
 
 Problem. Show that the population linear regression of $`Y`$ on an intercept and a nondegenerate binary variable reproduces the two conditional means.
 
-Solution. Let $`P(D=1)=p\in(0,1)`$ and $`m_j=E[Y\mid D=j]`$. Then $`EY=(1-p)m_0+pm_1`$, $`E[DY]=pm_1`$, and $`\mathop{\mathrm{Var}}\nolimits(D)=p(1-p)`$. Consequently
+Solution. Let $`P(D=1)=p\in(0,1)`$ and $`m_j=E[Y\mid D=j]`$. Then $`EY=(1-p)m_0+pm_1`$, $`E[DY]=pm_1`$, and $`\mathop{\mathrm{Var}} (D)=p(1-p)`$. Consequently
 
 ```math
-\mathop{\mathrm{Cov}}\nolimits(D,Y)=pm_1-p[(1-p)m_0+pm_1]
+\mathop{\mathrm{Cov}} (D,Y)=pm_1-p[(1-p)m_0+pm_1]
 =p(1-p)(m_1-m_0).
 ```
 
@@ -187,23 +187,23 @@ Suppose $`Y=\alpha+\beta X+\gamma Z+u`$ with $`E[u\mid X,Z]=0`$, and regress $`Y
 
 ```math
 \widetilde\beta
-=\frac{\mathop{\mathrm{Cov}}\nolimits(X,Y)}{\mathop{\mathrm{Var}}\nolimits(X)}
-=\beta+\gamma\frac{\mathop{\mathrm{Cov}}\nolimits(X,Z)}{\mathop{\mathrm{Var}}\nolimits(X)}.
+=\frac{\mathop{\mathrm{Cov}} (X,Y)}{\mathop{\mathrm{Var}} (X)}
+=\beta+\gamma\frac{\mathop{\mathrm{Cov}} (X,Z)}{\mathop{\mathrm{Var}} (X)}.
 ```
 
-The omitted term shifts the slope only when it both affects $`Y`$ and is correlated with $`X`$. If $`\gamma>0`$ and $`\mathop{\mathrm{Cov}}\nolimits(X,Z)>0`$, the bias is positive. Reversing either sign reverses the bias. With controls $`W`$, apply the same formula to variables residualized against $`W`$.
+The omitted term shifts the slope only when it both affects $`Y`$ and is correlated with $`X`$. If $`\gamma\gt 0`$ and $`\mathop{\mathrm{Cov}} (X,Z)\gt 0`$, the bias is positive. Reversing either sign reverses the bias. With controls $`W`$, apply the same formula to variables residualized against $`W`$.
 
 #### Classical measurement error
 
 Let the true model be $`Y=\alpha+\beta X^*+u`$, but observe $`X=X^*+v`$. Assume $`v`$ is mean zero and uncorrelated with $`X^*,u`$, and $`u`$ is uncorrelated with $`X^*`$. Then
 
 ```math
-\mathop{\mathrm{plim}}\nolimits\widehat\beta
-=\beta\frac{\mathop{\mathrm{Var}}\nolimits(X^*)}
-{\mathop{\mathrm{Var}}\nolimits(X^*)+\mathop{\mathrm{Var}}\nolimits(v)}.
+\mathop{\mathrm{plim}} \widehat\beta
+=\beta\frac{\mathop{\mathrm{Var}} (X^*)}
+{\mathop{\mathrm{Var}} (X^*)+\mathop{\mathrm{Var}} (v)}.
 ```
 
-The numerator covariance stays $`\beta\mathop{\mathrm{Var}}\nolimits(X^*)`$, while noise increases the denominator variance. This attenuation result depends on the classical error assumptions; nonclassical measurement error need not attenuate toward zero.
+The numerator covariance stays $`\beta\mathop{\mathrm{Var}} (X^*)`$, while noise increases the denominator variance. This attenuation result depends on the classical error assumptions; nonclassical measurement error need not attenuate toward zero.
 
 #### Simultaneous determination creates regressor-error covariance
 
@@ -230,9 +230,9 @@ An instrument can enter the equation determining $`D`$ while remaining excluded 
 In classical measurement error, observe $`X=X^*+\eta`$ while $`Y=\beta X^*+u`$. If the centered measurement error is uncorrelated with $`X^*,u`$ and $`E[X^*u]=0`$, then
 
 ```math
-\frac{\mathop{\mathrm{Cov}}\nolimits(X,Y)}{\mathop{\mathrm{Var}}\nolimits(X)}
-=\beta\frac{\mathop{\mathrm{Var}}\nolimits(X^*)}
-{\mathop{\mathrm{Var}}\nolimits(X^*)+\mathop{\mathrm{Var}}\nolimits(\eta)}.
+\frac{\mathop{\mathrm{Cov}} (X,Y)}{\mathop{\mathrm{Var}} (X)}
+=\beta\frac{\mathop{\mathrm{Var}} (X^*)}
+{\mathop{\mathrm{Var}} (X^*)+\mathop{\mathrm{Var}} (\eta)}.
 ```
 
 For a single regressor this shrinks the slope toward zero. The assumptions are doing the work: correlated or systematic measurement error can produce other directions of bias, and multiple-regressor effects need not all be simple attenuation.
@@ -249,13 +249,13 @@ Both descriptions contain “measurement noise of variance one.” Their conditi
 
 #### Example EC-E03: a signed omitted-variable calculation
 
-Let $`\beta=2`$, $`\gamma=3`$, $`\mathop{\mathrm{Var}}\nolimits(X)=4`$, and $`\mathop{\mathrm{Cov}}\nolimits(X,Z)=-2`$. The short regression slope is $`2+3(-2)/4=1/2`$. The downward shift is $`3/2`$. A positive effect of the omitted variable is compatible with a negative bias when the omitted variable covaries negatively with the included one.
+Let $`\beta=2`$, $`\gamma=3`$, $`\mathop{\mathrm{Var}} (X)=4`$, and $`\mathop{\mathrm{Cov}} (X,Z)=-2`$. The short regression slope is $`2+3(-2)/4=1/2`$. The downward shift is $`3/2`$. A positive effect of the omitted variable is compatible with a negative bias when the omitted variable covaries negatively with the included one.
 
 #### Example EC-E04: simultaneous determination
 
 Suppose centered variables satisfy $`Y=\beta X+u`$ and $`X=\delta Y+v`$, with $`1-\delta\beta\ne0`$ and independent centered $`u,v`$.
 
-Solution. Substitution gives $`X=(\delta u+v)/(1-\delta\beta)`$, so $`\mathop{\mathrm{Cov}}\nolimits(X,u)=\delta\mathop{\mathrm{Var}}\nolimits(u)/(1-\delta\beta)`$. Unless $`\delta=0`$ or the structural shock is degenerate, OLS's exogeneity moment fails. The error enters the regressor through the feedback equation.
+Solution. Substitution gives $`X=(\delta u+v)/(1-\delta\beta)`$, so $`\mathop{\mathrm{Cov}} (X,u)=\delta\mathop{\mathrm{Var}} (u)/(1-\delta\beta)`$. Unless $`\delta=0`$ or the structural shock is degenerate, OLS's exogeneity moment fails. The error enters the regressor through the feedback equation.
 
 ### 2.4 Selected exercises
 
@@ -267,7 +267,7 @@ Source: [MIT 14.382, archived Midterm 2006, Question 1](https://ocw.mit.edu/cour
 
 Problem. In the linear model with independent errors $`u_i=\sigma(e_i-1)`$, $`e_i`$ exponential with rate one and independent of the regressors, check the Gauss-Markov conditions.
 
-Solution. Since $`Ee_i=1`$ and $`\mathop{\mathrm{Var}}\nolimits(e_i)=1`$, the errors have conditional mean zero, conditional variance $`\sigma^2`$, and no cross-observation covariance. With a linear model and full-column-rank $`X`$, these satisfy the usual Gauss-Markov assumptions. The errors are skewed, but Gaussianity is not required for that theorem. Normal-error finite-sample $`t`$ and $`F`$ reference laws are a separate issue.
+Solution. Since $`Ee_i=1`$ and $`\mathop{\mathrm{Var}} (e_i)=1`$, the errors have conditional mean zero, conditional variance $`\sigma^2`$, and no cross-observation covariance. With a linear model and full-column-rank $`X`$, these satisfy the usual Gauss-Markov assumptions. The errors are skewed, but Gaussianity is not required for that theorem. Normal-error finite-sample $`t`$ and $`F`$ reference laws are a separate issue.
 
 #### Problem EC-07: conditional mean, covariance, and distribution
 
@@ -279,7 +279,7 @@ Solution. Apply the OLS error identity:
 
 ```math
 E[\widehat\beta\mid X]=\beta,\qquad
-\mathop{\mathrm{Var}}\nolimits(\widehat\beta\mid X)=\sigma^2(X^\top X)^{-1}.
+\mathop{\mathrm{Var}} (\widehat\beta\mid X)=\sigma^2(X^\top X)^{-1}.
 ```
 
 The estimator is a linear combination of centered exponential errors, so it is generally not exactly Gaussian. For an intercept-only design, $`\widehat\beta-\beta=\sigma(\bar e-1)`$ has support $`[-\sigma,\infty)`$ and is visibly nonnormal. A large-sample normal approximation can still hold after centering and scaling under suitable moment and design conditions.
@@ -290,13 +290,13 @@ The estimator is a linear combination of centered exponential errors, so it is g
 
 Constructed problem. If $`Y=X^2+u`$, $`E[u\mid X]=0`$, and $`X`$ is uniform on $`(0,1)`$, find the population regression on $`1,X`$.
 
-Solution. The moments are $`EX=1/2`$, $`EX^2=1/3`$, $`EX^3=1/4`$, and $`\mathop{\mathrm{Var}}\nolimits(X)=1/12`$. Thus the slope is $`(1/4-(1/2)(1/3))/(1/12)=1`$ and intercept $`1/3-1/2=-1/6`$. The residual conditional mean is $`X^2-X+1/6`$, which is not zero. The slope describes a linear projection of a curved mean rather than a constant marginal effect.
+Solution. The moments are $`EX=1/2`$, $`EX^2=1/3`$, $`EX^3=1/4`$, and $`\mathop{\mathrm{Var}} (X)=1/12`$. Thus the slope is $`(1/4-(1/2)(1/3))/(1/12)=1`$ and intercept $`1/3-1/2=-1/6`$. The residual conditional mean is $`X^2-X+1/6`$, which is not zero. The slope describes a linear projection of a curved mean rather than a constant marginal effect.
 
 #### Problem EC-09: an observational equivalence
 
 Constructed problem. Explain why any proposed scalar slope $`b`$ can be fitted to the identity $`Y=bX+u_b`$ without an error restriction.
 
-Solution. Define $`u_b=Y-bX`$. This reproduces the observed $`Y`$ for every $`b`$. The observable joint law of $`(X,Y)`$ alone does not rule out any of these decompositions. A condition such as $`E[Xu_b]=0`$ selects the projection slope if $`E[X^2]>0`$; a causal interpretation requires an error restriction supported by the causal model. Merely naming $`u_b`$ a structural shock adds no identifying information.
+Solution. Define $`u_b=Y-bX`$. This reproduces the observed $`Y`$ for every $`b`$. The observable joint law of $`(X,Y)`$ alone does not rule out any of these decompositions. A condition such as $`E[Xu_b]=0`$ selects the projection slope if $`E[X^2]\gt 0`$; a causal interpretation requires an error restriction supported by the causal model. Merely naming $`u_b`$ a structural shock adds no identifying information.
 
 #### Problem EC-10: measuring reliability
 
@@ -311,11 +311,11 @@ Solution. The reliability ratio is $`9/(9+3)=3/4`$, so the short regression slop
 Under $`E[u\mid X]=0`$, the exact conditional covariance is
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(\widehat\beta\mid X)
+\mathop{\mathrm{Var}} (\widehat\beta\mid X)
 =(X^\top X)^{-1}X^\top\Omega_X X(X^\top X)^{-1},
 ```
 
-where $`\Omega_X=\mathop{\mathrm{Var}}\nolimits(u\mid X)`$. If $`\Omega_X=\sigma^2I`$, this reduces to $`\sigma^2(X^\top X)^{-1}`$. Heteroskedasticity changes the diagonal variances; serial correlation introduces off-diagonal covariances.
+where $`\Omega_X=\mathop{\mathrm{Var}} (u\mid X)`$. If $`\Omega_X=\sigma^2I`$, this reduces to $`\sigma^2(X^\top X)^{-1}`$. Heteroskedasticity changes the diagonal variances; serial correlation introduces off-diagonal covariances.
 
 For iid observations with finite appropriate moments, define $`Q=E[X_iX_i^\top]`$ and $`S=E[X_iX_i^\top u_i^2]`$. Then $`\sqrt n(\widehat\beta-\beta)\Rightarrow N(0,Q^{-1}SQ^{-1})`$. The covariance of the unscaled estimator is approximately this expression divided by $`n`$.
 
@@ -353,7 +353,7 @@ A law of large numbers sends the first factor to $`Q^{-1}`$. An iid vector CLT s
 Consider any estimator linear in $`y`$, $`Cy`$, that is conditionally unbiased for every $`\beta`$. It must satisfy $`CX=I`$. Write $`C=(X^\top X)^{-1}X^\top+D`$, so $`DX=0`$. Under conditional covariance $`\sigma^2I`$,
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(Cy\mid X)
+\mathop{\mathrm{Var}} (Cy\mid X)
 =\sigma^2(X^\top X)^{-1}+\sigma^2DD^\top.
 ```
 
@@ -368,7 +368,7 @@ Let $`z_t=x_tu_t`$ and $`Q=E[x_tx_t^\top]`$. Under consistency, a suitable law o
 =Q^{-1}\frac1{\sqrt n}\sum_t z_t+o_p(1).
 ```
 
-For serially dependent scores, their limiting covariance is the long-run sum $`\Omega=\sum_{k=-\infty}^{\infty}\mathop{\mathrm{Cov}}\nolimits(z_t,z_{t-k})`$. The limiting coefficient covariance is $`Q^{-1}\Omega Q^{-1}`$. The sampling covariance of $`\hat\beta`$ is approximately this matrix divided by $`n`$.
+For serially dependent scores, their limiting covariance is the long-run sum $`\Omega=\sum_{k=-\infty}^{\infty}\mathop{\mathrm{Cov}} (z_t,z_{t-k})`$. The limiting coefficient covariance is $`Q^{-1}\Omega Q^{-1}`$. The sampling covariance of $`\hat\beta`$ is approximately this matrix divided by $`n`$.
 
 For independent observations, only lag zero remains. A heteroskedasticity-robust estimator replaces it by squared-residual score products. HC1 rescales HC0 by $`n/(n-p)`$; HC2 divides squared residuals by $`1-h_i`$; HC3 divides them by $`(1-h_i)^2`$. These are finite-sample leverage corrections with different properties, rather than guarantees of exact inference under arbitrary heteroskedasticity.
 
@@ -428,7 +428,7 @@ Source: [MIT 14.382, archived Midterm 2006, Question 6](https://ocw.mit.edu/cour
 
 Problem. Give primitive iid moment and rank conditions yielding asymptotic normality of OLS in the shifted-exponential model, and derive its limiting covariance.
 
-Solution. Assume iid rows, fixed regressor dimension, $`E\Vert X_i\Vert ^2<\infty`$, PD $`Q=E[X_iX_i^\top]`$, and independence of the exponential errors from the regressors. Then $`E[X_iu_i]=0`$ and $`E[\Vert X_iu_i\Vert ^2]=\sigma^2E\Vert X_i\Vert ^2<\infty`$. The LLN for $`X_iX_i^\top`$ and vector CLT for $`X_iu_i`$ yield
+Solution. Assume iid rows, fixed regressor dimension, $`E\Vert X_i\Vert ^2\lt \infty`$, PD $`Q=E[X_iX_i^\top]`$, and independence of the exponential errors from the regressors. Then $`E[X_iu_i]=0`$ and $`E[\Vert X_iu_i\Vert ^2]=\sigma^2E\Vert X_i\Vert ^2\lt \infty`$. The LLN for $`X_iX_i^\top`$ and vector CLT for $`X_iu_i`$ yield
 
 ```math
 \sqrt n(\widehat\beta-\beta)\Rightarrow N(0,\sigma^2Q^{-1}).
@@ -456,9 +456,9 @@ The first term converges by the LLN; the next two vanish. Since $`n/(n-k)\to1`$,
 
 Source: [MIT 14.382, archived Midterm 2006, Question 8](https://ocw.mit.edu/courses/14-382-econometrics-spring-2017/cdc4509ac2df5df8f6f0a018607f92f6_MIT_14_382S17_midterm06.pdf).
 
-Problem. Using the asymptotic normal approximation in the shifted-exponential model, test $`H_0:\beta_j=0`$ against $`\beta_j<0`$ at asymptotic level 5%, with a justified standard error.
+Problem. Using the asymptotic normal approximation in the shifted-exponential model, test $`H_0:\beta_j=0`$ against $`\beta_j\lt 0`$ at asymptotic level 5%, with a justified standard error.
 
-Solution. For $`H_0:\beta_j=0`$ against $`\beta_j<0`$, use $`t_j=\widehat\beta_j/\sqrt{s^2[(X^\top X)^{-1}]_{jj}}`$. The numerator CLT and consistent denominator give $`t_j\Rightarrow N(0,1)`$ under the null. Reject when $`t_j<-1.64485`$ for asymptotic 5% level. An exact $`t_{n-k}`$ law has not been established because the errors are not normal.
+Solution. For $`H_0:\beta_j=0`$ against $`\beta_j\lt 0`$, use $`t_j=\widehat\beta_j/\sqrt{s^2[(X^\top X)^{-1}]_{jj}}`$. The numerator CLT and consistent denominator give $`t_j\Rightarrow N(0,1)`$ under the null. Reject when $`t_j\lt -1.64485`$ for asymptotic 5% level. An exact $`t_{n-k}`$ law has not been established because the errors are not normal.
 
 ### 3.5 Additional solved problems
 
@@ -579,9 +579,9 @@ Suppose sample centered cross-products are $`\sum Z_iD_i=20`$ and $`\sum Z_iY_i=
 
 #### Example EC-E08: a relevant but invalid instrument
 
-Let $`D=Z+v`$ and $`Y=2D+Z+e`$, with independent centered $`Z,v,e`$ and $`\mathop{\mathrm{Var}}\nolimits(Z)>0`$.
+Let $`D=Z+v`$ and $`Y=2D+Z+e`$, with independent centered $`Z,v,e`$ and $`\mathop{\mathrm{Var}} (Z)\gt 0`$.
 
-Solution. The instrument strongly predicts $`D`$, but the structural error relative to slope two is $`u=Z+e`$. Then $`E[Zu]=\mathop{\mathrm{Var}}\nolimits(Z)>0`$. IV converges to $`E[ZY]/E[ZD]=3`$, not two. The direct $`Z`$ effect violates exclusion.
+Solution. The instrument strongly predicts $`D`$, but the structural error relative to slope two is $`u=Z+e`$. Then $`E[Zu]=\mathop{\mathrm{Var}} (Z)\gt 0`$. IV converges to $`E[ZY]/E[ZD]=3`$, not two. The direct $`Z`$ effect violates exclusion.
 
 ### 4.4 Selected exercises
 
@@ -607,7 +607,7 @@ Solution. In the stated outcome and first-stage equations, apply $`M_W`$ to remo
 
 Constructed problem. In $`D_i=\pi Z_i+v_i`$, compare fixed $`\pi\ne0`$ with $`\pi=c/\sqrt n`$.
 
-Solution. With $`EZ_i^2=q>0`$, the denominator $`\sum Z_iD_i`$ has deterministic leading term $`n\pi q`$ and random variation typically of order $`\sqrt n`$. At fixed $`\pi`$, the leading term dominates. With $`\pi=c/\sqrt n`$, both have order $`\sqrt n`$. The IV estimation error then involves a ratio whose denominator remains random at first order. Dividing by an estimated conventional standard error does not restore the fixed-relevance normal proof.
+Solution. With $`EZ_i^2=q\gt 0`$, the denominator $`\sum Z_iD_i`$ has deterministic leading term $`n\pi q`$ and random variation typically of order $`\sqrt n`$. At fixed $`\pi`$, the leading term dominates. With $`\pi=c/\sqrt n`$, both have order $`\sqrt n`$. The IV estimation error then involves a ratio whose denominator remains random at first order. Dividing by an estimated conventional standard error does not restore the fixed-relevance normal proof.
 
 #### Problem EC-21: two instruments and one regressor
 
@@ -765,7 +765,7 @@ Solution. For $`Y_t=\mu+e_t+\theta_1e_{t-1}+\theta_2e_{t-2}`$ with iid centered 
 ```math
 \gamma_0=\sigma^2(1+\theta_1^2+\theta_2^2),\quad
 \gamma_1=\sigma^2\theta_1(1+\theta_2),\quad
-\gamma_2=\sigma^2\theta_2,\quad\gamma_j=0\ (j>2).
+\gamma_2=\sigma^2\theta_2,\quad\gamma_j=0\ (j\gt 2).
 ```
 
 As auxiliary statistics use the sample mean and several sample autocovariances. For each trial structural parameter, simulate a long series, compute the same statistics, and minimize their weighted distance from the observed statistics. Equivalently use auxiliary autoregressive coefficients if their binding function identifies the structural parameters.
@@ -784,7 +784,7 @@ Solution. The tower property gives $`E[h(Z)u]=E[h(Z)E[u\mid Z]]=0`$. Thus each c
 
 Constructed problem. Let $`g(\theta)=E[Y]-\theta^2`$ and suppose $`EY=4`$. Discuss identification.
 
-Solution. The zero set is $`\{-2,2\}`$. At either root the derivative $`-2\theta`$ is nonzero, giving local identification, but globally the parameter is ambiguous. Restricting $`\theta>0`$ selects two. The sample objective $`(\bar Y-\theta^2)^2`$ can likewise have two minima. A local solver returning one minimum does not prove that the model uniquely identifies it.
+Solution. The zero set is $`\lbrace -2,2\rbrace`$. At either root the derivative $`-2\theta`$ is nonzero, giving local identification, but globally the parameter is ambiguous. Restricting $`\theta\gt 0`$ selects two. The sample objective $`(\bar Y-\theta^2)^2`$ can likewise have two minima. A local solver returning one minimum does not prove that the model uniquely identifies it.
 
 #### Problem EC-28: a J-test cannot validate an exactly identified model
 
@@ -835,8 +835,8 @@ Add and subtract $`E[Y_1(0)\mid D=1]`$. Under no treatment in the control group 
 
 ```math
 \Delta=E[Y_1(1)-Y_1(0)\mid D=1]
-+\{E[Y_1(0)-Y_0(0)\mid D=1]
--E[Y_1(0)-Y_0(0)\mid D=0]\}.
++\lbrace E[Y_1(0)-Y_0(0)\mid D=1]
+-E[Y_1(0)-Y_0(0)\mid D=0]\rbrace .
 ```
 
 The first term is the average treatment effect on treated units. Parallel trends sets the brace to zero. A violation of size $`b`$ adds exactly $`b`$ to the DID estimand.
@@ -911,7 +911,7 @@ Problem. Under equal outcome variances and a fixed budget with per-person cost $
 
 Solution. Under the stated no-effect planning assumption, let both groups' outcome variance be $`v`$. With treated fraction $`p`$, the variance of the difference in means is $`v/[np]+v/[n(1-p)]=v/[np(1-p)]`$. For fixed $`n`$, maximize $`p(1-p)`$, giving $`p=1/2`$.
 
-Now let baseline collection cost be $`c_0>0`$ per person and additional treatment cost be $`c_T\ge0`$. With budget $`R`$, the continuous relaxation gives $`n=R/(c_0+c_Tp)`$. The variance becomes $`v(c_0+c_Tp)/[Rp(1-p)]`$. Differentiating the fraction gives numerator $`c_Tp^2+2c_0p-c_0`$. Its interior zero is
+Now let baseline collection cost be $`c_0\gt 0`$ per person and additional treatment cost be $`c_T\ge0`$. With budget $`R`$, the continuous relaxation gives $`n=R/(c_0+c_Tp)`$. The variance becomes $`v(c_0+c_Tp)/[Rp(1-p)]`$. Differentiating the fraction gives numerator $`c_Tp^2+2c_0p-c_0`$. Its interior zero is
 
 ```math
 p^*=\frac{\sqrt{c_0}}{\sqrt{c_0}+\sqrt{c_0+c_T}}.
@@ -961,20 +961,20 @@ Solution. It equals the treatment effect plus the group's untreated outcome tren
 
 Constructed problem. Let $`X_{it}=\alpha_i+v_{it}`$ with independent centered $`v_{it}`$ and $`\alpha_i`$. Show the problem with imposing exogeneity of unit effects.
 
-Solution. $`\mathop{\mathrm{Cov}}\nolimits(X_{it},\alpha_i)=\mathop{\mathrm{Var}}\nolimits(\alpha_i)`$, positive when unit effects vary. A random-effects assumption requiring this covariance to be zero is violated. Within demeaning removes $`\alpha_i`$ from both sides of the slope equation, while a model that combines within and between variation under the false independence restriction can be inconsistent. The preferred estimator depends on which assumptions can be defended.
+Solution. $`\mathop{\mathrm{Cov}} (X_{it},\alpha_i)=\mathop{\mathrm{Var}} (\alpha_i)`$, positive when unit effects vary. A random-effects assumption requiring this covariance to be zero is violated. Within demeaning removes $`\alpha_i`$ from both sides of the slope equation, while a model that combines within and between variation under the false independence restriction can be inconsistent. The preferred estimator depends on which assumptions can be defended.
 
 ## 7. Stationary and nonstationary time series
 
 ### 7.1 Theory
 
-A weakly stationary process has constant finite mean and autocovariances depending only on the lag: $`\gamma_k=\mathop{\mathrm{Cov}}\nolimits(Y_t,Y_{t-k})`$. Strict stationarity requires invariance of every finite-dimensional joint distribution to a time shift. Finite-second-moment strict stationarity implies weak stationarity, but weak stationarity alone does not control all higher-order distributions.
+A weakly stationary process has constant finite mean and autocovariances depending only on the lag: $`\gamma_k=\mathop{\mathrm{Cov}} (Y_t,Y_{t-k})`$. Strict stationarity requires invariance of every finite-dimensional joint distribution to a time shift. Finite-second-moment strict stationarity implies weak stationarity, but weak stationarity alone does not control all higher-order distributions.
 
 White noise has mean zero, constant variance, and zero nonzero-lag covariance. It need not be independent unless that stronger condition is stated. An innovation relative to a filtration has conditional mean zero given past information, which is useful for forecasting.
 
 For a causal AR(1),
 
 ```math
-Y_t=c+\phi Y_{t-1}+\varepsilon_t,\qquad \vert \phi\vert <1,
+Y_t=c+\phi Y_{t-1}+\varepsilon_t,\qquad \vert \phi\vert \lt 1,
 ```
 
 the stationary mean is $`\mu=c/(1-\phi)`$. The centered process has an infinite moving-average representation. Persistence is high when $`\phi`$ is close to one; a fixed coefficient close to one and an exact unit root have different asymptotic behavior.
@@ -992,14 +992,14 @@ Y_t-\mu=\sum_{j=0}^{k-1}\phi^j\varepsilon_{t-j}
 +\phi^k(Y_{t-k}-\mu).
 ```
 
-For a causal stationary process with finite variance, the last term tends to zero in $`L^2`$ when $`\vert \phi\vert <1`$. The innovation series converges in $`L^2`$ because $`\sum_j\phi^{2j}<\infty`$. If innovations are uncorrelated with variance $`\sigma_\varepsilon^2`$,
+For a causal stationary process with finite variance, the last term tends to zero in $`L^2`$ when $`\vert \phi\vert \lt 1`$. The innovation series converges in $`L^2`$ because $`\sum_j\phi^{2j}\lt \infty`$. If innovations are uncorrelated with variance $`\sigma_\varepsilon^2`$,
 
 ```math
 \gamma_0=\frac{\sigma_\varepsilon^2}{1-\phi^2},\qquad
 \gamma_h=\phi^{\vert h\vert }\gamma_0.
 ```
 
-The causal restriction matters. With $`\vert \phi\vert >1`$, one can construct an anticipative stationary solution from future shocks, but it does not have the usual innovation and forecasting interpretation used here.
+The causal restriction matters. With $`\vert \phi\vert \gt 1`$, one can construct an anticipative stationary solution from future shocks, but it does not have the usual innovation and forecasting interpretation used here.
 
 #### Multistep forecast
 
@@ -1023,12 +1023,12 @@ For $`X_t=\epsilon_t+\theta\epsilon_{t-1}`$ with white-noise variance $`\sigma^2
 
 ```math
 \gamma_0=\sigma^2(1+\theta^2),\qquad
-\gamma_1=\theta\sigma^2,\qquad \gamma_k=0\ (\vert k\vert >1).
+\gamma_1=\theta\sigma^2,\qquad \gamma_k=0\ (\vert k\vert \gt 1).
 ```
 
 The lag-one correlation is $`\theta/(1+\theta^2)`$. Replacing $`\theta`$ by $`1/\theta`$ and the innovation variance by $`\theta^2\sigma^2`$ leaves the covariance function unchanged. Under Gaussian innovations, it leaves the whole process law unchanged.
 
-The invertibility convention $`\vert \theta\vert <1`$ chooses the representation whose innovations can be recovered causally:
+The invertibility convention $`\vert \theta\vert \lt 1`$ chooses the representation whose innovations can be recovered causally:
 
 ```math
 \epsilon_t=\sum_{j=0}^\infty(-\theta)^jX_{t-j}.
@@ -1077,7 +1077,7 @@ For $`Y_t=Y_{t-1}+\varepsilon_t`$, current value five, and innovation variance t
 
 #### Example EC-E15: a mean-reversion half-life
 
-For $`0<\phi<1`$, a conditional deviation shrinks by $`\phi^h`$. Setting $`\phi^h=1/2`$ gives $`h=\log(1/2)/\log\phi`$. At $`\phi=0.9`$ the half-life is about $`6.58`$ periods. This calculation refers to the conditional mean deviation; realized paths continue receiving new shocks.
+For $`0\lt \phi\lt 1`$, a conditional deviation shrinks by $`\phi^h`$. Setting $`\phi^h=1/2`$ gives $`h=\log(1/2)/\log\phi`$. At $`\phi=0.9`$ the half-life is about $`6.58`$ periods. This calculation refers to the conditional mean deviation; realized paths continue receiving new shocks.
 
 ### 7.4 Selected exercises
 
@@ -1101,7 +1101,7 @@ Source: [MIT 14.384, sample problem bank, Problem 5(a)](https://ocw.mit.edu/cour
 
 Problem. For a fixed stable AR(1) coefficient, establish the asymptotic validity of a subsampling confidence interval under the source's subsample-quantile consistency assumption, with block size tending to infinity and block-to-sample ratio tending to zero.
 
-Solution. For a fixed $`0<\rho_0<1`$, assume the usual stationary AR estimator and standard-error limits, and the source's stated consistency of subsample quantiles. The full-sample $`t`$ statistic tends to $`N(0,1)`$. In a block of length $`b_T\to\infty`$, the statistic centered at $`\rho_0`$ has the same limit. Replacing that center by the full-sample estimate adds a term of order $`\sqrt{b_T}(\widehat\rho_T-\rho_0)=O_p(\sqrt{b_T/T})=o_p(1)`$. Thus its subsampling quantiles approach normal quantiles and coverage approaches $`1-\alpha`$. This fixed-stable-parameter argument does not establish uniform validity as $`\rho_0`$ approaches one.
+Solution. For a fixed $`0\lt \rho_0\lt 1`$, assume the usual stationary AR estimator and standard-error limits, and the source's stated consistency of subsample quantiles. The full-sample $`t`$ statistic tends to $`N(0,1)`$. In a block of length $`b_T\to\infty`$, the statistic centered at $`\rho_0`$ has the same limit. Replacing that center by the full-sample estimate adds a term of order $`\sqrt{b_T}(\widehat\rho_T-\rho_0)=O_p(\sqrt{b_T/T})=o_p(1)`$. Thus its subsampling quantiles approach normal quantiles and coverage approaches $`1-\alpha`$. This fixed-stable-parameter argument does not establish uniform validity as $`\rho_0`$ approaches one.
 
 ### 7.5 Additional solved problems
 
@@ -1109,7 +1109,7 @@ Solution. For a fixed $`0<\rho_0<1`$, assume the usual stationary AR estimator a
 
 Constructed problem. Let $`Y_t=\varepsilon_t+\theta\varepsilon_{t-1}`$ with iid centered innovations of variance $`\sigma^2`$.
 
-Solution. The variance is $`\sigma^2(1+\theta^2)`$. At lag one, the only shared innovation is $`\varepsilon_{t-1}`$, with product coefficient $`\theta`$, so $`\gamma_1=\theta\sigma^2`$. For $`\vert h\vert >1`$ there are no shared innovations and $`\gamma_h=0`$. The process is stationary for every finite $`\theta`$. Invertibility requires $`\vert \theta\vert <1`$ under the usual chosen representation, a distinct issue from stationarity.
+Solution. The variance is $`\sigma^2(1+\theta^2)`$. At lag one, the only shared innovation is $`\varepsilon_{t-1}`$, with product coefficient $`\theta`$, so $`\gamma_1=\theta\sigma^2`$. For $`\vert h\vert \gt 1`$ there are no shared innovations and $`\gamma_h=0`$. The process is stationary for every finite $`\theta`$. Invertibility requires $`\vert \theta\vert \lt 1`$ under the usual chosen representation, a distinct issue from stationarity.
 
 #### Problem EC-42: centering an AR model
 
@@ -1139,7 +1139,7 @@ Solution. Both level series inherit the stochastic trend from $`X_t`$, but $`Y_t
 
 Constructed problem. For $`\phi=-1/2`$, describe the conditional mean forecast path around its stationary mean.
 
-Solution. A current deviation $`d`$ has forecast deviations $`-d/2,d/4,-d/8,\ldots`$. Magnitudes shrink geometrically while signs alternate. The stationary variance formula still uses $`\phi^2`$ and remains positive. A positive-coefficient half-life formula based directly on $`\log\phi`$ is not real-valued; for the envelope of magnitudes use $`\log(1/2)/\log\vert \phi\vert `$ instead.
+Solution. A current deviation $`d`$ has forecast deviations $`-d/2,d/4,-d/8,\ldots`$. Magnitudes shrink geometrically while signs alternate. The stationary variance formula still uses $`\phi^2`$ and remains positive. A positive-coefficient half-life formula based directly on $`\log\phi`$ is not real-valued; for the envelope of magnitudes use $`\log(1/2)/\log\vert \phi\vert`$ instead.
 
 ## 8. Multivariate forecasting and state-space models
 
@@ -1231,7 +1231,19 @@ The direction says model B had lower average squared loss. The inference uses a 
 
 #### Example EC-E16: a two-variable VAR
 
-Let $`A=\left(\begin{smallmatrix}1/2&1/4\\0&1/2\end{smallmatrix}\right)`$, $`c=0`$, and $`Y_t=(2,4)^\top`$. The one-step forecast is $`(2,2)^\top`$. Since $`A^2=\left(\begin{smallmatrix}1/4&1/4\\0&1/4\end{smallmatrix}\right)`$, the two-step forecast is $`(3/2,1)^\top`$. The second variable predicts the first through the off-diagonal term.
+Let
+
+```math
+A=\left(\begin{smallmatrix}1/2&1/4\\[0pt] 0&1/2\end{smallmatrix}\right)
+```
+
+, $`c=0`$, and $`Y_t=(2,4)^\top`$. The one-step forecast is $`(2,2)^\top`$. Since
+
+```math
+A^2=\left(\begin{smallmatrix}1/4&1/4\\[0pt] 0&1/4\end{smallmatrix}\right)
+```
+
+, the two-step forecast is $`(3/2,1)^\top`$. The second variable predicts the first through the off-diagonal term.
 
 #### Example EC-E17: a measurement update
 
@@ -1253,7 +1265,7 @@ Solution. For a $`T\times N`$ matrix $`X`$, approximate $`X=F\Lambda^\top+E`$, i
 
 ```math
 \Vert X-F\widehat\Lambda^\top\Vert _F^2
-=\Vert X\Vert _F^2-\frac1T\mathop{\mathrm{tr}}\nolimits(F^\top XX^\top F).
+=\Vert X\Vert _F^2-\frac1T\mathop{\mathrm{tr}} (F^\top XX^\top F).
 ```
 
 Thus choose $`F`$ to maximize the trace under its normalization. If $`u_1,\ldots,u_k`$ are leading unit eigenvectors of $`XX^\top`$, take $`\widehat F=\sqrt T(u_1,\ldots,u_k)`$. Then $`\widehat\Lambda=X^\top\widehat F/T`$, and the common component is $`\widehat F\widehat\Lambda^\top=U_kU_k^\top X`$. Orthogonal rotations of the factors and loadings give the same common component, so the latent coordinates require a normalization and are not uniquely labeled by the observed data alone.
@@ -1264,7 +1276,7 @@ Source: [MIT 14.384, sample problem bank, Problem 8(a–c)](https://ocw.mit.edu/
 
 Problem. In a constant latent-level model with Gaussian observation noise and a Gaussian prior, derive recursive and closed-form posterior means and variances, including their long-sample limits.
 
-Solution. The state is constant, $`\alpha_t=\alpha`$, and $`Y_t=\alpha+v_t`$ with iid variance-$`\sigma^2`$ Gaussian noise. Start with normal prior mean $`a`$ and variance $`p_0>0`$. Repeated Gaussian updates add precisions:
+Solution. The state is constant, $`\alpha_t=\alpha`$, and $`Y_t=\alpha+v_t`$ with iid variance-$`\sigma^2`$ Gaussian noise. Start with normal prior mean $`a`$ and variance $`p_0\gt 0`$. Repeated Gaussian updates add precisions:
 
 ```math
 P_T^{-1}=p_0^{-1}+T/\sigma^2,\qquad
@@ -1282,7 +1294,7 @@ The coefficient on each new observation is $`1/(T+\sigma^2/p_0)`$, tending to ze
 
 #### Problem EC-49: a forecast-comparison standard error
 
-Constructed problem. Let $`d_t`$ be a stationary squared-error loss difference with mean $`\delta`$ and long-run variance $`\Omega_d>0`$.
+Constructed problem. Let $`d_t`$ be a stationary squared-error loss difference with mean $`\delta`$ and long-run variance $`\Omega_d\gt 0`$.
 
 Solution. Under a suitable dependent-data CLT, $`\sqrt T(\bar d-\delta)\Rightarrow N(0,\Omega_d)`$. Estimate $`\Omega_d`$ by an appropriate HAC estimator and test $`\delta=0`$ using $`\sqrt T\bar d/\sqrt{\widehat\Omega_d}`$. A positive estimate favors the model whose loss was subtracted. Nested-model comparisons, estimation-window choices, and very short samples can change the reference theory; the generic CLT needs to be justified for the chosen evaluation design.
 
@@ -1294,7 +1306,13 @@ Solution. The scale parameters use future observations unavailable at forecast t
 
 #### Problem EC-51: a diagonal VAR covariance
 
-Constructed problem. Let $`A=\mathop{\mathrm{diag}}\nolimits(a,b)`$ with $`\vert a\vert ,\vert b\vert <1`$ and innovation covariance $`\left(\begin{smallmatrix}q&r\\r&s\end{smallmatrix}\right)`$. Solve the stationary covariance.
+Constructed problem. Let $`A=\mathop{\mathrm{diag}} (a,b)`$ with $`\vert a\vert ,\vert b\vert \lt 1`$ and innovation covariance
+
+```math
+\left(\begin{smallmatrix}q&r\\[0pt] r&s\end{smallmatrix}\right)
+```
+
+. Solve the stationary covariance.
 
 Solution. The equation $`\Gamma=A\Gamma A^\top+\Sigma_\varepsilon`$ gives $`\Gamma_{11}=a^2\Gamma_{11}+q`$, $`\Gamma_{22}=b^2\Gamma_{22}+s`$, and $`\Gamma_{12}=ab\Gamma_{12}+r`$. Thus the entries are $`q/(1-a^2)`$, $`s/(1-b^2)`$, and $`r/(1-ab)`$. Even with diagonal transition dynamics, contemporaneously correlated innovations can produce correlated state coordinates.
 
@@ -1312,7 +1330,7 @@ Solution. An expanding window reduces sampling noise when a common coefficient a
 
 #### Problem EC-54: a zero-noise measurement
 
-Constructed problem. In the scalar Kalman update, consider $`R\downarrow0`$ with $`P>0`$, then $`P\downarrow0`$ with $`R>0`$.
+Constructed problem. In the scalar Kalman update, consider $`R\downarrow0`$ with $`P\gt 0`$, then $`P\downarrow0`$ with $`R\gt 0`$.
 
 Solution. In the first limit $`K=P/(P+R)\to1`$, so the updated state equals the essentially exact measurement and its variance tends to zero. In the second limit $`K\to0`$, so a perfectly known prior state barely moves in response to a noisy observation. If both variances are exactly zero and the values disagree, the assumed probability model is internally inconsistent; the formula's denominator vanishes and should not be used.
 
@@ -1328,101 +1346,173 @@ A fitted line is an algebraic summary of observed data. A standard error adds a 
 
 #### Problem EC-55: four-observation OLS calculation, case 1
 
-Regress $`y=\begin{pmatrix}1\\2\\2\\5\end{pmatrix}`$ on an intercept and $`x=(0,1,2,3)^\top`$. Compute the coefficients, residual variance estimate, and homoskedastic slope standard error.
+Regress
+
+```math
+y=\begin{pmatrix}1\\[0pt] 2\\[0pt] 2\\[0pt] 5\end{pmatrix}
+```
+
+ on an intercept and $`x=(0,1,2,3)^\top`$. Compute the coefficients, residual variance estimate, and homoskedastic slope standard error.
 
 Solution. The sufficient sums are $`n=4`$, $`\sum x_i=6`$, $`\sum x_i^2=14`$, $`\sum y_i=10`$, and $`\sum x_iy_i=21`$. Thus
 
 ```math
-X^\top X=\begin{pmatrix}4&6\\6&14\end{pmatrix},
+X^\top X=\begin{pmatrix}4&6\\[0pt] 6&14\end{pmatrix},
 \qquad
 (X^\top X)^{-1}=\frac1{20}
-\begin{pmatrix}14&-6\\-6&4\end{pmatrix}.
+\begin{pmatrix}14&-6\\[0pt] -6&4\end{pmatrix}.
 ```
 
-Multiplying by $`X^\top y`$ gives $`\hat\beta_0=\frac{7}{10}`$ and $`\hat\beta_1=\frac{6}{5}`$. The fitted values are $`\begin{pmatrix}\frac{7}{10}\\\frac{19}{10}\\\frac{31}{10}\\\frac{43}{10}\end{pmatrix}`$ and the residuals are $`\begin{pmatrix}\frac{3}{10}\\\frac{1}{10}\\-\frac{11}{10}\\\frac{7}{10}\end{pmatrix}`$. Their sum and their inner product with $`x`$ are both zero, checking the normal equations.
+Multiplying by $`X^\top y`$ gives $`\hat\beta_0=\frac{7}{10}`$ and $`\hat\beta_1=\frac{6}{5}`$. The fitted values are
+
+```math
+\begin{pmatrix}\frac{7}{10}\\[0pt] \frac{19}{10}\\[0pt] \frac{31}{10}\\[0pt] \frac{43}{10}\end{pmatrix}
+```
+
+ and the residuals are
+
+```math
+\begin{pmatrix}\frac{3}{10}\\[0pt] \frac{1}{10}\\[0pt] -\frac{11}{10}\\[0pt] \frac{7}{10}\end{pmatrix}
+```
+
+. Their sum and their inner product with $`x`$ are both zero, checking the normal equations.
 
 The residual sum of squares is $`\frac{9}{5}`$. With two fitted coefficients, the residual degrees of freedom are $`4-2=2`$, so
 
 ```math
-s^2=\frac{\mathop{\mathrm{SSE}}\nolimits}{n-2}=\frac{9}{10}.
+s^2=\frac{\mathop{\mathrm{SSE}} }{n-2}=\frac{9}{10}.
 ```
 
-Under a correctly specified conditional mean, fixed design or conditioning on $`X`$, and homoskedastic uncorrelated errors, $`\mathop{\mathrm{Var}}\nolimits(\hat\beta\mid X)=\sigma^2(X^\top X)^{-1}`$. The slope diagonal entry is $`1/5`$, giving estimated slope standard error $`\sqrt{s^2/5}\approx 0.424264`$.
+Under a correctly specified conditional mean, fixed design or conditioning on $`X`$, and homoskedastic uncorrelated errors, $`\mathop{\mathrm{Var}} (\hat\beta\mid X)=\sigma^2(X^\top X)^{-1}`$. The slope diagonal entry is $`1/5`$, giving estimated slope standard error $`\sqrt{s^2/5}\approx 0.424264`$.
 
 The coefficient calculation itself did not require normal errors. Exact small-sample t inference would additionally use independent Gaussian errors conditional on the design. Heteroskedasticity would change the covariance formula, and endogeneity would undermine estimation of a structural coefficient even if the fitted residuals remain orthogonal to the regressors in sample. Sample orthogonality is produced by minimization; it does not prove the population exogeneity condition.
 
 #### Problem EC-56: four-observation OLS calculation, case 2
 
-Regress $`y=\begin{pmatrix}4\\3\\3\\1\end{pmatrix}`$ on an intercept and $`x=(0,1,2,3)^\top`$. Compute the coefficients, residual variance estimate, and homoskedastic slope standard error.
+Regress
+
+```math
+y=\begin{pmatrix}4\\[0pt] 3\\[0pt] 3\\[0pt] 1\end{pmatrix}
+```
+
+ on an intercept and $`x=(0,1,2,3)^\top`$. Compute the coefficients, residual variance estimate, and homoskedastic slope standard error.
 
 Solution. The sufficient sums are $`n=4`$, $`\sum x_i=6`$, $`\sum x_i^2=14`$, $`\sum y_i=11`$, and $`\sum x_iy_i=12`$. Thus
 
 ```math
-X^\top X=\begin{pmatrix}4&6\\6&14\end{pmatrix},
+X^\top X=\begin{pmatrix}4&6\\[0pt] 6&14\end{pmatrix},
 \qquad
 (X^\top X)^{-1}=\frac1{20}
-\begin{pmatrix}14&-6\\-6&4\end{pmatrix}.
+\begin{pmatrix}14&-6\\[0pt] -6&4\end{pmatrix}.
 ```
 
-Multiplying by $`X^\top y`$ gives $`\hat\beta_0=\frac{41}{10}`$ and $`\hat\beta_1=-\frac{9}{10}`$. The fitted values are $`\begin{pmatrix}\frac{41}{10}\\\frac{16}{5}\\\frac{23}{10}\\\frac{7}{5}\end{pmatrix}`$ and the residuals are $`\begin{pmatrix}-\frac{1}{10}\\-\frac{1}{5}\\\frac{7}{10}\\-\frac{2}{5}\end{pmatrix}`$. Their sum and their inner product with $`x`$ are both zero, checking the normal equations.
+Multiplying by $`X^\top y`$ gives $`\hat\beta_0=\frac{41}{10}`$ and $`\hat\beta_1=-\frac{9}{10}`$. The fitted values are
+
+```math
+\begin{pmatrix}\frac{41}{10}\\[0pt] \frac{16}{5}\\[0pt] \frac{23}{10}\\[0pt] \frac{7}{5}\end{pmatrix}
+```
+
+ and the residuals are
+
+```math
+\begin{pmatrix}-\frac{1}{10}\\[0pt] -\frac{1}{5}\\[0pt] \frac{7}{10}\\[0pt] -\frac{2}{5}\end{pmatrix}
+```
+
+. Their sum and their inner product with $`x`$ are both zero, checking the normal equations.
 
 The residual sum of squares is $`\frac{7}{10}`$. With two fitted coefficients, the residual degrees of freedom are $`4-2=2`$, so
 
 ```math
-s^2=\frac{\mathop{\mathrm{SSE}}\nolimits}{n-2}=\frac{7}{20}.
+s^2=\frac{\mathop{\mathrm{SSE}} }{n-2}=\frac{7}{20}.
 ```
 
-Under a correctly specified conditional mean, fixed design or conditioning on $`X`$, and homoskedastic uncorrelated errors, $`\mathop{\mathrm{Var}}\nolimits(\hat\beta\mid X)=\sigma^2(X^\top X)^{-1}`$. The slope diagonal entry is $`1/5`$, giving estimated slope standard error $`\sqrt{s^2/5}\approx 0.264575`$.
+Under a correctly specified conditional mean, fixed design or conditioning on $`X`$, and homoskedastic uncorrelated errors, $`\mathop{\mathrm{Var}} (\hat\beta\mid X)=\sigma^2(X^\top X)^{-1}`$. The slope diagonal entry is $`1/5`$, giving estimated slope standard error $`\sqrt{s^2/5}\approx 0.264575`$.
 
 The coefficient calculation itself did not require normal errors. Exact small-sample t inference would additionally use independent Gaussian errors conditional on the design. Heteroskedasticity would change the covariance formula, and endogeneity would undermine estimation of a structural coefficient even if the fitted residuals remain orthogonal to the regressors in sample. Sample orthogonality is produced by minimization; it does not prove the population exogeneity condition.
 
 #### Problem EC-57: four-observation OLS calculation, case 3
 
-Regress $`y=\begin{pmatrix}-1\\1\\4\\4\end{pmatrix}`$ on an intercept and $`x=(0,1,2,3)^\top`$. Compute the coefficients, residual variance estimate, and homoskedastic slope standard error.
+Regress
+
+```math
+y=\begin{pmatrix}-1\\[0pt] 1\\[0pt] 4\\[0pt] 4\end{pmatrix}
+```
+
+ on an intercept and $`x=(0,1,2,3)^\top`$. Compute the coefficients, residual variance estimate, and homoskedastic slope standard error.
 
 Solution. The sufficient sums are $`n=4`$, $`\sum x_i=6`$, $`\sum x_i^2=14`$, $`\sum y_i=8`$, and $`\sum x_iy_i=21`$. Thus
 
 ```math
-X^\top X=\begin{pmatrix}4&6\\6&14\end{pmatrix},
+X^\top X=\begin{pmatrix}4&6\\[0pt] 6&14\end{pmatrix},
 \qquad
 (X^\top X)^{-1}=\frac1{20}
-\begin{pmatrix}14&-6\\-6&4\end{pmatrix}.
+\begin{pmatrix}14&-6\\[0pt] -6&4\end{pmatrix}.
 ```
 
-Multiplying by $`X^\top y`$ gives $`\hat\beta_0=-\frac{7}{10}`$ and $`\hat\beta_1=\frac{9}{5}`$. The fitted values are $`\begin{pmatrix}-\frac{7}{10}\\\frac{11}{10}\\\frac{29}{10}\\\frac{47}{10}\end{pmatrix}`$ and the residuals are $`\begin{pmatrix}-\frac{3}{10}\\-\frac{1}{10}\\\frac{11}{10}\\-\frac{7}{10}\end{pmatrix}`$. Their sum and their inner product with $`x`$ are both zero, checking the normal equations.
+Multiplying by $`X^\top y`$ gives $`\hat\beta_0=-\frac{7}{10}`$ and $`\hat\beta_1=\frac{9}{5}`$. The fitted values are
+
+```math
+\begin{pmatrix}-\frac{7}{10}\\[0pt] \frac{11}{10}\\[0pt] \frac{29}{10}\\[0pt] \frac{47}{10}\end{pmatrix}
+```
+
+ and the residuals are
+
+```math
+\begin{pmatrix}-\frac{3}{10}\\[0pt] -\frac{1}{10}\\[0pt] \frac{11}{10}\\[0pt] -\frac{7}{10}\end{pmatrix}
+```
+
+. Their sum and their inner product with $`x`$ are both zero, checking the normal equations.
 
 The residual sum of squares is $`\frac{9}{5}`$. With two fitted coefficients, the residual degrees of freedom are $`4-2=2`$, so
 
 ```math
-s^2=\frac{\mathop{\mathrm{SSE}}\nolimits}{n-2}=\frac{9}{10}.
+s^2=\frac{\mathop{\mathrm{SSE}} }{n-2}=\frac{9}{10}.
 ```
 
-Under a correctly specified conditional mean, fixed design or conditioning on $`X`$, and homoskedastic uncorrelated errors, $`\mathop{\mathrm{Var}}\nolimits(\hat\beta\mid X)=\sigma^2(X^\top X)^{-1}`$. The slope diagonal entry is $`1/5`$, giving estimated slope standard error $`\sqrt{s^2/5}\approx 0.424264`$.
+Under a correctly specified conditional mean, fixed design or conditioning on $`X`$, and homoskedastic uncorrelated errors, $`\mathop{\mathrm{Var}} (\hat\beta\mid X)=\sigma^2(X^\top X)^{-1}`$. The slope diagonal entry is $`1/5`$, giving estimated slope standard error $`\sqrt{s^2/5}\approx 0.424264`$.
 
 The coefficient calculation itself did not require normal errors. Exact small-sample t inference would additionally use independent Gaussian errors conditional on the design. Heteroskedasticity would change the covariance formula, and endogeneity would undermine estimation of a structural coefficient even if the fitted residuals remain orthogonal to the regressors in sample. Sample orthogonality is produced by minimization; it does not prove the population exogeneity condition.
 
 #### Problem EC-58: four-observation OLS calculation, case 4
 
-Regress $`y=\begin{pmatrix}2\\1\\3\\6\end{pmatrix}`$ on an intercept and $`x=(0,1,2,3)^\top`$. Compute the coefficients, residual variance estimate, and homoskedastic slope standard error.
+Regress
+
+```math
+y=\begin{pmatrix}2\\[0pt] 1\\[0pt] 3\\[0pt] 6\end{pmatrix}
+```
+
+ on an intercept and $`x=(0,1,2,3)^\top`$. Compute the coefficients, residual variance estimate, and homoskedastic slope standard error.
 
 Solution. The sufficient sums are $`n=4`$, $`\sum x_i=6`$, $`\sum x_i^2=14`$, $`\sum y_i=12`$, and $`\sum x_iy_i=25`$. Thus
 
 ```math
-X^\top X=\begin{pmatrix}4&6\\6&14\end{pmatrix},
+X^\top X=\begin{pmatrix}4&6\\[0pt] 6&14\end{pmatrix},
 \qquad
 (X^\top X)^{-1}=\frac1{20}
-\begin{pmatrix}14&-6\\-6&4\end{pmatrix}.
+\begin{pmatrix}14&-6\\[0pt] -6&4\end{pmatrix}.
 ```
 
-Multiplying by $`X^\top y`$ gives $`\hat\beta_0=\frac{9}{10}`$ and $`\hat\beta_1=\frac{7}{5}`$. The fitted values are $`\begin{pmatrix}\frac{9}{10}\\\frac{23}{10}\\\frac{37}{10}\\\frac{51}{10}\end{pmatrix}`$ and the residuals are $`\begin{pmatrix}\frac{11}{10}\\-\frac{13}{10}\\-\frac{7}{10}\\\frac{9}{10}\end{pmatrix}`$. Their sum and their inner product with $`x`$ are both zero, checking the normal equations.
+Multiplying by $`X^\top y`$ gives $`\hat\beta_0=\frac{9}{10}`$ and $`\hat\beta_1=\frac{7}{5}`$. The fitted values are
+
+```math
+\begin{pmatrix}\frac{9}{10}\\[0pt] \frac{23}{10}\\[0pt] \frac{37}{10}\\[0pt] \frac{51}{10}\end{pmatrix}
+```
+
+ and the residuals are
+
+```math
+\begin{pmatrix}\frac{11}{10}\\[0pt] -\frac{13}{10}\\[0pt] -\frac{7}{10}\\[0pt] \frac{9}{10}\end{pmatrix}
+```
+
+. Their sum and their inner product with $`x`$ are both zero, checking the normal equations.
 
 The residual sum of squares is $`\frac{21}{5}`$. With two fitted coefficients, the residual degrees of freedom are $`4-2=2`$, so
 
 ```math
-s^2=\frac{\mathop{\mathrm{SSE}}\nolimits}{n-2}=\frac{21}{10}.
+s^2=\frac{\mathop{\mathrm{SSE}} }{n-2}=\frac{21}{10}.
 ```
 
-Under a correctly specified conditional mean, fixed design or conditioning on $`X`$, and homoskedastic uncorrelated errors, $`\mathop{\mathrm{Var}}\nolimits(\hat\beta\mid X)=\sigma^2(X^\top X)^{-1}`$. The slope diagonal entry is $`1/5`$, giving estimated slope standard error $`\sqrt{s^2/5}\approx 0.648074`$.
+Under a correctly specified conditional mean, fixed design or conditioning on $`X`$, and homoskedastic uncorrelated errors, $`\mathop{\mathrm{Var}} (\hat\beta\mid X)=\sigma^2(X^\top X)^{-1}`$. The slope diagonal entry is $`1/5`$, giving estimated slope standard error $`\sqrt{s^2/5}\approx 0.648074`$.
 
 The coefficient calculation itself did not require normal errors. Exact small-sample t inference would additionally use independent Gaussian errors conditional on the design. Heteroskedasticity would change the covariance formula, and endogeneity would undermine estimation of a structural coefficient even if the fitted residuals remain orthogonal to the regressors in sample. Sample orthogonality is produced by minimization; it does not prove the population exogeneity condition.
 
@@ -1432,9 +1522,15 @@ An omitted regressor affects a population regression coefficient through two qua
 
 #### Problem EC-59: short and long population regressions, case 1
 
-Let centered variables satisfy $`Y=2X+(3)Z+u`$, with $`E[Xu]=E[Zu]=0`$ and covariance matrix of $`(X,Z)`$ equal to $`\begin{pmatrix}4&2\\2&4\end{pmatrix}`$. Find the slope when $`Z`$ is omitted and verify the full regression coefficients.
+Let centered variables satisfy $`Y=2X+(3)Z+u`$, with $`E[Xu]=E[Zu]=0`$ and covariance matrix of $`(X,Z)`$ equal to
 
-Solution. The regressor covariance matrix is positive definite because $`\mathop{\mathrm{Var}}\nolimits(X)=4>0`$ and its determinant is $`12>0`$. Thus both the short regression denominator and the full regression inverse are well defined.
+```math
+\begin{pmatrix}4&2\\[0pt] 2&4\end{pmatrix}
+```
+
+. Find the slope when $`Z`$ is omitted and verify the full regression coefficients.
+
+Solution. The regressor covariance matrix is positive definite because $`\mathop{\mathrm{Var}} (X)=4\gt 0`$ and its determinant is $`12\gt 0`$. Thus both the short regression denominator and the full regression inverse are well defined.
 
 The population short-regression slope is
 
@@ -1445,23 +1541,23 @@ b_{\mathrm{short}}
 =\frac{7}{2}.
 ```
 
-The omitted-variable term is $`\gamma\mathop{\mathrm{Cov}}\nolimits(X,Z)/\mathop{\mathrm{Var}}\nolimits(X)=\frac{3}{2}`$. It vanishes if either the omitted effect is zero or the two regressors are uncorrelated. Its sign depends on both factors.
+The omitted-variable term is $`\gamma\mathop{\mathrm{Cov}} (X,Z)/\mathop{\mathrm{Var}} (X)=\frac{3}{2}`$. It vanishes if either the omitted effect is zero or the two regressors are uncorrelated. Its sign depends on both factors.
 
 For the full regression, the covariance vector with the outcome is
 
 ```math
-E\left[\begin{pmatrix}X\\Z\end{pmatrix}Y\right]
-=\begin{pmatrix}14\\16\end{pmatrix}.
+E\left[\begin{pmatrix}X\\[0pt] Z\end{pmatrix}Y\right]
+=\begin{pmatrix}14\\[0pt] 16\end{pmatrix}.
 ```
 
 Solving the two population normal equations gives
 
 ```math
-\begin{pmatrix}b_X\\b_Z\end{pmatrix}
+\begin{pmatrix}b_X\\[0pt] b_Z\end{pmatrix}
 =
-\begin{pmatrix}4&2\\2&4\end{pmatrix}^{-1}
-\begin{pmatrix}14\\16\end{pmatrix}
-=\begin{pmatrix}2\\3\end{pmatrix}.
+\begin{pmatrix}4&2\\[0pt] 2&4\end{pmatrix}^{-1}
+\begin{pmatrix}14\\[0pt] 16\end{pmatrix}
+=\begin{pmatrix}2\\[0pt] 3\end{pmatrix}.
 ```
 
 The coefficients recover the specified values because the error is orthogonal to both regressors and the covariance matrix is nonsingular.
@@ -1470,9 +1566,15 @@ An iid law of large numbers with suitable moments makes sample OLS converge to t
 
 #### Problem EC-60: short and long population regressions, case 2
 
-Let centered variables satisfy $`Y=1X+(-2)Z+u`$, with $`E[Xu]=E[Zu]=0`$ and covariance matrix of $`(X,Z)`$ equal to $`\begin{pmatrix}2&1\\1&3\end{pmatrix}`$. Find the slope when $`Z`$ is omitted and verify the full regression coefficients.
+Let centered variables satisfy $`Y=1X+(-2)Z+u`$, with $`E[Xu]=E[Zu]=0`$ and covariance matrix of $`(X,Z)`$ equal to
 
-Solution. The regressor covariance matrix is positive definite because $`\mathop{\mathrm{Var}}\nolimits(X)=2>0`$ and its determinant is $`5>0`$. Thus both the short regression denominator and the full regression inverse are well defined.
+```math
+\begin{pmatrix}2&1\\[0pt] 1&3\end{pmatrix}
+```
+
+. Find the slope when $`Z`$ is omitted and verify the full regression coefficients.
+
+Solution. The regressor covariance matrix is positive definite because $`\mathop{\mathrm{Var}} (X)=2\gt 0`$ and its determinant is $`5\gt 0`$. Thus both the short regression denominator and the full regression inverse are well defined.
 
 The population short-regression slope is
 
@@ -1483,23 +1585,23 @@ b_{\mathrm{short}}
 =0.
 ```
 
-The omitted-variable term is $`\gamma\mathop{\mathrm{Cov}}\nolimits(X,Z)/\mathop{\mathrm{Var}}\nolimits(X)=-1`$. It vanishes if either the omitted effect is zero or the two regressors are uncorrelated. Its sign depends on both factors.
+The omitted-variable term is $`\gamma\mathop{\mathrm{Cov}} (X,Z)/\mathop{\mathrm{Var}} (X)=-1`$. It vanishes if either the omitted effect is zero or the two regressors are uncorrelated. Its sign depends on both factors.
 
 For the full regression, the covariance vector with the outcome is
 
 ```math
-E\left[\begin{pmatrix}X\\Z\end{pmatrix}Y\right]
-=\begin{pmatrix}0\\-5\end{pmatrix}.
+E\left[\begin{pmatrix}X\\[0pt] Z\end{pmatrix}Y\right]
+=\begin{pmatrix}0\\[0pt] -5\end{pmatrix}.
 ```
 
 Solving the two population normal equations gives
 
 ```math
-\begin{pmatrix}b_X\\b_Z\end{pmatrix}
+\begin{pmatrix}b_X\\[0pt] b_Z\end{pmatrix}
 =
-\begin{pmatrix}2&1\\1&3\end{pmatrix}^{-1}
-\begin{pmatrix}0\\-5\end{pmatrix}
-=\begin{pmatrix}1\\-2\end{pmatrix}.
+\begin{pmatrix}2&1\\[0pt] 1&3\end{pmatrix}^{-1}
+\begin{pmatrix}0\\[0pt] -5\end{pmatrix}
+=\begin{pmatrix}1\\[0pt] -2\end{pmatrix}.
 ```
 
 The coefficients recover the specified values because the error is orthogonal to both regressors and the covariance matrix is nonsingular.
@@ -1508,9 +1610,15 @@ An iid law of large numbers with suitable moments makes sample OLS converge to t
 
 #### Problem EC-61: short and long population regressions, case 3
 
-Let centered variables satisfy $`Y=-1X+(4)Z+u`$, with $`E[Xu]=E[Zu]=0`$ and covariance matrix of $`(X,Z)`$ equal to $`\begin{pmatrix}3&-1\\-1&2\end{pmatrix}`$. Find the slope when $`Z`$ is omitted and verify the full regression coefficients.
+Let centered variables satisfy $`Y=-1X+(4)Z+u`$, with $`E[Xu]=E[Zu]=0`$ and covariance matrix of $`(X,Z)`$ equal to
 
-Solution. The regressor covariance matrix is positive definite because $`\mathop{\mathrm{Var}}\nolimits(X)=3>0`$ and its determinant is $`5>0`$. Thus both the short regression denominator and the full regression inverse are well defined.
+```math
+\begin{pmatrix}3&-1\\[0pt] -1&2\end{pmatrix}
+```
+
+. Find the slope when $`Z`$ is omitted and verify the full regression coefficients.
+
+Solution. The regressor covariance matrix is positive definite because $`\mathop{\mathrm{Var}} (X)=3\gt 0`$ and its determinant is $`5\gt 0`$. Thus both the short regression denominator and the full regression inverse are well defined.
 
 The population short-regression slope is
 
@@ -1521,23 +1629,23 @@ b_{\mathrm{short}}
 =-\frac{7}{3}.
 ```
 
-The omitted-variable term is $`\gamma\mathop{\mathrm{Cov}}\nolimits(X,Z)/\mathop{\mathrm{Var}}\nolimits(X)=-\frac{4}{3}`$. It vanishes if either the omitted effect is zero or the two regressors are uncorrelated. Its sign depends on both factors.
+The omitted-variable term is $`\gamma\mathop{\mathrm{Cov}} (X,Z)/\mathop{\mathrm{Var}} (X)=-\frac{4}{3}`$. It vanishes if either the omitted effect is zero or the two regressors are uncorrelated. Its sign depends on both factors.
 
 For the full regression, the covariance vector with the outcome is
 
 ```math
-E\left[\begin{pmatrix}X\\Z\end{pmatrix}Y\right]
-=\begin{pmatrix}-7\\9\end{pmatrix}.
+E\left[\begin{pmatrix}X\\[0pt] Z\end{pmatrix}Y\right]
+=\begin{pmatrix}-7\\[0pt] 9\end{pmatrix}.
 ```
 
 Solving the two population normal equations gives
 
 ```math
-\begin{pmatrix}b_X\\b_Z\end{pmatrix}
+\begin{pmatrix}b_X\\[0pt] b_Z\end{pmatrix}
 =
-\begin{pmatrix}3&-1\\-1&2\end{pmatrix}^{-1}
-\begin{pmatrix}-7\\9\end{pmatrix}
-=\begin{pmatrix}-1\\4\end{pmatrix}.
+\begin{pmatrix}3&-1\\[0pt] -1&2\end{pmatrix}^{-1}
+\begin{pmatrix}-7\\[0pt] 9\end{pmatrix}
+=\begin{pmatrix}-1\\[0pt] 4\end{pmatrix}.
 ```
 
 The coefficients recover the specified values because the error is orthogonal to both regressors and the covariance matrix is nonsingular.
@@ -1546,9 +1654,15 @@ An iid law of large numbers with suitable moments makes sample OLS converge to t
 
 #### Problem EC-62: short and long population regressions, case 4
 
-Let centered variables satisfy $`Y=3X+(2)Z+u`$, with $`E[Xu]=E[Zu]=0`$ and covariance matrix of $`(X,Z)`$ equal to $`\begin{pmatrix}5&0\\0&1\end{pmatrix}`$. Find the slope when $`Z`$ is omitted and verify the full regression coefficients.
+Let centered variables satisfy $`Y=3X+(2)Z+u`$, with $`E[Xu]=E[Zu]=0`$ and covariance matrix of $`(X,Z)`$ equal to
 
-Solution. The regressor covariance matrix is positive definite because $`\mathop{\mathrm{Var}}\nolimits(X)=5>0`$ and its determinant is $`5>0`$. Thus both the short regression denominator and the full regression inverse are well defined.
+```math
+\begin{pmatrix}5&0\\[0pt] 0&1\end{pmatrix}
+```
+
+. Find the slope when $`Z`$ is omitted and verify the full regression coefficients.
+
+Solution. The regressor covariance matrix is positive definite because $`\mathop{\mathrm{Var}} (X)=5\gt 0`$ and its determinant is $`5\gt 0`$. Thus both the short regression denominator and the full regression inverse are well defined.
 
 The population short-regression slope is
 
@@ -1559,23 +1673,23 @@ b_{\mathrm{short}}
 =3.
 ```
 
-The omitted-variable term is $`\gamma\mathop{\mathrm{Cov}}\nolimits(X,Z)/\mathop{\mathrm{Var}}\nolimits(X)=0`$. It vanishes if either the omitted effect is zero or the two regressors are uncorrelated. Its sign depends on both factors.
+The omitted-variable term is $`\gamma\mathop{\mathrm{Cov}} (X,Z)/\mathop{\mathrm{Var}} (X)=0`$. It vanishes if either the omitted effect is zero or the two regressors are uncorrelated. Its sign depends on both factors.
 
 For the full regression, the covariance vector with the outcome is
 
 ```math
-E\left[\begin{pmatrix}X\\Z\end{pmatrix}Y\right]
-=\begin{pmatrix}15\\2\end{pmatrix}.
+E\left[\begin{pmatrix}X\\[0pt] Z\end{pmatrix}Y\right]
+=\begin{pmatrix}15\\[0pt] 2\end{pmatrix}.
 ```
 
 Solving the two population normal equations gives
 
 ```math
-\begin{pmatrix}b_X\\b_Z\end{pmatrix}
+\begin{pmatrix}b_X\\[0pt] b_Z\end{pmatrix}
 =
-\begin{pmatrix}5&0\\0&1\end{pmatrix}^{-1}
-\begin{pmatrix}15\\2\end{pmatrix}
-=\begin{pmatrix}3\\2\end{pmatrix}.
+\begin{pmatrix}5&0\\[0pt] 0&1\end{pmatrix}^{-1}
+\begin{pmatrix}15\\[0pt] 2\end{pmatrix}
+=\begin{pmatrix}3\\[0pt] 2\end{pmatrix}.
 ```
 
 The coefficients recover the specified values because the error is orthogonal to both regressors and the covariance matrix is nonsingular.
@@ -1588,7 +1702,7 @@ With fixed design, heteroskedasticity does not bias OLS when errors have conditi
 
 #### Problem EC-63: precision under unequal error variances, case 1
 
-In the through-origin model $`Y_i=\beta x_i+u_i`$, take fixed $`x=(1,2,3)`$, independent mean-zero errors, and $`\mathop{\mathrm{Var}}\nolimits(u_i)=(1, 4, 9)`$. Derive the OLS and GLS variances.
+In the through-origin model $`Y_i=\beta x_i+u_i`$, take fixed $`x=(1,2,3)`$, independent mean-zero errors, and $`\mathop{\mathrm{Var}} (u_i)=(1, 4, 9)`$. Derive the OLS and GLS variances.
 
 Solution. The OLS estimator is $`\hat\beta=\sum_i x_iY_i/\sum_i x_i^2`$. Substituting the model yields
 
@@ -1599,7 +1713,7 @@ Solution. The OLS estimator is $`\hat\beta=\sum_i x_iY_i/\sum_i x_i^2`$. Substit
 Conditional mean zero proves unbiasedness. Independence makes the variance of the numerator the sum of $`x_i^2\sigma_i^2`$, so
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(\hat\beta\mid X)
+\mathop{\mathrm{Var}} (\hat\beta\mid X)
 =\frac{\sum_i x_i^2\sigma_i^2}{(\sum_i x_i^2)^2}
 =\frac{1}{2}\approx 0.50000000.
 ```
@@ -1616,13 +1730,13 @@ If the variances are known, minimize $`\sum_i(Y_i-\beta x_i)^2/\sigma_i^2`$. Dif
 =\frac{\sum_i x_iu_i/\sigma_i^2}{\sum_i x_i^2/\sigma_i^2}.
 ```
 
-The variance of the numerator is $`\sum_i x_i^2/\sigma_i^2=3`$. Therefore $`\mathop{\mathrm{Var}}\nolimits(\hat\beta_{\mathrm{GLS}}\mid X)=\frac{1}{3}\approx 0.33333333`$.
+The variance of the numerator is $`\sum_i x_i^2/\sigma_i^2=3`$. Therefore $`\mathop{\mathrm{Var}} (\hat\beta_{\mathrm{GLS}}\mid X)=\frac{1}{3}\approx 0.33333333`$.
 
 Cauchy–Schwarz gives $`(\sum_i x_i^2)^2\le(\sum_i x_i^2\sigma_i^2)(\sum_i x_i^2/\sigma_i^2)`$, proving that the GLS variance is no larger. A heteroskedasticity-robust standard error for OLS estimates the first variance using squared residuals; it does not turn the OLS coefficients into GLS coefficients. Estimating the variance weights creates feasible GLS and introduces an additional estimation step.
 
 #### Problem EC-64: precision under unequal error variances, case 2
 
-In the through-origin model $`Y_i=\beta x_i+u_i`$, take fixed $`x=(1,2,3)`$, independent mean-zero errors, and $`\mathop{\mathrm{Var}}\nolimits(u_i)=(9, 4, 1)`$. Derive the OLS and GLS variances.
+In the through-origin model $`Y_i=\beta x_i+u_i`$, take fixed $`x=(1,2,3)`$, independent mean-zero errors, and $`\mathop{\mathrm{Var}} (u_i)=(9, 4, 1)`$. Derive the OLS and GLS variances.
 
 Solution. The OLS estimator is $`\hat\beta=\sum_i x_iY_i/\sum_i x_i^2`$. Substituting the model yields
 
@@ -1633,7 +1747,7 @@ Solution. The OLS estimator is $`\hat\beta=\sum_i x_iY_i/\sum_i x_i^2`$. Substit
 Conditional mean zero proves unbiasedness. Independence makes the variance of the numerator the sum of $`x_i^2\sigma_i^2`$, so
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(\hat\beta\mid X)
+\mathop{\mathrm{Var}} (\hat\beta\mid X)
 =\frac{\sum_i x_i^2\sigma_i^2}{(\sum_i x_i^2)^2}
 =\frac{17}{98}\approx 0.17346939.
 ```
@@ -1650,13 +1764,13 @@ If the variances are known, minimize $`\sum_i(Y_i-\beta x_i)^2/\sigma_i^2`$. Dif
 =\frac{\sum_i x_iu_i/\sigma_i^2}{\sum_i x_i^2/\sigma_i^2}.
 ```
 
-The variance of the numerator is $`\sum_i x_i^2/\sigma_i^2=\frac{91}{9}`$. Therefore $`\mathop{\mathrm{Var}}\nolimits(\hat\beta_{\mathrm{GLS}}\mid X)=\frac{9}{91}\approx 0.09890110`$.
+The variance of the numerator is $`\sum_i x_i^2/\sigma_i^2=\frac{91}{9}`$. Therefore $`\mathop{\mathrm{Var}} (\hat\beta_{\mathrm{GLS}}\mid X)=\frac{9}{91}\approx 0.09890110`$.
 
 Cauchy–Schwarz gives $`(\sum_i x_i^2)^2\le(\sum_i x_i^2\sigma_i^2)(\sum_i x_i^2/\sigma_i^2)`$, proving that the GLS variance is no larger. A heteroskedasticity-robust standard error for OLS estimates the first variance using squared residuals; it does not turn the OLS coefficients into GLS coefficients. Estimating the variance weights creates feasible GLS and introduces an additional estimation step.
 
 #### Problem EC-65: precision under unequal error variances, case 3
 
-In the through-origin model $`Y_i=\beta x_i+u_i`$, take fixed $`x=(1,2,3)`$, independent mean-zero errors, and $`\mathop{\mathrm{Var}}\nolimits(u_i)=(1, 1, 16)`$. Derive the OLS and GLS variances.
+In the through-origin model $`Y_i=\beta x_i+u_i`$, take fixed $`x=(1,2,3)`$, independent mean-zero errors, and $`\mathop{\mathrm{Var}} (u_i)=(1, 1, 16)`$. Derive the OLS and GLS variances.
 
 Solution. The OLS estimator is $`\hat\beta=\sum_i x_iY_i/\sum_i x_i^2`$. Substituting the model yields
 
@@ -1667,7 +1781,7 @@ Solution. The OLS estimator is $`\hat\beta=\sum_i x_iY_i/\sum_i x_i^2`$. Substit
 Conditional mean zero proves unbiasedness. Independence makes the variance of the numerator the sum of $`x_i^2\sigma_i^2`$, so
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(\hat\beta\mid X)
+\mathop{\mathrm{Var}} (\hat\beta\mid X)
 =\frac{\sum_i x_i^2\sigma_i^2}{(\sum_i x_i^2)^2}
 =\frac{149}{196}\approx 0.76020408.
 ```
@@ -1684,13 +1798,13 @@ If the variances are known, minimize $`\sum_i(Y_i-\beta x_i)^2/\sigma_i^2`$. Dif
 =\frac{\sum_i x_iu_i/\sigma_i^2}{\sum_i x_i^2/\sigma_i^2}.
 ```
 
-The variance of the numerator is $`\sum_i x_i^2/\sigma_i^2=\frac{89}{16}`$. Therefore $`\mathop{\mathrm{Var}}\nolimits(\hat\beta_{\mathrm{GLS}}\mid X)=\frac{16}{89}\approx 0.17977528`$.
+The variance of the numerator is $`\sum_i x_i^2/\sigma_i^2=\frac{89}{16}`$. Therefore $`\mathop{\mathrm{Var}} (\hat\beta_{\mathrm{GLS}}\mid X)=\frac{16}{89}\approx 0.17977528`$.
 
 Cauchy–Schwarz gives $`(\sum_i x_i^2)^2\le(\sum_i x_i^2\sigma_i^2)(\sum_i x_i^2/\sigma_i^2)`$, proving that the GLS variance is no larger. A heteroskedasticity-robust standard error for OLS estimates the first variance using squared residuals; it does not turn the OLS coefficients into GLS coefficients. Estimating the variance weights creates feasible GLS and introduces an additional estimation step.
 
 #### Problem EC-66: precision under unequal error variances, case 4
 
-In the through-origin model $`Y_i=\beta x_i+u_i`$, take fixed $`x=(1,2,3)`$, independent mean-zero errors, and $`\mathop{\mathrm{Var}}\nolimits(u_i)=(4, 2, 3)`$. Derive the OLS and GLS variances.
+In the through-origin model $`Y_i=\beta x_i+u_i`$, take fixed $`x=(1,2,3)`$, independent mean-zero errors, and $`\mathop{\mathrm{Var}} (u_i)=(4, 2, 3)`$. Derive the OLS and GLS variances.
 
 Solution. The OLS estimator is $`\hat\beta=\sum_i x_iY_i/\sum_i x_i^2`$. Substituting the model yields
 
@@ -1701,7 +1815,7 @@ Solution. The OLS estimator is $`\hat\beta=\sum_i x_iY_i/\sum_i x_i^2`$. Substit
 Conditional mean zero proves unbiasedness. Independence makes the variance of the numerator the sum of $`x_i^2\sigma_i^2`$, so
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(\hat\beta\mid X)
+\mathop{\mathrm{Var}} (\hat\beta\mid X)
 =\frac{\sum_i x_i^2\sigma_i^2}{(\sum_i x_i^2)^2}
 =\frac{39}{196}\approx 0.19897959.
 ```
@@ -1718,7 +1832,7 @@ If the variances are known, minimize $`\sum_i(Y_i-\beta x_i)^2/\sigma_i^2`$. Dif
 =\frac{\sum_i x_iu_i/\sigma_i^2}{\sum_i x_i^2/\sigma_i^2}.
 ```
 
-The variance of the numerator is $`\sum_i x_i^2/\sigma_i^2=\frac{21}{4}`$. Therefore $`\mathop{\mathrm{Var}}\nolimits(\hat\beta_{\mathrm{GLS}}\mid X)=\frac{4}{21}\approx 0.19047619`$.
+The variance of the numerator is $`\sum_i x_i^2/\sigma_i^2=\frac{21}{4}`$. Therefore $`\mathop{\mathrm{Var}} (\hat\beta_{\mathrm{GLS}}\mid X)=\frac{4}{21}\approx 0.19047619`$.
 
 Cauchy–Schwarz gives $`(\sum_i x_i^2)^2\le(\sum_i x_i^2\sigma_i^2)(\sum_i x_i^2/\sigma_i^2)`$, proving that the GLS variance is no larger. A heteroskedasticity-robust standard error for OLS estimates the first variance using squared residuals; it does not turn the OLS coefficients into GLS coefficients. Estimating the variance weights creates feasible GLS and introduces an additional estimation step.
 
@@ -1864,7 +1978,13 @@ Two unbiased estimates of the same scalar parameter can contain correlated noise
 
 #### Problem EC-71: two-moment efficient weighting, case 1
 
-Suppose $`\sqrt n((\hat\mu_1,\hat\mu_2)^\top-\mu\mathbf1)`$ has asymptotic covariance $`\Omega=\begin{pmatrix}1&0\\0&4\end{pmatrix}`$, with $`n=100`$. Find the minimum-variance linear combination whose weights sum to one.
+Suppose $`\sqrt n((\hat\mu_1,\hat\mu_2)^\top-\mu\mathbf1)`$ has asymptotic covariance
+
+```math
+\Omega=\begin{pmatrix}1&0\\[0pt] 0&4\end{pmatrix}
+```
+
+, with $`n=100`$. Find the minimum-variance linear combination whose weights sum to one.
 
 Solution. Write the combination as $`\hat\mu(w)=w\hat\mu_1+(1-w)\hat\mu_2`$. Its asymptotic variance before division by $`n`$ is
 
@@ -1872,14 +1992,14 @@ Solution. Write the combination as $`\hat\mu(w)=w\hat\mu_1+(1-w)\hat\mu_2`$. Its
 V(w)=w^2v_1+(1-w)^2v_2+2w(1-w)c.
 ```
 
-The coefficient of $`w^2`$ is $`v_1+v_2-2c=5>0`$. Differentiating and setting the derivative to zero gives
+The coefficient of $`w^2`$ is $`v_1+v_2-2c=5\gt 0`$. Differentiating and setting the derivative to zero gives
 
 ```math
 w^*=\frac{v_2-c}{v_1+v_2-2c}=\frac{4}{5},\qquad
 1-w^*=\frac{1}{5}.
 ```
 
-The second derivative is $`2(v_1+v_2-2c)>0`$, so this solution is the unique variance minimum over all real weights summing to one. Positivity of individual weights was not imposed.
+The second derivative is $`2(v_1+v_2-2c)\gt 0`$, so this solution is the unique variance minimum over all real weights summing to one. Positivity of individual weights was not imposed.
 
 Substitution simplifies the minimum asymptotic variance to
 
@@ -1890,13 +2010,19 @@ V(w^*)=\frac{v_1v_2-c^2}{v_1+v_2-2c}
 
 The estimated sampling variance for sample size $`n`$ is consequently $`V(w^*)/n=\frac{1}{125}`$, with standard error approximately $`0.089443`$.
 
-The covariance matrix is positive definite because its determinant is $`4>0`$ and its first diagonal entry is positive. Thus the efficient variance is strictly positive. The vector formula is $`w=\Omega^{-1}\mathbf1/(\mathbf1^\top\Omega^{-1}\mathbf1)`$, and the minimized variance is $`(\mathbf1^\top\Omega^{-1}\mathbf1)^{-1}`$.
+The covariance matrix is positive definite because its determinant is $`4\gt 0`$ and its first diagonal entry is positive. Thus the efficient variance is strictly positive. The vector formula is $`w=\Omega^{-1}\mathbf1/(\mathbf1^\top\Omega^{-1}\mathbf1)`$, and the minimized variance is $`(\mathbf1^\top\Omega^{-1}\mathbf1)^{-1}`$.
 
 These are the same inverse-covariance weights that arise in efficient GMM when the two moment estimates identify one common parameter. If either moment is systematically biased for that parameter, optimal variance weighting does not remove the bias. Efficiency is a precision statement conditional on valid moment restrictions.
 
 #### Problem EC-72: two-moment efficient weighting, case 2
 
-Suppose $`\sqrt n((\hat\mu_1,\hat\mu_2)^\top-\mu\mathbf1)`$ has asymptotic covariance $`\Omega=\begin{pmatrix}2&1\\1&3\end{pmatrix}`$, with $`n=200`$. Find the minimum-variance linear combination whose weights sum to one.
+Suppose $`\sqrt n((\hat\mu_1,\hat\mu_2)^\top-\mu\mathbf1)`$ has asymptotic covariance
+
+```math
+\Omega=\begin{pmatrix}2&1\\[0pt] 1&3\end{pmatrix}
+```
+
+, with $`n=200`$. Find the minimum-variance linear combination whose weights sum to one.
 
 Solution. Write the combination as $`\hat\mu(w)=w\hat\mu_1+(1-w)\hat\mu_2`$. Its asymptotic variance before division by $`n`$ is
 
@@ -1904,14 +2030,14 @@ Solution. Write the combination as $`\hat\mu(w)=w\hat\mu_1+(1-w)\hat\mu_2`$. Its
 V(w)=w^2v_1+(1-w)^2v_2+2w(1-w)c.
 ```
 
-The coefficient of $`w^2`$ is $`v_1+v_2-2c=3>0`$. Differentiating and setting the derivative to zero gives
+The coefficient of $`w^2`$ is $`v_1+v_2-2c=3\gt 0`$. Differentiating and setting the derivative to zero gives
 
 ```math
 w^*=\frac{v_2-c}{v_1+v_2-2c}=\frac{2}{3},\qquad
 1-w^*=\frac{1}{3}.
 ```
 
-The second derivative is $`2(v_1+v_2-2c)>0`$, so this solution is the unique variance minimum over all real weights summing to one. Positivity of individual weights was not imposed.
+The second derivative is $`2(v_1+v_2-2c)\gt 0`$, so this solution is the unique variance minimum over all real weights summing to one. Positivity of individual weights was not imposed.
 
 Substitution simplifies the minimum asymptotic variance to
 
@@ -1922,13 +2048,19 @@ V(w^*)=\frac{v_1v_2-c^2}{v_1+v_2-2c}
 
 The estimated sampling variance for sample size $`n`$ is consequently $`V(w^*)/n=\frac{1}{120}`$, with standard error approximately $`0.091287`$.
 
-The covariance matrix is positive definite because its determinant is $`5>0`$ and its first diagonal entry is positive. Thus the efficient variance is strictly positive. The vector formula is $`w=\Omega^{-1}\mathbf1/(\mathbf1^\top\Omega^{-1}\mathbf1)`$, and the minimized variance is $`(\mathbf1^\top\Omega^{-1}\mathbf1)^{-1}`$.
+The covariance matrix is positive definite because its determinant is $`5\gt 0`$ and its first diagonal entry is positive. Thus the efficient variance is strictly positive. The vector formula is $`w=\Omega^{-1}\mathbf1/(\mathbf1^\top\Omega^{-1}\mathbf1)`$, and the minimized variance is $`(\mathbf1^\top\Omega^{-1}\mathbf1)^{-1}`$.
 
 These are the same inverse-covariance weights that arise in efficient GMM when the two moment estimates identify one common parameter. If either moment is systematically biased for that parameter, optimal variance weighting does not remove the bias. Efficiency is a precision statement conditional on valid moment restrictions.
 
 #### Problem EC-73: two-moment efficient weighting, case 3
 
-Suppose $`\sqrt n((\hat\mu_1,\hat\mu_2)^\top-\mu\mathbf1)`$ has asymptotic covariance $`\Omega=\begin{pmatrix}1&\frac{3}{2}\\\frac{3}{2}&4\end{pmatrix}`$, with $`n=100`$. Find the minimum-variance linear combination whose weights sum to one.
+Suppose $`\sqrt n((\hat\mu_1,\hat\mu_2)^\top-\mu\mathbf1)`$ has asymptotic covariance
+
+```math
+\Omega=\begin{pmatrix}1&\frac{3}{2}\\[0pt] \frac{3}{2}&4\end{pmatrix}
+```
+
+, with $`n=100`$. Find the minimum-variance linear combination whose weights sum to one.
 
 Solution. Write the combination as $`\hat\mu(w)=w\hat\mu_1+(1-w)\hat\mu_2`$. Its asymptotic variance before division by $`n`$ is
 
@@ -1936,14 +2068,14 @@ Solution. Write the combination as $`\hat\mu(w)=w\hat\mu_1+(1-w)\hat\mu_2`$. Its
 V(w)=w^2v_1+(1-w)^2v_2+2w(1-w)c.
 ```
 
-The coefficient of $`w^2`$ is $`v_1+v_2-2c=2>0`$. Differentiating and setting the derivative to zero gives
+The coefficient of $`w^2`$ is $`v_1+v_2-2c=2\gt 0`$. Differentiating and setting the derivative to zero gives
 
 ```math
 w^*=\frac{v_2-c}{v_1+v_2-2c}=\frac{5}{4},\qquad
 1-w^*=-\frac{1}{4}.
 ```
 
-The second derivative is $`2(v_1+v_2-2c)>0`$, so this solution is the unique variance minimum over all real weights summing to one. Positivity of individual weights was not imposed.
+The second derivative is $`2(v_1+v_2-2c)\gt 0`$, so this solution is the unique variance minimum over all real weights summing to one. Positivity of individual weights was not imposed.
 
 Substitution simplifies the minimum asymptotic variance to
 
@@ -1954,13 +2086,19 @@ V(w^*)=\frac{v_1v_2-c^2}{v_1+v_2-2c}
 
 The estimated sampling variance for sample size $`n`$ is consequently $`V(w^*)/n=\frac{7}{800}`$, with standard error approximately $`0.093541`$.
 
-The covariance matrix is positive definite because its determinant is $`\frac{7}{4}>0`$ and its first diagonal entry is positive. Thus the efficient variance is strictly positive. The vector formula is $`w=\Omega^{-1}\mathbf1/(\mathbf1^\top\Omega^{-1}\mathbf1)`$, and the minimized variance is $`(\mathbf1^\top\Omega^{-1}\mathbf1)^{-1}`$.
+The covariance matrix is positive definite because its determinant is $`\frac{7}{4}\gt 0`$ and its first diagonal entry is positive. Thus the efficient variance is strictly positive. The vector formula is $`w=\Omega^{-1}\mathbf1/(\mathbf1^\top\Omega^{-1}\mathbf1)`$, and the minimized variance is $`(\mathbf1^\top\Omega^{-1}\mathbf1)^{-1}`$.
 
 These are the same inverse-covariance weights that arise in efficient GMM when the two moment estimates identify one common parameter. If either moment is systematically biased for that parameter, optimal variance weighting does not remove the bias. Efficiency is a precision statement conditional on valid moment restrictions.
 
 #### Problem EC-74: two-moment efficient weighting, case 4
 
-Suppose $`\sqrt n((\hat\mu_1,\hat\mu_2)^\top-\mu\mathbf1)`$ has asymptotic covariance $`\Omega=\begin{pmatrix}4&\frac{1}{2}\\\frac{1}{2}&1\end{pmatrix}`$, with $`n=50`$. Find the minimum-variance linear combination whose weights sum to one.
+Suppose $`\sqrt n((\hat\mu_1,\hat\mu_2)^\top-\mu\mathbf1)`$ has asymptotic covariance
+
+```math
+\Omega=\begin{pmatrix}4&\frac{1}{2}\\[0pt] \frac{1}{2}&1\end{pmatrix}
+```
+
+, with $`n=50`$. Find the minimum-variance linear combination whose weights sum to one.
 
 Solution. Write the combination as $`\hat\mu(w)=w\hat\mu_1+(1-w)\hat\mu_2`$. Its asymptotic variance before division by $`n`$ is
 
@@ -1968,14 +2106,14 @@ Solution. Write the combination as $`\hat\mu(w)=w\hat\mu_1+(1-w)\hat\mu_2`$. Its
 V(w)=w^2v_1+(1-w)^2v_2+2w(1-w)c.
 ```
 
-The coefficient of $`w^2`$ is $`v_1+v_2-2c=4>0`$. Differentiating and setting the derivative to zero gives
+The coefficient of $`w^2`$ is $`v_1+v_2-2c=4\gt 0`$. Differentiating and setting the derivative to zero gives
 
 ```math
 w^*=\frac{v_2-c}{v_1+v_2-2c}=\frac{1}{8},\qquad
 1-w^*=\frac{7}{8}.
 ```
 
-The second derivative is $`2(v_1+v_2-2c)>0`$, so this solution is the unique variance minimum over all real weights summing to one. Positivity of individual weights was not imposed.
+The second derivative is $`2(v_1+v_2-2c)\gt 0`$, so this solution is the unique variance minimum over all real weights summing to one. Positivity of individual weights was not imposed.
 
 Substitution simplifies the minimum asymptotic variance to
 
@@ -1986,7 +2124,7 @@ V(w^*)=\frac{v_1v_2-c^2}{v_1+v_2-2c}
 
 The estimated sampling variance for sample size $`n`$ is consequently $`V(w^*)/n=\frac{3}{160}`$, with standard error approximately $`0.136931`$.
 
-The covariance matrix is positive definite because its determinant is $`\frac{15}{4}>0`$ and its first diagonal entry is positive. Thus the efficient variance is strictly positive. The vector formula is $`w=\Omega^{-1}\mathbf1/(\mathbf1^\top\Omega^{-1}\mathbf1)`$, and the minimized variance is $`(\mathbf1^\top\Omega^{-1}\mathbf1)^{-1}`$.
+The covariance matrix is positive definite because its determinant is $`\frac{15}{4}\gt 0`$ and its first diagonal entry is positive. Thus the efficient variance is strictly positive. The vector formula is $`w=\Omega^{-1}\mathbf1/(\mathbf1^\top\Omega^{-1}\mathbf1)`$, and the minimized variance is $`(\mathbf1^\top\Omega^{-1}\mathbf1)^{-1}`$.
 
 These are the same inverse-covariance weights that arise in efficient GMM when the two moment estimates identify one common parameter. If either moment is systematically biased for that parameter, optimal variance weighting does not remove the bias. Efficiency is a precision statement conditional on valid moment restrictions.
 
@@ -2118,15 +2256,15 @@ Future innovations have conditional mean zero, so
 Subtracting this forecast leaves exactly the innovation sum. Its cross terms have zero expectation by independence, giving
 
 ```math
-\mathop{\mathrm{MSE}}\nolimits_h
+\mathop{\mathrm{MSE}} _h
 =\sigma_\varepsilon^2\sum_{k=0}^{h-1}\rho^{2k}
 =\sigma_\varepsilon^2\frac{1-\rho^{2h}}{1-\rho^2}
 =\frac{21}{16}\approx 1.312500.
 ```
 
-The geometric-series formula is valid because $`\vert \rho\vert <1`$ here. The stationary variance is $`\sigma_\varepsilon^2/(1-\rho^2)=\frac{4}{3}`$, and the forecast error variance approaches it as the horizon grows. The conditional mean approaches $`\mu`$. For negative $`\rho`$, the forecast deviation alternates sign across horizons even though the forecast-error variance still increases.
+The geometric-series formula is valid because $`\vert \rho\vert \lt 1`$ here. The stationary variance is $`\sigma_\varepsilon^2/(1-\rho^2)=\frac{4}{3}`$, and the forecast error variance approaches it as the horizon grows. The conditional mean approaches $`\mu`$. For negative $`\rho`$, the forecast deviation alternates sign across horizons even though the forecast-error variance still increases.
 
-If innovations are Gaussian, a conditional 95% prediction interval is the forecast plus or minus $`1.96\sqrt{\mathop{\mathrm{MSE}}\nolimits_h}`$ when parameters are known. Without Gaussian innovations, the conditional mean and MSE remain correct, but that normal interval need not have exact coverage. Estimating parameters adds uncertainty not included in this known-parameter calculation.
+If innovations are Gaussian, a conditional 95% prediction interval is the forecast plus or minus $`1.96\sqrt{\mathop{\mathrm{MSE}} _h}`$ when parameters are known. Without Gaussian innovations, the conditional mean and MSE remain correct, but that normal interval need not have exact coverage. Estimating parameters adds uncertainty not included in this known-parameter calculation.
 
 #### Problem EC-80: centered AR forecast, case 2
 
@@ -2148,15 +2286,15 @@ Future innovations have conditional mean zero, so
 Subtracting this forecast leaves exactly the innovation sum. Its cross terms have zero expectation by independence, giving
 
 ```math
-\mathop{\mathrm{MSE}}\nolimits_h
+\mathop{\mathrm{MSE}} _h
 =\sigma_\varepsilon^2\sum_{k=0}^{h-1}\rho^{2k}
 =\sigma_\varepsilon^2\frac{1-\rho^{2h}}{1-\rho^2}
 =\frac{72242}{15625}\approx 4.623488.
 ```
 
-The geometric-series formula is valid because $`\vert \rho\vert <1`$ here. The stationary variance is $`\sigma_\varepsilon^2/(1-\rho^2)=\frac{50}{9}`$, and the forecast error variance approaches it as the horizon grows. The conditional mean approaches $`\mu`$. For negative $`\rho`$, the forecast deviation alternates sign across horizons even though the forecast-error variance still increases.
+The geometric-series formula is valid because $`\vert \rho\vert \lt 1`$ here. The stationary variance is $`\sigma_\varepsilon^2/(1-\rho^2)=\frac{50}{9}`$, and the forecast error variance approaches it as the horizon grows. The conditional mean approaches $`\mu`$. For negative $`\rho`$, the forecast deviation alternates sign across horizons even though the forecast-error variance still increases.
 
-If innovations are Gaussian, a conditional 95% prediction interval is the forecast plus or minus $`1.96\sqrt{\mathop{\mathrm{MSE}}\nolimits_h}`$ when parameters are known. Without Gaussian innovations, the conditional mean and MSE remain correct, but that normal interval need not have exact coverage. Estimating parameters adds uncertainty not included in this known-parameter calculation.
+If innovations are Gaussian, a conditional 95% prediction interval is the forecast plus or minus $`1.96\sqrt{\mathop{\mathrm{MSE}} _h}`$ when parameters are known. Without Gaussian innovations, the conditional mean and MSE remain correct, but that normal interval need not have exact coverage. Estimating parameters adds uncertainty not included in this known-parameter calculation.
 
 #### Problem EC-81: centered AR forecast, case 3
 
@@ -2178,15 +2316,15 @@ Future innovations have conditional mean zero, so
 Subtracting this forecast leaves exactly the innovation sum. Its cross terms have zero expectation by independence, giving
 
 ```math
-\mathop{\mathrm{MSE}}\nolimits_h
+\mathop{\mathrm{MSE}} _h
 =\sigma_\varepsilon^2\sum_{k=0}^{h-1}\rho^{2k}
 =\sigma_\varepsilon^2\frac{1-\rho^{2h}}{1-\rho^2}
 =\frac{21}{16}\approx 1.312500.
 ```
 
-The geometric-series formula is valid because $`\vert \rho\vert <1`$ here. The stationary variance is $`\sigma_\varepsilon^2/(1-\rho^2)=\frac{4}{3}`$, and the forecast error variance approaches it as the horizon grows. The conditional mean approaches $`\mu`$. For negative $`\rho`$, the forecast deviation alternates sign across horizons even though the forecast-error variance still increases.
+The geometric-series formula is valid because $`\vert \rho\vert \lt 1`$ here. The stationary variance is $`\sigma_\varepsilon^2/(1-\rho^2)=\frac{4}{3}`$, and the forecast error variance approaches it as the horizon grows. The conditional mean approaches $`\mu`$. For negative $`\rho`$, the forecast deviation alternates sign across horizons even though the forecast-error variance still increases.
 
-If innovations are Gaussian, a conditional 95% prediction interval is the forecast plus or minus $`1.96\sqrt{\mathop{\mathrm{MSE}}\nolimits_h}`$ when parameters are known. Without Gaussian innovations, the conditional mean and MSE remain correct, but that normal interval need not have exact coverage. Estimating parameters adds uncertainty not included in this known-parameter calculation.
+If innovations are Gaussian, a conditional 95% prediction interval is the forecast plus or minus $`1.96\sqrt{\mathop{\mathrm{MSE}} _h}`$ when parameters are known. Without Gaussian innovations, the conditional mean and MSE remain correct, but that normal interval need not have exact coverage. Estimating parameters adds uncertainty not included in this known-parameter calculation.
 
 #### Problem EC-82: centered AR forecast, case 4
 
@@ -2208,15 +2346,15 @@ Future innovations have conditional mean zero, so
 Subtracting this forecast leaves exactly the innovation sum. Its cross terms have zero expectation by independence, giving
 
 ```math
-\mathop{\mathrm{MSE}}\nolimits_h
+\mathop{\mathrm{MSE}} _h
 =\sigma_\varepsilon^2\sum_{k=0}^{h-1}\rho^{2k}
 =\sigma_\varepsilon^2\frac{1-\rho^{2h}}{1-\rho^2}
 =\frac{342800821}{400000000}\approx 0.857002.
 ```
 
-The geometric-series formula is valid because $`\vert \rho\vert <1`$ here. The stationary variance is $`\sigma_\varepsilon^2/(1-\rho^2)=\frac{25}{19}`$, and the forecast error variance approaches it as the horizon grows. The conditional mean approaches $`\mu`$. For negative $`\rho`$, the forecast deviation alternates sign across horizons even though the forecast-error variance still increases.
+The geometric-series formula is valid because $`\vert \rho\vert \lt 1`$ here. The stationary variance is $`\sigma_\varepsilon^2/(1-\rho^2)=\frac{25}{19}`$, and the forecast error variance approaches it as the horizon grows. The conditional mean approaches $`\mu`$. For negative $`\rho`$, the forecast deviation alternates sign across horizons even though the forecast-error variance still increases.
 
-If innovations are Gaussian, a conditional 95% prediction interval is the forecast plus or minus $`1.96\sqrt{\mathop{\mathrm{MSE}}\nolimits_h}`$ when parameters are known. Without Gaussian innovations, the conditional mean and MSE remain correct, but that normal interval need not have exact coverage. Estimating parameters adds uncertainty not included in this known-parameter calculation.
+If innovations are Gaussian, a conditional 95% prediction interval is the forecast plus or minus $`1.96\sqrt{\mathop{\mathrm{MSE}} _h}`$ when parameters are known. Without Gaussian innovations, the conditional mean and MSE remain correct, but that normal interval need not have exact coverage. Estimating parameters adds uncertainty not included in this known-parameter calculation.
 
 ### 9.8 A triangular VAR with cross-variable propagation
 
@@ -2224,7 +2362,13 @@ In an upper-triangular VAR, the second variable can affect future values of the 
 
 #### Problem EC-83: two-variable VAR propagation, case 1
 
-Let $`X_{t+1}=AX_t+\varepsilon_{t+1}`$, $`A=\begin{pmatrix}\frac{1}{2}&1\\0&\frac{1}{4}\end{pmatrix}`$, with serially independent mean-zero innovations having covariance $`I_2`$. From $`X_t=(1,2)^\top`$, find the $`h=2`$ conditional mean and forecast-error covariance.
+Let $`X_{t+1}=AX_t+\varepsilon_{t+1}`$,
+
+```math
+A=\begin{pmatrix}\frac{1}{2}&1\\[0pt] 0&\frac{1}{4}\end{pmatrix}
+```
+
+, with serially independent mean-zero innovations having covariance $`I_2`$. From $`X_t=(1,2)^\top`$, find the $`h=2`$ conditional mean and forecast-error covariance.
 
 Solution. The eigenvalues are the diagonal entries $`a=\frac{1}{2}`$ and $`d=\frac{1}{4}`$, both inside the unit circle. Thus this VAR has a causal stationary solution under finite innovation variances. The off-diagonal entry affects propagation even though it does not change these eigenvalues.
 
@@ -2240,13 +2384,25 @@ a^h&b\sum_{j=0}^{h-1}a^{h-1-j}d^j\\[0pt]
 \sum_{j=0}^{h-1}a^{h-1-j}d^j=\frac{a^h-d^h}{a-d}.
 ```
 
-At the requested horizon, direct multiplication gives $`A^h=\begin{pmatrix}\frac{1}{4}&\frac{3}{4}\\0&\frac{1}{16}\end{pmatrix}`$. The conditional mean is therefore $`A^hX_t=\begin{pmatrix}\frac{7}{4}\\\frac{1}{8}\end{pmatrix}`$.
+At the requested horizon, direct multiplication gives
+
+```math
+A^h=\begin{pmatrix}\frac{1}{4}&\frac{3}{4}\\[0pt] 0&\frac{1}{16}\end{pmatrix}
+```
+
+. The conditional mean is therefore
+
+```math
+A^hX_t=\begin{pmatrix}\frac{7}{4}\\[0pt] \frac{1}{8}\end{pmatrix}
+```
+
+.
 
 Iterating the stochastic recursion gives forecast error $`\sum_{j=1}^h A^{h-j}\varepsilon_{t+j}`$. Innovations at different dates are uncorrelated, so their propagated covariance matrices add:
 
 ```math
 \Sigma_h=\sum_{k=0}^{h-1}A^k I_2(A^k)^\top
-=\begin{pmatrix}\frac{9}{4}&\frac{1}{4}\\\frac{1}{4}&\frac{17}{16}\end{pmatrix}.
+=\begin{pmatrix}\frac{9}{4}&\frac{1}{4}\\[0pt] \frac{1}{4}&\frac{17}{16}\end{pmatrix}.
 ```
 
 The $`k=0`$ term is $`I_2`$. Each additional term is positive semidefinite, so forecast uncertainty increases in the positive-semidefinite ordering as the horizon expands. Off-diagonal covariance can appear even though the original innovations have diagonal covariance.
@@ -2255,7 +2411,13 @@ The second coordinate's shock affects its own future and, through $`b`$, the fir
 
 #### Problem EC-84: two-variable VAR propagation, case 2
 
-Let $`X_{t+1}=AX_t+\varepsilon_{t+1}`$, $`A=\begin{pmatrix}\frac{4}{5}&\frac{1}{5}\\0&\frac{1}{2}\end{pmatrix}`$, with serially independent mean-zero innovations having covariance $`I_2`$. From $`X_t=(1,2)^\top`$, find the $`h=3`$ conditional mean and forecast-error covariance.
+Let $`X_{t+1}=AX_t+\varepsilon_{t+1}`$,
+
+```math
+A=\begin{pmatrix}\frac{4}{5}&\frac{1}{5}\\[0pt] 0&\frac{1}{2}\end{pmatrix}
+```
+
+, with serially independent mean-zero innovations having covariance $`I_2`$. From $`X_t=(1,2)^\top`$, find the $`h=3`$ conditional mean and forecast-error covariance.
 
 Solution. The eigenvalues are the diagonal entries $`a=\frac{4}{5}`$ and $`d=\frac{1}{2}`$, both inside the unit circle. Thus this VAR has a causal stationary solution under finite innovation variances. The off-diagonal entry affects propagation even though it does not change these eigenvalues.
 
@@ -2271,13 +2433,25 @@ a^h&b\sum_{j=0}^{h-1}a^{h-1-j}d^j\\[0pt]
 \sum_{j=0}^{h-1}a^{h-1-j}d^j=\frac{a^h-d^h}{a-d}.
 ```
 
-At the requested horizon, direct multiplication gives $`A^h=\begin{pmatrix}\frac{64}{125}&\frac{129}{500}\\0&\frac{1}{8}\end{pmatrix}`$. The conditional mean is therefore $`A^hX_t=\begin{pmatrix}\frac{257}{250}\\\frac{1}{4}\end{pmatrix}`$.
+At the requested horizon, direct multiplication gives
+
+```math
+A^h=\begin{pmatrix}\frac{64}{125}&\frac{129}{500}\\[0pt] 0&\frac{1}{8}\end{pmatrix}
+```
+
+. The conditional mean is therefore
+
+```math
+A^hX_t=\begin{pmatrix}\frac{257}{250}\\[0pt] \frac{1}{4}\end{pmatrix}
+```
+
+.
 
 Iterating the stochastic recursion gives forecast error $`\sum_{j=1}^h A^{h-j}\varepsilon_{t+j}`$. Innovations at different dates are uncorrelated, so their propagated covariance matrices add:
 
 ```math
 \Sigma_h=\sum_{k=0}^{h-1}A^k I_2(A^k)^\top
-=\begin{pmatrix}\frac{5393}{2500}&\frac{33}{200}\\\frac{33}{200}&\frac{21}{16}\end{pmatrix}.
+=\begin{pmatrix}\frac{5393}{2500}&\frac{33}{200}\\[0pt] \frac{33}{200}&\frac{21}{16}\end{pmatrix}.
 ```
 
 The $`k=0`$ term is $`I_2`$. Each additional term is positive semidefinite, so forecast uncertainty increases in the positive-semidefinite ordering as the horizon expands. Off-diagonal covariance can appear even though the original innovations have diagonal covariance.
@@ -2286,7 +2460,13 @@ The second coordinate's shock affects its own future and, through $`b`$, the fir
 
 #### Problem EC-85: two-variable VAR propagation, case 3
 
-Let $`X_{t+1}=AX_t+\varepsilon_{t+1}`$, $`A=\begin{pmatrix}-\frac{1}{2}&\frac{1}{2}\\0&\frac{1}{3}\end{pmatrix}`$, with serially independent mean-zero innovations having covariance $`I_2`$. From $`X_t=(1,2)^\top`$, find the $`h=3`$ conditional mean and forecast-error covariance.
+Let $`X_{t+1}=AX_t+\varepsilon_{t+1}`$,
+
+```math
+A=\begin{pmatrix}-\frac{1}{2}&\frac{1}{2}\\[0pt] 0&\frac{1}{3}\end{pmatrix}
+```
+
+, with serially independent mean-zero innovations having covariance $`I_2`$. From $`X_t=(1,2)^\top`$, find the $`h=3`$ conditional mean and forecast-error covariance.
 
 Solution. The eigenvalues are the diagonal entries $`a=-\frac{1}{2}`$ and $`d=\frac{1}{3}`$, both inside the unit circle. Thus this VAR has a causal stationary solution under finite innovation variances. The off-diagonal entry affects propagation even though it does not change these eigenvalues.
 
@@ -2302,13 +2482,25 @@ a^h&b\sum_{j=0}^{h-1}a^{h-1-j}d^j\\[0pt]
 \sum_{j=0}^{h-1}a^{h-1-j}d^j=\frac{a^h-d^h}{a-d}.
 ```
 
-At the requested horizon, direct multiplication gives $`A^h=\begin{pmatrix}-\frac{1}{8}&\frac{7}{72}\\0&\frac{1}{27}\end{pmatrix}`$. The conditional mean is therefore $`A^hX_t=\begin{pmatrix}\frac{5}{72}\\\frac{2}{27}\end{pmatrix}`$.
+At the requested horizon, direct multiplication gives
+
+```math
+A^h=\begin{pmatrix}-\frac{1}{8}&\frac{7}{72}\\[0pt] 0&\frac{1}{27}\end{pmatrix}
+```
+
+. The conditional mean is therefore
+
+```math
+A^hX_t=\begin{pmatrix}\frac{5}{72}\\[0pt] \frac{2}{27}\end{pmatrix}
+```
+
+.
 
 Iterating the stochastic recursion gives forecast error $`\sum_{j=1}^h A^{h-j}\varepsilon_{t+j}`$. Innovations at different dates are uncorrelated, so their propagated covariance matrices add:
 
 ```math
 \Sigma_h=\sum_{k=0}^{h-1}A^k I_2(A^k)^\top
-=\begin{pmatrix}\frac{113}{72}&\frac{17}{108}\\\frac{17}{108}&\frac{91}{81}\end{pmatrix}.
+=\begin{pmatrix}\frac{113}{72}&\frac{17}{108}\\[0pt] \frac{17}{108}&\frac{91}{81}\end{pmatrix}.
 ```
 
 The $`k=0`$ term is $`I_2`$. Each additional term is positive semidefinite, so forecast uncertainty increases in the positive-semidefinite ordering as the horizon expands. Off-diagonal covariance can appear even though the original innovations have diagonal covariance.
@@ -2317,7 +2509,13 @@ The second coordinate's shock affects its own future and, through $`b`$, the fir
 
 #### Problem EC-86: two-variable VAR propagation, case 4
 
-Let $`X_{t+1}=AX_t+\varepsilon_{t+1}`$, $`A=\begin{pmatrix}\frac{2}{3}&-1\\0&\frac{1}{3}\end{pmatrix}`$, with serially independent mean-zero innovations having covariance $`I_2`$. From $`X_t=(1,2)^\top`$, find the $`h=2`$ conditional mean and forecast-error covariance.
+Let $`X_{t+1}=AX_t+\varepsilon_{t+1}`$,
+
+```math
+A=\begin{pmatrix}\frac{2}{3}&-1\\[0pt] 0&\frac{1}{3}\end{pmatrix}
+```
+
+, with serially independent mean-zero innovations having covariance $`I_2`$. From $`X_t=(1,2)^\top`$, find the $`h=2`$ conditional mean and forecast-error covariance.
 
 Solution. The eigenvalues are the diagonal entries $`a=\frac{2}{3}`$ and $`d=\frac{1}{3}`$, both inside the unit circle. Thus this VAR has a causal stationary solution under finite innovation variances. The off-diagonal entry affects propagation even though it does not change these eigenvalues.
 
@@ -2333,13 +2531,25 @@ a^h&b\sum_{j=0}^{h-1}a^{h-1-j}d^j\\[0pt]
 \sum_{j=0}^{h-1}a^{h-1-j}d^j=\frac{a^h-d^h}{a-d}.
 ```
 
-At the requested horizon, direct multiplication gives $`A^h=\begin{pmatrix}\frac{4}{9}&-1\\0&\frac{1}{9}\end{pmatrix}`$. The conditional mean is therefore $`A^hX_t=\begin{pmatrix}-\frac{14}{9}\\\frac{2}{9}\end{pmatrix}`$.
+At the requested horizon, direct multiplication gives
+
+```math
+A^h=\begin{pmatrix}\frac{4}{9}&-1\\[0pt] 0&\frac{1}{9}\end{pmatrix}
+```
+
+. The conditional mean is therefore
+
+```math
+A^hX_t=\begin{pmatrix}-\frac{14}{9}\\[0pt] \frac{2}{9}\end{pmatrix}
+```
+
+.
 
 Iterating the stochastic recursion gives forecast error $`\sum_{j=1}^h A^{h-j}\varepsilon_{t+j}`$. Innovations at different dates are uncorrelated, so their propagated covariance matrices add:
 
 ```math
 \Sigma_h=\sum_{k=0}^{h-1}A^k I_2(A^k)^\top
-=\begin{pmatrix}\frac{22}{9}&-\frac{1}{3}\\-\frac{1}{3}&\frac{10}{9}\end{pmatrix}.
+=\begin{pmatrix}\frac{22}{9}&-\frac{1}{3}\\[0pt] -\frac{1}{3}&\frac{10}{9}\end{pmatrix}.
 ```
 
 The $`k=0`$ term is $`I_2`$. Each additional term is positive semidefinite, so forecast uncertainty increases in the positive-semidefinite ordering as the horizon expands. Off-diagonal covariance can appear even though the original innovations have diagonal covariance.
@@ -2363,7 +2573,7 @@ The residual sum of squares is $`1.8`$. With two residual degrees of freedom, $`
 The slope influence weights in the linear OLS formula are $`(x_i-\bar x)/5=(-0.3,-0.1,0.1,0.3)`$. HC0 therefore gives
 
 ```math
-\widehat{\mathop{\mathrm{Var}}\nolimits}_{\mathrm{HC0}}(\hat\beta_1)
+\widehat{\mathop{\mathrm{Var}} }_{\mathrm{HC0}}(\hat\beta_1)
 =0.09(0.09)+0.01(0.01)+0.01(1.21)+0.09(0.49)
 =0.0644.
 ```
@@ -2380,13 +2590,19 @@ Robust variance estimates need not exceed the homoskedastic estimate. They estim
 
 #### Problem EC-88: a full-rank IV system with a weak direction
 
-Let $`E[ZD^\top]=G=\begin{pmatrix}1&1\\1&1+\epsilon\end{pmatrix}`$ with $`\epsilon>0`$ and $`E[ZY]=G(1,2)^\top`$. Solve the two identifying moment equations. Then perturb only the second entry of $`E[ZY]`$ by $`\delta`$ and analyze sensitivity.
+Let
+
+```math
+E[ZD^\top]=G=\begin{pmatrix}1&1\\[0pt] 1&1+\epsilon\end{pmatrix}
+```
+
+ with $`\epsilon\gt 0`$ and $`E[ZY]=G(1,2)^\top`$. Solve the two identifying moment equations. Then perturb only the second entry of $`E[ZY]`$ by $`\delta`$ and analyze sensitivity.
 
 Solution. The determinant is $`\epsilon`$, so the instrument-regressor matrix has full rank for every stated positive value. Its inverse is
 
 ```math
 G^{-1}=\frac1\epsilon
-\begin{pmatrix}1+\epsilon&-1\\-1&1\end{pmatrix}.
+\begin{pmatrix}1+\epsilon&-1\\[0pt] -1&1\end{pmatrix}.
 ```
 
 The unperturbed outcome cross-moment is $`(3,3+2\epsilon)^\top`$, and multiplication recovers $`\beta=(1,2)^\top`$.
@@ -2430,7 +2646,7 @@ The arithmetic estimates the within projection. A structural interpretation need
 
 #### Problem EC-90: uncorrelated returns with dependent squares
 
-Let $`z_t`$ be iid standard normal and consider $`r_t=\sigma_tz_t`$ with $`\sigma_t^2=\omega+\alpha r_{t-1}^2`$, $`\omega>0`$, $`0\le\alpha<1`$. Construct a stationary causal variance process, derive return variance, and determine when the fourth moment exists. Relate return and squared-return correlations.
+Let $`z_t`$ be iid standard normal and consider $`r_t=\sigma_tz_t`$ with $`\sigma_t^2=\omega+\alpha r_{t-1}^2`$, $`\omega\gt 0`$, $`0\le\alpha\lt 1`$. Construct a stationary causal variance process, derive return variance, and determine when the fourth moment exists. Relate return and squared-return correlations.
 
 Solution. Substituting $`r_{t-1}^2=\sigma_{t-1}^2z_{t-1}^2`$ repeatedly gives
 
@@ -2457,7 +2673,7 @@ m_4=\frac{3\omega^2(1+\alpha)}
 {(1-\alpha)(1-3\alpha^2)}
 ```
 
-when $`3\alpha^2<1`$. This condition is also sufficient: the $`L^2`$ norms of terms in the variance series are bounded by a geometric series with ratio $`\alpha\sqrt3<1`$. If $`3\alpha^2\ge1`$, the moment equation with its strictly positive constant term rules out a finite fourth moment.
+when $`3\alpha^2\lt 1`$. This condition is also sufficient: the $`L^2`$ norms of terms in the variance series are bounded by a geometric series with ratio $`\alpha\sqrt3\lt 1`$. If $`3\alpha^2\ge1`$, the moment equation with its strictly positive constant term rules out a finite fourth moment.
 
 When finite, kurtosis is $`3(1-\alpha^2)/(1-3\alpha^2)`$. Also $`r_t^2=\omega+\alpha r_{t-1}^2+\eta_t`$ with $`\eta_t=\sigma_t^2(z_t^2-1)`$ a martingale difference. The centered squares therefore have autocorrelation $`\alpha^k`$ at lag $`k`$. At $`\alpha=1/2`$, returns have zero linear autocorrelation while squared-return correlations decay geometrically and kurtosis equals nine.
 

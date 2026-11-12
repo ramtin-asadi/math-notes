@@ -27,9 +27,9 @@ Contents:
 
 A filtration is an increasing family of sigma-algebras: $`\mathcal F_s\subseteq\mathcal F_t`$ for $`s\le t`$. It records which events can be determined by each date. A process $`X_t`$ is adapted if $`X_t`$ is $`\mathcal F_t`$-measurable. A decision made at date $`t`$ must use information available then, rather than a future observation.
 
-An integrable adapted process $`M_t`$ is a martingale if $`E[M_t\mid\mathcal F_s]=M_s`$ for every $`s\le t`$. Integrability, $`E\vert M_t\vert <\infty`$, is part of the definition. Constant unconditional means alone are insufficient: the conditional requirement must hold after any admissible past information.
+An integrable adapted process $`M_t`$ is a martingale if $`E[M_t\mid\mathcal F_s]=M_s`$ for every $`s\le t`$. Integrability, $`E\vert M_t\vert \lt \infty`$, is part of the definition. Constant unconditional means alone are insufficient: the conditional requirement must hold after any admissible past information.
 
-A stopping time $`\tau`$ satisfies $`\{\tau\le t\}\in\mathcal F_t`$ for every $`t`$. A first hitting time of a closed level by a continuous adapted process is a standard example. The time at which a path attains its maximum over a future fixed interval is generally not a stopping time, since later observations can change whether the current maximum is final.
+A stopping time $`\tau`$ satisfies $`\lbrace \tau\le t\rbrace \in\mathcal F_t`$ for every $`t`$. A first hitting time of a closed level by a continuous adapted process is a standard example. The time at which a path attains its maximum over a future fixed interval is generally not a stopping time, since later observations can change whether the current maximum is final.
 
 Optional stopping is an assumption-dependent extension of the martingale mean property. For a right-continuous martingale and a bounded stopping time, $`E[M_\tau]=E[M_0]`$. For unbounded stopping times, one needs conditions such as uniform integrability of the stopped family, or other hypotheses that justify passing to the limit.
 
@@ -45,10 +45,10 @@ Let $`\tau\le N`$ be an integer-valued stopping time. Write
 
 ```math
 M_\tau=M_0+\sum_{k=1}^N
-\mathbf1_{\{\tau\ge k\}}(M_k-M_{k-1}).
+\mathbf1_{\lbrace \tau\ge k\rbrace }(M_k-M_{k-1}).
 ```
 
-The event $`\{\tau\ge k\}=\{\tau>k-1\}`$ belongs to $`\mathcal F_{k-1}`$. Condition each summand on that sigma-algebra: its expectation is zero because the indicator is already known and the martingale increment has conditional mean zero. Summing finitely many integrable terms proves $`E[M_\tau]=E[M_0]`$.
+The event $`\lbrace \tau\ge k\rbrace =\lbrace \tau\gt k-1\rbrace`$ belongs to $`\mathcal F_{k-1}`$. Condition each summand on that sigma-algebra: its expectation is zero because the indicator is already known and the martingale increment has conditional mean zero. Summing finitely many integrable terms proves $`E[M_\tau]=E[M_0]`$.
 
 #### A finite-partition conditional expectation
 
@@ -68,11 +68,11 @@ E[M_{n+2}\mid\mathcal F_n]
 
 Iterating proves the assertion for all later dates. An adapted integrable process with constant unconditional expectation need not be a martingale: its conditional expectation can still depend on current information in the wrong way.
 
-A stopping time allows the decision to stop at date $`n`$ to be made from $`\mathcal F_n`$. The event $`\{\tau\le n\}`$ must therefore be known at that date. A first hitting time is a standard example. A last visit before a future deadline generally is not, because verifying that a visit was the last one requires observing the remaining path.
+A stopping time allows the decision to stop at date $`n`$ to be made from $`\mathcal F_n`$. The event $`\lbrace \tau\le n\rbrace`$ must therefore be known at that date. A first hitting time is a standard example. A last visit before a future deadline generally is not, because verifying that a visit was the last one requires observing the remaining path.
 
 #### A complete stopped-walk calculation
 
-Let $`S_n`$ be a simple symmetric random walk started at integer $`i`$ with $`0<i<m`$. Let $`\tau`$ be its first visit to zero or $`m`$. We derive both the probability of reaching the upper boundary and the expected duration.
+Let $`S_n`$ be a simple symmetric random walk started at integer $`i`$ with $`0\lt i\lt m`$. Let $`\tau`$ be its first visit to zero or $`m`$. We derive both the probability of reaching the upper boundary and the expected duration.
 
 The processes $`S_n`$ and $`S_n^2-n`$ are martingales. For the bounded stopping time $`\tau\wedge N`$, optional stopping gives
 
@@ -81,7 +81,7 @@ E[S_{\tau\wedge N}]=i,\qquad
 E[\tau\wedge N]=E[S_{\tau\wedge N}^2]-i^2\le m^2.
 ```
 
-The stopped position always belongs to $`[0,m]`$. Monotone convergence applied to $`\tau\wedge N`$ gives $`E[\tau]\le m^2<\infty`$, which in particular proves $`\tau<\infty`$ almost surely. We can now pass to the terminal position. Dominated convergence applies to $`S_{\tau\wedge N}`$ and its square because they are bounded by $`m`$ and $`m^2`$.
+The stopped position always belongs to $`[0,m]`$. Monotone convergence applied to $`\tau\wedge N`$ gives $`E[\tau]\le m^2\lt \infty`$, which in particular proves $`\tau\lt \infty`$ almost surely. We can now pass to the terminal position. Dominated convergence applies to $`S_{\tau\wedge N}`$ and its square because they are bounded by $`m`$ and $`m^2`$.
 
 Writing $`p=P(S_\tau=m)`$, the first identity becomes $`mp=i`$. The second becomes
 
@@ -93,9 +93,9 @@ For $`i=2`$ and $`m=5`$, the upper-boundary probability is $`2/5`$ and the expec
 
 #### Example SC-E21: a last visit uses future information
 
-For a symmetric random walk with $`S_0=0`$, define $`L=\max\{n\in\{0,1,2\}:S_n=0\}`$. Is $`L`$ a stopping time?
+For a symmetric random walk with $`S_0=0`$, define $`L=\max\lbrace n\in\lbrace 0,1,2\rbrace :S_n=0\rbrace`$. Is $`L`$ a stopping time?
 
-Solution. The walk cannot be zero at date one. It returns at date two exactly when the two increments have opposite signs. Thus $`L=2`$ on that event and $`L=0`$ otherwise. The event $`\{L\le0\}=\{S_2\ne0\}`$ has probability one half and is not measurable with respect to the initial, trivial information. Hence $`L`$ is not a stopping time. Knowing the current position at zero does not tell us whether another zero will occur later.
+Solution. The walk cannot be zero at date one. It returns at date two exactly when the two increments have opposite signs. Thus $`L=2`$ on that event and $`L=0`$ otherwise. The event $`\lbrace L\le0\rbrace =\lbrace S_2\ne0\rbrace`$ has probability one half and is not measurable with respect to the initial, trivial information. Hence $`L`$ is not a stopping time. Knowing the current position at zero does not tell us whether another zero will occur later.
 
 ### 1.3 Worked examples
 
@@ -134,9 +134,9 @@ Problem. Prove that the minimum and maximum of two stopping times are stopping t
 Solution. For stopping times $`\tau,\sigma`$,
 
 ```math
-\{\tau\wedge\sigma\le t\}=\{\tau\le t\}\cup\{\sigma\le t\},
+\lbrace \tau\wedge\sigma\le t\rbrace =\lbrace \tau\le t\rbrace \cup\lbrace \sigma\le t\rbrace ,
 \quad
-\{\tau\vee\sigma\le t\}=\{\tau\le t\}\cap\{\sigma\le t\}.
+\lbrace \tau\vee\sigma\le t\rbrace =\lbrace \tau\le t\rbrace \cap\lbrace \sigma\le t\rbrace .
 ```
 
 Both events belong to $`\mathcal F_t`$ by closure of a sigma-algebra under unions and intersections. Hence both random times are stopping times. This proof directly checks the information requirement rather than relying on the names of the operations.
@@ -147,7 +147,7 @@ Source: [Lalley, Brownian Motion, Exercise 3(b)](https://galton.uchicago.edu/~la
 
 Problem. For a finite stopping time $`\tau`$, show that its upward dyadic rounding $`2^{-n}\lceil2^n\tau\rceil`$ is a stopping time and decreases to $`\tau`$.
 
-Solution. Let $`\tau_n=2^{-n}\lceil2^n\tau\rceil`$. For fixed $`t`$, put $`q_n(t)=2^{-n}\lfloor2^nt\rfloor`$. Then $`\{\tau_n\le t\}=\{\tau\le q_n(t)\}\in\mathcal F_{q_n(t)}\subseteq\mathcal F_t`$. Thus $`\tau_n`$ is a stopping time. Also $`\tau\le\tau_n<\tau+2^{-n}`$, so $`\tau_n\downarrow\tau`$ for finite $`\tau`$. Upward rounding permits a discrete-grid approximation using only information available at the rounded date.
+Solution. Let $`\tau_n=2^{-n}\lceil2^n\tau\rceil`$. For fixed $`t`$, put $`q_n(t)=2^{-n}\lfloor2^nt\rfloor`$. Then $`\lbrace \tau_n\le t\rbrace =\lbrace \tau\le q_n(t)\rbrace \in\mathcal F_{q_n(t)}\subseteq\mathcal F_t`$. Thus $`\tau_n`$ is a stopping time. Also $`\tau\le\tau_n\lt \tau+2^{-n}`$, so $`\tau_n\downarrow\tau`$ for finite $`\tau`$. Upward rounding permits a discrete-grid approximation using only information available at the rounded date.
 
 #### Problem SC-04: the stopping sigma-algebra
 
@@ -155,7 +155,7 @@ Source: [Lalley, Brownian Motion, Exercise 4(a)](https://galton.uchicago.edu/~la
 
 Problem. Prove that the events observable at a stopping time form a sigma-algebra under the displayed definition of $`\mathcal F_\tau`$.
 
-Solution. Define $`\mathcal F_\tau=\{A\in\mathcal F:A\cap\{\tau\le t\}\in\mathcal F_t\text{ for every }t\}`$. The whole space belongs because $`\tau`$ is a stopping time. If $`A`$ belongs, then $`A^c\cap\{\tau\le t\}=\{\tau\le t\}\setminus[A\cap\{\tau\le t\}]`$ belongs to $`\mathcal F_t`$. For countably many $`A_i`$, intersecting their union with $`\{\tau\le t\}`$ gives the union of the corresponding measurable intersections. Thus $`\mathcal F_\tau`$ is a sigma-algebra.
+Solution. Define $`\mathcal F_\tau=\lbrace A\in\mathcal F:A\cap\lbrace \tau\le t\rbrace \in\mathcal F_t\text{ for every }t\rbrace`$. The whole space belongs because $`\tau`$ is a stopping time. If $`A`$ belongs, then $`A^c\cap\lbrace \tau\le t\rbrace =\lbrace \tau\le t\rbrace \setminus[A\cap\lbrace \tau\le t\rbrace ]`$ belongs to $`\mathcal F_t`$. For countably many $`A_i`$, intersecting their union with $`\lbrace \tau\le t\rbrace`$ gives the union of the corresponding measurable intersections. Thus $`\mathcal F_\tau`$ is a sigma-algebra.
 
 #### Problem SC-05: earlier stopping reveals less information
 
@@ -166,8 +166,8 @@ Problem. If stopping times satisfy $`\sigma\le\tau`$, prove $`\mathcal F_\sigma\
 Solution. If $`\sigma\le\tau`$ and $`A\in\mathcal F_\sigma`$, then
 
 ```math
-A\cap\{\tau\le t\}
-=[A\cap\{\sigma\le t\}]\cap\{\tau\le t\}.
+A\cap\lbrace \tau\le t\rbrace
+=[A\cap\lbrace \sigma\le t\rbrace ]\cap\lbrace \tau\le t\rbrace .
 ```
 
 Both factors belong to $`\mathcal F_t`$, so $`A\in\mathcal F_\tau`$. Therefore $`\mathcal F_\sigma\subseteq\mathcal F_\tau`$. The inequality of random times, holding pointwise or after a suitable almost-sure version, is what permits the event identity.
@@ -184,17 +184,17 @@ Solution. The hitting time is almost surely finite, and the terminal walk value 
 
 Constructed problem. Is $`W_t+t`$ a martingale?
 
-Solution. For $`s<t`$, $`E[W_t+t\mid\mathcal F_s]=W_s+t`$, whereas the process at $`s`$ is $`W_s+s`$. The difference is $`t-s`$. It is an integrable adapted submartingale, not a martingale. Subtracting its known drift returns $`W_t`$.
+Solution. For $`s\lt t`$, $`E[W_t+t\mid\mathcal F_s]=W_s+t`$, whereas the process at $`s`$ is $`W_s+s`$. The difference is $`t-s`$. It is an integrable adapted submartingale, not a martingale. Subtracting its known drift returns $`W_t`$.
 
 ## 2. Brownian motion
 
 ### 2.1 Theory
 
-A standard Brownian motion starts at zero, has continuous paths, and has independent Gaussian increments: $`W_t-W_s\sim N(0,t-s)`$ for $`s<t`$, independently of $`\mathcal F_s`$. Its increment standard deviation is $`\sqrt{t-s}`$, which is larger than the time length at small scales.
+A standard Brownian motion starts at zero, has continuous paths, and has independent Gaussian increments: $`W_t-W_s\sim N(0,t-s)`$ for $`s\lt t`$, independently of $`\mathcal F_s`$. Its increment standard deviation is $`\sqrt{t-s}`$, which is larger than the time length at small scales.
 
 The covariance is $`E[W_sW_t]=\min(s,t)`$. To derive this for $`s\le t`$, write $`W_t=W_s+(W_t-W_s)`$ and use independence and zero mean of the increment. Finite-dimensional distributions are multivariate Gaussian because their coordinates are sums of independent Gaussian increments.
 
-For $`c>0`$, $`c^{-1/2}W_{ct}`$ is another standard Brownian motion in law. Its increments have variance $`c^{-1}c(t-s)=t-s`$, and independence and continuity are preserved. This is a statement about process distributions, not equality of individual paths.
+For $`c\gt 0`$, $`c^{-1/2}W_{ct}`$ is another standard Brownian motion in law. Its increments have variance $`c^{-1}c(t-s)=t-s`$, and independence and continuity are preserved. This is a statement about process distributions, not equality of individual paths.
 
 Quadratic variation measures accumulated squared increments. Along deterministic partitions whose mesh tends to zero, Brownian squared increments sum to elapsed time. For smooth finite-variation paths the same sums tend to zero. This difference creates the extra term in Itô's formula.
 
@@ -202,7 +202,7 @@ Quadratic variation measures accumulated squared increments. Along deterministic
 
 #### Quadratic variation in $`L^2`$
 
-For partition $`0=t_0<\cdots<t_n=T`$, let $`Q_\pi=\sum_i(\Delta W_i)^2`$. A centered normal increment of variance $`h_i`$ has squared mean $`h_i`$ and fourth moment $`3h_i^2`$, so its square has variance $`2h_i^2`$. Independence gives
+For partition $`0=t_0\lt \cdots\lt t_n=T`$, let $`Q_\pi=\sum_i(\Delta W_i)^2`$. A centered normal increment of variance $`h_i`$ has squared mean $`h_i`$ and fourth moment $`3h_i^2`$, so its square has variance $`2h_i^2`$. Independence gives
 
 ```math
 EQ_\pi=T,\qquad
@@ -219,30 +219,30 @@ For a continuous finite-variation path $`f`$,
 ```math
 \sum_i(\Delta f_i)^2
 \le\max_i\vert \Delta f_i\vert \sum_i\vert \Delta f_i\vert
-\le\max_i\vert \Delta f_i\vert \,\mathop{\mathrm{TV}}\nolimits_{[0,T]}(f)\to0,
+\le\max_i\vert \Delta f_i\vert \,\mathop{\mathrm{TV}} _{[0,T]}(f)\to0,
 ```
 
-by uniform continuity. Brownian motion has dyadic squared-increment sums tending almost surely to $`T>0`$, so its total variation cannot be finite on that interval. This rules out ordinary pathwise Riemann-Stieltjes integration against Brownian motion under the usual finite-variation integrator framework.
+by uniform continuity. Brownian motion has dyadic squared-increment sums tending almost surely to $`T\gt 0`$, so its total variation cannot be finite on that interval. This rules out ordinary pathwise Riemann-Stieltjes integration against Brownian motion under the usual finite-variation integrator framework.
 
 #### Overlapping increments and Brownian scaling
 
 For two Brownian increments, the covariance equals the length of overlap of their time intervals. For example,
 
 ```math
-\mathop{\mathrm{Cov}}\nolimits(W_3-W_1,W_4-W_2)=1,
+\mathop{\mathrm{Cov}} (W_3-W_1,W_4-W_2)=1,
 ```
 
 because the shared increment over $`[2,3]`$ has variance one and the remaining disjoint pieces are independent. More generally, write each increment as an integral of an interval indicator against Brownian motion; their covariance is the integral of the product of the indicators.
 
 The familiar covariance $`E[W_sW_t]=\min(s,t)`$ follows by taking intervals starting at zero. Every finite vector of Brownian values is jointly Gaussian. Its mean and covariance determine its distribution, so a linear combination $`\sum_i a_iW_{t_i}`$ is centered normal with variance $`\sum_{i,j}a_ia_j\min(t_i,t_j)`$.
 
-For $`c>0`$, the process $`B_t=W_{ct}/\sqrt c`$ has continuous paths, starts at zero, and has independent centered Gaussian increments with variance equal to their time length. It is therefore Brownian motion. This is equality in process law, not an assertion that the two processes have identical paths on the original sample space.
+For $`c\gt 0`$, the process $`B_t=W_{ct}/\sqrt c`$ has continuous paths, starts at zero, and has independent centered Gaussian increments with variance equal to their time length. It is therefore Brownian motion. This is equality in process law, not an assertion that the two processes have identical paths on the original sample space.
 
 Brownian increments have a typical size proportional to the square root of the elapsed time. Dividing an increment by its time length gives a random slope whose variance grows as the interval shrinks. A full proof that Brownian paths are almost surely nowhere differentiable requires more than this variance observation; it is a path theorem in the cited notes. The quadratic-variation argument above already proves infinite total variation, which is enough to rule out ordinary finite-variation integration against Brownian paths.
 
 #### Reflection and the maximum
 
-For $`a>0`$, reflect a Brownian path after its first hit of $`a`$. Symmetry and the strong Markov property imply that the reflected process has the same Brownian law. The strong Markov property, stated here as a theorem, extends independent increments to a finite stopping time: the subsequent increments form a fresh Brownian motion independent of the stopped information.
+For $`a\gt 0`$, reflect a Brownian path after its first hit of $`a`$. Symmetry and the strong Markov property imply that the reflected process has the same Brownian law. The strong Markov property, stated here as a theorem, extends independent increments to a finite stopping time: the subsequent increments form a fresh Brownian motion independent of the stopped information.
 
 Among paths that hit $`a`$ by time $`T`$, reflection pairs terminal values below $`a`$ with terminal values above it. Consequently
 
@@ -252,17 +252,17 @@ P\left(\max_{0\le t\le T}W_t\ge a\right)
 =2\left[1-\Phi\left(\frac a{\sqrt T}\right)\right].
 ```
 
-The first-passage time $`\tau_a`$ therefore has CDF equal to this expression as a function of $`T>0`$. Differentiating gives density
+The first-passage time $`\tau_a`$ therefore has CDF equal to this expression as a function of $`T\gt 0`$. Differentiating gives density
 
 ```math
-f_{\tau_a}(t)=\frac a{\sqrt{2\pi t^3}}e^{-a^2/(2t)},\qquad t>0.
+f_{\tau_a}(t)=\frac a{\sqrt{2\pi t^3}}e^{-a^2/(2t)},\qquad t\gt 0.
 ```
 
 It hits eventually with probability one, but the tail is of order $`t^{-1/2}`$ and its mean is infinite. Almost-sure finiteness and finite expected duration are different properties.
 
 #### Example SC-E22: a conditional barrier crossing
 
-Let $`a>0`$ and condition on $`W_T=b<a`$. Find the probability that the path crossed $`a`$ before $`T`$.
+Let $`a\gt 0`$ and condition on $`W_T=b\lt a`$. Find the probability that the path crossed $`a`$ before $`T`$.
 
 Solution. Reflection gives joint terminal density $`\phi_T(2a-b)`$ for paths that crossed the barrier and ended at $`b`$, where $`\phi_T(x)=(2\pi T)^{-1/2}e^{-x^2/(2T)}`$. Dividing by the unconditional terminal density gives
 
@@ -278,11 +278,17 @@ For $`a=2`$, $`b=1`$, $`T=1`$, this is $`e^{-4}`$. If $`b\ge a`$, continuity mak
 
 #### Example SC-E03: a conditional increment
 
-Given $`\mathcal F_2`$, $`W_5-W_2\sim N(0,3)`$ and is independent of the past. Hence $`E[W_5\mid\mathcal F_2]=W_2`$ and $`\mathop{\mathrm{Var}}\nolimits(W_5\mid\mathcal F_2)=3`$. Conditioning only on $`W_2=1`$ gives $`W_5\sim N(1,3)`$ under its conditional law.
+Given $`\mathcal F_2`$, $`W_5-W_2\sim N(0,3)`$ and is independent of the past. Hence $`E[W_5\mid\mathcal F_2]=W_2`$ and $`\mathop{\mathrm{Var}} (W_5\mid\mathcal F_2)=3`$. Conditioning only on $`W_2=1`$ gives $`W_5\sim N(1,3)`$ under its conditional law.
 
 #### Example SC-E04: a correlated pair of dates
 
-The covariance of $`(W_1,W_3)`$ is $`\left(\begin{smallmatrix}1&1\\1&3\end{smallmatrix}\right)`$. The correlation is $`1/\sqrt3`$. The variables are not independent, although $`W_1`$ and $`W_3-W_1`$ are independent. Independent increments should not be confused with independent levels.
+The covariance of $`(W_1,W_3)`$ is
+
+```math
+\left(\begin{smallmatrix}1&1\\[0pt] 1&3\end{smallmatrix}\right)
+```
+
+. The correlation is $`1/\sqrt3`$. The variables are not independent, although $`W_1`$ and $`W_3-W_1`$ are independent. Independent increments should not be confused with independent levels.
 
 #### Example SC-E05: cross-variation of independent coordinates
 
@@ -296,7 +302,7 @@ Source: [Lalley, Homework 2, Problem 1(a)](https://galton.uchicago.edu/~lalley/C
 
 Problem. For independent Brownian coordinates $`X,Y`$ and real $`\theta`$, prove that $`\exp(i\theta X_t+\theta Y_t)`$ is a complex-valued martingale.
 
-Solution. Let $`X,Y`$ be independent standard Brownian coordinates and $`M_t=\exp(i\theta X_t+\theta Y_t)`$ for real $`\theta`$. For $`s<t`$, factor out $`M_s`$ and use independent increments:
+Solution. Let $`X,Y`$ be independent standard Brownian coordinates and $`M_t=\exp(i\theta X_t+\theta Y_t)`$ for real $`\theta`$. For $`s\lt t`$, factor out $`M_s`$ and use independent increments:
 
 ```math
 E[M_t\mid\mathcal F_s]
@@ -307,9 +313,15 @@ Integrability holds because $`\vert M_t\vert =e^{\theta Y_t}`$ has finite expect
 
 #### Problem SC-09: a Brownian bridge at one date
 
-Constructed problem. Find the conditional law of $`W_s`$ given $`W_T=w`$, for $`0<s<T`$.
+Constructed problem. Find the conditional law of $`W_s`$ given $`W_T=w`$, for $`0\lt s\lt T`$.
 
-Solution. The covariance of $`(W_s,W_T)`$ is $`\left(\begin{smallmatrix}s&s\\s&T\end{smallmatrix}\right)`$. Conditional Gaussian formulas give mean $`(s/T)w`$ and variance $`s-s^2/T=s(T-s)/T`$. Knowing the future endpoint reduces variance relative to the unconditioned value $`s`$. This conditional model is a bridge; it does not make the original forward Brownian increments independent after the endpoint is revealed.
+Solution. The covariance of $`(W_s,W_T)`$ is
+
+```math
+\left(\begin{smallmatrix}s&s\\[0pt] s&T\end{smallmatrix}\right)
+```
+
+. Conditional Gaussian formulas give mean $`(s/T)w`$ and variance $`s-s^2/T=s(T-s)/T`$. Knowing the future endpoint reduces variance relative to the unconditioned value $`s`$. This conditional model is a bridge; it does not make the original forward Brownian increments independent after the endpoint is revealed.
 
 #### Problem SC-10: a squared Brownian martingale
 
@@ -326,7 +338,7 @@ Second moments are finite, so integrability is satisfied. The subtracted time co
 
 #### Problem SC-11: distributional scaling of a first passage time
 
-Constructed problem. Let $`\tau_a=\inf\{t:W_t=a\}`$ for $`a>0`$. Determine its scale relative to $`\tau_1`$.
+Constructed problem. Let $`\tau_a=\inf\lbrace t:W_t=a\rbrace`$ for $`a\gt 0`$. Determine its scale relative to $`\tau_1`$.
 
 Solution. The process $`a^{-1}W_{a^2t}`$ is standard Brownian. It reaches one exactly when the original path reaches $`a`$ at time $`a^2t`$. Hence $`\tau_a\overset d=a^2\tau_1`$. Scaling a distance by $`a`$ scales the hitting time by $`a^2`$. No finite mean is implied: the one-sided Brownian first-passage time has infinite expectation.
 
@@ -340,15 +352,15 @@ Start with a simple predictable process $`H_t=\sum_iH_i\mathbf1_{(t_i,t_{i+1}]}(
 \int_0^T H_t\,dW_t=\sum_iH_i(W_{t_{i+1}}-W_{t_i}).
 ```
 
-The left-endpoint information condition prevents choosing a stake after seeing the increment it multiplies. If $`E\int_0^TH_t^2dt<\infty`$, the integral extends by $`L^2`$ limits to predictable square-integrable integrands. Continuous adapted integrands are predictable in the usual setup.
+The left-endpoint information condition prevents choosing a stake after seeing the increment it multiplies. If $`E\int_0^TH_t^2dt\lt \infty`$, the integral extends by $`L^2`$ limits to predictable square-integrable integrands. Continuous adapted integrands are predictable in the usual setup.
 
-The resulting integral process is a square-integrable martingale, starts at zero, and has expectation zero. If only $`\int_0^TH_t^2dt<\infty`$ almost surely without its expectation being finite, one can define a local integral by localization, but its local-martingale status does not automatically supply zero expectation.
+The resulting integral process is a square-integrable martingale, starts at zero, and has expectation zero. If only $`\int_0^TH_t^2dt\lt \infty`$ almost surely without its expectation being finite, one can define a local integral by localization, but its local-martingale status does not automatically supply zero expectation.
 
 ### 3.2 Derivations and proofs
 
 #### Itô isometry
 
-For a simple integrand, expand the square of its integral. Each diagonal term has expectation $`E[H_i^2](t_{i+1}-t_i)`$ because the coefficient is known before the independent increment. For $`i<j`$, condition the cross term on $`\mathcal F_{t_j}`$. All earlier factors and $`H_j`$ are then known, while the last increment has mean zero. Thus cross terms vanish:
+For a simple integrand, expand the square of its integral. Each diagonal term has expectation $`E[H_i^2](t_{i+1}-t_i)`$ because the coefficient is known before the independent increment. For $`i\lt j`$, condition the cross term on $`\mathcal F_{t_j}`$. All earlier factors and $`H_j`$ are then known, while the last increment has mean zero. Thus cross terms vanish:
 
 ```math
 E\left[\left(\int_0^TH_t\,dW_t\right)^2\right]
@@ -424,7 +436,7 @@ For $`H_t=W_1\mathbf1_{(1,2]}(t)`$, the integral over $`[0,2]`$ is $`W_1(W_2-W_1
 
 #### Example SC-E08: two deterministic integrals
 
-For $`I=\int_0^T f(t)dW_t`$ and $`J=\int_0^Tg(t)dW_t`$, polarization of the isometry gives $`\mathop{\mathrm{Cov}}\nolimits(I,J)=\int_0^Tf(t)g(t)dt`$. With $`f=1`$ and $`g=t`$, the covariance is $`T^2/2`$. The integrals share the same Brownian driver and are generally correlated.
+For $`I=\int_0^T f(t)dW_t`$ and $`J=\int_0^Tg(t)dW_t`$, polarization of the isometry gives $`\mathop{\mathrm{Cov}} (I,J)=\int_0^Tf(t)g(t)dt`$. With $`f=1`$ and $`g=t`$, the covariance is $`T^2/2`$. The integrals share the same Brownian driver and are generally correlated.
 
 ### 3.4 Additional solved problems
 
@@ -432,11 +444,11 @@ For $`I=\int_0^T f(t)dW_t`$ and $`J=\int_0^Tg(t)dW_t`$, polarization of the isom
 
 Constructed problem. Find the variance of $`\int_0^TW_t\,dW_t`$.
 
-Solution. The isometry gives $`\int_0^TE[W_t^2]dt=\int_0^Tt\,dt=T^2/2`$. The explicit formula gives the same answer: since $`W_T\sim N(0,T)`$, $`\mathop{\mathrm{Var}}\nolimits(W_T^2)=2T^2`$, and dividing by four gives $`T^2/2`$. These two routes check both the stochastic identity and the moment calculation.
+Solution. The isometry gives $`\int_0^TE[W_t^2]dt=\int_0^Tt\,dt=T^2/2`$. The explicit formula gives the same answer: since $`W_T\sim N(0,T)`$, $`\mathop{\mathrm{Var}} (W_T^2)=2T^2`$, and dividing by four gives $`T^2/2`$. These two routes check both the stochastic identity and the moment calculation.
 
 #### Problem SC-13: a deterministic exponential kernel
 
-Constructed problem. Find the law of $`I_T=\int_0^Te^{-\kappa(T-s)}dW_s`$ for $`\kappa>0`$.
+Constructed problem. Find the law of $`I_T=\int_0^Te^{-\kappa(T-s)}dW_s`$ for $`\kappa\gt 0`$.
 
 Solution. It is a deterministic-integrand Gaussian integral with mean zero. Its variance is $`\int_0^Te^{-2\kappa(T-s)}ds=(1-e^{-2\kappa T})/(2\kappa)`$. As $`T\to\infty`$, the variance approaches $`1/(2\kappa)`$. This kernel is the random component of the Ornstein-Uhlenbeck solution.
 
@@ -599,7 +611,7 @@ Source: [Lalley, Homework 4, Problem 2](https://galton.uchicago.edu/~lalley/Cour
 
 Problem. Let a continuous Itô-integral local martingale start at zero and satisfy $`[M]_\infty\le1`$. Prove $`P(\sup_tM_t\ge x)\le e^{-x^2/2}`$ for $`x\ge0`$.
 
-Solution. Let $`M_0=0`$ be a continuous Itô-integral local martingale with $`[M]_\infty\le1`$. For $`\theta>0`$, the exponential $`Z_t=\exp(\theta M_t-\theta^2[M]_t/2)`$ is a nonnegative local martingale and hence a supermartingale. Stop at the first time $`M`$ reaches $`x\ge0`$, capped at a finite horizon and localized if necessary. On the hitting event, $`Z\ge e^{\theta x-\theta^2/2}`$.
+Solution. Let $`M_0=0`$ be a continuous Itô-integral local martingale with $`[M]_\infty\le1`$. For $`\theta\gt 0`$, the exponential $`Z_t=\exp(\theta M_t-\theta^2[M]_t/2)`$ is a nonnegative local martingale and hence a supermartingale. Stop at the first time $`M`$ reaches $`x\ge0`$, capped at a finite horizon and localized if necessary. On the hitting event, $`Z\ge e^{\theta x-\theta^2/2}`$.
 
 The supermartingale bound gives $`P(\sup_{t\le T}M_t\ge x)\le e^{-\theta x+\theta^2/2}`$. Let $`T\to\infty`$ using increasing events and choose $`\theta=x`$ to obtain $`e^{-x^2/2}`$. For $`x=0`$ the bound is one, obtained by continuity or directly. Localization and nonnegativity justify the expectation inequality without assuming an unrestricted exponential is automatically a true martingale.
 
@@ -607,7 +619,7 @@ The supermartingale bound gives $`P(\sup_{t\le T}M_t\ge x)\le e^{-\theta x+\thet
 
 #### Problem SC-18: the logarithm of a positive Itô process
 
-Constructed problem. If $`dX_t=\mu X_tdt+\sigma X_tdW_t`$ and $`X_t>0`$, compute $`d\log X_t`$.
+Constructed problem. If $`dX_t=\mu X_tdt+\sigma X_tdW_t`$ and $`X_t\gt 0`$, compute $`d\log X_t`$.
 
 Solution. With $`f'=1/x`$ and $`f''=-1/x^2`$, Itô gives $`(\mu-\sigma^2/2)dt+\sigma dW_t`$. The correction is negative because logarithm is concave. This calculation is valid before any potential hit of zero; the explicit solution in Section 5 then proves positivity for positive initial value and justifies its global use on finite horizons.
 
@@ -649,20 +661,20 @@ For $`dS_t=\mu S_tdt+\sigma S_tdW_t`$, apply the log calculation and integrate:
 S_t=S_0\exp[(\mu-\tfrac12\sigma^2)t+\sigma W_t].
 ```
 
-For $`S_0>0`$, this formula is strictly positive at every finite time. Applying Itô to the exponential verifies that it solves the original SDE. The coefficients are globally Lipschitz and of linear growth, so the standard strong existence and uniqueness theorem applies too.
+For $`S_0\gt 0`$, this formula is strictly positive at every finite time. Applying Itô to the exponential verifies that it solves the original SDE. The coefficients are globally Lipschitz and of linear growth, so the standard strong existence and uniqueness theorem applies too.
 
 Gaussian exponential moments give
 
 ```math
 ES_t=S_0e^{\mu t},\qquad
-\mathop{\mathrm{Var}}\nolimits(S_t)=S_0^2e^{2\mu t}(e^{\sigma^2t}-1).
+\mathop{\mathrm{Var}} (S_t)=S_0^2e^{2\mu t}(e^{\sigma^2t}-1).
 ```
 
 The drift of the log is $`\mu-\sigma^2/2`$, while the growth rate of the arithmetic mean is $`\mu`$. Confusing them loses the Itô correction.
 
 #### Ornstein-Uhlenbeck process
 
-For $`dX_t=\kappa(\theta-X_t)dt+\sigma dW_t`$, $`\kappa>0`$, multiply by $`e^{\kappa t}`$. Since that factor has finite variation, the product rule gives
+For $`dX_t=\kappa(\theta-X_t)dt+\sigma dW_t`$, $`\kappa\gt 0`$, multiply by $`e^{\kappa t}`$. Since that factor has finite variation, the product rule gives
 
 ```math
 d[e^{\kappa t}(X_t-\theta)]=\sigma e^{\kappa t}dW_t.
@@ -692,7 +704,7 @@ E\vert X_t-Y_t\vert ^2
 
 Gronwall's inequality forces the difference to be zero. The linear-growth condition separately prevents moments from blowing up in finite time.
 
-Local regularity alone is insufficient for a global solution. The deterministic equation $`dX=X^2dt`$ from $`X_0>0`$ has the locally smooth solution $`X_t=X_0/(1-X_0t)`$, which explodes at $`1/X_0`$. Conversely, lack of Lipschitz continuity can allow nonuniqueness even without noise: $`dX=\sqrt{\vert X\vert }dt`$ from zero has solutions that remain zero until any chosen date $`c`$ and then equal $`(t-c)^2/4`$.
+Local regularity alone is insufficient for a global solution. The deterministic equation $`dX=X^2dt`$ from $`X_0\gt 0`$ has the locally smooth solution $`X_t=X_0/(1-X_0t)`$, which explodes at $`1/X_0`$. Conversely, lack of Lipschitz continuity can allow nonuniqueness even without noise: $`dX=\sqrt{\vert X\vert }dt`$ from zero has solutions that remain zero until any chosen date $`c`$ and then equal $`(t-c)^2/4`$.
 
 GBM has globally Lipschitz state coefficients and an explicit positive solution. OU coefficients are also globally Lipschitz. The nonlinear positive example solved earlier needs its explicit transformation to establish positivity and nonexplosion; it is not covered by a global Lipschitz assertion at zero.
 
@@ -719,7 +731,7 @@ The mean satisfies $`m'(t)=t-m(t)`$ and $`m(0)=x`$, giving a deterministic check
 
 #### Example SC-E12: a GBM conditional distribution
 
-Given $`S_t=s>0`$, the log ratio over horizon $`h`$ is normal with mean $`(\mu-\sigma^2/2)h`$ and variance $`\sigma^2h`$. Thus $`P(S_{t+h}>K\mid\mathcal F_t)=1-\Phi([\log(K/s)-(\mu-\sigma^2/2)h]/[\sigma\sqrt h])`$ for $`\sigma>0`$. The conditional statement uses Brownian increments after $`t`$.
+Given $`S_t=s\gt 0`$, the log ratio over horizon $`h`$ is normal with mean $`(\mu-\sigma^2/2)h`$ and variance $`\sigma^2h`$. Thus $`P(S_{t+h}\gt K\mid\mathcal F_t)=1-\Phi([\log(K/s)-(\mu-\sigma^2/2)h]/[\sigma\sqrt h])`$ for $`\sigma\gt 0`$. The conditional statement uses Brownian increments after $`t`$.
 
 #### Example SC-E13: mean reversion with a current state
 
@@ -781,9 +793,9 @@ The cross-variation cancels the extra integrating-factor drift. Defining $`Y=GX`
 
 Source: [Lalley, Homework 5, Problem 2(C)](https://galton.uchicago.edu/~lalley/Courses/385/HW5.pdf).
 
-Problem. Solve $`dX=X^{-1}dt+\alpha XdW`$ from $`X_0>0`$ and justify positivity and nonexplosion on finite horizons.
+Problem. Solve $`dX=X^{-1}dt+\alpha XdW`$ from $`X_0\gt 0`$ and justify positivity and nonexplosion on finite horizons.
 
-Solution. For $`dX=X^{-1}dt+\alpha XdW`$ and $`X_0=x_0>0`$, use $`G_t=e^{-\alpha W_t+\alpha^2t/2}`$. From SC-22, $`Y=GX`$ satisfies $`dY=G^2Y^{-1}dt`$. Thus $`d(Y^2)=2G^2dt`$ and
+Solution. For $`dX=X^{-1}dt+\alpha XdW`$ and $`X_0=x_0\gt 0`$, use $`G_t=e^{-\alpha W_t+\alpha^2t/2}`$. From SC-22, $`Y=GX`$ satisfies $`dY=G^2Y^{-1}dt`$. Thus $`d(Y^2)=2G^2dt`$ and
 
 ```math
 X_t=G_t^{-1}
@@ -796,7 +808,7 @@ The square-root argument stays strictly positive, and $`G`$ is positive and cont
 
 #### Problem SC-24: a stationary OU autocovariance
 
-Constructed problem. Initialize OU in its stationary normal distribution and compute $`\mathop{\mathrm{Cov}}\nolimits(X_t,X_{t+h})`$.
+Constructed problem. Initialize OU in its stationary normal distribution and compute $`\mathop{\mathrm{Cov}} (X_t,X_{t+h})`$.
 
 Solution. The conditional future expression is $`X_{t+h}-\theta=e^{-\kappa h}(X_t-\theta)`$ plus independent centered future noise. Multiplying by $`X_t-\theta`$ and taking expectations gives $`\sigma^2e^{-\kappa h}/(2\kappa)`$. The correlation is $`e^{-\kappa h}`$. Discretely sampled stationary OU is therefore an AR(1) with coefficient $`e^{-\kappa h}`$ and Gaussian innovation variance $`\sigma^2(1-e^{-2\kappa h})/(2\kappa)`$.
 
@@ -836,14 +848,14 @@ Solution. The stochastic integral has variance $`\sigma^2(1-e^{-2\kappa t})/(2\k
 
 ### 6.1 Theory
 
-Let the bank account satisfy $`dB_t=rB_tdt`$, $`B_0=1`$, and a nondividend-paying stock satisfy $`dS_t=\mu S_tdt+\sigma S_tdW_t^P`$, with constant $`\sigma>0`$. Under the physical measure $`P`$, $`\mu`$ describes the modeled expected stock return. A pricing measure changes probabilities so discounted traded prices become martingales under the required integrability assumptions.
+Let the bank account satisfy $`dB_t=rB_tdt`$, $`B_0=1`$, and a nondividend-paying stock satisfy $`dS_t=\mu S_tdt+\sigma S_tdW_t^P`$, with constant $`\sigma\gt 0`$. Under the physical measure $`P`$, $`\mu`$ describes the modeled expected stock return. A pricing measure changes probabilities so discounted traded prices become martingales under the required integrability assumptions.
 
 Equivalent measures have the same probability-zero events on the specified finite-horizon sigma-algebra. They can assign different probabilities to other events. Equivalence preserves almost-sure path properties such as quadratic variation; it does not preserve drift or expectations.
 
 The market price of Brownian risk is $`\theta=(\mu-r)/\sigma`$ in this one-factor model. A Girsanov measure change can shift the Brownian drift while leaving the diffusion coefficient unchanged. For a progressively measurable $`\theta_t`$, a standard sufficient condition for the density exponential to be a true martingale is Novikov's condition,
 
 ```math
-E_P\exp\left(\frac12\int_0^T\theta_t^2dt\right)<\infty.
+E_P\exp\left(\frac12\int_0^T\theta_t^2dt\right)\lt \infty.
 ```
 
 Girsanov's theorem is stated and applied here, not proved in full generality. Under its hypotheses, density
@@ -858,7 +870,7 @@ defines $`Q`$ by $`dQ/dP=Z_T`$, and $`W_t^Q=W_t^P+\int_0^t\theta_sds`$ is Browni
 
 #### Constant-parameter change of measure
 
-For constant $`\theta`$, Novikov's expression is the finite constant $`e^{\theta^2T/2}`$. Gaussian integration gives $`E_PZ_T=1`$, and $`Z_T>0`$ almost surely, so $`Q`$ is equivalent to $`P`$ on $`\mathcal F_T`$.
+For constant $`\theta`$, Novikov's expression is the finite constant $`e^{\theta^2T/2}`$. Gaussian integration gives $`E_PZ_T=1`$, and $`Z_T\gt 0`$ almost surely, so $`Q`$ is equivalent to $`P`$ on $`\mathcal F_T`$.
 
 Substitute $`dW^P=dW^Q-\theta dt`$:
 
@@ -887,7 +899,7 @@ In the standard Brownian stock-bank model with nonzero volatility and the Browni
 
 #### A one-period replication before continuous time
 
-Let a stock cost $`S_0`$ and end at $`uS_0`$ or $`dS_0`$, with $`d<R<u`$, where $`R`$ is the money-market gross return. A claim pays $`H_u,H_d`$. Holding $`\Delta`$ shares and an initial cash position $`B_0`$ gives the two equations
+Let a stock cost $`S_0`$ and end at $`uS_0`$ or $`dS_0`$, with $`d\lt R\lt u`$, where $`R`$ is the money-market gross return. A claim pays $`H_u,H_d`$. Holding $`\Delta`$ shares and an initial cash position $`B_0`$ gives the two equations
 
 ```math
 \Delta uS_0+RB_0=H_u,\qquad
@@ -902,7 +914,7 @@ v_0=\Delta S_0+B_0
 \qquad q=\frac{R-d}{u-d}.
 ```
 
-The inequalities make $`0<q<1`$. Under this probability, the discounted stock has unchanged expectation. Replication derived the price before introducing this probability; the probability is a convenient representation of the resulting linear pricing rule.
+The inequalities make $`0\lt q\lt 1`$. Under this probability, the discounted stock has unchanged expectation. Replication derived the price before introducing this probability; the probability is a convenient representation of the resulting linear pricing rule.
 
 For $`S_0=100`$, $`u=1.2`$, $`d=0.8`$, $`R=1.05`$, and call strike one hundred, the payoffs are twenty and zero. The hedge is half a share, initial cash is $`-40/1.05`$, and price is $`12.5/1.05\approx11.904762`$. The pricing probability is $`q=0.625`$. The physical probability of an up move was not needed for this complete replication.
 
@@ -950,18 +962,18 @@ If the stock pays continuous proportional yield $`q`$, its ex-dividend risk-neut
 
 Source: [Lalley, Brownian Motion, Exercise 8](https://galton.uchicago.edu/~lalley/Courses/385/BrownianMotion.pdf), the Laplace-transform option.
 
-Problem. For Brownian motion, let $`\tau`$ be the first hit of $`a-bt`$ with $`a,b>0`$. Derive its Laplace transform and use it to obtain its passage probability, mean, and variance.
+Problem. For Brownian motion, let $`\tau`$ be the first hit of $`a-bt`$ with $`a,b\gt 0`$. Derive its Laplace transform and use it to obtain its passage probability, mean, and variance.
 
-Solution. The hitting condition $`W_t=a-bt`$ is equivalent to $`X_t=W_t+bt`$ reaching $`a`$, with $`a,b>0`$. For $`\lambda>0`$, choose $`q=\sqrt{b^2+2\lambda}-b>0`$, so $`bq+q^2/2=\lambda`$. Then $`M_t=e^{qX_t-\lambda t}=e^{qW_t-q^2t/2}`$ is a martingale.
+Solution. The hitting condition $`W_t=a-bt`$ is equivalent to $`X_t=W_t+bt`$ reaching $`a`$, with $`a,b\gt 0`$. For $`\lambda\gt 0`$, choose $`q=\sqrt{b^2+2\lambda}-b\gt 0`$, so $`bq+q^2/2=\lambda`$. Then $`M_t=e^{qX_t-\lambda t}=e^{qW_t-q^2t/2}`$ is a martingale.
 
-Before first passage, $`X_t<a`$, so $`M_{\tau\wedge T}\le e^{qa}`$. Optional stopping at the bounded time gives expectation one. On $`\{\tau>T\}`$, the terminal value is at most $`e^{qa-\lambda T}`$, tending to zero. Dominated convergence gives
+Before first passage, $`X_t\lt a`$, so $`M_{\tau\wedge T}\le e^{qa}`$. Optional stopping at the bounded time gives expectation one. On $`\lbrace \tau\gt T\rbrace`$, the terminal value is at most $`e^{qa-\lambda T}`$, tending to zero. Dominated convergence gives
 
 ```math
-E[e^{-\lambda\tau};\tau<\infty]
+E[e^{-\lambda\tau};\tau\lt \infty]
 =e^{-qa}=\exp[a(b-\sqrt{b^2+2\lambda})].
 ```
 
-Letting $`\lambda\downarrow0`$ gives passage probability one. Differentiating the transform at zero yields $`E\tau=a/b`$ and $`\mathop{\mathrm{Var}}\nolimits(\tau)=a/b^3`$. This uses an exponential martingale with a checked stopping bound rather than an unrestricted optional-stopping assertion.
+Letting $`\lambda\downarrow0`$ gives passage probability one. Differentiating the transform at zero yields $`E\tau=a/b`$ and $`\mathop{\mathrm{Var}} (\tau)=a/b^3`$. This uses an exponential martingale with a checked stopping bound rather than an unrestricted optional-stopping assertion.
 
 #### Problem SC-29: a failed density candidate
 
@@ -971,7 +983,7 @@ Solution. A probability measure defined by $`Q(A)=E_P[Z_T\mathbf1_A]`$ must sati
 
 #### Problem SC-30: a discounted martingale check by conditioning
 
-Constructed problem. Verify the martingale property of discounted risk-neutral GBM directly for $`s<t`$.
+Constructed problem. Verify the martingale property of discounted risk-neutral GBM directly for $`s\lt t`$.
 
 Solution. Factor
 
@@ -1000,7 +1012,7 @@ For $`dX=b(t,X)dt+\sigma(t,X)dW`$ under a chosen measure, a smooth solution of
 u_t+b u_x+\tfrac12\sigma^2u_{xx}-c\,u=0,\qquad u(T,x)=g(x),
 ```
 
-can be represented as an expected discounted terminal payoff. Sufficient classical hypotheses include well-posed nonexplosive state dynamics, regular coefficients, a $`C^{1,2}`$ solution for $`t<T`$, suitable growth bounds, and integrability that makes the derived stochastic integral a true martingale. Less regular payoffs require an appropriate limiting or weak/viscosity formulation.
+can be represented as an expected discounted terminal payoff. Sufficient classical hypotheses include well-posed nonexplosive state dynamics, regular coefficients, a $`C^{1,2}`$ solution for $`t\lt T`$, suitable growth bounds, and integrability that makes the derived stochastic integral a true martingale. Less regular payoffs require an appropriate limiting or weak/viscosity formulation.
 
 ### 7.2 Derivations and proofs
 
@@ -1047,14 +1059,14 @@ This proves the representation for an already regular solution. Proving that the
 
 #### A European call from the Gaussian integral
 
-Under risk-neutral GBM, let $`\tau=T-t>0`$ and $`S_T=s\exp[(r-\sigma^2/2)\tau+\sigma\sqrt\tau Z]`$, $`Z\sim N(0,1)`$. The call payoff is positive when $`Z>-d_2`$, where
+Under risk-neutral GBM, let $`\tau=T-t\gt 0`$ and $`S_T=s\exp[(r-\sigma^2/2)\tau+\sigma\sqrt\tau Z]`$, $`Z\sim N(0,1)`$. The call payoff is positive when $`Z\gt -d_2`$, where
 
 ```math
 d_2=\frac{\log(s/K)+(r-\sigma^2/2)\tau}{\sigma\sqrt\tau},
 \qquad d_1=d_2+\sigma\sqrt\tau.
 ```
 
-Split the discounted payoff expectation into $`e^{-r\tau}E[S_T\mathbf1_{\{Z>-d_2\}}]-Ke^{-r\tau}P(Z>-d_2)`$. The second probability is $`\Phi(d_2)`$. In the first integral, completing the normal square gives
+Split the discounted payoff expectation into $`e^{-r\tau}E[S_T\mathbf1_{\lbrace Z\gt -d_2\rbrace }]-Ke^{-r\tau}P(Z\gt -d_2)`$. The second probability is $`\Phi(d_2)`$. In the first integral, completing the normal square gives
 
 ```math
 e^{a z-a^2/2}\varphi(z)=\varphi(z-a),
@@ -1067,7 +1079,7 @@ Thus the first term is $`s\Phi(d_1)`$ and
 C(t,s)=s\Phi(d_1)-Ke^{-r\tau}\Phi(d_2).
 ```
 
-The payoff kink at maturity does not prevent smoothness for $`s>0`$ and $`\tau>0`$ in this nondegenerate model. Terminal convergence and growth conditions connect the formula to the original payoff.
+The payoff kink at maturity does not prevent smoothness for $`s\gt 0`$ and $`\tau\gt 0`$ in this nondegenerate model. Terminal convergence and growth conditions connect the formula to the original payoff.
 
 #### Feynman–Kac with intermediate cash flows
 
@@ -1114,7 +1126,7 @@ follows by substituting the definitions and comparing the exponents. Differentia
 
 Delta lies between zero and one, and gamma is positive for positive $`s,\sigma,\tau`$. These are useful checks on a derived hedge. At maturity the payoff has a corner at the strike, so classical second derivatives need not persist there even though the price is smooth for earlier dates.
 
-For the call, the zero-stock boundary value is zero and the large-stock behavior is $`s-Ke^{-r\tau}`$. A digital payoff has a discontinuous terminal condition and different limiting behavior. Smoothness for $`t<T`$ does not make every terminal payoff smooth.
+For the call, the zero-stock boundary value is zero and the large-stock behavior is $`s-Ke^{-r\tau}`$. A digital payoff has a discontinuous terminal condition and different limiting behavior. Smoothness for $`t\lt T`$ does not make every terminal payoff smooth.
 
 #### Example SC-E27: continuous coupons and a terminal payment
 
@@ -1159,7 +1171,7 @@ Solution. Assume $`\phi\in C^2`$, $`k`$ continuous and nonnegative, and $`\phi''
 dZ_t=e^{-\int_0^tk(W_s)ds}\phi'(W_t)dW_t.
 ```
 
-Stop at $`T`$. On the compact interval $`[a,b]`$, $`\phi`$ and $`\phi'`$ are bounded, and the exponential is at most one. On each finite horizon the stopped integrand is square-integrable, so the stopped process is a true martingale. Also $`\vert Z_{t\wedge T}\vert \le\max_{[a,b]}\vert \phi\vert `$, a uniform bound giving $`L^2`$ boundedness and uniform integrability.
+Stop at $`T`$. On the compact interval $`[a,b]`$, $`\phi`$ and $`\phi'`$ are bounded, and the exponential is at most one. On each finite horizon the stopped integrand is square-integrable, so the stopped process is a true martingale. Also $`\vert Z_{t\wedge T}\vert \le\max_{[a,b]}\vert \phi\vert`$, a uniform bound giving $`L^2`$ boundedness and uniform integrability.
 
 #### Problem SC-33: terminal boundary representation
 
@@ -1167,7 +1179,7 @@ Source: [Lalley, Homework 4, Problem 5(B)](https://galton.uchicago.edu/~lalley/C
 
 Problem. Use the stopped martingale of SC-32 to derive its boundary expectation representation at the almost-surely finite interval exit.
 
-Solution. Brownian exit from a bounded interval is almost surely finite. For example, on every unit interval an increment larger in magnitude than $`b-a`$ forces exit; independence supplies a fixed positive conditional chance and a geometric survival bound. By continuity $`W_T\in\{a,b\}`$. The bounded stopped martingale from SC-32 converges almost surely, and dominated convergence preserves its mean:
+Solution. Brownian exit from a bounded interval is almost surely finite. For example, on every unit interval an increment larger in magnitude than $`b-a`$ forces exit; independence supplies a fixed positive conditional chance and a geometric survival bound. By continuity $`W_T\in\lbrace a,b\rbrace`$. The bounded stopped martingale from SC-32 converges almost surely, and dominated convergence preserves its mean:
 
 ```math
 \phi(x)=E_x\left[\phi(W_T)
@@ -1182,13 +1194,13 @@ Source: [Lalley, Homework 4, Problem 5(C)](https://galton.uchicago.edu/~lalley/C
 
 Problem. For exit time $`T`$ from $`(a,b)`$, solve the constant-potential boundary equation to find $`E_xe^{-\lambda T}`$. Specialize to symmetric endpoints and compute two exit-time moments.
 
-Solution. Choose constant $`k=\lambda>0`$ and boundary values $`\phi(a)=\phi(b)=1`$. The ODE is $`\phi''=2\lambda\phi`$. Put $`m=(a+b)/2`$, $`L=(b-a)/2`$, and $`q=\sqrt{2\lambda}`$. Its boundary solution is
+Solution. Choose constant $`k=\lambda\gt 0`$ and boundary values $`\phi(a)=\phi(b)=1`$. The ODE is $`\phi''=2\lambda\phi`$. Put $`m=(a+b)/2`$, $`L=(b-a)/2`$, and $`q=\sqrt{2\lambda}`$. Its boundary solution is
 
 ```math
 \phi(x)=\frac{\cosh(q(x-m))}{\cosh(qL)}.
 ```
 
-Direct differentiation checks the ODE and both endpoints. SC-33 gives $`E_x[e^{-\lambda T}]=\phi(x)`$. For symmetric endpoints $`[-a,a]`$ and start zero, this is $`\mathop{\mathrm{sech}}\nolimits(a\sqrt{2\lambda})`$. Expanding around zero yields $`ET=a^2`$ and $`ET^2=5a^4/3`$, so $`\mathop{\mathrm{Var}}\nolimits(T)=2a^4/3`$.
+Direct differentiation checks the ODE and both endpoints. SC-33 gives $`E_x[e^{-\lambda T}]=\phi(x)`$. For symmetric endpoints $`[-a,a]`$ and start zero, this is $`\mathop{\mathrm{sech}} (a\sqrt{2\lambda})`$. Expanding around zero yields $`ET=a^2`$ and $`ET^2=5a^4/3`$, so $`\mathop{\mathrm{Var}} (T)=2a^4/3`$.
 
 ### 7.5 Additional solved problems
 
@@ -1221,13 +1233,13 @@ Solution. Pointwise $`(S_T-K)^+-(K-S_T)^+=S_T-K`$. Linearity of risk-neutral val
 
 #### Problem SC-37: a digital payoff
 
-Constructed problem. Price $`\mathbf1_{\{S_T>K\}}`$ under constant-parameter risk-neutral GBM.
+Constructed problem. Price $`\mathbf1_{\lbrace S_T\gt K\rbrace }`$ under constant-parameter risk-neutral GBM.
 
-Solution. The exercise event is the same normal threshold used in the call derivation, with probability $`\Phi(d_2)`$. Discounting gives $`e^{-r\tau}\Phi(d_2)`$. Its payoff is discontinuous at the strike, but for $`\tau>0`$ and $`s>0`$ the normal transition density produces a smooth value. At maturity, convergence at the discontinuity requires a convention; the expectation representation remains unambiguous because a positive-time lognormal law assigns zero probability to a single strike.
+Solution. The exercise event is the same normal threshold used in the call derivation, with probability $`\Phi(d_2)`$. Discounting gives $`e^{-r\tau}\Phi(d_2)`$. Its payoff is discontinuous at the strike, but for $`\tau\gt 0`$ and $`s\gt 0`$ the normal transition density produces a smooth value. At maturity, convergence at the discontinuity requires a convention; the expectation representation remains unambiguous because a positive-time lognormal law assigns zero probability to a single strike.
 
 #### Problem SC-38: a price boundary
 
-Constructed problem. State sensible call-price boundary behavior under Black-Scholes with $`K>0`$.
+Constructed problem. State sensible call-price boundary behavior under Black-Scholes with $`K\gt 0`$.
 
 Solution. At $`s=0`$, the multiplicative stock model remains at zero and the call is worthless, so $`C(t,0)=0`$. As $`s\to\infty`$ at fixed positive remaining time, both normal probabilities approach one, giving $`C(t,s)\sim s-Ke^{-r\tau}`$. At maturity the terminal payoff is $`(s-K)^+`$. These conditions help specify the PDE problem and its numerical truncation.
 
@@ -1255,7 +1267,7 @@ An intermediate Brownian value conditioned on both endpoints has less uncertaint
 
 #### Problem SC-41: Brownian bridge at an intermediate date, case 1
 
-For standard Brownian motion, take $`s=0<t=\frac{1}{2}<T=1`$ and condition on $`W_s=0`$, $`W_T=2`$. Find the conditional law of $`W_t`$ and the probability that $`W_t>1`$.
+For standard Brownian motion, take $`s=0\lt t=\frac{1}{2}\lt T=1`$ and condition on $`W_s=0`$, $`W_T=2`$. Find the conditional law of $`W_t`$ and the probability that $`W_t\gt 1`$.
 
 Solution. Set $`A=W_t-W_s`$ and $`B=W_T-W_t`$. Independent increments give independent normals with variances $`t-s`$ and $`T-t`$. Observing both endpoints fixes $`A+B=b-a`$.
 
@@ -1288,11 +1300,11 @@ The requested conditional probability is
 
 Conditioning only on $`W_s`$ would leave variance $`t-s=\frac{1}{2}`$, which is larger. The future endpoint removes uncertainty about the total increment but leaves uncertainty about how that increment is split.
 
-The conditional mean linearly interpolates the observed endpoints. The conditional variance tends to zero as the intermediate date approaches either endpoint. For endpoints that have probability zero as exact observations, this expression is understood as a regular Gaussian conditional distribution. It does not justify treating a trader who knows $`W_T`$ at time $`t<T`$ as adapted to the original Brownian filtration.
+The conditional mean linearly interpolates the observed endpoints. The conditional variance tends to zero as the intermediate date approaches either endpoint. For endpoints that have probability zero as exact observations, this expression is understood as a regular Gaussian conditional distribution. It does not justify treating a trader who knows $`W_T`$ at time $`t\lt T`$ as adapted to the original Brownian filtration.
 
 #### Problem SC-42: Brownian bridge at an intermediate date, case 2
 
-For standard Brownian motion, take $`s=1<t=2<T=4`$ and condition on $`W_s=1`$, $`W_T=-1`$. Find the conditional law of $`W_t`$ and the probability that $`W_t>0`$.
+For standard Brownian motion, take $`s=1\lt t=2\lt T=4`$ and condition on $`W_s=1`$, $`W_T=-1`$. Find the conditional law of $`W_t`$ and the probability that $`W_t\gt 0`$.
 
 Solution. Set $`A=W_t-W_s`$ and $`B=W_T-W_t`$. Independent increments give independent normals with variances $`t-s`$ and $`T-t`$. Observing both endpoints fixes $`A+B=b-a`$.
 
@@ -1325,11 +1337,11 @@ The requested conditional probability is
 
 Conditioning only on $`W_s`$ would leave variance $`t-s=1`$, which is larger. The future endpoint removes uncertainty about the total increment but leaves uncertainty about how that increment is split.
 
-The conditional mean linearly interpolates the observed endpoints. The conditional variance tends to zero as the intermediate date approaches either endpoint. For endpoints that have probability zero as exact observations, this expression is understood as a regular Gaussian conditional distribution. It does not justify treating a trader who knows $`W_T`$ at time $`t<T`$ as adapted to the original Brownian filtration.
+The conditional mean linearly interpolates the observed endpoints. The conditional variance tends to zero as the intermediate date approaches either endpoint. For endpoints that have probability zero as exact observations, this expression is understood as a regular Gaussian conditional distribution. It does not justify treating a trader who knows $`W_T`$ at time $`t\lt T`$ as adapted to the original Brownian filtration.
 
 #### Problem SC-43: Brownian bridge at an intermediate date, case 3
 
-For standard Brownian motion, take $`s=0<t=1<T=3`$ and condition on $`W_s=0`$, $`W_T=0`$. Find the conditional law of $`W_t`$ and the probability that $`W_t>1`$.
+For standard Brownian motion, take $`s=0\lt t=1\lt T=3`$ and condition on $`W_s=0`$, $`W_T=0`$. Find the conditional law of $`W_t`$ and the probability that $`W_t\gt 1`$.
 
 Solution. Set $`A=W_t-W_s`$ and $`B=W_T-W_t`$. Independent increments give independent normals with variances $`t-s`$ and $`T-t`$. Observing both endpoints fixes $`A+B=b-a`$.
 
@@ -1362,11 +1374,11 @@ The requested conditional probability is
 
 Conditioning only on $`W_s`$ would leave variance $`t-s=1`$, which is larger. The future endpoint removes uncertainty about the total increment but leaves uncertainty about how that increment is split.
 
-The conditional mean linearly interpolates the observed endpoints. The conditional variance tends to zero as the intermediate date approaches either endpoint. For endpoints that have probability zero as exact observations, this expression is understood as a regular Gaussian conditional distribution. It does not justify treating a trader who knows $`W_T`$ at time $`t<T`$ as adapted to the original Brownian filtration.
+The conditional mean linearly interpolates the observed endpoints. The conditional variance tends to zero as the intermediate date approaches either endpoint. For endpoints that have probability zero as exact observations, this expression is understood as a regular Gaussian conditional distribution. It does not justify treating a trader who knows $`W_T`$ at time $`t\lt T`$ as adapted to the original Brownian filtration.
 
 #### Problem SC-44: Brownian bridge at an intermediate date, case 4
 
-For standard Brownian motion, take $`s=2<t=3<T=5`$ and condition on $`W_s=-2`$, $`W_T=1`$. Find the conditional law of $`W_t`$ and the probability that $`W_t>0`$.
+For standard Brownian motion, take $`s=2\lt t=3\lt T=5`$ and condition on $`W_s=-2`$, $`W_T=1`$. Find the conditional law of $`W_t`$ and the probability that $`W_t\gt 0`$.
 
 Solution. Set $`A=W_t-W_s`$ and $`B=W_T-W_t`$. Independent increments give independent normals with variances $`t-s`$ and $`T-t`$. Observing both endpoints fixes $`A+B=b-a`$.
 
@@ -1399,7 +1411,7 @@ The requested conditional probability is
 
 Conditioning only on $`W_s`$ would leave variance $`t-s=1`$, which is larger. The future endpoint removes uncertainty about the total increment but leaves uncertainty about how that increment is split.
 
-The conditional mean linearly interpolates the observed endpoints. The conditional variance tends to zero as the intermediate date approaches either endpoint. For endpoints that have probability zero as exact observations, this expression is understood as a regular Gaussian conditional distribution. It does not justify treating a trader who knows $`W_T`$ at time $`t<T`$ as adapted to the original Brownian filtration.
+The conditional mean linearly interpolates the observed endpoints. The conditional variance tends to zero as the intermediate date approaches either endpoint. For endpoints that have probability zero as exact observations, this expression is understood as a regular Gaussian conditional distribution. It does not justify treating a trader who knows $`W_T`$ at time $`t\lt T`$ as adapted to the original Brownian filtration.
 
 ### 8.2 Polynomial stochastic integrals
 
@@ -1426,7 +1438,7 @@ I_T=\frac{W_T^m}m-\frac{m-1}2
 
 The time-integral correction would be absent in the ordinary differentiable-path chain rule. Brownian quadratic variation is precisely what produces it.
 
-For finite $`T`$, Gaussian moments ensure $`E\int_0^T W_t^{2m-2}dt<\infty`$. The stochastic integral is therefore a square-integrable martingale evaluated at $`T`$, so $`E[I_T]=0`$. The isometry gives
+For finite $`T`$, Gaussian moments ensure $`E\int_0^T W_t^{2m-2}dt\lt \infty`$. The stochastic integral is therefore a square-integrable martingale evaluated at $`T`$, so $`E[I_T]=0`$. The isometry gives
 
 ```math
 E[I_T^2]=\int_0^T E[W_t^{2m-2}]\,dt.
@@ -1435,7 +1447,7 @@ E[I_T^2]=\int_0^T E[W_t^{2m-2}]\,dt.
 For a centered normal with variance $`t`$, the even moment of order $`2m-2`$ is $`(2m-3)!!\,t^{m-1}`$. Here $`(2m-3)!!=1`$. Integration yields
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(I_T)=
+\mathop{\mathrm{Var}} (I_T)=
 \frac{(2m-3)!!}mT^m=\frac{1}{2}T^{2}.
 ```
 
@@ -1462,7 +1474,7 @@ I_T=\frac{W_T^m}m-\frac{m-1}2
 
 The time-integral correction would be absent in the ordinary differentiable-path chain rule. Brownian quadratic variation is precisely what produces it.
 
-For finite $`T`$, Gaussian moments ensure $`E\int_0^T W_t^{2m-2}dt<\infty`$. The stochastic integral is therefore a square-integrable martingale evaluated at $`T`$, so $`E[I_T]=0`$. The isometry gives
+For finite $`T`$, Gaussian moments ensure $`E\int_0^T W_t^{2m-2}dt\lt \infty`$. The stochastic integral is therefore a square-integrable martingale evaluated at $`T`$, so $`E[I_T]=0`$. The isometry gives
 
 ```math
 E[I_T^2]=\int_0^T E[W_t^{2m-2}]\,dt.
@@ -1471,7 +1483,7 @@ E[I_T^2]=\int_0^T E[W_t^{2m-2}]\,dt.
 For a centered normal with variance $`t`$, the even moment of order $`2m-2`$ is $`(2m-3)!!\,t^{m-1}`$. Here $`(2m-3)!!=3`$. Integration yields
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(I_T)=
+\mathop{\mathrm{Var}} (I_T)=
 \frac{(2m-3)!!}mT^m=1T^{3}.
 ```
 
@@ -1498,7 +1510,7 @@ I_T=\frac{W_T^m}m-\frac{m-1}2
 
 The time-integral correction would be absent in the ordinary differentiable-path chain rule. Brownian quadratic variation is precisely what produces it.
 
-For finite $`T`$, Gaussian moments ensure $`E\int_0^T W_t^{2m-2}dt<\infty`$. The stochastic integral is therefore a square-integrable martingale evaluated at $`T`$, so $`E[I_T]=0`$. The isometry gives
+For finite $`T`$, Gaussian moments ensure $`E\int_0^T W_t^{2m-2}dt\lt \infty`$. The stochastic integral is therefore a square-integrable martingale evaluated at $`T`$, so $`E[I_T]=0`$. The isometry gives
 
 ```math
 E[I_T^2]=\int_0^T E[W_t^{2m-2}]\,dt.
@@ -1507,7 +1519,7 @@ E[I_T^2]=\int_0^T E[W_t^{2m-2}]\,dt.
 For a centered normal with variance $`t`$, the even moment of order $`2m-2`$ is $`(2m-3)!!\,t^{m-1}`$. Here $`(2m-3)!!=15`$. Integration yields
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(I_T)=
+\mathop{\mathrm{Var}} (I_T)=
 \frac{(2m-3)!!}mT^m=\frac{15}{4}T^{4}.
 ```
 
@@ -1534,7 +1546,7 @@ I_T=\frac{W_T^m}m-\frac{m-1}2
 
 The time-integral correction would be absent in the ordinary differentiable-path chain rule. Brownian quadratic variation is precisely what produces it.
 
-For finite $`T`$, Gaussian moments ensure $`E\int_0^T W_t^{2m-2}dt<\infty`$. The stochastic integral is therefore a square-integrable martingale evaluated at $`T`$, so $`E[I_T]=0`$. The isometry gives
+For finite $`T`$, Gaussian moments ensure $`E\int_0^T W_t^{2m-2}dt\lt \infty`$. The stochastic integral is therefore a square-integrable martingale evaluated at $`T`$, so $`E[I_T]=0`$. The isometry gives
 
 ```math
 E[I_T^2]=\int_0^T E[W_t^{2m-2}]\,dt.
@@ -1543,7 +1555,7 @@ E[I_T^2]=\int_0^T E[W_t^{2m-2}]\,dt.
 For a centered normal with variance $`t`$, the even moment of order $`2m-2`$ is $`(2m-3)!!\,t^{m-1}`$. Here $`(2m-3)!!=105`$. Integration yields
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(I_T)=
+\mathop{\mathrm{Var}} (I_T)=
 \frac{(2m-3)!!}mT^m=21T^{5}.
 ```
 
@@ -1567,16 +1579,16 @@ v=\int_0^T(a+bt)^2dt
 Thus $`I\sim N(0,\frac{7}{3})`$. The Brownian endpoint is itself $`W_T=\int_0^T1\,dW_t`$. The bilinear isometry gives
 
 ```math
-\mathop{\mathrm{Cov}}\nolimits(I,W_T)=\int_0^T(a+bt)\,dt
+\mathop{\mathrm{Cov}} (I,W_T)=\int_0^T(a+bt)\,dt
 =aT+\frac{bT^2}2=\frac{3}{2}.
 ```
 
-Since $`\mathop{\mathrm{Var}}\nolimits(W_T)=T`$, the Gaussian regression coefficient is $`c=\mathop{\mathrm{Cov}}\nolimits(I,W_T)/T=\frac{3}{2}`$. The residual $`R=I-cW_T`$ is jointly Gaussian with $`W_T`$ and has zero covariance with it, so the two are independent.
+Since $`\mathop{\mathrm{Var}} (W_T)=T`$, the Gaussian regression coefficient is $`c=\mathop{\mathrm{Cov}} (I,W_T)/T=\frac{3}{2}`$. The residual $`R=I-cW_T`$ is jointly Gaussian with $`W_T`$ and has zero covariance with it, so the two are independent.
 
 Its variance is
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(R)=v-\frac{\mathop{\mathrm{Cov}}\nolimits(I,W_T)^2}T
+\mathop{\mathrm{Var}} (R)=v-\frac{\mathop{\mathrm{Cov}} (I,W_T)^2}T
 =\frac{b^2T^3}{12}=\frac{1}{12}.
 ```
 
@@ -1602,16 +1614,16 @@ v=\int_0^T(a+bt)^2dt
 Thus $`I\sim N(0,\frac{8}{3})`$. The Brownian endpoint is itself $`W_T=\int_0^T1\,dW_t`$. The bilinear isometry gives
 
 ```math
-\mathop{\mathrm{Cov}}\nolimits(I,W_T)=\int_0^T(a+bt)\,dt
+\mathop{\mathrm{Cov}} (I,W_T)=\int_0^T(a+bt)\,dt
 =aT+\frac{bT^2}2=2.
 ```
 
-Since $`\mathop{\mathrm{Var}}\nolimits(W_T)=T`$, the Gaussian regression coefficient is $`c=\mathop{\mathrm{Cov}}\nolimits(I,W_T)/T=1`$. The residual $`R=I-cW_T`$ is jointly Gaussian with $`W_T`$ and has zero covariance with it, so the two are independent.
+Since $`\mathop{\mathrm{Var}} (W_T)=T`$, the Gaussian regression coefficient is $`c=\mathop{\mathrm{Cov}} (I,W_T)/T=1`$. The residual $`R=I-cW_T`$ is jointly Gaussian with $`W_T`$ and has zero covariance with it, so the two are independent.
 
 Its variance is
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(R)=v-\frac{\mathop{\mathrm{Cov}}\nolimits(I,W_T)^2}T
+\mathop{\mathrm{Var}} (R)=v-\frac{\mathop{\mathrm{Cov}} (I,W_T)^2}T
 =\frac{b^2T^3}{12}=\frac{2}{3}.
 ```
 
@@ -1637,16 +1649,16 @@ v=\int_0^T(a+bt)^2dt
 Thus $`I\sim N(0,\frac{4}{3})`$. The Brownian endpoint is itself $`W_T=\int_0^T1\,dW_t`$. The bilinear isometry gives
 
 ```math
-\mathop{\mathrm{Cov}}\nolimits(I,W_T)=\int_0^T(a+bt)\,dt
+\mathop{\mathrm{Cov}} (I,W_T)=\int_0^T(a+bt)\,dt
 =aT+\frac{bT^2}2=1.
 ```
 
-Since $`\mathop{\mathrm{Var}}\nolimits(W_T)=T`$, the Gaussian regression coefficient is $`c=\mathop{\mathrm{Cov}}\nolimits(I,W_T)/T=1`$. The residual $`R=I-cW_T`$ is jointly Gaussian with $`W_T`$ and has zero covariance with it, so the two are independent.
+Since $`\mathop{\mathrm{Var}} (W_T)=T`$, the Gaussian regression coefficient is $`c=\mathop{\mathrm{Cov}} (I,W_T)/T=1`$. The residual $`R=I-cW_T`$ is jointly Gaussian with $`W_T`$ and has zero covariance with it, so the two are independent.
 
 Its variance is
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(R)=v-\frac{\mathop{\mathrm{Cov}}\nolimits(I,W_T)^2}T
+\mathop{\mathrm{Var}} (R)=v-\frac{\mathop{\mathrm{Cov}} (I,W_T)^2}T
 =\frac{b^2T^3}{12}=\frac{1}{3}.
 ```
 
@@ -1672,16 +1684,16 @@ v=\int_0^T(a+bt)^2dt
 Thus $`I\sim N(0,\frac{1}{3})`$. The Brownian endpoint is itself $`W_T=\int_0^T1\,dW_t`$. The bilinear isometry gives
 
 ```math
-\mathop{\mathrm{Cov}}\nolimits(I,W_T)=\int_0^T(a+bt)\,dt
+\mathop{\mathrm{Cov}} (I,W_T)=\int_0^T(a+bt)\,dt
 =aT+\frac{bT^2}2=0.
 ```
 
-Since $`\mathop{\mathrm{Var}}\nolimits(W_T)=T`$, the Gaussian regression coefficient is $`c=\mathop{\mathrm{Cov}}\nolimits(I,W_T)/T=0`$. The residual $`R=I-cW_T`$ is jointly Gaussian with $`W_T`$ and has zero covariance with it, so the two are independent.
+Since $`\mathop{\mathrm{Var}} (W_T)=T`$, the Gaussian regression coefficient is $`c=\mathop{\mathrm{Cov}} (I,W_T)/T=0`$. The residual $`R=I-cW_T`$ is jointly Gaussian with $`W_T`$ and has zero covariance with it, so the two are independent.
 
 Its variance is
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(R)=v-\frac{\mathop{\mathrm{Cov}}\nolimits(I,W_T)^2}T
+\mathop{\mathrm{Var}} (R)=v-\frac{\mathop{\mathrm{Cov}} (I,W_T)^2}T
 =\frac{b^2T^3}{12}=\frac{1}{3}.
 ```
 
@@ -1699,7 +1711,7 @@ Geometric Brownian motion is lognormal, so its mean, median, variance, and thres
 
 #### Problem SC-53: lognormal forecast, case 1
 
-Let $`dS_t=\mu S_tdt+\sigma S_tdW_t`$ with $`S_0=100`$, $`\mu=\frac{1}{10}`$, $`\sigma=\frac{1}{5}`$. At $`T=1`$, find the mean, median, variance, and probability $`P(S_T>110)`$.
+Let $`dS_t=\mu S_tdt+\sigma S_tdW_t`$ with $`S_0=100`$, $`\mu=\frac{1}{10}`$, $`\sigma=\frac{1}{5}`$. At $`T=1`$, find the mean, median, variance, and probability $`P(S_T\gt 110)`$.
 
 Solution. Itô's formula for the logarithm gives
 
@@ -1713,20 +1725,20 @@ Using $`E[e^{aW_T}]=e^{a^2T/2}`$ gives
 
 ```math
 E[S_T]=S_0e^{\mu T}\approx 110.517092,\qquad
-\mathop{\mathrm{median}}\nolimits(S_T)=S_0e^{(\mu-\sigma^2/2)T}\approx 108.328707.
+\mathop{\mathrm{median}} (S_T)=S_0e^{(\mu-\sigma^2/2)T}\approx 108.328707.
 ```
 
 The mean exceeds the median because the positive tail contributes to the average. The second moment is $`S_0^2e^{(2\mu+\sigma^2)T}`$, so
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(S_T)=S_0^2e^{2\mu T}(e^{\sigma^2T}-1)
+\mathop{\mathrm{Var}} (S_T)=S_0^2e^{2\mu T}(e^{\sigma^2T}-1)
 \approx 498.463922.
 ```
 
 For the threshold event, take logarithms, subtract the log mean, and divide by the positive log standard deviation:
 
 ```math
-P(S_T>110)=
+P(S_T\gt 110)=
 1-\Phi\left(
 \frac{\log(110/100)-(\mu-\sigma^2/2)T}{\sigma\sqrt T}
 \right)
@@ -1737,7 +1749,7 @@ These are probabilities under the measure in which the supplied drift is $`\mu`$
 
 #### Problem SC-54: lognormal forecast, case 2
 
-Let $`dS_t=\mu S_tdt+\sigma S_tdW_t`$ with $`S_0=50`$, $`\mu=\frac{1}{20}`$, $`\sigma=\frac{3}{10}`$. At $`T=2`$, find the mean, median, variance, and probability $`P(S_T>50)`$.
+Let $`dS_t=\mu S_tdt+\sigma S_tdW_t`$ with $`S_0=50`$, $`\mu=\frac{1}{20}`$, $`\sigma=\frac{3}{10}`$. At $`T=2`$, find the mean, median, variance, and probability $`P(S_T\gt 50)`$.
 
 Solution. Itô's formula for the logarithm gives
 
@@ -1751,20 +1763,20 @@ Using $`E[e^{aW_T}]=e^{a^2T/2}`$ gives
 
 ```math
 E[S_T]=S_0e^{\mu T}\approx 55.258546,\qquad
-\mathop{\mathrm{median}}\nolimits(S_T)=S_0e^{(\mu-\sigma^2/2)T}\approx 50.502508.
+\mathop{\mathrm{median}} (S_T)=S_0e^{(\mu-\sigma^2/2)T}\approx 50.502508.
 ```
 
 The mean exceeds the median because the positive tail contributes to the average. The second moment is $`S_0^2e^{(2\mu+\sigma^2)T}`$, so
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(S_T)=S_0^2e^{2\mu T}(e^{\sigma^2T}-1)
+\mathop{\mathrm{Var}} (S_T)=S_0^2e^{2\mu T}(e^{\sigma^2T}-1)
 \approx 602.204578.
 ```
 
 For the threshold event, take logarithms, subtract the log mean, and divide by the positive log standard deviation:
 
 ```math
-P(S_T>50)=
+P(S_T\gt 50)=
 1-\Phi\left(
 \frac{\log(50/50)-(\mu-\sigma^2/2)T}{\sigma\sqrt T}
 \right)
@@ -1775,7 +1787,7 @@ These are probabilities under the measure in which the supplied drift is $`\mu`$
 
 #### Problem SC-55: lognormal forecast, case 3
 
-Let $`dS_t=\mu S_tdt+\sigma S_tdW_t`$ with $`S_0=80`$, $`\mu=-\frac{1}{20}`$, $`\sigma=\frac{1}{4}`$. At $`T=1`$, find the mean, median, variance, and probability $`P(S_T>70)`$.
+Let $`dS_t=\mu S_tdt+\sigma S_tdW_t`$ with $`S_0=80`$, $`\mu=-\frac{1}{20}`$, $`\sigma=\frac{1}{4}`$. At $`T=1`$, find the mean, median, variance, and probability $`P(S_T\gt 70)`$.
 
 Solution. Itô's formula for the logarithm gives
 
@@ -1789,20 +1801,20 @@ Using $`E[e^{aW_T}]=e^{a^2T/2}`$ gives
 
 ```math
 E[S_T]=S_0e^{\mu T}\approx 76.098354,\qquad
-\mathop{\mathrm{median}}\nolimits(S_T)=S_0e^{(\mu-\sigma^2/2)T}\approx 73.757054.
+\mathop{\mathrm{median}} (S_T)=S_0e^{(\mu-\sigma^2/2)T}\approx 73.757054.
 ```
 
 The mean exceeds the median because the positive tail contributes to the average. The second moment is $`S_0^2e^{(2\mu+\sigma^2)T}`$, so
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(S_T)=S_0^2e^{2\mu T}(e^{\sigma^2T}-1)
+\mathop{\mathrm{Var}} (S_T)=S_0^2e^{2\mu T}(e^{\sigma^2T}-1)
 \approx 373.484798.
 ```
 
 For the threshold event, take logarithms, subtract the log mean, and divide by the positive log standard deviation:
 
 ```math
-P(S_T>70)=
+P(S_T\gt 70)=
 1-\Phi\left(
 \frac{\log(70/80)-(\mu-\sigma^2/2)T}{\sigma\sqrt T}
 \right)
@@ -1813,7 +1825,7 @@ These are probabilities under the measure in which the supplied drift is $`\mu`$
 
 #### Problem SC-56: lognormal forecast, case 4
 
-Let $`dS_t=\mu S_tdt+\sigma S_tdW_t`$ with $`S_0=120`$, $`\mu=0`$, $`\sigma=\frac{2}{5}`$. At $`T=\frac{1}{2}`$, find the mean, median, variance, and probability $`P(S_T>130)`$.
+Let $`dS_t=\mu S_tdt+\sigma S_tdW_t`$ with $`S_0=120`$, $`\mu=0`$, $`\sigma=\frac{2}{5}`$. At $`T=\frac{1}{2}`$, find the mean, median, variance, and probability $`P(S_T\gt 130)`$.
 
 Solution. Itô's formula for the logarithm gives
 
@@ -1827,20 +1839,20 @@ Using $`E[e^{aW_T}]=e^{a^2T/2}`$ gives
 
 ```math
 E[S_T]=S_0e^{\mu T}\approx 120.000000,\qquad
-\mathop{\mathrm{median}}\nolimits(S_T)=S_0e^{(\mu-\sigma^2/2)T}\approx 115.294733.
+\mathop{\mathrm{median}} (S_T)=S_0e^{(\mu-\sigma^2/2)T}\approx 115.294733.
 ```
 
 The mean exceeds the median because the positive tail contributes to the average. The second moment is $`S_0^2e^{(2\mu+\sigma^2)T}`$, so
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(S_T)=S_0^2e^{2\mu T}(e^{\sigma^2T}-1)
+\mathop{\mathrm{Var}} (S_T)=S_0^2e^{2\mu T}(e^{\sigma^2T}-1)
 \approx 1199.333775.
 ```
 
 For the threshold event, take logarithms, subtract the log mean, and divide by the positive log standard deviation:
 
 ```math
-P(S_T>130)=
+P(S_T\gt 130)=
 1-\Phi\left(
 \frac{\log(130/120)-(\mu-\sigma^2/2)T}{\sigma\sqrt T}
 \right)
@@ -2027,7 +2039,7 @@ Solution. Define the constant $`\theta=(\mu-r)/\sigma=\frac{1}{4}`$ and the dens
 Z_t=\exp\left(-\theta W_t^P-\frac12\theta^2t\right).
 ```
 
-The sign in front of the Brownian term determines the sign of the drift shift. The normal moment-generating function gives $`E_P[Z_t]=e^{\theta^2t/2}e^{-\theta^2t/2}=1`$. The constant-integrand Novikov expression is $`\exp(\theta^2T/2)<\infty`$, so $`Z`$ is a true martingale on this finite interval.
+The sign in front of the Brownian term determines the sign of the drift shift. The normal moment-generating function gives $`E_P[Z_t]=e^{\theta^2t/2}e^{-\theta^2t/2}=1`$. The constant-integrand Novikov expression is $`\exp(\theta^2T/2)\lt \infty`$, so $`Z`$ is a true martingale on this finite interval.
 
 Set $`dQ/dP=Z_T`$. Girsanov's theorem gives a $`Q`$ Brownian motion
 
@@ -2058,7 +2070,7 @@ Solution. Define the constant $`\theta=(\mu-r)/\sigma=\frac{2}{5}`$ and the dens
 Z_t=\exp\left(-\theta W_t^P-\frac12\theta^2t\right).
 ```
 
-The sign in front of the Brownian term determines the sign of the drift shift. The normal moment-generating function gives $`E_P[Z_t]=e^{\theta^2t/2}e^{-\theta^2t/2}=1`$. The constant-integrand Novikov expression is $`\exp(\theta^2T/2)<\infty`$, so $`Z`$ is a true martingale on this finite interval.
+The sign in front of the Brownian term determines the sign of the drift shift. The normal moment-generating function gives $`E_P[Z_t]=e^{\theta^2t/2}e^{-\theta^2t/2}=1`$. The constant-integrand Novikov expression is $`\exp(\theta^2T/2)\lt \infty`$, so $`Z`$ is a true martingale on this finite interval.
 
 Set $`dQ/dP=Z_T`$. Girsanov's theorem gives a $`Q`$ Brownian motion
 
@@ -2089,7 +2101,7 @@ Solution. Define the constant $`\theta=(\mu-r)/\sigma=-\frac{2}{5}`$ and the den
 Z_t=\exp\left(-\theta W_t^P-\frac12\theta^2t\right).
 ```
 
-The sign in front of the Brownian term determines the sign of the drift shift. The normal moment-generating function gives $`E_P[Z_t]=e^{\theta^2t/2}e^{-\theta^2t/2}=1`$. The constant-integrand Novikov expression is $`\exp(\theta^2T/2)<\infty`$, so $`Z`$ is a true martingale on this finite interval.
+The sign in front of the Brownian term determines the sign of the drift shift. The normal moment-generating function gives $`E_P[Z_t]=e^{\theta^2t/2}e^{-\theta^2t/2}=1`$. The constant-integrand Novikov expression is $`\exp(\theta^2T/2)\lt \infty`$, so $`Z`$ is a true martingale on this finite interval.
 
 Set $`dQ/dP=Z_T`$. Girsanov's theorem gives a $`Q`$ Brownian motion
 
@@ -2120,7 +2132,7 @@ Solution. Define the constant $`\theta=(\mu-r)/\sigma=\frac{1}{5}`$ and the dens
 Z_t=\exp\left(-\theta W_t^P-\frac12\theta^2t\right).
 ```
 
-The sign in front of the Brownian term determines the sign of the drift shift. The normal moment-generating function gives $`E_P[Z_t]=e^{\theta^2t/2}e^{-\theta^2t/2}=1`$. The constant-integrand Novikov expression is $`\exp(\theta^2T/2)<\infty`$, so $`Z`$ is a true martingale on this finite interval.
+The sign in front of the Brownian term determines the sign of the drift shift. The normal moment-generating function gives $`E_P[Z_t]=e^{\theta^2t/2}e^{-\theta^2t/2}=1`$. The constant-integrand Novikov expression is $`\exp(\theta^2T/2)\lt \infty`$, so $`Z`$ is a true martingale on this finite interval.
 
 Set $`dQ/dP=Z_T`$. Girsanov's theorem gives a $`Q`$ Brownian motion
 
@@ -2293,7 +2305,7 @@ These additional problems are constructed for these notes.
 
 #### Problem SC-69: Brownian exit probabilities and duration
 
-Let $`\tau`$ be the first exit of standard Brownian motion started at zero from $`(-a,b)`$, with $`a,b>0`$. Find the probability of upper exit and the expected exit time, justifying the stopping limits.
+Let $`\tau`$ be the first exit of standard Brownian motion started at zero from $`(-a,b)`$, with $`a,b\gt 0`$. Find the probability of upper exit and the expected exit time, justifying the stopping limits.
 
 Solution. For the bounded time $`\tau\wedge n`$, the martingales $`W_t`$ and $`W_t^2-t`$ give $`E[W_{\tau\wedge n}]=0`$ and $`E[\tau\wedge n]=E[W_{\tau\wedge n}^2]\le\max(a,b)^2`$. Monotone convergence proves finite expected exit time, hence almost-sure exit.
 
@@ -2328,11 +2340,11 @@ Integration gives $`A_T=TW_T-\int_0^T s\,dW_s=\int_0^T(T-s)dW_s`$. The integrand
 The isometry and its bilinear version yield
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(A_T)=\int_0^T(T-s)^2ds=\frac{T^3}3,\qquad
-\mathop{\mathrm{Cov}}\nolimits(A_T,W_T)=\int_0^T(T-s)ds=\frac{T^2}2.
+\mathop{\mathrm{Var}} (A_T)=\int_0^T(T-s)^2ds=\frac{T^3}3,\qquad
+\mathop{\mathrm{Cov}} (A_T,W_T)=\int_0^T(T-s)ds=\frac{T^2}2.
 ```
 
-Both means are zero, and $`\mathop{\mathrm{Var}}\nolimits(W_T)=T`$. Therefore Gaussian conditioning gives
+Both means are zero, and $`\mathop{\mathrm{Var}} (W_T)=T`$. Therefore Gaussian conditioning gives
 
 ```math
 A_T\mid W_T=w\sim N\left(\frac T2w,\frac{T^3}{12}\right).
@@ -2355,10 +2367,10 @@ E[W_s^2W_t^2]=E[W_s^4]+E[W_s^2](t-s)
 =3s^2+s(t-s)=st+2s^2.
 ```
 
-Thus $`\mathop{\mathrm{Cov}}\nolimits(W_s^2,W_t^2)=2\min(s,t)^2`$. Finite fourth moments justify integrating this covariance:
+Thus $`\mathop{\mathrm{Cov}} (W_s^2,W_t^2)=2\min(s,t)^2`$. Finite fourth moments justify integrating this covariance:
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(B_T)
+\mathop{\mathrm{Var}} (B_T)
 =2\int_0^T\int_0^T\min(s,t)^2dsdt
 =4\int_0^T\int_0^t s^2dsdt
 =\frac{T^4}3.
@@ -2394,7 +2406,7 @@ E[X_t^2Y_t^2]
 =(1+2\rho^2)t^2.
 ```
 
-The product's mean is $`\rho t`$, so $`\mathop{\mathrm{Var}}\nolimits(M_t)=(1+\rho^2)t^2`$.
+The product's mean is $`\rho t`$, so $`\mathop{\mathrm{Var}} (M_t)=(1+\rho^2)t^2`$.
 
 There is an isometry check. The quadratic variation of the martingale is
 
@@ -2406,7 +2418,7 @@ Taking expectations gives $`\int_0^t(2s+2\rho^2s)ds=(1+\rho^2)t^2`$, matching th
 
 #### Problem SC-73: a bounded random market price of risk
 
-On a finite horizon let $`\theta_t=k1_{\{W_t>0\}}`$ for a real constant $`k`$. Determine whether $`Z_t=\exp(-\int_0^t\theta_s\,dW_s-\tfrac12\int_0^t\theta_s^2ds)`$ defines a valid density. State the Brownian motion under the resulting measure and give a second-moment bound for the density.
+On a finite horizon let $`\theta_t=k1_{\lbrace W_t\gt 0\rbrace }`$ for a real constant $`k`$. Determine whether $`Z_t=\exp(-\int_0^t\theta_s\,dW_s-\tfrac12\int_0^t\theta_s^2ds)`$ defines a valid density. State the Brownian motion under the resulting measure and give a second-moment bound for the density.
 
 Solution. The bounded progressively measurable integrand is admissible for stochastic integration. Its quadratic integral satisfies $`\int_0^T\theta_s^2ds\le k^2T`$. Hence the Novikov expectation is bounded by $`e^{k^2T/2}`$, which is finite.
 
@@ -2414,10 +2426,10 @@ The stochastic exponential is consequently a positive true martingale with expec
 
 ```math
 W_t^Q=W_t+\int_0^t\theta_sds
-=W_t+k\int_0^t1_{\{W_s>0\}}ds.
+=W_t+k\int_0^t1_{\lbrace W_s\gt 0\rbrace }ds.
 ```
 
-The original $`W`$ therefore has drift $`-k1_{\{W_t>0\}}`$ when expressed using $`W^Q`$. The shifted process, rather than the original one, is the Brownian motion under $`Q`$.
+The original $`W`$ therefore has drift $`-k1_{\lbrace W_t\gt 0\rbrace }`$ when expressed using $`W^Q`$. The shifted process, rather than the original one, is the Brownian motion under $`Q`$.
 
 For the second moment, factor
 
@@ -2433,13 +2445,13 @@ The random-integrand log density is not generally a normal variable. The constan
 
 #### Problem SC-74: a digital claim under two probability measures
 
-Let $`S_0=K=100`$, maturity one, volatility $`0.2`$, physical drift $`0.10`$, and risk-free rate $`0.02`$. Compare the physical probability of $`S_T>K`$ with the arbitrage price of a one-unit cash payment on that event. Derive its delta for positive remaining maturity.
+Let $`S_0=K=100`$, maturity one, volatility $`0.2`$, physical drift $`0.10`$, and risk-free rate $`0.02`$. Compare the physical probability of $`S_T\gt K`$ with the arbitrage price of a one-unit cash payment on that event. Derive its delta for positive remaining maturity.
 
-Solution. Under the physical measure, the log return has mean $`0.10-0.2^2/2=0.08`$ and standard deviation $`0.2`$. Therefore $`P(S_T>K)=\Phi(0.4)\approx0.655422`$.
+Solution. Under the physical measure, the log return has mean $`0.10-0.2^2/2=0.08`$ and standard deviation $`0.2`$. Therefore $`P(S_T\gt K)=\Phi(0.4)\approx0.655422`$.
 
 Under the risk-neutral measure, the log mean is $`0.02-0.2^2/2=0`$. The event probability is one half. Discounting gives price $`e^{-0.02}/2\approx0.490099`$. The physical event probability is a forecasting quantity; the replication price uses the risk-neutral law in this complete model.
 
-For current stock $`s`$ and remaining time $`\tau>0`$, the price is
+For current stock $`s`$ and remaining time $`\tau\gt 0`$, the price is
 
 ```math
 v(t,s)=e^{-r\tau}\Phi(d_2),\qquad
@@ -2458,7 +2470,7 @@ Multiplying the physical probability by the money-market discount factor would g
 
 #### Problem SC-75: integrating a geometric process against its driver
 
-Let $`dS_t=\mu S_tdt+\sigma S_tdW_t`$ with $`S_0=s>0`$ and $`\sigma\ne0`$. Express $`I_T=\int_0^TS_t\,dW_t`$ using $`S_T`$ and a time integral. Compute its variance and covariance with $`W_T`$.
+Let $`dS_t=\mu S_tdt+\sigma S_tdW_t`$ with $`S_0=s\gt 0`$ and $`\sigma\ne0`$. Express $`I_T=\int_0^TS_t\,dW_t`$ using $`S_T`$ and a time integral. Compute its variance and covariance with $`W_T`$.
 
 Solution. Integrating the defining SDE gives $`S_T-s=\mu\int_0^TS_tdt+\sigma I_T`$. Therefore
 
@@ -2469,7 +2481,7 @@ I_T=\frac{S_T-s-\mu\int_0^TS_tdt}{\sigma}.
 Finite lognormal moments imply square integrability of the integrand on every finite horizon, so $`E[I_T]=0`$. The isometry gives
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(I_T)
+\mathop{\mathrm{Var}} (I_T)
 =\int_0^TE[S_t^2]dt
 =s^2\int_0^Te^{(2\mu+\sigma^2)t}dt.
 ```
@@ -2479,18 +2491,18 @@ This is $`s^2(e^{(2\mu+\sigma^2)T}-1)/(2\mu+\sigma^2)`$ when the denominator is 
 The bilinear isometry with $`W_T=\int_0^T1\,dW_t`$ gives
 
 ```math
-\mathop{\mathrm{Cov}}\nolimits(I_T,W_T)
+\mathop{\mathrm{Cov}} (I_T,W_T)
 =E\int_0^TS_tdt
 =s\int_0^Te^{\mu t}dt.
 ```
 
 Thus the covariance is $`s(e^{\mu T}-1)/\mu`$ for nonzero $`\mu`$, and $`sT`$ for zero $`\mu`$.
 
-In the special case $`\mu=0`$ and $`\sigma>0`$, $`I_T=(S_T-s)/\sigma`$ is bounded below but nonconstant. It cannot be Gaussian. This provides an explicit random-integrand example whose mean and variance are obtained exactly by stochastic integration rules even though its terminal law is a shifted lognormal.
+In the special case $`\mu=0`$ and $`\sigma\gt 0`$, $`I_T=(S_T-s)/\sigma`$ is bounded below but nonconstant. It cannot be Gaussian. This provides an explicit random-integrand example whose mean and variance are obtained exactly by stochastic integration rules even though its terminal law is a shifted lognormal.
 
 #### Problem SC-76: an affine short-rate bond and its PDE
 
-Under the pricing measure, let $`dr_t=\kappa(\theta-r_t)dt+\sigma dW_t`$ with $`\kappa>0`$. Derive an exponential-affine zero-coupon bond price and verify its coefficient equations.
+Under the pricing measure, let $`dr_t=\kappa(\theta-r_t)dt+\sigma dW_t`$ with $`\kappa\gt 0`$. Derive an exponential-affine zero-coupon bond price and verify its coefficient equations.
 
 Solution. The price is $`P(\tau,r)=E_r[\exp(-\int_0^\tau r_sds)]`$. Seek $`P=\exp(A(\tau)-B(\tau)r)`$ with $`A(0)=B(0)=0`$. The time-to-maturity PDE is
 
@@ -2540,12 +2552,12 @@ This example keeps the source term's sign visible. The running payment enters th
 
 #### Problem SC-78: one-sided passage with a negative drift
 
-Let $`X_t=W_t+bt`$ and let $`\tau_a`$ be its first hit of $`a>0`$, with any real drift $`b`$. Find the eventual hitting probability and, when $`b<0`$, the conditional mean given a hit.
+Let $`X_t=W_t+bt`$ and let $`\tau_a`$ be its first hit of $`a\gt 0`$, with any real drift $`b`$. Find the eventual hitting probability and, when $`b\lt 0`$, the conditional mean given a hit.
 
-Solution. For $`\lambda>0`$, the same bounded exponential-stopping argument as in SC-28 gives
+Solution. For $`\lambda\gt 0`$, the same bounded exponential-stopping argument as in SC-28 gives
 
 ```math
-E[e^{-\lambda\tau_a};\tau_a<\infty]
+E[e^{-\lambda\tau_a};\tau_a\lt \infty]
 =\exp\left[a\left(b-\sqrt{b^2+2\lambda}\right)\right].
 ```
 
@@ -2554,19 +2566,19 @@ Alternatively, this solves the stopped generator equation $`u''/2+bu'=\lambda u`
 Let $`\lambda`$ decrease to zero. The exponential on the finite-hitting event increases to one, so monotone convergence gives
 
 ```math
-P(\tau_a<\infty)=
+P(\tau_a\lt \infty)=
 \begin{cases}
 1,&b\ge0,\\[0pt]
-e^{2ab},&b<0.
+e^{2ab},&b\lt 0.
 \end{cases}
 ```
 
 For negative drift, divide the Laplace transform by this probability. The conditional transform becomes $`\exp[a(\vert b\vert -\sqrt{b^2+2\lambda})]`$. Its derivative at zero gives
 
 ```math
-E[\tau_a\mid\tau_a<\infty]=\frac a{\vert b\vert }.
+E[\tau_a\mid\tau_a\lt \infty]=\frac a{\vert b\vert }.
 ```
 
-For $`a=2,b=-1`$, the hitting probability is $`e^{-4}`$ and the conditional expected duration is two. The unconditional expectation of the extended hitting time is infinite because the time equals infinity with positive probability. It must not be confused with either the conditional mean or $`E[\tau_a1_{\{\tau_a<\infty\}}]`$, the latter being $`e^{2ab}a/\vert b\vert `$.
+For $`a=2,b=-1`$, the hitting probability is $`e^{-4}`$ and the conditional expected duration is two. The unconditional expectation of the extended hitting time is infinite because the time equals infinity with positive probability. It must not be confused with either the conditional mean or $`E[\tau_a1_{\lbrace \tau_a\lt \infty\rbrace }]`$, the latter being $`e^{2ab}a/\vert b\vert`$.
 
 At zero drift, hitting is almost sure but the mean is still infinite. The transform's nonfinite derivative at zero agrees with the first-passage density's heavy tail.

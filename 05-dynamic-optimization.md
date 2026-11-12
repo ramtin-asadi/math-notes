@@ -7,7 +7,7 @@ Sources:
 - Guido Lorenzoni, [MIT 14.451, Dynamic Optimization Methods with Applications, Fall 2009](https://ocw.mit.edu/courses/14-451-dynamic-optimization-methods-with-applications-fall-2009/), lecture notes and Problem Sets 1–4.
 - Thomas Sargent and John Stachurski, [Dynamic Programming](https://dp.quantecon.org/), especially the volume on finite states, fixed points, Markov chains, and decision processes.
 
-Discount factors satisfy $`0<\beta<1`$ unless a finite-horizon exception is stated. A stochastic transition is conditional on the current state and chosen action. Examples are constructed here; source problems and subparts are identified individually.
+Discount factors satisfy $`0\lt \beta\lt 1`$ unless a finite-horizon exception is stated. A stochastic transition is conditional on the current state and chosen action. Examples are constructed here; source problems and subparts are identified individually.
 
 Contents:
 
@@ -45,7 +45,7 @@ Define $`V_T(s)=g(s)`$. At date $`t`$, choose the first action and then an optim
 
 ```math
 V_t(s)=\max_{a\in A_t(s)}
-\left\{r_t(s,a)+\beta E[V_{t+1}(s_{t+1})\mid s,a]\right\}.
+\left\lbrace r_t(s,a)+\beta E[V_{t+1}(s_{t+1})\mid s,a]\right\rbrace .
 ```
 
 For the upper bound, any full feasible plan has a first action whose later reward cannot exceed $`V_{t+1}`$. Its total is bounded by the displayed maximum. For the lower bound, choose an action attaining that maximum and use an optimal continuation at each next state. In finite state and action spaces this construction requires only finitely many comparisons. In general spaces, measurable selection and existence of continuation policies need separate assumptions.
@@ -81,7 +81,7 @@ There are two consumption dates, no interest, and initial inventory two. Consump
 Solution. At the final date all remaining inventory is consumed because utility is increasing. The one-date value is $`V_1(x)=\sqrt x`$ for $`x=0,1,2`$. At the initial date,
 
 ```math
-V_0(2)=\max_{c\in\{0,1,2\}}
+V_0(2)=\max_{c\in\lbrace 0,1,2\rbrace }
 \left(\sqrt c+\tfrac12\sqrt{2-c}\right).
 ```
 
@@ -93,9 +93,9 @@ The terminal value is zero after the last consumption date. Giving terminal inve
 
 #### Example DO-E01: consume over two dates
 
-An agent has two units of a nonstorable-income-free resource, chooses $`c_0,c_1>0`$ with $`c_0+c_1=2`$, and maximizes $`\log c_0+\tfrac12\log c_1`$.
+An agent has two units of a nonstorable-income-free resource, chooses $`c_0,c_1\gt 0`$ with $`c_0+c_1=2`$, and maximizes $`\log c_0+\tfrac12\log c_1`$.
 
-Solution. At the final date, $`V_1(s)=\log s`$, since all remaining resources are consumed. The first Bellman problem is $`\max_{0<c<2}\{\log c+\tfrac12\log(2-c)\}`$. Its derivative $`1/c-1/[2(2-c)]`$ vanishes at $`c_0=4/3`$, leaving $`c_1=2/3`$. The second derivative is negative throughout, and the objective tends to $`-\infty`$ at either endpoint, proving the unique global optimum.
+Solution. At the final date, $`V_1(s)=\log s`$, since all remaining resources are consumed. The first Bellman problem is $`\max_{0\lt c\lt 2}\lbrace \log c+\tfrac12\log(2-c)\rbrace`$. Its derivative $`1/c-1/[2(2-c)]`$ vanishes at $`c_0=4/3`$, leaving $`c_1=2/3`$. The second derivative is negative throughout, and the objective tends to $`-\infty`$ at either endpoint, proving the unique global optimum.
 
 #### Example DO-E02: a replacement decision
 
@@ -144,15 +144,15 @@ Solution. As $`m\to\infty`$, $`\beta^m\to0`$, so consumption tends to $`c_\infty
 
 #### Problem DO-04: changing the discount factor
 
-Constructed problem. In Example DO-E01, replace $`1/2`$ by arbitrary $`\beta>0`$.
+Constructed problem. In Example DO-E01, replace $`1/2`$ by arbitrary $`\beta\gt 0`$.
 
-Solution. Stationarity is $`1/c_0=\beta/c_1`$, so $`c_1=\beta c_0`$. The resource constraint gives $`c_0=2/(1+\beta)`$ and $`c_1=2\beta/(1+\beta)`$. Greater future weight shifts resources toward the second date. Even $`\beta>1`$ is mathematically admissible here because the horizon is finite; the infinite-horizon contraction argument later requires a discount below one.
+Solution. Stationarity is $`1/c_0=\beta/c_1`$, so $`c_1=\beta c_0`$. The resource constraint gives $`c_0=2/(1+\beta)`$ and $`c_1=2\beta/(1+\beta)`$. Greater future weight shifts resources toward the second date. Even $`\beta\gt 1`$ is mathematically admissible here because the horizon is finite; the infinite-horizon contraction argument later requires a discount below one.
 
 #### Problem DO-05: a nonattained Bellman supremum
 
 Constructed problem. A final decision chooses $`a\in(0,1)`$ and earns reward $`a`$.
 
-Solution. The value is $`\sup_{0<a<1}a=1`$. No feasible action attains it. For every $`\varepsilon>0`$, choosing $`a>1-\varepsilon`$ is $`\varepsilon`$-optimal. Writing a maximum and choosing $`a=1`$ would falsely enlarge the feasible set. Compactness of the closed interval would restore attainment.
+Solution. The value is $`\sup_{0\lt a\lt 1}a=1`$. No feasible action attains it. For every $`\varepsilon\gt 0`$, choosing $`a\gt 1-\varepsilon`$ is $`\varepsilon`$-optimal. Writing a maximum and choosing $`a=1`$ would falsely enlarge the feasible set. Compactness of the closed interval would restore attainment.
 
 #### Problem DO-06: an insufficient state
 
@@ -168,10 +168,10 @@ For a bounded reward function and discounted infinite horizon, the Bellman opera
 
 ```math
 (Tv)(s)=\sup_{a\in A(s)}
-\{r(s,a)+\beta E[v(s')\mid s,a]\}.
+\lbrace r(s,a)+\beta E[v(s')\mid s,a]\rbrace .
 ```
 
-Let $`\mathcal B(S)`$ be the space of bounded real functions on the state set, with norm $`\Vert v\Vert _\infty=\sup_s\vert v(s)\vert `$. On finite or countable states with all functions measurable, this is a complete normed space. On general measurable spaces restrict to bounded measurable functions and require that the operator preserves measurability.
+Let $`\mathcal B(S)`$ be the space of bounded real functions on the state set, with norm $`\Vert v\Vert _\infty=\sup_s\vert v(s)\vert`$. On finite or countable states with all functions measurable, this is a complete normed space. On general measurable spaces restrict to bounded measurable functions and require that the operator preserves measurability.
 
 If rewards are uniformly bounded by $`M`$, every discounted policy value has magnitude at most $`M/(1-\beta)`$. The operator maps bounded functions to bounded functions because the continuation term is bounded by $`\beta\Vert v\Vert _\infty`$. With finite actions the supremum is a maximum.
 
@@ -181,7 +181,7 @@ Two properties recur in proofs. Monotonicity means $`v\le w`$ pointwise implies 
 
 #### The supremum inequality
 
-For any bounded families $`f_a,g_a`$, $`f_a\le g_a+\sup_b\vert f_b-g_b\vert \le\sup_bg_b+\sup_b\vert f_b-g_b\vert `$. Taking the supremum over $`a`$ and reversing their roles proves
+For any bounded families $`f_a,g_a`$, $`f_a\le g_a+\sup_b\vert f_b-g_b\vert \le\sup_bg_b+\sup_b\vert f_b-g_b\vert`$. Taking the supremum over $`a`$ and reversing their roles proves
 
 ```math
 \vert \sup_af_a-\sup_ag_a\vert \le\sup_a\vert f_a-g_a\vert .
@@ -201,13 +201,13 @@ The factor below one makes iteration reduce discrepancies globally. A large numb
 
 #### Banach fixed-point theorem with its proof
 
-Start from any bounded $`v_0`$ and set $`v_{n+1}=Tv_n`$. Consecutive differences satisfy $`\Vert v_{n+1}-v_n\Vert \le\beta^n\Vert v_1-v_0\Vert `$. For $`m>n`$, sum them:
+Start from any bounded $`v_0`$ and set $`v_{n+1}=Tv_n`$. Consecutive differences satisfy $`\Vert v_{n+1}-v_n\Vert \le\beta^n\Vert v_1-v_0\Vert`$. For $`m\gt n`$, sum them:
 
 ```math
 \Vert v_m-v_n\Vert \le\frac{\beta^n}{1-\beta}\Vert v_1-v_0\Vert .
 ```
 
-The sequence is Cauchy, so completeness gives a limit $`v^*`$. The contraction inequality makes $`T`$ continuous, yielding $`Tv^*=\lim Tv_n=\lim v_{n+1}=v^*`$. If $`w^*`$ is another fixed point, $`\Vert v^*-w^*\Vert \le\beta\Vert v^*-w^*\Vert `$, forcing equality of the functions.
+The sequence is Cauchy, so completeness gives a limit $`v^*`$. The contraction inequality makes $`T`$ continuous, yielding $`Tv^*=\lim Tv_n=\lim v_{n+1}=v^*`$. If $`w^*`$ is another fixed point, $`\Vert v^*-w^*\Vert \le\beta\Vert v^*-w^*\Vert`$, forcing equality of the functions.
 
 The error bounds are
 
@@ -216,13 +216,13 @@ The error bounds are
 \Vert v-v^*\Vert \le\frac{\Vert Tv-v\Vert }{1-\beta}.
 ```
 
-The second follows from $`\Vert v-v^*\Vert \le\Vert v-Tv\Vert +\beta\Vert v-v^*\Vert `$. It turns a computable Bellman residual into a value-error certificate.
+The second follows from $`\Vert v-v^*\Vert \le\Vert v-Tv\Vert +\beta\Vert v-v^*\Vert`$. It turns a computable Bellman residual into a value-error certificate.
 
 #### The space on which the contraction acts
 
-Let $`B(S)`$ be the bounded real functions on a state set, with $`\Vert v\Vert _\infty=\sup_s\vert v(s)\vert `$. This space is complete. If $`v_n`$ is Cauchy in sup norm, then for each state the numbers $`v_n(s)`$ are Cauchy and have a real limit $`v(s)`$. Fixing one late function bounds all the others uniformly, so the limit is bounded. Passing to the pointwise limit in $`\vert v_n(s)-v_m(s)\vert <\epsilon`$ and then taking the supremum proves uniform convergence to $`v`$.
+Let $`B(S)`$ be the bounded real functions on a state set, with $`\Vert v\Vert _\infty=\sup_s\vert v(s)\vert`$. This space is complete. If $`v_n`$ is Cauchy in sup norm, then for each state the numbers $`v_n(s)`$ are Cauchy and have a real limit $`v(s)`$. Fixing one late function bounds all the others uniformly, so the limit is bounded. Passing to the pointwise limit in $`\vert v_n(s)-v_m(s)\vert \lt \epsilon`$ and then taking the supremum proves uniform convergence to $`v`$.
 
-With $`\vert r(s,a)\vert \le C`$ and $`0<\beta<1`$, the Bellman operator maps bounded functions to bounded functions because $`\vert Tv(s)\vert \le C+\beta\Vert v\Vert _\infty`$. For any two functions,
+With $`\vert r(s,a)\vert \le C`$ and $`0\lt \beta\lt 1`$, the Bellman operator maps bounded functions to bounded functions because $`\vert Tv(s)\vert \le C+\beta\Vert v\Vert _\infty`$. For any two functions,
 
 ```math
 \left\vert \sup_a F(a)-\sup_a G(a)\right\vert
@@ -283,7 +283,7 @@ Problem. Formulate the work-rest problem recursively using the number of consecu
 Solution. Let $`n`$ be the number of consecutive work dates since the last rest. Working gives $`r(n)`$ and moves to $`n+1`$; resting gives zero and resets to zero. Hence
 
 ```math
-V(n)=\max\{r(n)+\beta V(n+1),\ \beta V(0)\}.
+V(n)=\max\lbrace r(n)+\beta V(n+1),\ \beta V(0)\rbrace .
 ```
 
 The previous work streak is sufficient to determine both current reward and next state. The initial state is zero. A sequence description chooses work/rest decisions over all dates; the recursive form compresses their effect into the current streak.
@@ -316,7 +316,7 @@ Solution. Their operators satisfy $`\Vert Tv-\widetilde Tv\Vert \le\varepsilon`$
 
 Constructed problem. Let $`Tv=r+v`$ in a one-state problem with $`\beta=1`$.
 
-Solution. If $`r>0`$, the infinite total reward is unbounded and no finite fixed point exists. If $`r=0`$, every scalar is a fixed point, so uniqueness fails. The Lipschitz factor is one rather than below one. Undiscounted stochastic shortest-path or average-reward problems require other assumptions and different arguments.
+Solution. If $`r\gt 0`$, the infinite total reward is unbounded and no finite fixed point exists. If $`r=0`$, every scalar is a fixed point, so uniqueness fails. The Lipschitz factor is one rather than below one. Undiscounted stochastic shortest-path or average-reward problems require other assumptions and different arguments.
 
 ## 3. Policy evaluation and improvement
 
@@ -382,7 +382,7 @@ Use $`\beta=1/2`$. Action zero stays in the current state and pays rewards $`(1,
 
 Solution. Starting with action zero in both states gives $`V=(2,0)^\top`$. In state one, staying gives $`1+(1/2)2=2`$ while switching gives zero. In state two, staying gives zero while switching gives $`2+(1/2)2=3`$. The improved policy stays in state one and switches in state two.
 
-Its equations are $`v_1=1+(1/2)v_1`$ and $`v_2=2+(1/2)v_1`$, giving $`v=(2,3)^\top`$. Check greediness again using this new vector. In state one, switching gives $`(1/2)3=1.5<2`$. In state two, staying gives $`(1/2)3=1.5<3`$. The policy remains greedy and is optimal.
+Its equations are $`v_1=1+(1/2)v_1`$ and $`v_2=2+(1/2)v_1`$, giving $`v=(2,3)^\top`$. Check greediness again using this new vector. In state one, switching gives $`(1/2)3=1.5\lt 2`$. In state two, staying gives $`(1/2)3=1.5\lt 3`$. The policy remains greedy and is optimal.
 
 Evaluation and improvement used different operations. Evaluation held a policy fixed and solved its linear system. Improvement compared actions using the evaluated vector. Mixing value components from unrelated policies during an evaluation would not solve any one policy equation.
 
@@ -390,7 +390,13 @@ Evaluation and improvement used different operations. Evaluation held a policy f
 
 #### Example DO-E05: policy evaluation in two states
 
-Let $`r=(1,2)^\top`$, $`P=\left(\begin{smallmatrix}1/2&1/2\\0&1\end{smallmatrix}\right)`$, and $`\beta=1/2`$.
+Let $`r=(1,2)^\top`$,
+
+```math
+P=\left(\begin{smallmatrix}1/2&1/2\\[0pt] 0&1\end{smallmatrix}\right)
+```
+
+, and $`\beta=1/2`$.
 
 Solution. The second equation is $`v_2=2+v_2/2`$, giving four. The first is $`v_1=1+v_1/4+v_2/4`$, hence $`3v_1/4=2`$ and $`v_1=8/3`$. The better state is absorbing, so starting in the first state includes the possibility of reaching it later.
 
@@ -404,11 +410,11 @@ At state one in the preceding example, a new action pays zero now and moves to s
 
 Source: [MIT 14.451, Problem Set 2, Section 2, Question 3](https://ocw.mit.edu/courses/14-451-dynamic-optimization-methods-with-applications-fall-2009/47c8930ae9beae1093f1c49fd89c2886_MIT14_451F09_pset2.pdf).
 
-Problem. With a decreasing work reward and $`r(0)>0`$, prove that the work-streak value is nonincreasing in the streak and strictly positive.
+Problem. With a decreasing work reward and $`r(0)\gt 0`$, prove that the work-streak value is nonincreasing in the streak and strictly positive.
 
 Solution. Start value iteration from zero. If $`v(n)`$ is nonincreasing and $`r(n)`$ is decreasing, both $`r(n)+\beta v(n+1)`$ and the constant $`\beta v(0)`$ are nonincreasing in $`n`$, so their maximum is nonincreasing. Induction and uniform convergence show $`V(n)`$ is nonincreasing.
 
-The value is strictly positive in every state: rest once to reset, then work one date for $`r(0)>0`$, then use the feasible always-rest policy. That plan gives $`\beta r(0)>0`$ from any state; at state zero, working immediately gives at least $`r(0)>0`$. An all-rest plan also shows nonnegativity before this strict improvement.
+The value is strictly positive in every state: rest once to reset, then work one date for $`r(0)\gt 0`$, then use the feasible always-rest policy. That plan gives $`\beta r(0)\gt 0`$ from any state; at state zero, working immediately gives at least $`r(0)\gt 0`$. An all-rest plan also shows nonnegativity before this strict improvement.
 
 #### Problem DO-13: cycles of work and rest
 
@@ -418,7 +424,7 @@ Problem. When sufficiently long work streaks yield negative rewards, show that a
 
 Solution. The advantage of working over resting is $`D(n)=r(n)+\beta V(n+1)-\beta V(0)`$. It decreases with $`n`$, so an optimal stationary policy has a work region followed by a rest region, allowing ties at a threshold. At zero, always resting would give zero, while working gives a positive feasible reward, so at least one work date occurs.
 
-If $`r(n)<0`$ for $`n\ge\bar n`$, then $`V(n+1)\le V(0)`$ gives $`D(n)<0`$ there; resting is strictly better. Thus a threshold $`n^*`$ satisfies $`1\le n^*\le\bar n`$. Starting just after rest, the state visits $`0,1,\ldots,n^*-1`$ while working, then rests and resets. The optimal path repeats a cycle of $`n^*`$ work dates and one rest date.
+If $`r(n)\lt 0`$ for $`n\ge\bar n`$, then $`V(n+1)\le V(0)`$ gives $`D(n)\lt 0`$ there; resting is strictly better. Thus a threshold $`n^*`$ satisfies $`1\le n^*\le\bar n`$. Starting just after rest, the state visits $`0,1,\ldots,n^*-1`$ while working, then rests and resets. The optimal path repeats a cycle of $`n^*`$ work dates and one rest date.
 
 #### Problem DO-14: patience and the work cycle
 
@@ -433,19 +439,31 @@ V^{(1)}=\frac3{1-\beta^2},\qquad
 V^{(2)}=\frac{3+\beta}{1-\beta^3}.
 ```
 
-The denominators account for the zero-reward rest date. Comparing after multiplying by positive denominators gives a difference numerator $`\beta(1-\beta)(1-2\beta)`$ in favor of the two-work cycle. Hence two work dates are better for $`\beta<1/2`$, one is better for $`\beta>1/2`$, and both are optimal at equality. A patient worker values resetting sooner to regain the high reward three.
+The denominators account for the zero-reward rest date. Comparing after multiplying by positive denominators gives a difference numerator $`\beta(1-\beta)(1-2\beta)`$ in favor of the two-work cycle. Hence two work dates are better for $`\beta\lt 1/2`$, one is better for $`\beta\gt 1/2`$, and both are optimal at equality. A patient worker values resetting sooner to regain the high reward three.
 
 ### 3.5 Additional solved problems
 
 #### Problem DO-15: a stationary Markov distribution
 
-Constructed problem. For $`P=\left(\begin{smallmatrix}0.8&0.2\\0.4&0.6\end{smallmatrix}\right)`$, solve $`\pi=\pi P`$.
+Constructed problem. For
+
+```math
+P=\left(\begin{smallmatrix}0.8&0.2\\[0pt] 0.4&0.6\end{smallmatrix}\right)
+```
+
+, solve $`\pi=\pi P`$.
 
 Solution. Write $`\pi=(p,1-p)`$. The first equation is $`p=0.8p+0.4(1-p)`$, so $`0.6p=0.4`$ and $`p=2/3`$. Thus $`\pi=(2/3,1/3)`$. Both states communicate and each has a self-transition, so the finite chain is irreducible and aperiodic: the stationary distribution is unique and time distributions converge to it. Irreducibility supplies uniqueness; aperiodicity supplies convergence from arbitrary initial states.
 
 #### Problem DO-16: an invariant distribution without convergence
 
-Constructed problem. Analyze $`P=\left(\begin{smallmatrix}0&1\\1&0\end{smallmatrix}\right)`$.
+Constructed problem. Analyze
+
+```math
+P=\left(\begin{smallmatrix}0&1\\[0pt] 1&0\end{smallmatrix}\right)
+```
+
+.
 
 Solution. The unique stationary distribution is $`(1/2,1/2)`$, since invariance requires equal masses. Starting in state one, the distribution alternates forever between $`(1,0)`$ and $`(0,1)`$, so it does not converge. The chain is irreducible but periodic with period two. Its time-average occupation frequencies still approach one half for each state.
 
@@ -453,7 +471,7 @@ Solution. The unique stationary distribution is $`(1/2,1/2)`$, since invariance 
 
 Constructed problem. For $`P=I_2`$, characterize stationary distributions and discounted values.
 
-Solution. Every probability vector is invariant because $`\pi I_2=\pi`$. There are two closed absorbing classes. Nevertheless for any reward vector and $`\beta<1`$, the discounted policy value is uniquely $`r/(1-\beta)`$. Nonuniqueness of an invariant distribution does not contradict uniqueness of a discounted Bellman fixed point; the two equations solve different problems.
+Solution. Every probability vector is invariant because $`\pi I_2=\pi`$. There are two closed absorbing classes. Nevertheless for any reward vector and $`\beta\lt 1`$, the discounted policy value is uniquely $`r/(1-\beta)`$. Nonuniqueness of an invariant distribution does not contradict uniqueness of a discounted Bellman fixed point; the two equations solve different problems.
 
 ## 4. Optimal stopping
 
@@ -462,7 +480,7 @@ Solution. Every probability vector is invariant because $`\pi I_2=\pi`$. There a
 A stopping problem gives a choice between taking a terminal payoff now and continuing. If $`g(s)`$ is the stopping payoff and continuing gives current reward $`r(s)`$, the Bellman equation is
 
 ```math
-V(s)=\max\{g(s),r(s)+\beta E[V(s')\mid s]\}.
+V(s)=\max\lbrace g(s),r(s)+\beta E[V(s')\mid s]\rbrace .
 ```
 
 The stopping region contains states where stopping is at least as good as continuation. A threshold policy requires additional order or monotonicity structure; the existence of two actions by itself does not guarantee one.
@@ -481,7 +499,7 @@ If $`0\le C\le1`$, then $`E[\max(W,C)]=\int_0^CC\,dw+\int_C^1w\,dw=(1+C^2)/2`$. 
 C=-c+\frac\beta2(1+C^2).
 ```
 
-For $`c=0`$, the root in $`[0,1]`$ is $`C=[1-\sqrt{1-\beta^2}]/\beta`$. The other quadratic root exceeds one and does not satisfy the assumed region. If the cost is sufficiently high that $`C<0`$, every nonnegative offer is accepted, and the correct continuation calculation is instead $`C=-c+\beta/2`$. Always verify the region used in an integral formula.
+For $`c=0`$, the root in $`[0,1]`$ is $`C=[1-\sqrt{1-\beta^2}]/\beta`$. The other quadratic root exceeds one and does not satisfy the assumed region. If the cost is sufficiently high that $`C\lt 0`$, every nonnegative offer is accepted, and the correct continuation calculation is instead $`C=-c+\beta/2`$. Always verify the region used in an integral formula.
 
 #### A finite-horizon stopping envelope
 
@@ -534,9 +552,9 @@ There are two offers left, discount is one, and offers are iid $`U(0,1)`$. The l
 
 #### Problem DO-18: a two-point offer distribution
 
-Constructed problem. Offers are zero or one with equal probabilities, there is no rejection cost, and $`\beta<1`$.
+Constructed problem. Offers are zero or one with equal probabilities, there is no rejection cost, and $`\beta\lt 1`$.
 
-Solution. Reject zero and accept one is a candidate. Before observing an offer its value $`v`$ satisfies $`v=(1/2)(1)+(1/2)\beta v`$, so $`v=1/(2-\beta)`$. At zero, continuation $`\beta/(2-\beta)>0`$ exceeds stopping. At one, stopping one exceeds continuation because $`\beta/(2-\beta)<1`$. Both comparisons verify the candidate policy globally.
+Solution. Reject zero and accept one is a candidate. Before observing an offer its value $`v`$ satisfies $`v=(1/2)(1)+(1/2)\beta v`$, so $`v=1/(2-\beta)`$. At zero, continuation $`\beta/(2-\beta)\gt 0`$ exceeds stopping. At one, stopping one exceeds continuation because $`\beta/(2-\beta)\lt 1`$. Both comparisons verify the candidate policy globally.
 
 #### Problem DO-19: an inadmissible future rule
 
@@ -548,15 +566,15 @@ Solution. The decision event depends on tomorrow's unseen random variable and ca
 
 Constructed problem. In the uniform-offer model with an interior threshold, differentiate $`C=-c+\beta(1+C^2)/2`$.
 
-Solution. Holding $`\beta`$ fixed gives $`(1-\beta C)dC/dc=-1`$, so the threshold decreases as rejection becomes more costly. Holding $`c`$ fixed gives $`(1-\beta C)dC/d\beta=(1+C^2)/2>0`$, so patience raises the threshold. The denominator is positive for $`C\le1`$ and $`\beta<1`$, justifying both signs.
+Solution. Holding $`\beta`$ fixed gives $`(1-\beta C)dC/dc=-1`$, so the threshold decreases as rejection becomes more costly. Holding $`c`$ fixed gives $`(1-\beta C)dC/d\beta=(1+C^2)/2\gt 0`$, so patience raises the threshold. The denominator is positive for $`C\le1`$ and $`\beta\lt 1`$, justifying both signs.
 
 #### Problem DO-21: a kink in a value function
 
 Source: [MIT 14.451, Problem Set 2, Section 3, Question 1](https://ocw.mit.edu/courses/14-451-dynamic-optimization-methods-with-applications-fall-2009/47c8930ae9beae1093f1c49fd89c2886_MIT14_451F09_pset2.pdf).
 
-Problem. For $`f(x,y)=\max\{-(y+1)^2,\ x-(y-1)^2\}`$ and $`y\in[-2,2]`$, find the maximized value and all optimizing choices and examine continuity and differentiability.
+Problem. For $`f(x,y)=\max\lbrace -(y+1)^2,\ x-(y-1)^2\rbrace`$ and $`y\in[-2,2]`$, find the maximized value and all optimizing choices and examine continuity and differentiability.
 
-Solution. For $`f(x,y)=\max\{-(y+1)^2,\ x-(y-1)^2\}`$ and $`y\in[-2,2]`$, each branch is bounded above by zero or $`x`$, respectively. These bounds are attained at $`y=-1`$ and $`y=1`$. Hence $`V(x)=\max(0,x)`$. For $`x<0`$, the unique optimizer is $`-1`$; for $`x>0`$, it is $`1`$; at zero both are optimal. The value is not differentiable at zero and no single-valued optimizing selection is continuous there, even though both optimizers are interior.
+Solution. For $`f(x,y)=\max\lbrace -(y+1)^2,\ x-(y-1)^2\rbrace`$ and $`y\in[-2,2]`$, each branch is bounded above by zero or $`x`$, respectively. These bounds are attained at $`y=-1`$ and $`y=1`$. Hence $`V(x)=\max(0,x)`$. For $`x\lt 0`$, the unique optimizer is $`-1`$; for $`x\gt 0`$, it is $`1`$; at zero both are optimal. The value is not differentiable at zero and no single-valued optimizing selection is continuous there, even though both optimizers are interior.
 
 #### Problem DO-22: unique plans and many steady states
 
@@ -639,7 +657,7 @@ This is distinct from a no-Ponzi restriction, which prevents financing consumpti
 
 There are two dates. Initial resources are one, next income is two, interest is zero, utility is $`\log c_0+\tfrac12\log c_1`$, and saving $`a`$ must be nonnegative.
 
-Solution. Feasibility gives $`c_0=1-a`$ and $`c_1=2+a`$, with $`0\le a<1`$. The objective derivative is $`-1/(1-a)+(1/2)/(2+a)`$, which is negative throughout the interval. Thus $`a^*=0`$ and consumption is $`(1,2)`$.
+Solution. Feasibility gives $`c_0=1-a`$ and $`c_1=2+a`$, with $`0\le a\lt 1`$. The objective derivative is $`-1/(1-a)+(1/2)/(2+a)`$, which is negative throughout the interval. Thus $`a^*=0`$ and consumption is $`(1,2)`$.
 
 The Euler inequality reads $`1\ge(1/2)(1/2)=1/4`$. Its strictness corresponds to the binding borrowing limit. Without that limit, total resources three would be allocated as $`c_0=2`$ and $`c_1=1`$, requiring $`a=-1`$. The unconstrained Euler solution is therefore infeasible in the stated problem.
 
@@ -651,11 +669,11 @@ For $`u(c)=\log c`$ and constant $`R`$, Euler gives $`1/c_t=\beta R/c_{t+1}`$, h
 
 #### Example DO-E10: a binding borrowing constraint
 
-In a two-date model with $`R=1`$, $`\beta=1`$, incomes $`(1,3)`$, and no initial assets, the unconstrained log-utility solution would consume two each date, requiring borrowing one initially. Under $`a_1\ge0`$, choose $`a_1=0`$, so consumption is $`(1,3)`$. The marginal utility inequality is $`1>1/3`$: the agent would like to shift future resources toward today but the constraint prevents it.
+In a two-date model with $`R=1`$, $`\beta=1`$, incomes $`(1,3)`$, and no initial assets, the unconstrained log-utility solution would consume two each date, requiring borrowing one initially. Under $`a_1\ge0`$, choose $`a_1=0`$, so consumption is $`(1,3)`$. The marginal utility inequality is $`1\gt 1/3`$: the agent would like to shift future resources toward today but the constraint prevents it.
 
 ### 5.4 Selected exercises
 
-For the next four problems, consider the source's full-depreciation growth model with $`f(k)=Ak^\alpha`$, $`A>0`$, $`0<\alpha<1`$, log utility, and $`0<\beta<1`$.
+For the next four problems, consider the source's full-depreciation growth model with $`f(k)=Ak^\alpha`$, $`A\gt 0`$, $`0\lt \alpha\lt 1`$, log utility, and $`0\lt \beta\lt 1`$.
 
 #### Problem DO-23: solving the growth Bellman equation
 
@@ -663,7 +681,7 @@ Source: [MIT 14.451, Problem Set 3, Section 2, Question 1](https://ocw.mit.edu/c
 
 Problem. For fully depreciating Cobb-Douglas growth and log utility, solve the Bellman equation using an affine function of log capital.
 
-Solution. The Bellman equation is $`V(k)=\max_{0<k'<Ak^\alpha}\{\log(Ak^\alpha-k')+\beta V(k')\}`$. Guess $`V(k)=a+b\log k`$. At fixed $`k`$, stationarity gives $`-1/(Ak^\alpha-k')+\beta b/k'=0`$, so $`k'=\beta bAk^\alpha/(1+\beta b)`$.
+Solution. The Bellman equation is $`V(k)=\max_{0\lt k'\lt Ak^\alpha}\lbrace \log(Ak^\alpha-k')+\beta V(k')\rbrace`$. Guess $`V(k)=a+b\log k`$. At fixed $`k`$, stationarity gives $`-1/(Ak^\alpha-k')+\beta b/k'=0`$, so $`k'=\beta bAk^\alpha/(1+\beta b)`$.
 
 Matching the coefficient of $`\log k`$ gives $`b=\alpha(1+\beta b)`$, hence $`b=\alpha/(1-\alpha\beta)`$. Thus the saving share is $`\alpha\beta`$:
 
@@ -701,7 +719,7 @@ Source: [MIT 14.451, Problem Set 3, Section 2, Question 3](https://ocw.mit.edu/c
 
 Problem. Find the positive steady state of the log-growth policy and determine its stability from every positive initial capital.
 
-Solution. Solve $`k^*=\alpha\beta A(k^*)^\alpha`$ to obtain $`k^*=(\alpha\beta A)^{1/(1-\alpha)}>0`$. Let $`z_t=\log k_t-\log k^*`$. The policy gives $`z_{t+1}=\alpha z_t`$, so $`z_t=\alpha^tz_0\to0`$ for every positive initial capital. Thus the positive steady state is globally stable on $`k>0`$. Also $`g'(k)=\alpha^2\beta Ak^{\alpha-1}`$ and $`g'(k^*)=\alpha`$, using the steady-state identity. Steady consumption is $`(1-\alpha\beta)A(k^*)^\alpha`$.
+Solution. Solve $`k^*=\alpha\beta A(k^*)^\alpha`$ to obtain $`k^*=(\alpha\beta A)^{1/(1-\alpha)}\gt 0`$. Let $`z_t=\log k_t-\log k^*`$. The policy gives $`z_{t+1}=\alpha z_t`$, so $`z_t=\alpha^tz_0\to0`$ for every positive initial capital. Thus the positive steady state is globally stable on $`k\gt 0`$. Also $`g'(k)=\alpha^2\beta Ak^{\alpha-1}`$ and $`g'(k^*)=\alpha`$, using the steady-state identity. Steady consumption is $`(1-\alpha\beta)A(k^*)^\alpha`$.
 
 #### Problem DO-26: the same local policy derivative from Euler
 
@@ -740,7 +758,7 @@ Solution. A unit saved becomes capital whose next gross marginal return is $`\al
 
 #### Problem DO-29: terminal wealth changes the last decision
 
-Constructed problem. At the final date, maximize $`\log c+\eta\log a'`$ with $`c+a'=w`$ and $`\eta>0`$.
+Constructed problem. At the final date, maximize $`\log c+\eta\log a'`$ with $`c+a'=w`$ and $`\eta\gt 0`$.
 
 Solution. Stationarity gives $`1/c=\eta/a'`$, so $`c=w/(1+\eta)`$ and $`a'=\eta w/(1+\eta)`$. The terminal asset is not zero because it carries a positive terminal payoff. Backward induction must begin from the specified terminal objective, rather than automatically imposing consumption of all resources.
 
@@ -758,7 +776,7 @@ With Markov uncertainty $`z`$, a stochastic Bellman equation includes the condit
 
 ```math
 V(x,z)=\max_{a\in A(x,z)}
-\left\{r(x,z,a)+\beta\sum_{z'}P(z,z')V(f(x,z,a),z')\right\}.
+\left\lbrace r(x,z,a)+\beta\sum_{z'}P(z,z')V(f(x,z,a),z')\right\rbrace .
 ```
 
 An expectation over unconditional shock probabilities is generally wrong if shocks are persistent. The transition law must also reflect whether today's action affects tomorrow's state or today's reward.
@@ -768,8 +786,8 @@ For a finite Markov chain, a stationary distribution solves $`\pi=\pi P`$ and $`
 In continuous time, a discounted control problem can lead to a Hamilton-Jacobi-Bellman equation. For controlled diffusion $`dX=b(X,a)dt+\sigma(X,a)dW`$ and reward $`r`$, its formal stationary equation is
 
 ```math
-\rho V(x)=\sup_a\{r(x,a)+b(x,a)V'(x)
-+\tfrac12\sigma(x,a)^2V''(x)\}.
+\rho V(x)=\sup_a\lbrace r(x,a)+b(x,a)V'(x)
++\tfrac12\sigma(x,a)^2V''(x)\rbrace .
 ```
 
 A classical verification theorem needs a sufficiently smooth candidate, an admissible maximizing control, integrability of stochastic terms, and an appropriate discounted terminal condition. Writing the HJB equation supplies a candidate, rather than completing verification.
@@ -778,11 +796,11 @@ A classical verification theorem needs a sufficiently smooth candidate, an admis
 
 #### From a short decision interval to HJB
 
-Over a small interval $`h`$, dynamic programming gives approximately $`V(x)=\sup_a\{r(x,a)h+e^{-\rho h}E[V(X_h)]\}`$. For smooth $`V`$, Itô's formula gives $`E[V(X_h)]=V(x)+h[bV'+\tfrac12\sigma^2V'']+o(h)`$ under local integrability. Expand $`e^{-\rho h}=1-\rho h+o(h)`$, subtract $`V(x)`$, divide by $`h`$, and let $`h\downarrow0`$. This yields the HJB expression. Interchanging the optimization and limiting operations requires assumptions; the calculation explains the equation's terms.
+Over a small interval $`h`$, dynamic programming gives approximately $`V(x)=\sup_a\lbrace r(x,a)h+e^{-\rho h}E[V(X_h)]\rbrace`$. For smooth $`V`$, Itô's formula gives $`E[V(X_h)]=V(x)+h[bV'+\tfrac12\sigma^2V'']+o(h)`$ under local integrability. Expand $`e^{-\rho h}=1-\rho h+o(h)`$, subtract $`V(x)`$, divide by $`h`$, and let $`h\downarrow0`$. This yields the HJB expression. Interchanging the optimization and limiting operations requires assumptions; the calculation explains the equation's terms.
 
 #### A discounted linear-quadratic control
 
-Minimize $`\int_0^\infty e^{-\rho t}(qX_t^2+ru_t^2)dt`$ subject to $`\dot X=aX+bu`$, with $`q,r,\rho>0`$ and $`b\ne0`$. Guess $`V(x)=Px^2`$. The HJB minimization gives $`u^*=-bPx/r`$ and
+Minimize $`\int_0^\infty e^{-\rho t}(qX_t^2+ru_t^2)dt`$ subject to $`\dot X=aX+bu`$, with $`q,r,\rho\gt 0`$ and $`b\ne0`$. Guess $`V(x)=Px^2`$. The HJB minimization gives $`u^*=-bPx/r`$ and
 
 ```math
 \rho P=q+2aP-\frac{b^2P^2}{r}.
@@ -794,7 +812,7 @@ The positive solution is
 P=\frac{(2a-\rho)+\sqrt{(2a-\rho)^2+4(b^2/r)q}}{2b^2/r}.
 ```
 
-Under this feedback, $`X_t=x_0e^{(a-b^2P/r)t}`$. The discounted terminal value has exponential rate $`2a-2b^2P/r-\rho=-\sqrt{(2a-\rho)^2+4(b^2/r)q}<0`$, so it vanishes. Completing the HJB square yields
+Under this feedback, $`X_t=x_0e^{(a-b^2P/r)t}`$. The discounted terminal value has exponential rate $`2a-2b^2P/r-\rho=-\sqrt{(2a-\rho)^2+4(b^2/r)q}\lt 0`$, so it vanishes. Completing the HJB square yields
 
 ```math
 q x^2+ru^2+V'(x)(ax+bu)-\rho V(x)
@@ -837,7 +855,7 @@ For a time-homogeneous infinite-horizon problem, a stationary value removes $`V_
 
 #### Example DO-E18: log saving with a random return
 
-An agent has one unit now, saves fraction $`a\in(0,1)`$, and consumes the invested proceeds next date. The gross return is $`1/2`$ or $`3/2`$ with equal probability. Maximize $`\log(1-a)+\beta E[\log(Ra)]`$ for $`\beta>0`$.
+An agent has one unit now, saves fraction $`a\in(0,1)`$, and consumes the invested proceeds next date. The gross return is $`1/2`$ or $`3/2`$ with equal probability. Maximize $`\log(1-a)+\beta E[\log(Ra)]`$ for $`\beta\gt 0`$.
 
 Solution. Positivity gives $`\log(Ra)=\log a+\log R`$. The expectation is
 
@@ -847,7 +865,7 @@ Solution. Positivity gives $`\log(Ra)=\log a+\log R`$. The expectation is
 
 The last term is independent of $`a`$. Differentiating gives $`-1/(1-a)+\beta/a=0`$, so $`a^*=\beta/(1+\beta)`$. The second derivative is negative and utility tends to minus infinity at either endpoint, proving uniqueness.
 
-Replacing the return by its mean one leaves the saving fraction unchanged in this specific log, two-date model, but raises value by $`-(\beta/2)\log(3/4)>0`$. The equality of saving fractions relies on the logarithmic separation; it is not a general claim that return risk has no effect on saving.
+Replacing the return by its mean one leaves the saving fraction unchanged in this specific log, two-date model, but raises value by $`-(\beta/2)\log(3/4)\gt 0`$. The equality of saving fractions relies on the logarithmic separation; it is not a general claim that return risk has no effect on saving.
 
 ### 6.3 Worked examples
 
@@ -861,7 +879,7 @@ Set $`a=0`$, $`b=q=r=\rho=1`$. The Riccati equation is $`P^2+P-1=0`$, so $`P=(\s
 
 ### 6.4 Selected exercises
 
-For Problems DO-31 through DO-35, use the source's switching problem. The inherited action is $`x\in\{a,b\}`$, the current shock is $`z\in\{A,B\}`$, shocks persist with probability $`p`$, matching today's action to today's shock earns one, and changing the inherited action costs $`\kappa\ge0`$. Assume $`0<p<1`$.
+For Problems DO-31 through DO-35, use the source's switching problem. The inherited action is $`x\in\lbrace a,b\rbrace`$, the current shock is $`z\in\lbrace A,B\rbrace`$, shocks persist with probability $`p`$, matching today's action to today's shock earns one, and changing the inherited action costs $`\kappa\ge0`$. Assume $`0\lt p\lt 1`$.
 
 #### Problem DO-31: the switching threshold
 
@@ -885,7 +903,7 @@ Source: [MIT 14.451, Problem Set 4, Section 1, Question 2](https://ocw.mit.edu/c
 
 Problem. Determine how the switching threshold responds to shock persistence, holding the discount factor and switching cost fixed.
 
-Solution. Differentiate $`\kappa^*(p)`$ to get $`2\beta/[1-\beta(2p-1)]^2>0`$. At a fixed switching cost, increasing persistence can move the parameters from inaction to active matching. A switch then creates a match that is more likely to remain useful next date. This comparison holds the discount and cost fixed.
+Solution. Differentiate $`\kappa^*(p)`$ to get $`2\beta/[1-\beta(2p-1)]^2\gt 0`$. At a fixed switching cost, increasing persistence can move the parameters from inaction to active matching. A switch then creates a match that is more likely to remain useful next date. This comparison holds the discount and cost fixed.
 
 #### Problem DO-33: the controlled transition matrices
 
@@ -897,8 +915,8 @@ Solution. Order states as $`(a,A),(a,B),(b,A),(b,B)`$. Under inaction,
 
 ```math
 P_I=\begin{pmatrix}
-p&1-p&0&0\\1-p&p&0&0\\[0pt]
-0&0&p&1-p\\0&0&1-p&p
+p&1-p&0&0\\[0pt] 1-p&p&0&0\\[0pt]
+0&0&p&1-p\\[0pt] 0&0&1-p&p
 \end{pmatrix}.
 ```
 
@@ -906,8 +924,8 @@ Under active matching, the chosen next inherited action matches the current shoc
 
 ```math
 P_M=\begin{pmatrix}
-p&1-p&0&0\\0&0&1-p&p\\[0pt]
-p&1-p&0&0\\0&0&1-p&p
+p&1-p&0&0\\[0pt] 0&0&1-p&p\\[0pt]
+p&1-p&0&0\\[0pt] 0&0&1-p&p
 \end{pmatrix}.
 ```
 
@@ -919,7 +937,7 @@ Source: [MIT 14.451, Problem Set 4, Section 1, Question 4](https://ocw.mit.edu/c
 
 Problem. For interior shock transition probabilities, determine the closed recurrent classes under each strict policy regime and discuss the policy-tie boundary.
 
-Solution. In the strict inaction region, the inherited action never changes. The two closed irreducible classes are $`\{(a,A),(a,B)\}`$ and $`\{(b,A),(b,B)\}`$. In the strict active-matching region, paths can move between all four states because both shock transitions have positive probabilities. There is one closed irreducible class. Self-transitions at matched states make this chain aperiodic. On the policy-tie boundary, different optimal selections can generate different chain structures.
+Solution. In the strict inaction region, the inherited action never changes. The two closed irreducible classes are $`\lbrace (a,A),(a,B)\rbrace`$ and $`\lbrace (b,A),(b,B)\rbrace`$. In the strict active-matching region, paths can move between all four states because both shock transitions have positive probabilities. There is one closed irreducible class. Self-transitions at matched states make this chain aperiodic. On the policy-tie boundary, different optimal selections can generate different chain structures.
 
 #### Problem DO-35: the matching regime's invariant distribution
 
@@ -957,7 +975,7 @@ Source: [MIT 14.451, Problem Set 4, Section 2, Question 2](https://ocw.mit.edu/c
 
 Problem. For a finite transition matrix with a common strictly positive column, prove uniqueness of an invariant distribution and determine its support relative to a closed class.
 
-Solution. In the finite chain, suppose $`P_{ij}>0`$ for a common $`j`$ and every $`i`$. Let $`\varepsilon=\min_iP_{ij}>0`$. If $`\varepsilon<1`$, each row decomposes as $`\varepsilon\delta_j+(1-\varepsilon)R_i`$ for a stochastic matrix $`R`$. Hence the map $`q\mapsto qP`$ contracts total-variation distance by at most $`1-\varepsilon`$. If $`\varepsilon=1`$, every row is already $`\delta_j`$ and uniqueness is immediate. Completeness of the finite simplex gives a unique invariant distribution.
+Solution. In the finite chain, suppose $`P_{ij}\gt 0`$ for a common $`j`$ and every $`i`$. Let $`\varepsilon=\min_iP_{ij}\gt 0`$. If $`\varepsilon\lt 1`$, each row decomposes as $`\varepsilon\delta_j+(1-\varepsilon)R_i`$ for a stochastic matrix $`R`$. Hence the map $`q\mapsto qP`$ contracts total-variation distance by at most $`1-\varepsilon`$. If $`\varepsilon=1`$, every row is already $`\delta_j`$ and uniqueness is immediate. Completeness of the finite simplex gives a unique invariant distribution.
 
 A closed class $`E`$ supports an invariant distribution by applying the same finite-state existence argument to its restriction. Extending that distribution by zero outside $`E`$ yields an invariant distribution for the full chain. Uniqueness forces the full invariant distribution to give zero mass to states outside $`E`$.
 
@@ -967,7 +985,7 @@ Source: [MIT 14.451, Problem Set 4, Section 2, Question 3](https://ocw.mit.edu/c
 
 Problem. Prove that an invariant distribution supported on a closed irreducible class is strictly positive at every state of that class.
 
-Solution. Interpret an ergodic class here as a closed irreducible class. Since its invariant mass sums to one, at least one state $`i`$ has $`\pi_i>0`$. For any other state $`j`$ in the class, irreducibility gives an integer $`n`$ with $`(P^n)_{ij}>0`$. Stationarity then gives $`\pi_j=\sum_k\pi_k(P^n)_{kj}\ge\pi_i(P^n)_{ij}>0`$. Together with the zero mass outside from DO-37, the class is exactly $`\{i:\pi_i>0\}`$.
+Solution. Interpret an ergodic class here as a closed irreducible class. Since its invariant mass sums to one, at least one state $`i`$ has $`\pi_i\gt 0`$. For any other state $`j`$ in the class, irreducibility gives an integer $`n`$ with $`(P^n)_{ij}\gt 0`$. Stationarity then gives $`\pi_j=\sum_k\pi_k(P^n)_{kj}\ge\pi_i(P^n)_{ij}\gt 0`$. Together with the zero mass outside from DO-37, the class is exactly $`\lbrace i:\pi_i\gt 0\rbrace`$.
 
 ### 6.5 Additional solved problems
 
@@ -1000,7 +1018,7 @@ Solution. The HJB contains $`\tfrac12\sigma^2V''=\sigma^2P`$. The coefficient of
 
 #### Problem DO-42: a policy can change while value changes little
 
-Constructed problem. In one state, two actions have the same transition and rewards zero and $`\varepsilon>0`$.
+Constructed problem. In one state, two actions have the same transition and rewards zero and $`\varepsilon\gt 0`$.
 
 Solution. The second action is uniquely optimal for every positive $`\varepsilon`$, while at $`\varepsilon=0`$ both are optimal. The value difference from the all-zero problem is only $`\varepsilon/(1-\beta)`$ and tends to zero. Thus uniform continuity of values under reward perturbations does not imply continuity of a selected optimal action at a tie.
 
@@ -1218,7 +1236,31 @@ For two states and two actions there are only four deterministic stationary poli
 
 #### Problem DO-50: two-state discounted control, case 1
 
-Use discount $`\beta=\frac{1}{2}`$. Action 0 has rewards $`\begin{pmatrix}2\\0\end{pmatrix}`$ and transition $`P_0=\begin{pmatrix}\frac{3}{4}&\frac{1}{4}\\\frac{1}{2}&\frac{1}{2}\end{pmatrix}`$; action 1 has rewards $`\begin{pmatrix}0\\3\end{pmatrix}`$ and transition $`P_1=\begin{pmatrix}\frac{1}{4}&\frac{3}{4}\\\frac{1}{4}&\frac{3}{4}\end{pmatrix}`$. Rewards are received before the next state is drawn. Find an optimal stationary policy.
+Use discount $`\beta=\frac{1}{2}`$. Action 0 has rewards
+
+```math
+\begin{pmatrix}2\\[0pt] 0\end{pmatrix}
+```
+
+ and transition
+
+```math
+P_0=\begin{pmatrix}\frac{3}{4}&\frac{1}{4}\\[0pt] \frac{1}{2}&\frac{1}{2}\end{pmatrix}
+```
+
+; action 1 has rewards
+
+```math
+\begin{pmatrix}0\\[0pt] 3\end{pmatrix}
+```
+
+ and transition
+
+```math
+P_1=\begin{pmatrix}\frac{1}{4}&\frac{3}{4}\\[0pt] \frac{1}{4}&\frac{3}{4}\end{pmatrix}
+```
+
+. Rewards are received before the next state is drawn. Find an optimal stationary policy.
 
 Solution. A policy $`\pi=(a,b)`$ selects action $`a`$ in state one and action $`b`$ in state two. Form $`r_\pi`$ and $`P_\pi`$ by selecting the corresponding reward and transition row at each state. Policy evaluation solves
 
@@ -1227,7 +1269,7 @@ v_\pi=r_\pi+\beta P_\pi v_\pi,\qquad
 v_\pi=(I-\beta P_\pi)^{-1}r_\pi.
 ```
 
-The inverse exists because $`\beta<1`$ and a stochastic matrix has sup-norm operator bound one. Equivalently, the inverse is the convergent series $`\sum_{k\ge0}\beta^kP_\pi^k`$. Exact evaluation of all policies gives:
+The inverse exists because $`\beta\lt 1`$ and a stochastic matrix has sup-norm operator bound one. Equivalently, the inverse is the convergent series $`\sum_{k\ge0}\beta^kP_\pi^k`$. Exact evaluation of all policies gives:
 
 | Policy | Value in state one | Value in state two |
 |---|---:|---:|
@@ -1236,7 +1278,13 @@ The inverse exists because $`\beta<1`$ and a stochastic matrix has sup-norm oper
 | $`(1,0)`$ | $`0`$ | $`0`$ |
 | $`(1,1)`$ | $`\frac{9}{4}`$ | $`\frac{21}{4}`$ |
 
-The policy $`\pi^*=(0,1)`$ has value $`v^*=\begin{pmatrix}\frac{13}{3}\\\frac{17}{3}\end{pmatrix}`$. To verify that this value is optimal, calculate the reward-plus-continuation values of both actions using this same vector:
+The policy $`\pi^*=(0,1)`$ has value
+
+```math
+v^*=\begin{pmatrix}\frac{13}{3}\\[0pt] \frac{17}{3}\end{pmatrix}
+```
+
+. To verify that this value is optimal, calculate the reward-plus-continuation values of both actions using this same vector:
 
 ```math
 Q(1,0)=\frac{13}{3},\quad Q(1,1)=\frac{8}{3},\qquad
@@ -1249,7 +1297,31 @@ This operator is a contraction with modulus $`\beta`$ on the finite-dimensional 
 
 #### Problem DO-51: two-state discounted control, case 2
 
-Use discount $`\beta=\frac{4}{5}`$. Action 0 has rewards $`\begin{pmatrix}1\\2\end{pmatrix}`$ and transition $`P_0=\begin{pmatrix}\frac{4}{5}&\frac{1}{5}\\\frac{1}{5}&\frac{4}{5}\end{pmatrix}`$; action 1 has rewards $`\begin{pmatrix}3\\0\end{pmatrix}`$ and transition $`P_1=\begin{pmatrix}\frac{1}{2}&\frac{1}{2}\\\frac{3}{4}&\frac{1}{4}\end{pmatrix}`$. Rewards are received before the next state is drawn. Find an optimal stationary policy.
+Use discount $`\beta=\frac{4}{5}`$. Action 0 has rewards
+
+```math
+\begin{pmatrix}1\\[0pt] 2\end{pmatrix}
+```
+
+ and transition
+
+```math
+P_0=\begin{pmatrix}\frac{4}{5}&\frac{1}{5}\\[0pt] \frac{1}{5}&\frac{4}{5}\end{pmatrix}
+```
+
+; action 1 has rewards
+
+```math
+\begin{pmatrix}3\\[0pt] 0\end{pmatrix}
+```
+
+ and transition
+
+```math
+P_1=\begin{pmatrix}\frac{1}{2}&\frac{1}{2}\\[0pt] \frac{3}{4}&\frac{1}{4}\end{pmatrix}
+```
+
+. Rewards are received before the next state is drawn. Find an optimal stationary policy.
 
 Solution. A policy $`\pi=(a,b)`$ selects action $`a`$ in state one and action $`b`$ in state two. Form $`r_\pi`$ and $`P_\pi`$ by selecting the corresponding reward and transition row at each state. Policy evaluation solves
 
@@ -1258,7 +1330,7 @@ v_\pi=r_\pi+\beta P_\pi v_\pi,\qquad
 v_\pi=(I-\beta P_\pi)^{-1}r_\pi.
 ```
 
-The inverse exists because $`\beta<1`$ and a stochastic matrix has sup-norm operator bound one. Equivalently, the inverse is the convergent series $`\sum_{k\ge0}\beta^kP_\pi^k`$. Exact evaluation of all policies gives:
+The inverse exists because $`\beta\lt 1`$ and a stochastic matrix has sup-norm operator bound one. Equivalently, the inverse is the convergent series $`\sum_{k\ge0}\beta^kP_\pi^k`$. Exact evaluation of all policies gives:
 
 | Policy | Value in state one | Value in state two |
 |---|---:|---:|
@@ -1267,7 +1339,13 @@ The inverse exists because $`\beta<1`$ and a stochastic matrix has sup-norm oper
 | $`(1,0)`$ | $`\frac{235}{19}`$ | $`\frac{210}{19}`$ |
 | $`(1,1)`$ | $`10`$ | $`\frac{15}{2}`$ |
 
-The policy $`\pi^*=(1,0)`$ has value $`v^*=\begin{pmatrix}\frac{235}{19}\\\frac{210}{19}\end{pmatrix}`$. To verify that this value is optimal, calculate the reward-plus-continuation values of both actions using this same vector:
+The policy $`\pi^*=(1,0)`$ has value
+
+```math
+v^*=\begin{pmatrix}\frac{235}{19}\\[0pt] \frac{210}{19}\end{pmatrix}
+```
+
+. To verify that this value is optimal, calculate the reward-plus-continuation values of both actions using this same vector:
 
 ```math
 Q(1,0)=\frac{203}{19},\quad Q(1,1)=\frac{235}{19},\qquad
@@ -1280,7 +1358,31 @@ This operator is a contraction with modulus $`\beta`$ on the finite-dimensional 
 
 #### Problem DO-52: two-state discounted control, case 3
 
-Use discount $`\beta=\frac{2}{3}`$. Action 0 has rewards $`\begin{pmatrix}0\\4\end{pmatrix}`$ and transition $`P_0=\begin{pmatrix}\frac{1}{2}&\frac{1}{2}\\\frac{1}{4}&\frac{3}{4}\end{pmatrix}`$; action 1 has rewards $`\begin{pmatrix}2\\1\end{pmatrix}`$ and transition $`P_1=\begin{pmatrix}\frac{3}{4}&\frac{1}{4}\\\frac{1}{2}&\frac{1}{2}\end{pmatrix}`$. Rewards are received before the next state is drawn. Find an optimal stationary policy.
+Use discount $`\beta=\frac{2}{3}`$. Action 0 has rewards
+
+```math
+\begin{pmatrix}0\\[0pt] 4\end{pmatrix}
+```
+
+ and transition
+
+```math
+P_0=\begin{pmatrix}\frac{1}{2}&\frac{1}{2}\\[0pt] \frac{1}{4}&\frac{3}{4}\end{pmatrix}
+```
+
+; action 1 has rewards
+
+```math
+\begin{pmatrix}2\\[0pt] 1\end{pmatrix}
+```
+
+ and transition
+
+```math
+P_1=\begin{pmatrix}\frac{3}{4}&\frac{1}{4}\\[0pt] \frac{1}{2}&\frac{1}{2}\end{pmatrix}
+```
+
+. Rewards are received before the next state is drawn. Find an optimal stationary policy.
 
 Solution. A policy $`\pi=(a,b)`$ selects action $`a`$ in state one and action $`b`$ in state two. Form $`r_\pi`$ and $`P_\pi`$ by selecting the corresponding reward and transition row at each state. Policy evaluation solves
 
@@ -1289,7 +1391,7 @@ v_\pi=r_\pi+\beta P_\pi v_\pi,\qquad
 v_\pi=(I-\beta P_\pi)^{-1}r_\pi.
 ```
 
-The inverse exists because $`\beta<1`$ and a stochastic matrix has sup-norm operator bound one. Equivalently, the inverse is the convergent series $`\sum_{k\ge0}\beta^kP_\pi^k`$. Exact evaluation of all policies gives:
+The inverse exists because $`\beta\lt 1`$ and a stochastic matrix has sup-norm operator bound one. Equivalently, the inverse is the convergent series $`\sum_{k\ge0}\beta^kP_\pi^k`$. Exact evaluation of all policies gives:
 
 | Policy | Value in state one | Value in state two |
 |---|---:|---:|
@@ -1298,7 +1400,13 @@ The inverse exists because $`\beta<1`$ and a stochastic matrix has sup-norm oper
 | $`(1,0)`$ | $`\frac{15}{2}`$ | $`\frac{21}{2}`$ |
 | $`(1,1)`$ | $`\frac{27}{5}`$ | $`\frac{21}{5}`$ |
 
-The policy $`\pi^*=(1,0)`$ has value $`v^*=\begin{pmatrix}\frac{15}{2}\\\frac{21}{2}\end{pmatrix}`$. To verify that this value is optimal, calculate the reward-plus-continuation values of both actions using this same vector:
+The policy $`\pi^*=(1,0)`$ has value
+
+```math
+v^*=\begin{pmatrix}\frac{15}{2}\\[0pt] \frac{21}{2}\end{pmatrix}
+```
+
+. To verify that this value is optimal, calculate the reward-plus-continuation values of both actions using this same vector:
 
 ```math
 Q(1,0)=6,\quad Q(1,1)=\frac{15}{2},\qquad
@@ -1311,7 +1419,31 @@ This operator is a contraction with modulus $`\beta`$ on the finite-dimensional 
 
 #### Problem DO-53: two-state discounted control, case 4
 
-Use discount $`\beta=\frac{3}{4}`$. Action 0 has rewards $`\begin{pmatrix}-1\\2\end{pmatrix}`$ and transition $`P_0=\begin{pmatrix}\frac{9}{10}&\frac{1}{10}\\\frac{1}{2}&\frac{1}{2}\end{pmatrix}`$; action 1 has rewards $`\begin{pmatrix}1\\1\end{pmatrix}`$ and transition $`P_1=\begin{pmatrix}\frac{1}{5}&\frac{4}{5}\\\frac{1}{10}&\frac{9}{10}\end{pmatrix}`$. Rewards are received before the next state is drawn. Find an optimal stationary policy.
+Use discount $`\beta=\frac{3}{4}`$. Action 0 has rewards
+
+```math
+\begin{pmatrix}-1\\[0pt] 2\end{pmatrix}
+```
+
+ and transition
+
+```math
+P_0=\begin{pmatrix}\frac{9}{10}&\frac{1}{10}\\[0pt] \frac{1}{2}&\frac{1}{2}\end{pmatrix}
+```
+
+; action 1 has rewards
+
+```math
+\begin{pmatrix}1\\[0pt] 1\end{pmatrix}
+```
+
+ and transition
+
+```math
+P_1=\begin{pmatrix}\frac{1}{5}&\frac{4}{5}\\[0pt] \frac{1}{10}&\frac{9}{10}\end{pmatrix}
+```
+
+. Rewards are received before the next state is drawn. Find an optimal stationary policy.
 
 Solution. A policy $`\pi=(a,b)`$ selects action $`a`$ in state one and action $`b`$ in state two. Form $`r_\pi`$ and $`P_\pi`$ by selecting the corresponding reward and transition row at each state. Policy evaluation solves
 
@@ -1320,7 +1452,7 @@ v_\pi=r_\pi+\beta P_\pi v_\pi,\qquad
 v_\pi=(I-\beta P_\pi)^{-1}r_\pi.
 ```
 
-The inverse exists because $`\beta<1`$ and a stochastic matrix has sup-norm operator bound one. Equivalently, the inverse is the convergent series $`\sum_{k\ge0}\beta^kP_\pi^k`$. Exact evaluation of all policies gives:
+The inverse exists because $`\beta\lt 1`$ and a stochastic matrix has sup-norm operator bound one. Equivalently, the inverse is the convergent series $`\sum_{k\ge0}\beta^kP_\pi^k`$. Exact evaluation of all policies gives:
 
 | Policy | Value in state one | Value in state two |
 |---|---:|---:|
@@ -1329,7 +1461,13 @@ The inverse exists because $`\beta<1`$ and a stochastic matrix has sup-norm oper
 | $`(1,0)`$ | $`\frac{292}{49}`$ | $`\frac{332}{49}`$ |
 | $`(1,1)`$ | $`4`$ | $`4`$ |
 
-The policy $`\pi^*=(1,0)`$ has value $`v^*=\begin{pmatrix}\frac{292}{49}\\\frac{332}{49}\end{pmatrix}`$. To verify that this value is optimal, calculate the reward-plus-continuation values of both actions using this same vector:
+The policy $`\pi^*=(1,0)`$ has value
+
+```math
+v^*=\begin{pmatrix}\frac{292}{49}\\[0pt] \frac{332}{49}\end{pmatrix}
+```
+
+. To verify that this value is optimal, calculate the reward-plus-continuation values of both actions using this same vector:
 
 ```math
 Q(1,0)=\frac{173}{49},\quad Q(1,1)=\frac{292}{49},\qquad
@@ -1342,7 +1480,31 @@ This operator is a contraction with modulus $`\beta`$ on the finite-dimensional 
 
 #### Problem DO-54: two-state discounted control, case 5
 
-Use discount $`\beta=\frac{9}{10}`$. Action 0 has rewards $`\begin{pmatrix}3\\1\end{pmatrix}`$ and transition $`P_0=\begin{pmatrix}\frac{2}{3}&\frac{1}{3}\\\frac{1}{3}&\frac{2}{3}\end{pmatrix}`$; action 1 has rewards $`\begin{pmatrix}1\\4\end{pmatrix}`$ and transition $`P_1=\begin{pmatrix}\frac{1}{3}&\frac{2}{3}\\\frac{2}{3}&\frac{1}{3}\end{pmatrix}`$. Rewards are received before the next state is drawn. Find an optimal stationary policy.
+Use discount $`\beta=\frac{9}{10}`$. Action 0 has rewards
+
+```math
+\begin{pmatrix}3\\[0pt] 1\end{pmatrix}
+```
+
+ and transition
+
+```math
+P_0=\begin{pmatrix}\frac{2}{3}&\frac{1}{3}\\[0pt] \frac{1}{3}&\frac{2}{3}\end{pmatrix}
+```
+
+; action 1 has rewards
+
+```math
+\begin{pmatrix}1\\[0pt] 4\end{pmatrix}
+```
+
+ and transition
+
+```math
+P_1=\begin{pmatrix}\frac{1}{3}&\frac{2}{3}\\[0pt] \frac{2}{3}&\frac{1}{3}\end{pmatrix}
+```
+
+. Rewards are received before the next state is drawn. Find an optimal stationary policy.
 
 Solution. A policy $`\pi=(a,b)`$ selects action $`a`$ in state one and action $`b`$ in state two. Form $`r_\pi`$ and $`P_\pi`$ by selecting the corresponding reward and transition row at each state. Policy evaluation solves
 
@@ -1351,7 +1513,7 @@ v_\pi=r_\pi+\beta P_\pi v_\pi,\qquad
 v_\pi=(I-\beta P_\pi)^{-1}r_\pi.
 ```
 
-The inverse exists because $`\beta<1`$ and a stochastic matrix has sup-norm operator bound one. Equivalently, the inverse is the convergent series $`\sum_{k\ge0}\beta^kP_\pi^k`$. Exact evaluation of all policies gives:
+The inverse exists because $`\beta\lt 1`$ and a stochastic matrix has sup-norm operator bound one. Equivalently, the inverse is the convergent series $`\sum_{k\ge0}\beta^kP_\pi^k`$. Exact evaluation of all policies gives:
 
 | Policy | Value in state one | Value in state two |
 |---|---:|---:|
@@ -1360,7 +1522,13 @@ The inverse exists because $`\beta<1`$ and a stochastic matrix has sup-norm oper
 | $`(1,0)`$ | $`10`$ | $`10`$ |
 | $`(1,1)`$ | $`\frac{310}{13}`$ | $`\frac{340}{13}`$ |
 
-The policy $`\pi^*=(0,1)`$ has value $`v^*=\begin{pmatrix}33\\34\end{pmatrix}`$. To verify that this value is optimal, calculate the reward-plus-continuation values of both actions using this same vector:
+The policy $`\pi^*=(0,1)`$ has value
+
+```math
+v^*=\begin{pmatrix}33\\[0pt] 34\end{pmatrix}
+```
+
+. To verify that this value is optimal, calculate the reward-plus-continuation values of both actions using this same vector:
 
 ```math
 Q(1,0)=33,\quad Q(1,1)=\frac{313}{10},\qquad
@@ -1377,9 +1545,15 @@ A stationary distribution remains unchanged after one transition. Convergence fr
 
 #### Problem DO-55: two-state Markov law, case 1
 
-Let $`P=\begin{pmatrix}\frac{4}{5}&\frac{1}{5}\\\frac{2}{5}&\frac{3}{5}\end{pmatrix}`$ on states zero and one. Find its stationary distribution and the distribution at date $`n`$ starting from state zero.
+Let
 
-Solution. Write $`\pi=(\pi_0,\pi_1)`$. The stationarity equation reduces to flow balance $`\pi_0p=\pi_1q`$, together with $`\pi_0+\pi_1=1`$. Since $`p,q>0`$, the unique solution is
+```math
+P=\begin{pmatrix}\frac{4}{5}&\frac{1}{5}\\[0pt] \frac{2}{5}&\frac{3}{5}\end{pmatrix}
+```
+
+ on states zero and one. Find its stationary distribution and the distribution at date $`n`$ starting from state zero.
+
+Solution. Write $`\pi=(\pi_0,\pi_1)`$. The stationarity equation reduces to flow balance $`\pi_0p=\pi_1q`$, together with $`\pi_0+\pi_1=1`$. Since $`p,q\gt 0`$, the unique solution is
 
 ```math
 \pi_0=\frac q{p+q}=\frac{2}{3},\qquad
@@ -1401,15 +1575,21 @@ z_n=\pi_1[1-(1-p-q)^n]
 
 The date-$`n`$ distribution is $`(1-z_n,z_n)`$. Substituting $`n=0`$ recovers the initial state, and substituting $`n=1`$ gives $`z_1=p`$, checking the recursion.
 
-Here $`\vert 1-p-q\vert =\frac{2}{5}<1`$, so the power term vanishes and the state distribution converges to $`(\frac{2}{3},\frac{1}{3})`$. A negative second eigenvalue gives alternating deviations; a positive one gives deviations with a constant sign.
+Here $`\vert 1-p-q\vert =\frac{2}{5}\lt 1`$, so the power term vanishes and the state distribution converges to $`(\frac{2}{3},\frac{1}{3})`$. A negative second eigenvalue gives alternating deviations; a positive one gives deviations with a constant sign.
 
 The eigenvalues of the transition matrix are one and $`1-p-q=\frac{2}{5}`$. The first eigenvalue preserves probability mass; the second controls how deviations from stationarity evolve. This calculation shows why a proof of an invariant distribution alone does not prove convergence to it. Irreducibility ensures uniqueness here, while aperiodicity rules out the alternating exceptional case.
 
 #### Problem DO-56: two-state Markov law, case 2
 
-Let $`P=\begin{pmatrix}\frac{1}{2}&\frac{1}{2}\\\frac{1}{2}&\frac{1}{2}\end{pmatrix}`$ on states zero and one. Find its stationary distribution and the distribution at date $`n`$ starting from state zero.
+Let
 
-Solution. Write $`\pi=(\pi_0,\pi_1)`$. The stationarity equation reduces to flow balance $`\pi_0p=\pi_1q`$, together with $`\pi_0+\pi_1=1`$. Since $`p,q>0`$, the unique solution is
+```math
+P=\begin{pmatrix}\frac{1}{2}&\frac{1}{2}\\[0pt] \frac{1}{2}&\frac{1}{2}\end{pmatrix}
+```
+
+ on states zero and one. Find its stationary distribution and the distribution at date $`n`$ starting from state zero.
+
+Solution. Write $`\pi=(\pi_0,\pi_1)`$. The stationarity equation reduces to flow balance $`\pi_0p=\pi_1q`$, together with $`\pi_0+\pi_1=1`$. Since $`p,q\gt 0`$, the unique solution is
 
 ```math
 \pi_0=\frac q{p+q}=\frac{1}{2},\qquad
@@ -1431,15 +1611,21 @@ z_n=\pi_1[1-(1-p-q)^n]
 
 The date-$`n`$ distribution is $`(1-z_n,z_n)`$. Substituting $`n=0`$ recovers the initial state, and substituting $`n=1`$ gives $`z_1=p`$, checking the recursion.
 
-Here $`\vert 1-p-q\vert =0<1`$, so the power term vanishes and the state distribution converges to $`(\frac{1}{2},\frac{1}{2})`$. A negative second eigenvalue gives alternating deviations; a positive one gives deviations with a constant sign.
+Here $`\vert 1-p-q\vert =0\lt 1`$, so the power term vanishes and the state distribution converges to $`(\frac{1}{2},\frac{1}{2})`$. A negative second eigenvalue gives alternating deviations; a positive one gives deviations with a constant sign.
 
 The eigenvalues of the transition matrix are one and $`1-p-q=0`$. The first eigenvalue preserves probability mass; the second controls how deviations from stationarity evolve. This calculation shows why a proof of an invariant distribution alone does not prove convergence to it. Irreducibility ensures uniqueness here, while aperiodicity rules out the alternating exceptional case.
 
 #### Problem DO-57: two-state Markov law, case 3
 
-Let $`P=\begin{pmatrix}\frac{9}{10}&\frac{1}{10}\\\frac{3}{10}&\frac{7}{10}\end{pmatrix}`$ on states zero and one. Find its stationary distribution and the distribution at date $`n`$ starting from state zero.
+Let
 
-Solution. Write $`\pi=(\pi_0,\pi_1)`$. The stationarity equation reduces to flow balance $`\pi_0p=\pi_1q`$, together with $`\pi_0+\pi_1=1`$. Since $`p,q>0`$, the unique solution is
+```math
+P=\begin{pmatrix}\frac{9}{10}&\frac{1}{10}\\[0pt] \frac{3}{10}&\frac{7}{10}\end{pmatrix}
+```
+
+ on states zero and one. Find its stationary distribution and the distribution at date $`n`$ starting from state zero.
+
+Solution. Write $`\pi=(\pi_0,\pi_1)`$. The stationarity equation reduces to flow balance $`\pi_0p=\pi_1q`$, together with $`\pi_0+\pi_1=1`$. Since $`p,q\gt 0`$, the unique solution is
 
 ```math
 \pi_0=\frac q{p+q}=\frac{3}{4},\qquad
@@ -1461,15 +1647,21 @@ z_n=\pi_1[1-(1-p-q)^n]
 
 The date-$`n`$ distribution is $`(1-z_n,z_n)`$. Substituting $`n=0`$ recovers the initial state, and substituting $`n=1`$ gives $`z_1=p`$, checking the recursion.
 
-Here $`\vert 1-p-q\vert =\frac{3}{5}<1`$, so the power term vanishes and the state distribution converges to $`(\frac{3}{4},\frac{1}{4})`$. A negative second eigenvalue gives alternating deviations; a positive one gives deviations with a constant sign.
+Here $`\vert 1-p-q\vert =\frac{3}{5}\lt 1`$, so the power term vanishes and the state distribution converges to $`(\frac{3}{4},\frac{1}{4})`$. A negative second eigenvalue gives alternating deviations; a positive one gives deviations with a constant sign.
 
 The eigenvalues of the transition matrix are one and $`1-p-q=\frac{3}{5}`$. The first eigenvalue preserves probability mass; the second controls how deviations from stationarity evolve. This calculation shows why a proof of an invariant distribution alone does not prove convergence to it. Irreducibility ensures uniqueness here, while aperiodicity rules out the alternating exceptional case.
 
 #### Problem DO-58: two-state Markov law, case 4
 
-Let $`P=\begin{pmatrix}0&1\\1&0\end{pmatrix}`$ on states zero and one. Find its stationary distribution and the distribution at date $`n`$ starting from state zero.
+Let
 
-Solution. Write $`\pi=(\pi_0,\pi_1)`$. The stationarity equation reduces to flow balance $`\pi_0p=\pi_1q`$, together with $`\pi_0+\pi_1=1`$. Since $`p,q>0`$, the unique solution is
+```math
+P=\begin{pmatrix}0&1\\[0pt] 1&0\end{pmatrix}
+```
+
+ on states zero and one. Find its stationary distribution and the distribution at date $`n`$ starting from state zero.
+
+Solution. Write $`\pi=(\pi_0,\pi_1)`$. The stationarity equation reduces to flow balance $`\pi_0p=\pi_1q`$, together with $`\pi_0+\pi_1=1`$. Since $`p,q\gt 0`$, the unique solution is
 
 ```math
 \pi_0=\frac q{p+q}=\frac{1}{2},\qquad
@@ -1497,9 +1689,15 @@ The eigenvalues of the transition matrix are one and $`1-p-q=-1`$. The first eig
 
 #### Problem DO-59: two-state Markov law, case 5
 
-Let $`P=\begin{pmatrix}0&1\\\frac{1}{2}&\frac{1}{2}\end{pmatrix}`$ on states zero and one. Find its stationary distribution and the distribution at date $`n`$ starting from state zero.
+Let
 
-Solution. Write $`\pi=(\pi_0,\pi_1)`$. The stationarity equation reduces to flow balance $`\pi_0p=\pi_1q`$, together with $`\pi_0+\pi_1=1`$. Since $`p,q>0`$, the unique solution is
+```math
+P=\begin{pmatrix}0&1\\[0pt] \frac{1}{2}&\frac{1}{2}\end{pmatrix}
+```
+
+ on states zero and one. Find its stationary distribution and the distribution at date $`n`$ starting from state zero.
+
+Solution. Write $`\pi=(\pi_0,\pi_1)`$. The stationarity equation reduces to flow balance $`\pi_0p=\pi_1q`$, together with $`\pi_0+\pi_1=1`$. Since $`p,q\gt 0`$, the unique solution is
 
 ```math
 \pi_0=\frac q{p+q}=\frac{1}{3},\qquad
@@ -1521,7 +1719,7 @@ z_n=\pi_1[1-(1-p-q)^n]
 
 The date-$`n`$ distribution is $`(1-z_n,z_n)`$. Substituting $`n=0`$ recovers the initial state, and substituting $`n=1`$ gives $`z_1=p`$, checking the recursion.
 
-Here $`\vert 1-p-q\vert =\frac{1}{2}<1`$, so the power term vanishes and the state distribution converges to $`(\frac{1}{3},\frac{2}{3})`$. A negative second eigenvalue gives alternating deviations; a positive one gives deviations with a constant sign.
+Here $`\vert 1-p-q\vert =\frac{1}{2}\lt 1`$, so the power term vanishes and the state distribution converges to $`(\frac{1}{3},\frac{2}{3})`$. A negative second eigenvalue gives alternating deviations; a positive one gives deviations with a constant sign.
 
 The eigenvalues of the transition matrix are one and $`1-p-q=-\frac{1}{2}`$. The first eigenvalue preserves probability mass; the second controls how deviations from stationarity evolve. This calculation shows why a proof of an invariant distribution alone does not prove convergence to it. Irreducibility ensures uniqueness here, while aperiodicity rules out the alternating exceptional case.
 
@@ -1539,7 +1737,7 @@ Solution. Let $`v`$ be the value before the next offer is observed. After an off
 v=p\max(H,C)+(1-p)\max(L,C).
 ```
 
-The high offer is accepted. To see why, the strategy of rejecting forever has nonpositive discounted reward, while an immediate nonnegative offer is available; also $`v\le H`$ because no accepted payoff exceeds $`H`$ and rejection costs are nonnegative. Thus $`C\le\beta H<H`$.
+The high offer is accepted. To see why, the strategy of rejecting forever has nonpositive discounted reward, while an immediate nonnegative offer is available; also $`v\le H`$ because no accepted payoff exceeds $`H`$ and rejection costs are nonnegative. Thus $`C\le\beta H\lt H`$.
 
 There are two remaining candidate policies. If both offers are accepted, $`v=pH+(1-p)L`$, and consistency requires $`-c+\beta v\le L`$. If only the high offer is accepted, then
 
@@ -1569,7 +1767,7 @@ Solution. Let $`v`$ be the value before the next offer is observed. After an off
 v=p\max(H,C)+(1-p)\max(L,C).
 ```
 
-The high offer is accepted. To see why, the strategy of rejecting forever has nonpositive discounted reward, while an immediate nonnegative offer is available; also $`v\le H`$ because no accepted payoff exceeds $`H`$ and rejection costs are nonnegative. Thus $`C\le\beta H<H`$.
+The high offer is accepted. To see why, the strategy of rejecting forever has nonpositive discounted reward, while an immediate nonnegative offer is available; also $`v\le H`$ because no accepted payoff exceeds $`H`$ and rejection costs are nonnegative. Thus $`C\le\beta H\lt H`$.
 
 There are two remaining candidate policies. If both offers are accepted, $`v=pH+(1-p)L`$, and consistency requires $`-c+\beta v\le L`$. If only the high offer is accepted, then
 
@@ -1599,7 +1797,7 @@ Solution. Let $`v`$ be the value before the next offer is observed. After an off
 v=p\max(H,C)+(1-p)\max(L,C).
 ```
 
-The high offer is accepted. To see why, the strategy of rejecting forever has nonpositive discounted reward, while an immediate nonnegative offer is available; also $`v\le H`$ because no accepted payoff exceeds $`H`$ and rejection costs are nonnegative. Thus $`C\le\beta H<H`$.
+The high offer is accepted. To see why, the strategy of rejecting forever has nonpositive discounted reward, while an immediate nonnegative offer is available; also $`v\le H`$ because no accepted payoff exceeds $`H`$ and rejection costs are nonnegative. Thus $`C\le\beta H\lt H`$.
 
 There are two remaining candidate policies. If both offers are accepted, $`v=pH+(1-p)L`$, and consistency requires $`-c+\beta v\le L`$. If only the high offer is accepted, then
 
@@ -1629,7 +1827,7 @@ Solution. Let $`v`$ be the value before the next offer is observed. After an off
 v=p\max(H,C)+(1-p)\max(L,C).
 ```
 
-The high offer is accepted. To see why, the strategy of rejecting forever has nonpositive discounted reward, while an immediate nonnegative offer is available; also $`v\le H`$ because no accepted payoff exceeds $`H`$ and rejection costs are nonnegative. Thus $`C\le\beta H<H`$.
+The high offer is accepted. To see why, the strategy of rejecting forever has nonpositive discounted reward, while an immediate nonnegative offer is available; also $`v\le H`$ because no accepted payoff exceeds $`H`$ and rejection costs are nonnegative. Thus $`C\le\beta H\lt H`$.
 
 There are two remaining candidate policies. If both offers are accepted, $`v=pH+(1-p)L`$, and consistency requires $`-c+\beta v\le L`$. If only the high offer is accepted, then
 
@@ -1659,7 +1857,7 @@ Solution. Let $`v`$ be the value before the next offer is observed. After an off
 v=p\max(H,C)+(1-p)\max(L,C).
 ```
 
-The high offer is accepted. To see why, the strategy of rejecting forever has nonpositive discounted reward, while an immediate nonnegative offer is available; also $`v\le H`$ because no accepted payoff exceeds $`H`$ and rejection costs are nonnegative. Thus $`C\le\beta H<H`$.
+The high offer is accepted. To see why, the strategy of rejecting forever has nonpositive discounted reward, while an immediate nonnegative offer is available; also $`v\le H`$ because no accepted payoff exceeds $`H`$ and rejection costs are nonnegative. Thus $`C\le\beta H\lt H`$.
 
 There are two remaining candidate policies. If both offers are accepted, $`v=pH+(1-p)L`$, and consistency requires $`-c+\beta v\le L`$. If only the high offer is accepted, then
 
@@ -1687,7 +1885,7 @@ The log-growth model is one of the few nonlinear dynamic programs with an explic
 
 Maximize $`\sum_{t\ge0}\beta^t\log c_t`$ subject to $`c_t+k_{t+1}=Ak_t^\alpha`$, positive consumption and capital, with $`\alpha=\frac{1}{2}`$, $`\beta=\frac{4}{5}`$, and $`A=2`$. Derive the candidate value, policy, and steady state.
 
-Solution. Use the candidate $`V(k)=a+B\log k`$. The Bellman maximand for next capital $`k'`$ is $`\log(Ak^\alpha-k')+\beta a+\beta B\log k'`$. It is strictly concave on $`0<k'<Ak^\alpha`$ and tends to minus infinity at both endpoints.
+Solution. Use the candidate $`V(k)=a+B\log k`$. The Bellman maximand for next capital $`k'`$ is $`\log(Ak^\alpha-k')+\beta a+\beta B\log k'`$. It is strictly concave on $`0\lt k'\lt Ak^\alpha`$ and tends to minus infinity at both endpoints.
 
 The first-order condition is
 
@@ -1725,7 +1923,7 @@ The discounted terminal marginal-value expression is $`\beta^t k_{t+1}/c_t=\beta
 
 Maximize $`\sum_{t\ge0}\beta^t\log c_t`$ subject to $`c_t+k_{t+1}=Ak_t^\alpha`$, positive consumption and capital, with $`\alpha=\frac{2}{3}`$, $`\beta=\frac{3}{4}`$, and $`A=3`$. Derive the candidate value, policy, and steady state.
 
-Solution. Use the candidate $`V(k)=a+B\log k`$. The Bellman maximand for next capital $`k'`$ is $`\log(Ak^\alpha-k')+\beta a+\beta B\log k'`$. It is strictly concave on $`0<k'<Ak^\alpha`$ and tends to minus infinity at both endpoints.
+Solution. Use the candidate $`V(k)=a+B\log k`$. The Bellman maximand for next capital $`k'`$ is $`\log(Ak^\alpha-k')+\beta a+\beta B\log k'`$. It is strictly concave on $`0\lt k'\lt Ak^\alpha`$ and tends to minus infinity at both endpoints.
 
 The first-order condition is
 
@@ -1763,7 +1961,7 @@ The discounted terminal marginal-value expression is $`\beta^t k_{t+1}/c_t=\beta
 
 Maximize $`\sum_{t\ge0}\beta^t\log c_t`$ subject to $`c_t+k_{t+1}=Ak_t^\alpha`$, positive consumption and capital, with $`\alpha=\frac{3}{4}`$, $`\beta=\frac{2}{3}`$, and $`A=2`$. Derive the candidate value, policy, and steady state.
 
-Solution. Use the candidate $`V(k)=a+B\log k`$. The Bellman maximand for next capital $`k'`$ is $`\log(Ak^\alpha-k')+\beta a+\beta B\log k'`$. It is strictly concave on $`0<k'<Ak^\alpha`$ and tends to minus infinity at both endpoints.
+Solution. Use the candidate $`V(k)=a+B\log k`$. The Bellman maximand for next capital $`k'`$ is $`\log(Ak^\alpha-k')+\beta a+\beta B\log k'`$. It is strictly concave on $`0\lt k'\lt Ak^\alpha`$ and tends to minus infinity at both endpoints.
 
 The first-order condition is
 
@@ -1801,7 +1999,7 @@ The discounted terminal marginal-value expression is $`\beta^t k_{t+1}/c_t=\beta
 
 Maximize $`\sum_{t\ge0}\beta^t\log c_t`$ subject to $`c_t+k_{t+1}=Ak_t^\alpha`$, positive consumption and capital, with $`\alpha=\frac{1}{2}`$, $`\beta=\frac{9}{10}`$, and $`A=1`$. Derive the candidate value, policy, and steady state.
 
-Solution. Use the candidate $`V(k)=a+B\log k`$. The Bellman maximand for next capital $`k'`$ is $`\log(Ak^\alpha-k')+\beta a+\beta B\log k'`$. It is strictly concave on $`0<k'<Ak^\alpha`$ and tends to minus infinity at both endpoints.
+Solution. Use the candidate $`V(k)=a+B\log k`$. The Bellman maximand for next capital $`k'`$ is $`\log(Ak^\alpha-k')+\beta a+\beta B\log k'`$. It is strictly concave on $`0\lt k'\lt Ak^\alpha`$ and tends to minus infinity at both endpoints.
 
 The first-order condition is
 
@@ -1839,7 +2037,7 @@ The discounted terminal marginal-value expression is $`\beta^t k_{t+1}/c_t=\beta
 
 Maximize $`\sum_{t\ge0}\beta^t\log c_t`$ subject to $`c_t+k_{t+1}=Ak_t^\alpha`$, positive consumption and capital, with $`\alpha=\frac{2}{3}`$, $`\beta=\frac{9}{10}`$, and $`A=2`$. Derive the candidate value, policy, and steady state.
 
-Solution. Use the candidate $`V(k)=a+B\log k`$. The Bellman maximand for next capital $`k'`$ is $`\log(Ak^\alpha-k')+\beta a+\beta B\log k'`$. It is strictly concave on $`0<k'<Ak^\alpha`$ and tends to minus infinity at both endpoints.
+Solution. Use the candidate $`V(k)=a+B\log k`$. The Bellman maximand for next capital $`k'`$ is $`\log(Ak^\alpha-k')+\beta a+\beta B\log k'`$. It is strictly concave on $`0\lt k'\lt Ak^\alpha`$ and tends to minus infinity at both endpoints.
 
 The first-order condition is
 
@@ -1887,7 +2085,7 @@ Solution. For a candidate $`V(x)=Px^2`$, the HJB equation is
 \rho Px^2=\min_u\left(qx^2+ru^2+2Px(ax+bu)\right).
 ```
 
-The expression is strictly convex in $`u`$ because $`r>0`$. Its minimizer is $`u^*(x)=-(bP/r)x`$. Substituting gives the Riccati equation
+The expression is strictly convex in $`u`$ because $`r\gt 0`$. Its minimizer is $`u^*(x)=-(bP/r)x`$. Substituting gives the Riccati equation
 
 ```math
 \rho P=q+2aP-\frac{b^2P^2}r.
@@ -1901,7 +2099,7 @@ u_t=-1x_t,\qquad
 x_t=e^{(-1)t}x.
 ```
 
-The discounted squared state decays at rate $`\rho-2(a-b^2P/r)=3>0`$. Hence $`e^{-\rho T}V(x_T)\to0`$, including a case where a state path might grow slowly enough to remain square-integrable after discounting.
+The discounted squared state decays at rate $`\rho-2(a-b^2P/r)=3\gt 0`$. Hence $`e^{-\rho T}V(x_T)\to0`$, including a case where a state path might grow slowly enough to remain square-integrable after discounting.
 
 The achieved cost can be integrated directly:
 
@@ -1930,7 +2128,7 @@ Solution. For a candidate $`V(x)=Px^2`$, the HJB equation is
 \rho Px^2=\min_u\left(qx^2+ru^2+2Px(ax+bu)\right).
 ```
 
-The expression is strictly convex in $`u`$ because $`r>0`$. Its minimizer is $`u^*(x)=-(bP/r)x`$. Substituting gives the Riccati equation
+The expression is strictly convex in $`u`$ because $`r\gt 0`$. Its minimizer is $`u^*(x)=-(bP/r)x`$. Substituting gives the Riccati equation
 
 ```math
 \rho P=q+2aP-\frac{b^2P^2}r.
@@ -1944,7 +2142,7 @@ u_t=-1x_t,\qquad
 x_t=e^{(0)t}x.
 ```
 
-The discounted squared state decays at rate $`\rho-2(a-b^2P/r)=2>0`$. Hence $`e^{-\rho T}V(x_T)\to0`$, including a case where a state path might grow slowly enough to remain square-integrable after discounting.
+The discounted squared state decays at rate $`\rho-2(a-b^2P/r)=2\gt 0`$. Hence $`e^{-\rho T}V(x_T)\to0`$, including a case where a state path might grow slowly enough to remain square-integrable after discounting.
 
 The achieved cost can be integrated directly:
 
@@ -1973,7 +2171,7 @@ Solution. For a candidate $`V(x)=Px^2`$, the HJB equation is
 \rho Px^2=\min_u\left(qx^2+ru^2+2Px(ax+bu)\right).
 ```
 
-The expression is strictly convex in $`u`$ because $`r>0`$. Its minimizer is $`u^*(x)=-(bP/r)x`$. Substituting gives the Riccati equation
+The expression is strictly convex in $`u`$ because $`r\gt 0`$. Its minimizer is $`u^*(x)=-(bP/r)x`$. Substituting gives the Riccati equation
 
 ```math
 \rho P=q+2aP-\frac{b^2P^2}r.
@@ -1987,7 +2185,7 @@ u_t=-1x_t,\qquad
 x_t=e^{(-3)t}x.
 ```
 
-The discounted squared state decays at rate $`\rho-2(a-b^2P/r)=7>0`$. Hence $`e^{-\rho T}V(x_T)\to0`$, including a case where a state path might grow slowly enough to remain square-integrable after discounting.
+The discounted squared state decays at rate $`\rho-2(a-b^2P/r)=7\gt 0`$. Hence $`e^{-\rho T}V(x_T)\to0`$, including a case where a state path might grow slowly enough to remain square-integrable after discounting.
 
 The achieved cost can be integrated directly:
 
@@ -2016,7 +2214,7 @@ Solution. For a candidate $`V(x)=Px^2`$, the HJB equation is
 \rho Px^2=\min_u\left(qx^2+ru^2+2Px(ax+bu)\right).
 ```
 
-The expression is strictly convex in $`u`$ because $`r>0`$. Its minimizer is $`u^*(x)=-(bP/r)x`$. Substituting gives the Riccati equation
+The expression is strictly convex in $`u`$ because $`r\gt 0`$. Its minimizer is $`u^*(x)=-(bP/r)x`$. Substituting gives the Riccati equation
 
 ```math
 \rho P=q+2aP-\frac{b^2P^2}r.
@@ -2030,7 +2228,7 @@ u_t=-2x_t,\qquad
 x_t=e^{(-1)t}x.
 ```
 
-The discounted squared state decays at rate $`\rho-2(a-b^2P/r)=5>0`$. Hence $`e^{-\rho T}V(x_T)\to0`$, including a case where a state path might grow slowly enough to remain square-integrable after discounting.
+The discounted squared state decays at rate $`\rho-2(a-b^2P/r)=5\gt 0`$. Hence $`e^{-\rho T}V(x_T)\to0`$, including a case where a state path might grow slowly enough to remain square-integrable after discounting.
 
 The achieved cost can be integrated directly:
 
@@ -2059,7 +2257,7 @@ Solution. For a candidate $`V(x)=Px^2`$, the HJB equation is
 \rho Px^2=\min_u\left(qx^2+ru^2+2Px(ax+bu)\right).
 ```
 
-The expression is strictly convex in $`u`$ because $`r>0`$. Its minimizer is $`u^*(x)=-(bP/r)x`$. Substituting gives the Riccati equation
+The expression is strictly convex in $`u`$ because $`r\gt 0`$. Its minimizer is $`u^*(x)=-(bP/r)x`$. Substituting gives the Riccati equation
 
 ```math
 \rho P=q+2aP-\frac{b^2P^2}r.
@@ -2073,7 +2271,7 @@ u_t=-1x_t,\qquad
 x_t=e^{(-2)t}x.
 ```
 
-The discounted squared state decays at rate $`\rho-2(a-b^2P/r)=6>0`$. Hence $`e^{-\rho T}V(x_T)\to0`$, including a case where a state path might grow slowly enough to remain square-integrable after discounting.
+The discounted squared state decays at rate $`\rho-2(a-b^2P/r)=6\gt 0`$. Hence $`e^{-\rho T}V(x_T)\to0`$, including a case where a state path might grow slowly enough to remain square-integrable after discounting.
 
 The achieved cost can be integrated directly:
 
@@ -2148,7 +2346,7 @@ For $`\epsilon=0.01,\beta=0.9`$ this last bound is $`0.2`$. These bounds show wh
 
 #### Problem DO-77: a value supremum without an optimal policy
 
-There is one state, actions $`a\in(0,1)`$, reward $`a`$, and a deterministic return to the same state. Let $`0<\beta<1`$. Find the value supremum and determine whether any admissible policy attains it.
+There is one state, actions $`a\in(0,1)`$, reward $`a`$, and a deterministic return to the same state. Let $`0\lt \beta\lt 1`$. Find the value supremum and determine whether any admissible policy attains it.
 
 Solution. Every reward is below one, so every discounted payoff is at most $`1/(1-\beta)`$. A stationary action $`a=1-\eta`$ gives payoff $`(1-\eta)/(1-\beta)`$, which approaches that bound as $`\eta\downarrow0`$. The value supremum is therefore $`V^*=1/(1-\beta)`$.
 
@@ -2156,18 +2354,24 @@ No deterministic policy attains it. For any action sequence,
 
 ```math
 \frac1{1-\beta}-\sum_{t=0}^\infty\beta^ta_t
-=\sum_{t=0}^\infty\beta^t(1-a_t)>0.
+=\sum_{t=0}^\infty\beta^t(1-a_t)\gt 0.
 ```
 
 Already the first term is strictly positive. Allowing the actions to approach one later does not recover that initial shortfall. Randomization over actions strictly below one also leaves positive expected first-period shortfall.
 
 The Bellman operator defined using a supremum is $`Tv=1+\beta v`$ and has the fixed point above. It correctly identifies the value supremum but has no maximizing action. A contraction proves a unique value in its function space; it does not replace an action-attainment assumption.
 
-For any requested payoff gap $`\epsilon>0`$, choose $`0<\eta<\epsilon(1-\beta)`$. The corresponding constant policy is epsilon optimal. Closing the action set to $`[0,1]`$ creates an exact optimal policy, always choosing one. The missing endpoint is the entire source of nonattainment in this example.
+For any requested payoff gap $`\epsilon\gt 0`$, choose $`0\lt \eta\lt \epsilon(1-\beta)`$. The corresponding constant policy is epsilon optimal. Closing the action set to $`[0,1]`$ creates an exact optimal policy, always choosing one. The missing endpoint is the entire source of nonattainment in this example.
 
 #### Problem DO-78: multiple invariant laws and a transient state
 
-For states one, two, and three, take $`P=\begin{pmatrix}1&0&0\\0&1&0\\p&1-p&0\end{pmatrix}`$ with $`0<p<1`$. Find every invariant distribution and the limiting law from an arbitrary initial distribution.
+For states one, two, and three, take
+
+```math
+P=\begin{pmatrix}1&0&0\\[0pt] 0&1&0\\[0pt] p&1-p&0\end{pmatrix}
+```
+
+ with $`0\lt p\lt 1`$. Find every invariant distribution and the limiting law from an arbitrary initial distribution.
 
 Solution. States one and two are separate absorbing classes. State three is transient and is left after one step. If $`\pi=\pi P`$, its third coordinate must be zero because the third column is zero.
 
@@ -2204,7 +2408,7 @@ V_\beta(i)=\frac{\bar r}{1-\beta}
 +\frac{r_i-\bar r}{1-\beta\eta}.
 ```
 
-For every $`\beta<1`$ the series converge, including a periodic chain with $`\eta=-1`$. Since positive $`p,q`$ imply $`\eta<1`$, multiplying by $`1-\beta`$ and taking the limit gives $`\bar r`$ in both states.
+For every $`\beta\lt 1`$ the series converge, including a periodic chain with $`\eta=-1`$. Since positive $`p,q`$ imply $`\eta\lt 1`$, multiplying by $`1-\beta`$ and taking the limit gives $`\bar r`$ in both states.
 
 For $`p=1/4,q=1/2,r_0=0,r_1=3`$, the stationary average reward is one and $`\eta=1/4`$. At $`\beta=0.8`$, values are $`5-1/0.8=3.75`$ and $`5+2/0.8=7.5`$.
 
@@ -2238,13 +2442,13 @@ For $`\alpha=1/2,\beta=4/5`$, the one-, two-, and three-date shares are $`0,2/7,
 
 #### Problem DO-81: log growth with bounded iid productivity
 
-Let current output be $`Az k^\alpha`$ with observed productivity $`z`$. Future productivities are iid and bounded above and away from zero. With $`0<\alpha,\beta<1`$ and log consumption utility, derive a value of the form $`a+B\log k+C\log z`$ and its saving policy.
+Let current output be $`Az k^\alpha`$ with observed productivity $`z`$. Future productivities are iid and bounded above and away from zero. With $`0\lt \alpha,\beta\lt 1`$ and log consumption utility, derive a value of the form $`a+B\log k+C\log z`$ and its saving policy.
 
 Solution. The Bellman equation is
 
 ```math
-V(k,z)=\max_{0<k'<Azk^\alpha}
-\{\log(Azk^\alpha-k')+\beta E[V(k',Z')]\}.
+V(k,z)=\max_{0\lt k'\lt Azk^\alpha}
+\lbrace \log(Azk^\alpha-k')+\beta E[V(k',Z')]\rbrace .
 ```
 
 Put $`m=E[\log Z]`$, which is finite under the stated bounds. The candidate gives expected continuation $`a+B\log k'+Cm`$. Stationarity implies a saving fraction $`s=\beta B/(1+\beta B)`$.
@@ -2269,11 +2473,11 @@ The maximand is strictly concave in positive next capital and diverges negativel
 
 For verification, bounded productivity supplies a uniform upper bound on feasible capital from each initial state. Finite-horizon log-value recursions provide the upper bound as in DO-24. Under the candidate policy, log capital satisfies a stable linear recursion with bounded innovations, so it stays bounded along each path and the discounted terminal candidate tends to zero. Telescoping the Bellman equalities then attains the candidate.
 
-The log-capital recursion is $`\ell_{t+1}=\log(\alpha\beta A)+\alpha\ell_t+\log Z_t`$. Its stationary mean is $`[\log(\alpha\beta A)+m]/(1-\alpha)`$ and variance is $`\mathop{\mathrm{Var}}\nolimits(\log Z)/(1-\alpha^2)`$. Exponentiating the mean log capital does not give mean capital in general.
+The log-capital recursion is $`\ell_{t+1}=\log(\alpha\beta A)+\alpha\ell_t+\log Z_t`$. Its stationary mean is $`[\log(\alpha\beta A)+m]/(1-\alpha)`$ and variance is $`\mathop{\mathrm{Var}} (\log Z)/(1-\alpha^2)`$. Exponentiating the mean log capital does not give mean capital in general.
 
 #### Problem DO-82: a finite-horizon stochastic quadratic control
 
-Minimize $`E[\int_t^T u_s^2/2\,ds+gX_T^2/2]`$ for $`dX_s=u_sds+\sigma dW_s`$, $`X_t=x`$, and $`g>0`$. Derive the value and optimal feedback, including the term caused by noise.
+Minimize $`E[\int_t^T u_s^2/2\,ds+gX_T^2/2]`$ for $`dX_s=u_sds+\sigma dW_s`$, $`X_t=x`$, and $`g\gt 0`$. Derive the value and optimal feedback, including the term caused by noise.
 
 Solution. The HJB equation is $`V_t+\min_u(u^2/2+uV_x+\sigma^2V_{xx}/2)=0`$ with terminal value $`gx^2/2`$. Take $`V(t,x)=P(t)x^2/2+C(t)`$.
 

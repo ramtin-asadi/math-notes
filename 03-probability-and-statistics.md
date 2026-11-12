@@ -7,7 +7,7 @@ Sources:
 - Joe Blitzstein and Jessica Hwang, [Harvard Stat 110 and its probability text](https://stat110.hsites.harvard.edu/). The [strategic practice collection](https://stat110.hsites.harvard.edu/strategic-practice-problems) has its own section numbering within each practice sheet.
 - Philippe Rigollet, [MIT 18.650, Statistics for Applications, Fall 2016](https://ocw.mit.edu/courses/18-650-statistics-for-applications-fall-2016/), especially Problem Sets 1–6 and 10.
 
-The source links identify the selected problems; their statements are paraphrased. Additional problems and worked examples are constructed for these notes. Throughout, iid means independent and identically distributed. The notation $`N(\mu,\sigma^2)`$ uses variance as its second argument, and $`\mathop{\mathrm{Exp}}\nolimits(\lambda)`$ uses a rate, with mean $`1/\lambda`$.
+The source links identify the selected problems; their statements are paraphrased. Additional problems and worked examples are constructed for these notes. Throughout, iid means independent and identically distributed. The notation $`N(\mu,\sigma^2)`$ uses variance as its second argument, and $`\mathop{\mathrm{Exp}} (\lambda)`$ uses a rate, with mean $`1/\lambda`$.
 
 Contents:
 
@@ -29,7 +29,7 @@ A probability model is a triple $`(\Omega,\mathcal F,P)`$. The sample space $`\O
 
 The probability measure satisfies $`P(A)\ge0`$, $`P(\Omega)=1`$, and countable additivity: for pairwise disjoint events $`A_i`$, $`P(\bigcup_iA_i)=\sum_iP(A_i)`$. Disjointness means the events cannot occur together. Independence means learning one occurred does not change the other's probability. They are different properties: two disjoint events with positive probabilities cannot be independent.
 
-For $`P(B)>0`$, conditional probability is
+For $`P(B)\gt 0`$, conditional probability is
 
 ```math
 P(A\mid B)=\frac{P(A\cap B)}{P(B)}.
@@ -49,7 +49,7 @@ Let $`B_1,\ldots,B_k`$ partition $`\Omega`$, with positive probabilities. The se
 P(A)=\sum_iP(A\mid B_i)P(B_i).
 ```
 
-When $`P(A)>0`$, substitute $`P(A\cap B_j)=P(A\mid B_j)P(B_j)`$ into the definition:
+When $`P(A)\gt 0`$, substitute $`P(A\cap B_j)=P(A\mid B_j)P(B_j)`$ into the definition:
 
 ```math
 P(B_j\mid A)=
@@ -73,11 +73,11 @@ For three events, add their individual probabilities, subtract the three pairwis
 
 A probability space consists of outcomes $`\Omega`$, a sigma-algebra $`\mathcal F`$ of events, and a probability measure $`P`$. A sigma-algebra contains the whole space, is closed under complements, and is closed under countable unions. Countability matters because limits of sequences of events can then be described as events.
 
-A random variable is a measurable map from outcomes to real values. Measurability means that events such as $`\{X\le x\}`$ belong to $`\mathcal F`$. The CDF assigns probabilities to these events. In a finite outcome space with every subset measurable, this condition is automatic; in continuous models it is part of the definition.
+A random variable is a measurable map from outcomes to real values. Measurability means that events such as $`\lbrace X\le x\rbrace`$ belong to $`\mathcal F`$. The CDF assigns probabilities to these events. In a finite outcome space with every subset measurable, this condition is automatic; in continuous models it is part of the definition.
 
 Countable additivity concerns disjoint events. For arbitrary events, $`P(A\cup B)=P(A)+P(B)-P(A\cap B)`$. Omitting the intersection double-counts outcomes in both events. Independence instead says $`P(A\cap B)=P(A)P(B)`$ and is an extra property of the model.
 
-Conditional probability $`P(A\mid B)=P(A\cap B)/P(B)`$ needs $`P(B)>0`$. Conditioning on the exact value of a continuous variable cannot usually use that ratio because $`P(X=x)=0`$. A conditional density or regular conditional distribution supplies the appropriate meaning. Its values on conditioning events of probability zero can be chosen in different versions without changing the probabilistic identities.
+Conditional probability $`P(A\mid B)=P(A\cap B)/P(B)`$ needs $`P(B)\gt 0`$. Conditioning on the exact value of a continuous variable cannot usually use that ratio because $`P(X=x)=0`$. A conditional density or regular conditional distribution supplies the appropriate meaning. Its values on conditioning events of probability zero can be chosen in different versions without changing the probabilistic identities.
 
 #### Independence beyond a pair of events
 
@@ -101,9 +101,9 @@ If the second test simply repeats the first result, these squared probabilities 
 
 #### Example PR-E01: verifying a finite model
 
-Take $`\Omega=\{1,2,3\}`$, $`\mathcal F=2^\Omega`$, and assign masses $`1/2,1/3,1/6`$.
+Take $`\Omega=\lbrace 1,2,3\rbrace`$, $`\mathcal F=2^\Omega`$, and assign masses $`1/2,1/3,1/6`$.
 
-Solution. Every subset is measurable. The masses are nonnegative and sum to one. Defining $`P(A)`$ as the sum of masses in $`A`$ gives additivity because disjoint events contain no outcome twice. Thus this is a probability model. The collection $`\{\varnothing,\{1\},\Omega\}`$ would not be a sigma-algebra, since it omits the complement $`\{2,3\}`$.
+Solution. Every subset is measurable. The masses are nonnegative and sum to one. Defining $`P(A)`$ as the sum of masses in $`A`$ gives additivity because disjoint events contain no outcome twice. Thus this is a probability model. The collection $`\lbrace \varnothing,\lbrace 1\rbrace ,\Omega\rbrace`$ would not be a sigma-algebra, since it omits the complement $`\lbrace 2,3\rbrace`$.
 
 #### Example PR-E02: a diagnostic calculation
 
@@ -163,13 +163,13 @@ The events are not independent, since $`P(F\mid S)=0.1`$ differs from $`P(F)=0.0
 
 #### Problem PR-05: a coarse sigma-algebra
 
-Constructed problem. Let $`\Omega=\{1,2,3,4\}`$ and $`\mathcal F=\{\varnothing,\{1,2\},\{3,4\},\Omega\}`$. Verify its sigma-algebra properties and describe its information.
+Constructed problem. Let $`\Omega=\lbrace 1,2,3,4\rbrace`$ and $`\mathcal F=\lbrace \varnothing,\lbrace 1,2\rbrace ,\lbrace 3,4\rbrace ,\Omega\rbrace`$. Verify its sigma-algebra properties and describe its information.
 
-Solution. The complement of either two-point set is the other, and the complements of $`\Omega`$ and $`\varnothing`$ exchange them. Every union of sets from this collection is one of the four listed sets, including countable unions because only four distinct sets are available. It is a sigma-algebra. Observing an event in this collection can distinguish the pair $`\{1,2\}`$ from $`\{3,4\}`$ but cannot distinguish one from two. A random variable measurable with respect to it must be constant within each pair.
+Solution. The complement of either two-point set is the other, and the complements of $`\Omega`$ and $`\varnothing`$ exchange them. Every union of sets from this collection is one of the four listed sets, including countable unions because only four distinct sets are available. It is a sigma-algebra. Observing an event in this collection can distinguish the pair $`\lbrace 1,2\rbrace`$ from $`\lbrace 3,4\rbrace`$ but cannot distinguish one from two. A random variable measurable with respect to it must be constant within each pair.
 
 #### Problem PR-06: two-stage updating
 
-Constructed problem. Show that conditioning first on $`B`$ and then on $`C`$ agrees with conditioning on $`B\cap C`$, when $`P(B\cap C)>0`$.
+Constructed problem. Show that conditioning first on $`B`$ and then on $`C`$ agrees with conditioning on $`B\cap C`$, when $`P(B\cap C)\gt 0`$.
 
 Solution. Define $`P_B(A)=P(A\mid B)`$. Then
 
@@ -187,7 +187,7 @@ The second update must use the already-conditioned probability model in both num
 
 A real random variable $`X`$ is a measurable function from outcomes to real numbers. Its cumulative distribution function is $`F_X(x)=P(X\le x)`$. Every CDF is nondecreasing, right-continuous, and has limits zero and one at the two infinities.
 
-A discrete variable has a probability mass function $`p(x)=P(X=x)`$, whose nonnegative values sum to one. An absolutely continuous variable has a density $`f`$, with $`F(x)=\int_{-\infty}^xf(t)\,dt`$. A density value is not a point probability: for a continuous variable, $`P(X=x)=0`$ even if $`f(x)>0`$. Densities may exceed one, provided their area is one.
+A discrete variable has a probability mass function $`p(x)=P(X=x)`$, whose nonnegative values sum to one. An absolutely continuous variable has a density $`f`$, with $`F(x)=\int_{-\infty}^xf(t)\,dt`$. A density value is not a point probability: for a continuous variable, $`P(X=x)=0`$ even if $`f(x)\gt 0`$. Densities may exceed one, provided their area is one.
 
 For integrable $`X`$, expectation is a weighted average. In the discrete and continuous cases,
 
@@ -196,7 +196,7 @@ E[g(X)]=\sum_xg(x)p(x),\qquad
 E[g(X)]=\int g(x)f(x)\,dx.
 ```
 
-An expectation is finite when $`E\vert g(X)\vert <\infty`$. The variance is $`\mathop{\mathrm{Var}}\nolimits(X)=E[(X-EX)^2]=E[X^2]-(EX)^2`$, provided $`E[X^2]<\infty`$.
+An expectation is finite when $`E\vert g(X)\vert \lt \infty`$. The variance is $`\mathop{\mathrm{Var}} (X)=E[(X-EX)^2]=E[X^2]-(EX)^2`$, provided $`E[X^2]\lt \infty`$.
 
 A joint density describes several variables at once. Marginalizing means integrating out unwanted coordinates. The integration region must respect the support; rectangular limits cannot be assumed for a triangular or curved support.
 
@@ -210,47 +210,47 @@ For a strictly increasing differentiable map $`Y=g(X)`$ with inverse $`h`$,
 F_Y(y)=P(X\le h(y))=F_X(h(y)).
 ```
 
-Differentiation gives $`f_Y(y)=f_X(h(y))\vert h'(y)\vert `$. The absolute value handles decreasing maps as well. For a non-one-to-one map, split the support into monotone branches and add their contributions. A transformation can produce atoms if it maps a positive-probability region to a single value.
+Differentiation gives $`f_Y(y)=f_X(h(y))\vert h'(y)\vert`$. The absolute value handles decreasing maps as well. For a non-one-to-one map, split the support into monotone branches and add their contributions. A transformation can produce atoms if it maps a positive-probability region to a single value.
 
 #### The tail integral formula
 
-For a nonnegative $`X`$, pointwise $`X=\int_0^\infty\mathbf1_{\{X>t\}}dt`$. Interchanging two nonnegative integrals gives
+For a nonnegative $`X`$, pointwise $`X=\int_0^\infty\mathbf1_{\lbrace X\gt t\rbrace }dt`$. Interchanging two nonnegative integrals gives
 
 ```math
-EX=\int_0^\infty P(X>t)\,dt.
+EX=\int_0^\infty P(X\gt t)\,dt.
 ```
 
 The interchange is valid even if the answer is infinite, by Tonelli's theorem. For an exponential variable, integrating $`e^{-\lambda t}`$ immediately gives $`EX=1/\lambda`$.
 
 #### Expectations and the order of integration
 
-For a discrete variable, expectation is a probability-weighted sum. For a variable with density, it is the corresponding integral. A finite real expectation requires integrability of the absolute value, $`E\vert X\vert <\infty`$. A cancellation between infinite positive and negative contributions does not define a finite expectation.
+For a discrete variable, expectation is a probability-weighted sum. For a variable with density, it is the corresponding integral. A finite real expectation requires integrability of the absolute value, $`E\vert X\vert \lt \infty`$. A cancellation between infinite positive and negative contributions does not define a finite expectation.
 
 For a nonnegative random variable, the tail formula is
 
 ```math
-E[X]=\int_0^\infty P(X>t)\,dt.
+E[X]=\int_0^\infty P(X\gt t)\,dt.
 ```
 
-To see this, write $`X(\omega)=\int_0^\infty1_{\{X(\omega)>t\}}dt`$ and interchange the two nonnegative integrals. Tonelli's theorem permits this even when the answer is infinite. For signed integrands, a Fubini interchange needs an integrability condition.
+To see this, write $`X(\omega)=\int_0^\infty1_{\lbrace X(\omega)\gt t\rbrace }dt`$ and interchange the two nonnegative integrals. Tonelli's theorem permits this even when the answer is infinite. For signed integrands, a Fubini interchange needs an integrability condition.
 
 Variance is $`E[(X-EX)^2]`$ and requires a finite second moment. Expanding gives $`E[X^2]-(EX)^2`$ when these terms are finite. The expression should not be used as an undefined subtraction of infinities.
 
 #### Nonmonotone transformations need every branch
 
-For $`Y=g(X)`$, a monotone differentiable branch gives density $`f_X(g^{-1}(y))\vert (g^{-1})'(y)\vert `$. If several distinct input points map to the same output, sum the contributions of all branches. A missing branch generally produces a density integrating to less than one.
+For $`Y=g(X)`$, a monotone differentiable branch gives density $`f_X(g^{-1}(y))\vert (g^{-1})'(y)\vert`$. If several distinct input points map to the same output, sum the contributions of all branches. A missing branch generally produces a density integrating to less than one.
 
-The CDF method avoids this bookkeeping when the event $`\{g(X)\le y\}`$ has a simple form. It also handles transformations with atoms, for which a density alone would be incomplete.
+The CDF method avoids this bookkeeping when the event $`\lbrace g(X)\le y\rbrace`$ has a simple form. It also handles transformations with atoms, for which a density alone would be incomplete.
 
 #### Example PR-E22: squaring a standard normal
 
 Let $`Z\sim N(0,1)`$ and $`Y=Z^2`$. Find its density and expectation.
 
-Solution. For $`y>0`$, the two inverse points are $`\sqrt y`$ and $`-\sqrt y`$. Each has inverse-derivative magnitude $`1/(2\sqrt y)`$. Symmetry gives
+Solution. For $`y\gt 0`$, the two inverse points are $`\sqrt y`$ and $`-\sqrt y`$. Each has inverse-derivative magnitude $`1/(2\sqrt y)`$. Symmetry gives
 
 ```math
 f_Y(y)=\frac{\phi(\sqrt y)+\phi(-\sqrt y)}{2\sqrt y}
-=\frac{e^{-y/2}}{\sqrt{2\pi y}},\qquad y>0.
+=\frac{e^{-y/2}}{\sqrt{2\pi y}},\qquad y\gt 0.
 ```
 
 It is zero for negative $`y`$ and has no atom at zero. This is the chi-squared density with one degree of freedom. Its mean is $`E[Z^2]=1`$. Its variance is $`E[Z^4]-1=3-1=2`$.
@@ -261,13 +261,13 @@ Integrating only the positive inverse branch would yield total mass one half. Th
 
 #### Example PR-E03: a monotone transformation
 
-Let $`U\sim\mathop{\mathrm{Unif}}\nolimits(0,1)`$ and $`Y=-\log U`$.
+Let $`U\sim\mathop{\mathrm{Unif}} (0,1)`$ and $`Y=-\log U`$.
 
-Solution. For $`y\ge0`$, $`P(Y\le y)=P(U\ge e^{-y})=1-e^{-y}`$. Thus $`f_Y(y)=e^{-y}`$ on $`y>0`$: $`Y`$ is exponential with rate one. The decreasing transformation reverses the inequality before the probability is evaluated.
+Solution. For $`y\ge0`$, $`P(Y\le y)=P(U\ge e^{-y})=1-e^{-y}`$. Thus $`f_Y(y)=e^{-y}`$ on $`y\gt 0`$: $`Y`$ is exponential with rate one. The decreasing transformation reverses the inequality before the probability is evaluated.
 
 #### Example PR-E04: squaring a symmetric variable
 
-Let $`X\sim\mathop{\mathrm{Unif}}\nolimits(-1,1)`$ and $`Y=X^2`$.
+Let $`X\sim\mathop{\mathrm{Unif}} (-1,1)`$ and $`Y=X^2`$.
 
 Solution. For $`0\le y\le1`$, $`P(Y\le y)=P(-\sqrt y\le X\le\sqrt y)=\sqrt y`$. Therefore $`f_Y(y)=1/(2\sqrt y)`$ on $`(0,1)`$. The density diverges near zero but integrates to one. Using only the positive inverse branch would lose half the probability.
 
@@ -283,13 +283,13 @@ Solution. The unit ball in three dimensions has volume $`4\pi/3`$, so the joint 
 
 ```math
 f_{X,Y}(x,y)=\frac{3}{2\pi}\sqrt{1-x^2-y^2},
-\qquad x^2+y^2<1.
+\qquad x^2+y^2\lt 1.
 ```
 
-For fixed $`x`$, integrate over $`-\sqrt{1-x^2}<y<\sqrt{1-x^2}`$. The integral of $`\sqrt{a^2-y^2}`$ over $`[-a,a]`$ is the area of a semicircle, $`\pi a^2/2`$. Therefore
+For fixed $`x`$, integrate over $`-\sqrt{1-x^2}\lt y\lt \sqrt{1-x^2}`$. The integral of $`\sqrt{a^2-y^2}`$ over $`[-a,a]`$ is the area of a semicircle, $`\pi a^2/2`$. Therefore
 
 ```math
-f_X(x)=\frac34(1-x^2),\qquad -1<x<1.
+f_X(x)=\frac34(1-x^2),\qquad -1\lt x\lt 1.
 ```
 
 Its integral is $`\tfrac34(2-2/3)=1`$. A coordinate of a point uniform in a ball is not uniform on its coordinate interval; central slices contain more volume.
@@ -307,7 +307,7 @@ E\vert X-Y\vert =2\int_0^1\int_0^y(y-x)\,dx\,dy
 =2\int_0^1y^2/2\,dy=\frac13.
 ```
 
-Also $`E\vert X-Y\vert ^2=E(X-Y)^2=\mathop{\mathrm{Var}}\nolimits(X)+\mathop{\mathrm{Var}}\nolimits(Y)=1/6`$, since their means agree and they are independent. The variance of the distance is $`1/6-1/9=1/18`$ and its standard deviation is $`1/(3\sqrt2)`$.
+Also $`E\vert X-Y\vert ^2=E(X-Y)^2=\mathop{\mathrm{Var}} (X)+\mathop{\mathrm{Var}} (Y)=1/6`$, since their means agree and they are independent. The variance of the distance is $`1/6-1/9=1/18`$ and its standard deviation is $`1/(3\sqrt2)`$.
 
 #### Problem PR-09: the smallest and largest of three uniforms
 
@@ -318,18 +318,18 @@ Problem. For three independent uniforms on $`[0,1]`$, derive the maximum's distr
 Solution. For $`M=\max(U_1,U_2,U_3)`$, independence gives $`F_M(m)=m^3`$ on $`[0,1]`$, hence $`f_M(m)=3m^2`$. For $`0\le l\le m\le1`$,
 
 ```math
-P(L>l,M\le m)=(m-l)^3,
+P(L\gt l,M\le m)=(m-l)^3,
 ```
 
-so $`F_{L,M}(l,m)=m^3-(m-l)^3`$. Differentiating first in $`l`$, then in $`m`$, gives $`f_{L,M}(l,m)=6(m-l)`$ on $`0<l<m<1`$. Outside this region the joint density is zero.
+so $`F_{L,M}(l,m)=m^3-(m-l)^3`$. Differentiating first in $`l`$, then in $`m`$, gives $`f_{L,M}(l,m)=6(m-l)`$ on $`0\lt l\lt m\lt 1`$. Outside this region the joint density is zero.
 
-The full CDF is zero for $`l<0`$ or $`m<0`$; equals $`m^3`$ when $`0\le m\le1`$ and $`l\ge m`$; and equals $`1-(1-l)^3`$ for $`0\le l\le1`$ and $`m\ge1`$. It equals one when both arguments are at least one.
+The full CDF is zero for $`l\lt 0`$ or $`m\lt 0`$; equals $`m^3`$ when $`0\le m\le1`$ and $`l\ge m`$; and equals $`1-(1-l)^3`$ for $`0\le l\le1`$ and $`m\ge1`$. It equals one when both arguments are at least one.
 
-Since $`P(L>l)=(1-l)^3`$, $`f_L(l)=3(1-l)^2`$. Dividing gives
+Since $`P(L\gt l)=(1-l)^3`$, $`f_L(l)=3(1-l)^2`$. Dividing gives
 
 ```math
 f_{M\mid L}(m\mid l)=\frac{2(m-l)}{(1-l)^2},
-\qquad l<m<1.
+\qquad l\lt m\lt 1.
 ```
 
 Its integral over $`m`$ equals one. Once the minimum is fixed at $`l`$, the two remaining observations occupy $`(l,1)`$, and their maximum has this conditional density.
@@ -338,7 +338,7 @@ Its integral over $`m`$ equals one. Once the minimum is fixed at $`l`$, the two 
 
 #### Problem PR-10: a triangular joint density
 
-Constructed problem. Let $`f(x,y)=c`$ on $`0<x<y<1`$. Normalize it and compute $`E[X\mid Y=y]`$.
+Constructed problem. Let $`f(x,y)=c`$ on $`0\lt x\lt y\lt 1`$. Normalize it and compute $`E[X\mid Y=y]`$.
 
 Solution. The triangle has area $`1/2`$, so $`c=2`$. Integrating $`x`$ from zero to $`y`$ gives $`f_Y(y)=2y`$. Consequently $`f_{X\mid Y}(x\mid y)=1/y`$ on $`(0,y)`$, a uniform distribution. Its mean is $`y/2`$. Integrating the other coordinate gives $`f_X(x)=2(1-x)`$ on $`(0,1)`$, so $`EX=\int_0^12x(1-x)dx=1/3`$. The tower property later gives the same answer from $`E(Y/2)=(1/2)(2/3)`$.
 
@@ -346,7 +346,7 @@ Solution. The triangle has area $`1/2`$, so $`c=2`$. Integrating $`x`$ from zero
 
 Constructed problem. Let $`U`$ be uniform on $`(-1,1)`$ and set $`Y=\max(U,0)`$.
 
-Solution. Half the original interval is mapped to zero, so $`P(Y=0)=1/2`$. For $`0<y<1`$, $`F_Y(y)=P(U\le y)=(y+1)/2`$, giving a continuous density $`1/2`$ on that interval. The CDF jumps from zero to $`1/2`$ at zero. A description using only a density would omit the atom. The mean is $`\int_0^1y/2\,dy=1/4`$, with the atom contributing zero.
+Solution. Half the original interval is mapped to zero, so $`P(Y=0)=1/2`$. For $`0\lt y\lt 1`$, $`F_Y(y)=P(U\le y)=(y+1)/2`$, giving a continuous density $`1/2`$ on that interval. The CDF jumps from zero to $`1/2`$ at zero. A description using only a density would omit the atom. The mean is $`\int_0^1y/2\,dy=1/4`$, with the atom contributing zero.
 
 ## 3. Conditional expectation
 
@@ -381,11 +381,11 @@ The second term is nonnegative and is zero only when $`g=m`$ almost surely. This
 
 #### Total variance
 
-Apply the same orthogonal decomposition with $`g=EX`$. The residual contribution is $`E[\mathop{\mathrm{Var}}\nolimits(X\mid\mathcal G)]`$, while the predictor contribution is $`\mathop{\mathrm{Var}}\nolimits(E[X\mid\mathcal G])`$. Therefore
+Apply the same orthogonal decomposition with $`g=EX`$. The residual contribution is $`E[\mathop{\mathrm{Var}} (X\mid\mathcal G)]`$, while the predictor contribution is $`\mathop{\mathrm{Var}} (E[X\mid\mathcal G])`$. Therefore
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(X)=E[\mathop{\mathrm{Var}}\nolimits(X\mid\mathcal G)]
-+\mathop{\mathrm{Var}}\nolimits(E[X\mid\mathcal G]).
+\mathop{\mathrm{Var}} (X)=E[\mathop{\mathrm{Var}} (X\mid\mathcal G)]
++\mathop{\mathrm{Var}} (E[X\mid\mathcal G]).
 ```
 
 The first term is uncertainty left after observing the information. The second is variation in the conditional mean across the information states.
@@ -426,9 +426,9 @@ To derive it, split the first prediction error into the latter two terms. Their 
 
 Let $`X`$ be uniform on $`[-1,1]`$ and $`Y=X^2`$. Find the best constant predictor and the best predictor based on $`X`$.
 
-Solution. The best constant is $`E[Y]=1/3`$. Its squared prediction error is $`\mathop{\mathrm{Var}}\nolimits(Y)=E[X^4]-(E[X^2])^2=1/5-1/9=4/45`$. Knowing $`X`$ determines $`Y`$ exactly, so $`E[Y\mid X]=X^2`$ and its error is zero.
+Solution. The best constant is $`E[Y]=1/3`$. Its squared prediction error is $`\mathop{\mathrm{Var}} (Y)=E[X^4]-(E[X^2])^2=1/5-1/9=4/45`$. Knowing $`X`$ determines $`Y`$ exactly, so $`E[Y\mid X]=X^2`$ and its error is zero.
 
-Nevertheless $`\mathop{\mathrm{Cov}}\nolimits(X,Y)=E[X^3]-E[X]E[X^2]=0`$. A linear regression on $`X`$ with an intercept gives the constant $`1/3`$ and misses the nonlinear relation. Conditional expectation ranges over all square-integrable functions of the information, while linear projection restricts the class of predictors.
+Nevertheless $`\mathop{\mathrm{Cov}} (X,Y)=E[X^3]-E[X]E[X^2]=0`$. A linear regression on $`X`$ with an intercept gives the constant $`1/3`$ and misses the nonlinear relation. Conditional expectation ranges over all square-integrable functions of the information, while linear projection restricts the class of predictors.
 
 ### 3.3 Worked examples
 
@@ -436,13 +436,13 @@ Nevertheless $`\mathop{\mathrm{Cov}}\nolimits(X,Y)=E[X^3]-E[X]E[X^2]=0`$. A line
 
 Let $`P(G=1)=1/4`$, $`E[X\mid G=1]=4`$, and $`E[X\mid G=0]=0`$, with conditional variance one in both groups.
 
-Solution. The mean is $`(1/4)4+(3/4)0=1`$. The average conditional variance is one. The conditional mean takes values four and zero, so its variance is $`(1/4)(4-1)^2+(3/4)(0-1)^2=3`$. Hence $`\mathop{\mathrm{Var}}\nolimits(X)=4`$. Ignoring group differences would miss three quarters of the total variance.
+Solution. The mean is $`(1/4)4+(3/4)0=1`$. The average conditional variance is one. The conditional mean takes values four and zero, so its variance is $`(1/4)(4-1)^2+(3/4)(0-1)^2=3`$. Hence $`\mathop{\mathrm{Var}} (X)=4`$. Ignoring group differences would miss three quarters of the total variance.
 
 #### Example PR-E06: dependence with zero covariance
 
 Let $`X`$ be uniform on $`(-1,1)`$ and $`Y=X^2`$.
 
-Solution. Symmetry gives $`EX=EX^3=0`$, so $`\mathop{\mathrm{Cov}}\nolimits(X,Y)=EX^3-EX\,EX^2=0`$. Yet $`Y`$ is completely determined by $`X`$. In particular $`E[Y\mid X]=X^2`$, whereas $`EY=1/3`$. Zero covariance has not made the conditional mean constant.
+Solution. Symmetry gives $`EX=EX^3=0`$, so $`\mathop{\mathrm{Cov}} (X,Y)=EX^3-EX\,EX^2=0`$. Yet $`Y`$ is completely determined by $`X`$. In particular $`E[Y\mid X]=X^2`$, whereas $`EY=1/3`$. Zero covariance has not made the conditional mean constant.
 
 ### 3.4 Selected exercise and additional problems
 
@@ -468,7 +468,7 @@ Solution. Let the possible values be $`x_1,\ldots,x_k`$ and put $`p_i=P(X=x_i\mi
 
 #### Problem PR-14: prediction from a coarse observation
 
-Constructed problem. Let $`X`$ be uniform on $`(0,1)`$ and observe only $`B=\mathbf1_{\{X>1/2\}}`$. Find the best squared-error predictor and its MSE.
+Constructed problem. Let $`X`$ be uniform on $`(0,1)`$ and observe only $`B=\mathbf1_{\lbrace X\gt 1/2\rbrace }`$. Find the best squared-error predictor and its MSE.
 
 Solution. Given $`B=0`$, $`X`$ is uniform on $`(0,1/2)`$ with mean $`1/4`$. Given $`B=1`$, it is uniform on $`(1/2,1)`$ with mean $`3/4`$. The predictor is $`m=1/4+B/2`$. Each conditional variance is $`(1/2)^2/12=1/48`$, so the MSE is $`1/48`$. The unconditional variance is $`1/12`$. Observing the half-interval removes $`1/12-1/48=1/16`$ of variance, exactly the variance of the conditional mean.
 
@@ -494,7 +494,7 @@ For a random vector $`X\in\mathbb R^p`$ with finite second moments, define $`\mu
 \Sigma=E[(X-\mu)(X-\mu)^\top].
 ```
 
-Its $`(i,j)`$ entry is $`\mathop{\mathrm{Cov}}\nolimits(X_i,X_j)`$. The diagonal entries are variances. For a fixed matrix $`A`$ and vector $`b`$, $`E[AX+b]=A\mu+b`$ and $`\mathop{\mathrm{Cov}}\nolimits(AX+b)=A\Sigma A^\top`$.
+Its $`(i,j)`$ entry is $`\mathop{\mathrm{Cov}} (X_i,X_j)`$. The diagonal entries are variances. For a fixed matrix $`A`$ and vector $`b`$, $`E[AX+b]=A\mu+b`$ and $`\mathop{\mathrm{Cov}} (AX+b)=A\Sigma A^\top`$.
 
 A jointly Gaussian vector is one for which every scalar linear combination is normally distributed, permitting degenerate zero-variance normals. It is characterized by its mean and covariance. A collection of variables can each be marginally normal without being jointly normal. Zero covariance implies independence for jointly Gaussian coordinates; it does not do so for general variables.
 
@@ -517,7 +517,7 @@ Partition $`X=(X_1^\top,X_2^\top)^\top`$ and its covariance into blocks $`\Sigma
 R=X_1-\mu_1-B(X_2-\mu_2).
 ```
 
-Then $`\mathop{\mathrm{Cov}}\nolimits(R,X_2)=\Sigma_{12}-B\Sigma_{22}=0`$. The pair $`(R,X_2)`$ is jointly Gaussian because it is a linear transformation of $`X`$, so zero cross-covariance makes the two blocks independent. Its residual covariance is $`\Sigma_{11}-\Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21}`$. Therefore
+Then $`\mathop{\mathrm{Cov}} (R,X_2)=\Sigma_{12}-B\Sigma_{22}=0`$. The pair $`(R,X_2)`$ is jointly Gaussian because it is a linear transformation of $`X`$, so zero cross-covariance makes the two blocks independent. Its residual covariance is $`\Sigma_{11}-\Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21}`$. Therefore
 
 ```math
 X_1\mid X_2=x_2\sim
@@ -532,15 +532,15 @@ The covariance is PSD because it is the covariance of the explicitly constructed
 For symmetric $`A`$, write $`X=\mu+Z`$ with $`EZ=0`$. Expand $`X^\top AX`$. The cross term has expectation zero, and
 
 ```math
-E[Z^\top AZ]=E[\mathop{\mathrm{tr}}\nolimits(AZZ^\top)]
-=\mathop{\mathrm{tr}}\nolimits(A\Sigma).
+E[Z^\top AZ]=E[\mathop{\mathrm{tr}} (AZZ^\top)]
+=\mathop{\mathrm{tr}} (A\Sigma).
 ```
 
-Hence $`E[X^\top AX]=\mu^\top A\mu+\mathop{\mathrm{tr}}\nolimits(A\Sigma)`$. No Gaussian assumption is needed.
+Hence $`E[X^\top AX]=\mu^\top A\mu+\mathop{\mathrm{tr}} (A\Sigma)`$. No Gaussian assumption is needed.
 
 #### Singular Gaussian distributions
 
-For a random vector $`X`$, a covariance matrix is always PSD because $`a^\top\Sigma a=\mathop{\mathrm{Var}}\nolimits(a^\top X)\ge0`$. It is positive definite exactly when no nonzero linear combination of the centered coordinates is almost surely constant.
+For a random vector $`X`$, a covariance matrix is always PSD because $`a^\top\Sigma a=\mathop{\mathrm{Var}} (a^\top X)\ge0`$. It is positive definite exactly when no nonzero linear combination of the centered coordinates is almost surely constant.
 
 A Gaussian vector can have singular covariance. For example, $`(Z,2Z)`$ is jointly Gaussian but lives on one line in the plane. It has no two-dimensional Lebesgue density. The familiar normal density involving $`\det\Sigma`$ and $`\Sigma^{-1}`$ applies only to positive-definite covariance.
 
@@ -581,7 +581,7 @@ Solution. The mean is $`2(1)-2=0`$. Its variance is $`4(4)+9-4(3)=13`$, so $`2X-
 
 #### Example PR-E08: a conditional Gaussian calculation
 
-Using the same variables, $`E[X\mid Y=y]=1+(3/9)(y-2)`$ and $`\mathop{\mathrm{Var}}\nolimits(X\mid Y)=4-9/9=3`$. At $`Y=5`$, the conditional mean is two. The variance falls from four to three; it does not fall to zero because knowing $`Y`$ leaves an independent residual component in $`X`$.
+Using the same variables, $`E[X\mid Y=y]=1+(3/9)(y-2)`$ and $`\mathop{\mathrm{Var}} (X\mid Y)=4-9/9=3`$. At $`Y=5`$, the conditional mean is two. The variance falls from four to three; it does not fall to zero because knowing $`Y`$ leaves an independent residual component in $`X`$.
 
 ### 4.4 Selected exercise and additional problems
 
@@ -591,9 +591,9 @@ Source: [MIT 18.650, Problem Set 10, Problem 3, Questions 3–5](https://ocw.mit
 
 Problem. Prove that population and sample covariance matrices are PSD, derive covariance under a linear transformation, and explain the rank obstruction when the output dimension exceeds the input dimension.
 
-Solution. For any fixed $`a`$, $`a^\top\Sigma a=E[(a^\top(X-\mu))^2]=\mathop{\mathrm{Var}}\nolimits(a^\top X)\ge0`$, proving PSD. For a sample covariance, replace expectation by the average of centered outer products; the same sum-of-squares argument works with either positive denominator convention.
+Solution. For any fixed $`a`$, $`a^\top\Sigma a=E[(a^\top(X-\mu))^2]=\mathop{\mathrm{Var}} (a^\top X)\ge0`$, proving PSD. For a sample covariance, replace expectation by the average of centered outer products; the same sum-of-squares argument works with either positive denominator convention.
 
-For $`Y=AX`$, center it as $`Y-EY=A(X-\mu)`$ and take outer products, yielding $`\mathop{\mathrm{Cov}}\nolimits(Y)=A\Sigma A^\top`$. If $`A`$ is $`q\times p`$ with $`q>p`$, its covariance has rank at most $`p<q`$ and cannot be invertible. Finally $`\mathop{\mathrm{Var}}\nolimits(u^\top X)=u^\top\Sigma u`$ by the same transformation formula with a one-row matrix.
+For $`Y=AX`$, center it as $`Y-EY=A(X-\mu)`$ and take outer products, yielding $`\mathop{\mathrm{Cov}} (Y)=A\Sigma A^\top`$. If $`A`$ is $`q\times p`$ with $`q\gt p`$, its covariance has rank at most $`p\lt q`$ and cannot be invertible. Finally $`\mathop{\mathrm{Var}} (u^\top X)=u^\top\Sigma u`$ by the same transformation formula with a one-row matrix.
 
 #### Problem PR-17: normal marginals without a Gaussian pair
 
@@ -603,7 +603,7 @@ Solution. Both marginals are standard normal because changing the sign of a cent
 
 #### Problem PR-18: correlated normals from independent ones
 
-Constructed problem. For independent standard normals $`Z_1,Z_2`$, define $`X=Z_1`$ and $`Y=\rho Z_1+\sqrt{1-\rho^2}Z_2`$ for $`\vert \rho\vert <1`$.
+Constructed problem. For independent standard normals $`Z_1,Z_2`$, define $`X=Z_1`$ and $`Y=\rho Z_1+\sqrt{1-\rho^2}Z_2`$ for $`\vert \rho\vert \lt 1`$.
 
 Solution. The pair is jointly Gaussian as a linear transformation of independent normals. Both variances equal one and the covariance is $`\rho`$. Given $`X=x`$, the remaining $`Z_2`$ is independent and unchanged, so $`Y\mid X=x\sim N(\rho x,1-\rho^2)`$. This construction directly explains both the conditional mean and variance. At $`\vert \rho\vert =1`$ the residual disappears and the covariance matrix becomes singular.
 
@@ -617,7 +617,7 @@ Solution. Let $`Z=\Sigma^{-1/2}(X-\mu)`$. This is jointly Gaussian with mean zer
 
 ### 5.1 Theory
 
-There are several ways for random variables to approach a limit. Convergence in probability, $`X_n\to_p X`$, means $`P(\vert X_n-X\vert >\varepsilon)\to0`$ for each fixed $`\varepsilon>0`$. Convergence in $`L^2`$ means $`E[(X_n-X)^2]\to0`$. Almost-sure convergence means that the numerical sequence $`X_n(\omega)`$ converges for all outcomes outside a probability-zero set.
+There are several ways for random variables to approach a limit. Convergence in probability, $`X_n\to_p X`$, means $`P(\vert X_n-X\vert \gt \varepsilon)\to0`$ for each fixed $`\varepsilon\gt 0`$. Convergence in $`L^2`$ means $`E[(X_n-X)^2]\to0`$. Almost-sure convergence means that the numerical sequence $`X_n(\omega)`$ converges for all outcomes outside a probability-zero set.
 
 Convergence in distribution, $`X_n\Rightarrow X`$, means $`F_{X_n}(x)\to F_X(x)`$ at every continuity point of $`F_X`$. It compares laws rather than requiring the variables to become close on a common probability space. Convergence in probability implies convergence in distribution; the converse generally fails. Convergence in $`L^2`$ implies convergence in probability by Markov's inequality applied to squared error.
 
@@ -638,10 +638,10 @@ The continuous mapping theorem preserves convergence under functions continuous 
 For a finite-variance variable, apply Markov's inequality to $`(X-EX)^2`$:
 
 ```math
-P(\vert X-EX\vert \ge a)\le\frac{\mathop{\mathrm{Var}}\nolimits(X)}{a^2}.
+P(\vert X-EX\vert \ge a)\le\frac{\mathop{\mathrm{Var}} (X)}{a^2}.
 ```
 
-For iid $`X_i`$ with variance $`\sigma^2`$, independence removes covariance terms and $`\mathop{\mathrm{Var}}\nolimits(\bar X_n)=\sigma^2/n`$. Therefore
+For iid $`X_i`$ with variance $`\sigma^2`$, independence removes covariance terms and $`\mathop{\mathrm{Var}} (\bar X_n)=\sigma^2/n`$. Therefore
 
 ```math
 P(\vert \bar X_n-\mu\vert \ge\varepsilon)\le\frac{\sigma^2}{n\varepsilon^2}\to0.
@@ -668,11 +668,11 @@ A full CLT proof is beyond the elementary inequalities above, but its finite-var
 
 #### Comparing modes of convergence
 
-Almost-sure convergence controls paths except on a null event. Convergence in probability controls $`P(\vert X_n-X\vert >\epsilon)`$ for every fixed positive tolerance. Convergence in $`L^2`$ controls $`E\vert X_n-X\vert ^2`$. Convergence in distribution controls CDF limits at continuity points and may refer only to laws rather than variables on one common space.
+Almost-sure convergence controls paths except on a null event. Convergence in probability controls $`P(\vert X_n-X\vert \gt \epsilon)`$ for every fixed positive tolerance. Convergence in $`L^2`$ controls $`E\vert X_n-X\vert ^2`$. Convergence in distribution controls CDF limits at continuity points and may refer only to laws rather than variables on one common space.
 
 The implication $`L^2\Rightarrow`$ probability follows from Markov's inequality applied to the squared error. Almost-sure convergence implies convergence in probability by dominated convergence applied to the error-event indicators. Convergence in probability implies convergence in distribution, but the converse generally fails.
 
-For a rare-spike example, let $`X_n=\sqrt n`$ with probability $`1/n`$ and zero otherwise. Then $`P(\vert X_n\vert >\epsilon)\to0`$ for fixed $`\epsilon>0`$ and $`E\vert X_n\vert =1/\sqrt n\to0`$. Yet $`E[X_n^2]=1`$ for every $`n`$, so there is no $`L^2`$ convergence to zero. Rare large errors can disappear in probability while retaining a nonvanishing second moment.
+For a rare-spike example, let $`X_n=\sqrt n`$ with probability $`1/n`$ and zero otherwise. Then $`P(\vert X_n\vert \gt \epsilon)\to0`$ for fixed $`\epsilon\gt 0`$ and $`E\vert X_n\vert =1/\sqrt n\to0`$. Yet $`E[X_n^2]=1`$ for every $`n`$, so there is no $`L^2`$ convergence to zero. Rare large errors can disappear in probability while retaining a nonvanishing second moment.
 
 For another example, let $`Z\sim N(0,1)`$ and $`X_n=(-1)^nZ`$. Every $`X_n`$ has the standard normal law, so the distributions converge to that law. The sequence does not converge in probability to $`Z`$: on odd indices, its difference from $`Z`$ is $`-2Z`$. A limiting marginal law does not determine a pathwise coupling.
 
@@ -695,7 +695,13 @@ The covariance term is essential when the numerator and denominator use the same
 
 #### Example PR-E25: a ratio with correlated estimation error
 
-Take $`a=2`$, $`b=1`$, and asymptotic covariance $`\Sigma=\begin{pmatrix}4&1\\1&1\end{pmatrix}`$. The ratio is two and the delta variance is $`4-2(2)(1)+4(1)=4`$. Thus its large-sample standard error is approximately $`2/\sqrt n`$.
+Take $`a=2`$, $`b=1`$, and asymptotic covariance
+
+```math
+\Sigma=\begin{pmatrix}4&1\\[0pt] 1&1\end{pmatrix}
+```
+
+. The ratio is two and the delta variance is $`4-2(2)(1)+4(1)=4`$. Thus its large-sample standard error is approximately $`2/\sqrt n`$.
 
 Ignoring the covariance would give variance eight and a different interval. A denominator near zero would make the variance large and a symmetric normal interval unreliable. Consistency of the denominator away from zero is part of the approximation, rather than an arithmetic detail.
 
@@ -703,13 +709,13 @@ Ignoring the covariance would give variance eight and a different interval. A de
 
 #### Example PR-E09: an average of exponentials
 
-For iid $`\mathop{\mathrm{Exp}}\nolimits(2)`$ observations, estimate $`P(\bar X_{100}>0.6)`$.
+For iid $`\mathop{\mathrm{Exp}} (2)`$ observations, estimate $`P(\bar X_{100}\gt 0.6)`$.
 
 Solution. The mean is $`1/2`$ and variance $`1/4`$, so the sample-mean standard deviation is $`0.05`$. The standardized threshold is $`(0.6-0.5)/0.05=2`$. The CLT approximation is $`1-\Phi(2)\approx0.0228`$. This is an approximation, not an exact identity; an exact answer could instead use the gamma distribution of the sum.
 
 #### Example PR-E10: estimating a logarithm
 
-If $`X_i`$ are iid Bernoulli with $`0<p<1`$, then $`\sqrt n(\bar X-p)\Rightarrow N(0,p(1-p))`$. For $`g(p)=\log p`$, the derivative is $`1/p`$, so the asymptotic variance of $`\sqrt n(\log\bar X-\log p)`$ is $`(1-p)/p`$. The event $`\bar X=0`$ has probability $`(1-p)^n\to0`$; define the estimator on that event separately before making a finite-sample statement.
+If $`X_i`$ are iid Bernoulli with $`0\lt p\lt 1`$, then $`\sqrt n(\bar X-p)\Rightarrow N(0,p(1-p))`$. For $`g(p)=\log p`$, the derivative is $`1/p`$, so the asymptotic variance of $`\sqrt n(\log\bar X-\log p)`$ is $`(1-p)/p`$. The event $`\bar X=0`$ has probability $`(1-p)^n\to0`$; define the estimator on that event separately before making a finite-sample statement.
 
 #### Example PR-E11: a zero derivative changes the rate
 
@@ -725,7 +731,7 @@ Source: [MIT 18.650, Problem Set 1, Problem 1, Question 1](https://ocw.mit.edu/c
 
 Problem. Let $`X_n=1/n`$ with probability $`1-1/n^2`$ and $`X_n=n`$ with probability $`1/n^2`$. Compare convergence in probability and in $`L^2`$.
 
-Solution. Let $`P(X_n=1/n)=1-1/n^2`$ and $`P(X_n=n)=1/n^2`$. For any fixed $`\varepsilon>0`$, once $`1/n<\varepsilon`$, the probability of exceeding $`\varepsilon`$ is at most $`1/n^2`$, so $`X_n\to_p0`$. But
+Solution. Let $`P(X_n=1/n)=1-1/n^2`$ and $`P(X_n=n)=1/n^2`$. For any fixed $`\varepsilon\gt 0`$, once $`1/n\lt \varepsilon`$, the probability of exceeding $`\varepsilon`$ is at most $`1/n^2`$, so $`X_n\to_p0`$. But
 
 ```math
 E[X_n^2]=(1-1/n^2)/n^2+n^2/n^2
@@ -740,7 +746,7 @@ Source: [MIT 18.650, Problem Set 1, Problem 1, Question 2(a,b)](https://ocw.mit.
 
 Problem. For independent Bernoulli observations with success probability $`p`$, identify the law of the sample sum and prove $`L^2`$ convergence of the sample mean to $`p`$.
 
-Solution. The sum $`n\bar X_n`$ counts successes in $`n`$ independent Bernoulli trials, so it has the $`\mathop{\mathrm{Bin}}\nolimits(n,p)`$ distribution. Its mean is $`np`$ and variance $`np(1-p)`$. Dividing by $`n`$ gives $`E\bar X_n=p`$ and $`\mathop{\mathrm{Var}}\nolimits(\bar X_n)=p(1-p)/n`$. Therefore $`E[(\bar X_n-p)^2]\to0`$, proving $`L^2`$ convergence, including the degenerate endpoints $`p=0,1`$.
+Solution. The sum $`n\bar X_n`$ counts successes in $`n`$ independent Bernoulli trials, so it has the $`\mathop{\mathrm{Bin}} (n,p)`$ distribution. Its mean is $`np`$ and variance $`np(1-p)`$. Dividing by $`n`$ gives $`E\bar X_n=p`$ and $`\mathop{\mathrm{Var}} (\bar X_n)=p(1-p)/n`$. Therefore $`E[(\bar X_n-p)^2]\to0`$, proving $`L^2`$ convergence, including the degenerate endpoints $`p=0,1`$.
 
 #### Problem PR-22: marginal distributional limits do not determine a sum
 
@@ -769,7 +775,7 @@ The denominator stays away from zero with probability tending to one because $`\
 
 #### Problem PR-24: a sample-size guarantee
 
-Constructed problem. With known bound $`\mathop{\mathrm{Var}}\nolimits(X)\le4`$, find a sufficient iid sample size for $`P(\vert \bar X-\mu\vert \ge0.1)\le0.05`$.
+Constructed problem. With known bound $`\mathop{\mathrm{Var}} (X)\le4`$, find a sufficient iid sample size for $`P(\vert \bar X-\mu\vert \ge0.1)\le0.05`$.
 
 Solution. Chebyshev gives a bound $`4/(0.01n)=400/n`$. Requiring $`400/n\le0.05`$ gives $`n\ge8000`$. This is a finite-sample guarantee under only the variance bound and independence. A normal approximation can suggest a smaller size, but that approximation supplies different information and does not follow from Chebyshev alone.
 
@@ -783,14 +789,14 @@ Solution. A standard Cauchy has neither an integrable absolute first moment nor 
 
 ### 6.1 Theory
 
-A statistical model is a family $`\{P_\theta:\theta\in\Theta\}`$ of possible sampling distributions. Identification means different parameter values produce different observable distributions. An estimator $`\widehat\theta`$ is a function of the observed sample. Its sampling distribution describes how it varies under repeated samples with the same true parameter.
+A statistical model is a family $`\lbrace P_\theta:\theta\in\Theta\rbrace`$ of possible sampling distributions. Identification means different parameter values produce different observable distributions. An estimator $`\widehat\theta`$ is a function of the observed sample. Its sampling distribution describes how it varies under repeated samples with the same true parameter.
 
 Bias is $`E_\theta\widehat\theta-\theta`$. Mean squared error decomposes as
 
 ```math
 E_\theta[(\widehat\theta-\theta)^2]
-=\mathop{\mathrm{Var}}\nolimits_\theta(\widehat\theta)
-+[\mathop{\mathrm{Bias}}\nolimits_\theta(\widehat\theta)]^2.
+=\mathop{\mathrm{Var}} _\theta(\widehat\theta)
++[\mathop{\mathrm{Bias}} _\theta(\widehat\theta)]^2.
 ```
 
 Unbiasedness is a finite-sample mean statement. Consistency is convergence to the true parameter as sample size increases. Neither property alone establishes small error at a particular sample size.
@@ -803,14 +809,14 @@ The score is $`s_\theta(X)=\partial_\theta\log f_\theta(X)`$. In a regular model
 
 #### The information lower bound
 
-For a regular scalar model and an unbiased estimator $`T`$ of $`\theta`$, differentiating $`E_\theta T=\theta`$ gives $`E_\theta[T S_n]=1`$, where $`S_n=\sum_i s_\theta(X_i)`$. Since $`ES_n=0`$, this is $`\mathop{\mathrm{Cov}}\nolimits(T,S_n)=1`$. Cauchy-Schwarz gives
+For a regular scalar model and an unbiased estimator $`T`$ of $`\theta`$, differentiating $`E_\theta T=\theta`$ gives $`E_\theta[T S_n]=1`$, where $`S_n=\sum_i s_\theta(X_i)`$. Since $`ES_n=0`$, this is $`\mathop{\mathrm{Cov}} (T,S_n)=1`$. Cauchy-Schwarz gives
 
 ```math
-1\le\mathop{\mathrm{Var}}\nolimits(T)\mathop{\mathrm{Var}}\nolimits(S_n)
-=\mathop{\mathrm{Var}}\nolimits(T)\,nI(\theta).
+1\le\mathop{\mathrm{Var}} (T)\mathop{\mathrm{Var}} (S_n)
+=\mathop{\mathrm{Var}} (T)\,nI(\theta).
 ```
 
-Thus $`\mathop{\mathrm{Var}}\nolimits(T)\ge1/[nI(\theta)]`$. The differentiation step is an assumption-dependent part of the argument. This bound is for unbiased estimators in the stated regular setting, not for every possible biased procedure.
+Thus $`\mathop{\mathrm{Var}} (T)\ge1/[nI(\theta)]`$. The differentiation step is an assumption-dependent part of the argument. This bound is for unbiased estimators in the stated regular setting, not for every possible biased procedure.
 
 #### A regular MLE's asymptotic variance
 
@@ -830,21 +836,21 @@ For a regular scalar model with score $`S_\theta=\partial_\theta\log f_\theta(X)
 E_\theta[(T-\theta)S_\theta]=1.
 ```
 
-Cauchy–Schwarz then yields $`\mathop{\mathrm{Var}}\nolimits(T)I(\theta)\ge1`$. For independent observations, information adds, giving the Cramér–Rao lower bound $`1/(nI_1(\theta))`$ for regular unbiased estimators.
+Cauchy–Schwarz then yields $`\mathop{\mathrm{Var}} (T)I(\theta)\ge1`$. For independent observations, information adds, giving the Cramér–Rao lower bound $`1/(nI_1(\theta))`$ for regular unbiased estimators.
 
 The proof identifies the assumptions behind the bound. Parameter-dependent support can contribute boundary terms and invalidate the score identities. A smaller variance in such a model is not a contradiction.
 
 #### Example PR-E26: a nonregular uniform endpoint
 
-Let $`X_i`$ be independent uniform variables on $`(0,\theta)`$ with $`\theta>0`$. Find the maximum-likelihood estimate and an unbiased correction.
+Let $`X_i`$ be independent uniform variables on $`(0,\theta)`$ with $`\theta\gt 0`$. Find the maximum-likelihood estimate and an unbiased correction.
 
-Solution. For positive observations, the likelihood is $`\theta^{-n}1_{\{\theta\ge M\}}`$ with $`M=\max_iX_i`$. It decreases for $`\theta\ge M`$, so the MLE is $`M`$. The support depends on the parameter, and the maximum occurs at its boundary.
+Solution. For positive observations, the likelihood is $`\theta^{-n}1_{\lbrace \theta\ge M\rbrace }`$ with $`M=\max_iX_i`$. It decreases for $`\theta\ge M`$, so the MLE is $`M`$. The support depends on the parameter, and the maximum occurs at its boundary.
 
-For $`0<m<\theta`$, $`P(M\le m)=(m/\theta)^n`$. Differentiation and integration give
+For $`0\lt m\lt \theta`$, $`P(M\le m)=(m/\theta)^n`$. Differentiation and integration give
 
 ```math
 E[M]=\frac n{n+1}\theta,\qquad
-\mathop{\mathrm{Var}}\nolimits(M)=
+\mathop{\mathrm{Var}} (M)=
 \frac{n\theta^2}{(n+1)^2(n+2)}.
 ```
 
@@ -854,7 +860,7 @@ Thus $`T=(n+1)M/n`$ is unbiased, with variance $`\theta^2/[n(n+2)]`$. Its varian
 
 Bias is a finite-sample expectation difference. Consistency is a limiting probability statement. An estimator can be biased for every finite sample and still be consistent, as the normal variance MLE illustrates. It can also be unbiased but inconsistent when its variance fails to shrink.
 
-Mean squared error decomposes as $`E[(T-\theta)^2]=\mathop{\mathrm{Var}}\nolimits(T)+\mathop{\mathrm{Bias}}\nolimits(T)^2`$ whenever the second moment exists. Comparing only unbiasedness can therefore select a less accurate estimator under squared error. “Efficient” must specify the comparison class and whether it concerns finite samples or an asymptotic covariance.
+Mean squared error decomposes as $`E[(T-\theta)^2]=\mathop{\mathrm{Var}} (T)+\mathop{\mathrm{Bias}} (T)^2`$ whenever the second moment exists. Comparing only unbiasedness can therefore select a less accurate estimator under squared error. “Efficient” must specify the comparison class and whether it concerns finite samples or an asymptotic covariance.
 
 A likelihood is a function of the parameter with the observations fixed. Its numerical value is not the probability that a continuous parameter equals a candidate. Maximum likelihood chooses the parameter that best supports the observed data under the specified model; it does not verify the model itself.
 
@@ -862,15 +868,15 @@ A likelihood is a function of the parameter with the observations fixed. Its num
 
 #### Example PR-E12: method of moments for an exponential rate
 
-For iid exponentials, $`EX=1/\lambda`$. Equating $`\bar X`$ to this mean gives $`\widehat\lambda=1/\bar X`$. The LLN and continuity of reciprocal at $`1/\lambda>0`$ prove consistency. Applying the delta method with derivative $`-\lambda^2`$ gives asymptotic variance $`\lambda^2`$ for the $`\sqrt n`$ error.
+For iid exponentials, $`EX=1/\lambda`$. Equating $`\bar X`$ to this mean gives $`\widehat\lambda=1/\bar X`$. The LLN and continuity of reciprocal at $`1/\lambda\gt 0`$ prove consistency. Applying the delta method with derivative $`-\lambda^2`$ gives asymptotic variance $`\lambda^2`$ for the $`\sqrt n`$ error.
 
 #### Example PR-E13: an unbiased estimator can be noisy
 
-For iid observations with mean $`\mu`$, both $`X_1`$ and $`\bar X_n`$ are unbiased estimators of $`\mu`$. If the variance is $`\sigma^2>0`$, their variances are $`\sigma^2`$ and $`\sigma^2/n`$. The first ignores all new observations and is generally not consistent; the second uses the expanding sample. Unbiasedness alone does not choose between them.
+For iid observations with mean $`\mu`$, both $`X_1`$ and $`\bar X_n`$ are unbiased estimators of $`\mu`$. If the variance is $`\sigma^2\gt 0`$, their variances are $`\sigma^2`$ and $`\sigma^2/n`$. The first ignores all new observations and is generally not consistent; the second uses the expanding sample. Unbiasedness alone does not choose between them.
 
 #### Example PR-E14: information lost by thresholding
 
-If $`Y\sim\mathop{\mathrm{Exp}}\nolimits(\lambda)`$ but only $`X=\mathbf1_{\{Y>z\}}`$ is observed, then $`X`$ is Bernoulli with $`p=e^{-\lambda z}`$. Its information for $`\lambda`$ is
+If $`Y\sim\mathop{\mathrm{Exp}} (\lambda)`$ but only $`X=\mathbf1_{\lbrace Y\gt z\rbrace }`$ is observed, then $`X`$ is Bernoulli with $`p=e^{-\lambda z}`$. Its information for $`\lambda`$ is
 
 ```math
 I_X(\lambda)=\frac{(dp/d\lambda)^2}{p(1-p)}
@@ -887,7 +893,7 @@ Source: [MIT 18.650, Problem Set 2, Problem 1, Questions 1–4](https://ocw.mit.
 
 Problem. For a Bernoulli sample, examine $`\bar X(1-\bar X)`$ as an estimator of the population variance: establish consistency, compute bias, and construct an unbiased correction.
 
-Solution. Bernoulli $`X`$ satisfies $`X^2=X`$, so $`\mathop{\mathrm{Var}}\nolimits(X)=p-p^2`$. Since $`\bar X\to_p p`$, the continuous mapping theorem makes $`\bar X(1-\bar X)`$ consistent for $`p(1-p)`$. Its expectation is
+Solution. Bernoulli $`X`$ satisfies $`X^2=X`$, so $`\mathop{\mathrm{Var}} (X)=p-p^2`$. Since $`\bar X\to_p p`$, the continuous mapping theorem makes $`\bar X(1-\bar X)`$ consistent for $`p(1-p)`$. Its expectation is
 
 ```math
 E[\bar X-\bar X^2]
@@ -895,7 +901,7 @@ E[\bar X-\bar X^2]
 =\left(1-\frac1n\right)p(1-p).
 ```
 
-The bias is $`-p(1-p)/n`$. For $`n>1`$, multiplying by $`n/(n-1)`$ gives an unbiased estimator. For Bernoulli observations this equals the ordinary sample variance with denominator $`n-1`$.
+The bias is $`-p(1-p)/n`$. For $`n\gt 1`$, multiplying by $`n/(n-1)`$ gives an unbiased estimator. For Bernoulli observations this equals the ordinary sample variance with denominator $`n-1`$.
 
 #### Problem PR-27: Bernoulli likelihood and information
 
@@ -903,7 +909,7 @@ Source: [MIT 18.650, Problem Set 4, Problem 1, Question 1](https://ocw.mit.edu/c
 
 Problem. Derive the Bernoulli MLE, score, and Fisher information. Treat all-success and all-failure samples and distinguish open from closed parameter spaces.
 
-Solution. With $`k=\sum_i x_i`$, $`\ell(p)=k\log p+(n-k)\log(1-p)`$. For $`0<k<n`$, stationarity gives $`k/p=(n-k)/(1-p)`$, hence $`\widehat p=k/n`$. The second derivative is negative, proving the unique maximum.
+Solution. With $`k=\sum_i x_i`$, $`\ell(p)=k\log p+(n-k)\log(1-p)`$. For $`0\lt k\lt n`$, stationarity gives $`k/p=(n-k)/(1-p)`$, hence $`\widehat p=k/n`$. The second derivative is negative, proving the unique maximum.
 
 If $`k=0`$ or $`k=n`$ and the parameter space is strictly $`(0,1)`$, the likelihood has a supremum at the missing endpoint but no MLE inside the parameter space. On the closed model $`[0,1]`$, the endpoint estimate is allowed. This finite-sample boundary event must be distinguished from interior asymptotic regularity.
 
@@ -913,9 +919,9 @@ For one observation, the score is $`(X-p)/[p(1-p)]`$. Its mean is zero and its s
 
 Source: [MIT 18.650, Problem Set 4, Problem 1, Question 3](https://ocw.mit.edu/courses/18-650-statistics-for-applications-fall-2016/b6bf22e01213547707d09e588819e94f_MIT18_650F16_PSet4.pdf).
 
-Problem. For an independent exponential sample parameterized by rate $`\lambda>0`$, derive the MLE, score, Fisher information, and finite-sample expectation of the MLE.
+Problem. For an independent exponential sample parameterized by rate $`\lambda\gt 0`$, derive the MLE, score, Fisher information, and finite-sample expectation of the MLE.
 
-Solution. The log likelihood is $`n\log\lambda-\lambda\sum_i x_i`$, with derivative $`n/\lambda-\sum_i x_i`$. For a positive observed sum, the maximum is $`\widehat\lambda=n/\sum_i x_i=1/\bar X`$, and the negative second derivative proves uniqueness. The per-observation score is $`1/\lambda-X`$, with variance $`1/\lambda^2`$, so $`I(\lambda)=1/\lambda^2`$. The rate estimator is consistent but not exactly unbiased: for $`n>1`$, the gamma law of the sum gives $`E\widehat\lambda=n\lambda/(n-1)`$.
+Solution. The log likelihood is $`n\log\lambda-\lambda\sum_i x_i`$, with derivative $`n/\lambda-\sum_i x_i`$. For a positive observed sum, the maximum is $`\widehat\lambda=n/\sum_i x_i=1/\bar X`$, and the negative second derivative proves uniqueness. The per-observation score is $`1/\lambda-X`$, with variance $`1/\lambda^2`$, so $`I(\lambda)=1/\lambda^2`$. The rate estimator is consistent but not exactly unbiased: for $`n\gt 1`$, the gamma law of the sum gives $`E\widehat\lambda=n\lambda/(n-1)`$.
 
 #### Problem PR-29: the normal mean and variance
 
@@ -923,12 +929,12 @@ Source: [MIT 18.650, Problem Set 4, Problem 1, Question 4](https://ocw.mit.edu/c
 
 Problem. For a normal sample with both mean and strictly positive variance unknown, derive the MLEs and information matrix, and examine the all-equal observation case.
 
-Solution. Write $`v=\sigma^2>0`$. The log likelihood is $`-\tfrac n2\log(2\pi v)-\sum_i(x_i-\mu)^2/(2v)`$. At fixed $`v`$, completing the square in $`\mu`$ gives $`\widehat\mu=\bar X`$. Then differentiating in $`v`$ gives $`\widehat v=n^{-1}\sum_i(X_i-\bar X)^2`$, assuming a nonzero residual sum.
+Solution. Write $`v=\sigma^2\gt 0`$. The log likelihood is $`-\tfrac n2\log(2\pi v)-\sum_i(x_i-\mu)^2/(2v)`$. At fixed $`v`$, completing the square in $`\mu`$ gives $`\widehat\mu=\bar X`$. Then differentiating in $`v`$ gives $`\widehat v=n^{-1}\sum_i(X_i-\bar X)^2`$, assuming a nonzero residual sum.
 
 The score components for one observation are $`(X-\mu)/v`$ and $`-1/(2v)+(X-\mu)^2/(2v^2)`$. Centered Gaussian odd moments vanish, so their cross-information is zero. Using $`E(X-\mu)^4=3v^2`$ gives
 
 ```math
-I(\mu,v)=\begin{pmatrix}1/v&0\\0&1/(2v^2)\end{pmatrix}.
+I(\mu,v)=\begin{pmatrix}1/v&0\\[0pt] 0&1/(2v^2)\end{pmatrix}.
 ```
 
 For an all-equal sample, the likelihood increases without bound as $`v\downarrow0`$ and no MLE exists with strictly positive variance. With $`n\ge2`$ under a genuine continuous normal model, this event has probability zero.
@@ -937,21 +943,21 @@ For an all-equal sample, the likelihood increases without bound as $`v\downarrow
 
 #### Problem PR-30: identifying parameters after keeping only signs
 
-Constructed problem. If $`X\sim N(\mu,\sigma^2)`$ and only $`\mathbf1_{\{X>0\}}`$ is observed, can both parameters be identified?
+Constructed problem. If $`X\sim N(\mu,\sigma^2)`$ and only $`\mathbf1_{\lbrace X\gt 0\rbrace }`$ is observed, can both parameters be identified?
 
-Solution. The observable success probability is $`\Phi(\mu/\sigma)`$. Thus the sign distribution identifies the ratio $`\mu/\sigma`$ but not the pair. For any $`c>0`$, $`(c\mu,c\sigma)`$ produces the same observations. No amount of sign-only sampling distinguishes these pairs. The issue is identification, so improving an estimation algorithm cannot resolve it.
+Solution. The observable success probability is $`\Phi(\mu/\sigma)`$. Thus the sign distribution identifies the ratio $`\mu/\sigma`$ but not the pair. For any $`c\gt 0`$, $`(c\mu,c\sigma)`$ produces the same observations. No amount of sign-only sampling distinguishes these pairs. The issue is identification, so improving an estimation algorithm cannot resolve it.
 
 #### Problem PR-31: a uniform maximum
 
 Constructed problem. For iid $`U(0,\theta)`$ observations, find the mean, bias, and a correction for $`M_n=\max_iX_i`$.
 
-Solution. Its CDF is $`(m/\theta)^n`$ for $`0\le m\le\theta`$, so its density is $`nm^{n-1}/\theta^n`$. Integration gives $`EM_n=n\theta/(n+1)`$. Its bias is $`-\theta/(n+1)`$ and $`(n+1)M_n/n`$ is unbiased. Also $`P(M_n\le\theta-\varepsilon)=(1-\varepsilon/\theta)^n\to0`$ for $`0<\varepsilon<\theta`$, proving consistency. The parameter-dependent support places this model outside the usual regular score argument.
+Solution. Its CDF is $`(m/\theta)^n`$ for $`0\le m\le\theta`$, so its density is $`nm^{n-1}/\theta^n`$. Integration gives $`EM_n=n\theta/(n+1)`$. Its bias is $`-\theta/(n+1)`$ and $`(n+1)M_n/n`$ is unbiased. Also $`P(M_n\le\theta-\varepsilon)=(1-\varepsilon/\theta)^n\to0`$ for $`0\lt \varepsilon\lt \theta`$, proving consistency. The parameter-dependent support places this model outside the usual regular score argument.
 
 #### Problem PR-32: bias-variance tradeoff for a normal mean
 
 Constructed problem. Let $`X_i\sim N(\mu,\sigma^2)`$ iid and estimate $`\mu`$ by $`a\bar X`$ for fixed $`a`$.
 
-Solution. The bias is $`(a-1)\mu`$ and variance is $`a^2\sigma^2/n`$. Thus $`\mathop{\mathrm{MSE}}\nolimits=a^2\sigma^2/n+(a-1)^2\mu^2`$. Differentiating in $`a`$ gives the oracle choice $`a=\mu^2/(\mu^2+\sigma^2/n)`$. It depends on the unknown $`\mu`$, so it is not directly an available rule. The calculation nevertheless explains why some shrinkage can reduce MSE near zero while adding bias.
+Solution. The bias is $`(a-1)\mu`$ and variance is $`a^2\sigma^2/n`$. Thus $`\mathop{\mathrm{MSE}} =a^2\sigma^2/n+(a-1)^2\mu^2`$. Differentiating in $`a`$ gives the oracle choice $`a=\mu^2/(\mu^2+\sigma^2/n)`$. It depends on the unknown $`\mu`$, so it is not directly an available rule. The calculation nevertheless explains why some shrinkage can reduce MSE near zero while adding bias.
 
 #### Problem PR-33: information under reparameterization
 
@@ -975,7 +981,7 @@ A Wald test standardizes an estimator's distance from the null. A likelihood-rat
 
 #### From an asymptotic pivot to an interval
 
-If $`\sqrt n(\widehat\theta-\theta)/\widehat s\Rightarrow N(0,1)`$ and $`\widehat s\to_p s>0`$, then
+If $`\sqrt n(\widehat\theta-\theta)/\widehat s\Rightarrow N(0,1)`$ and $`\widehat s\to_p s\gt 0`$, then
 
 ```math
 P_\theta\left(
@@ -993,13 +999,13 @@ For iid normal data with unknown variance, an exact pivot is $`\sqrt n(\bar X-\m
 
 For a test function $`\varphi`$ equal to one on rejection, a level-$`\alpha`$ test satisfies $`\sup_{\theta\in H_0}E_\theta[\varphi]\le\alpha`$. Power at an alternative is $`E_\theta[\varphi]`$. Type II error at that alternative is one minus power. An observed p-value is not the probability that the null hypothesis is true.
 
-For independent Gaussian observations with known $`\sigma`$, test $`H_0:\mu\le\mu_0`$ against $`\mu>\mu_0`$ by rejecting when
+For independent Gaussian observations with known $`\sigma`$, test $`H_0:\mu\le\mu_0`$ against $`\mu\gt \mu_0`$ by rejecting when
 
 ```math
-\bar X>\mu_0+z_{1-\alpha}\frac{\sigma}{\sqrt n}.
+\bar X\gt \mu_0+z_{1-\alpha}\frac{\sigma}{\sqrt n}.
 ```
 
-The largest rejection probability within the null occurs at the boundary $`\mu_0`$. At alternative $`\mu_1>\mu_0`$, power is
+The largest rejection probability within the null occurs at the boundary $`\mu_0`$. At alternative $`\mu_1\gt \mu_0`$, power is
 
 ```math
 1-\Phi\left(z_{1-\alpha}
@@ -1041,7 +1047,7 @@ For $`n=100`$ and sixty successes, $`\widehat p=0.6`$ and estimated standard err
 
 #### Example PR-E17: power of a one-sided normal test
 
-With known $`\sigma`$, reject $`H_0:\mu\le\mu_0`$ if $`\sqrt n(\bar X-\mu_0)/\sigma>z_{1-\alpha}`$. At true $`\mu`$, power is
+With known $`\sigma`$, reject $`H_0:\mu\le\mu_0`$ if $`\sqrt n(\bar X-\mu_0)/\sigma\gt z_{1-\alpha}`$. At true $`\mu`$, power is
 
 ```math
 1-\Phi\left(z_{1-\alpha}-\frac{\sqrt n(\mu-\mu_0)}{\sigma}\right).
@@ -1064,7 +1070,7 @@ Z_n=\frac{\sqrt n(\widehat\lambda-\lambda_0)}{\widehat\lambda}
 \Rightarrow N(0,1).
 ```
 
-Reject equality against a two-sided alternative when $`\vert Z_n\vert >z_{1-\alpha/2}`$. For $`H_0:\lambda\le\lambda_0`$ against $`\lambda>\lambda_0`$, reject when $`Z_n>z_{1-\alpha}`$. At the boundary the limiting rejection probability is $`\alpha`$; for any fixed $`\lambda<\lambda_0`$, the statistic tends to $`-\infty`$, so the rejection probability tends to zero.
+Reject equality against a two-sided alternative when $`\vert Z_n\vert \gt z_{1-\alpha/2}`$. For $`H_0:\lambda\le\lambda_0`$ against $`\lambda\gt \lambda_0`$, reject when $`Z_n\gt z_{1-\alpha}`$. At the boundary the limiting rejection probability is $`\alpha`$; for any fixed $`\lambda\lt \lambda_0`$, the statistic tends to $`-\infty`$, so the rejection probability tends to zero.
 
 For fifty interarrival observations with $`\bar X=0.98`$ and $`\lambda_0=1`$, $`\widehat\lambda=1/0.98`$ and $`Z_n=\sqrt{50}(1-0.98)\approx0.1414`$. The one-sided asymptotic p-value is $`1-\Phi(0.1414)\approx0.444`$. This does not reject at 5%. The calculation does not establish that the arrival rate is at most one; the observed difference is small relative to sampling uncertainty.
 
@@ -1074,14 +1080,14 @@ Source: [MIT 18.650, Problem Set 5, Problem 1, Questions 1–2](https://ocw.mit.
 
 Problem. For independent Poisson observations, construct a plug-in asymptotic confidence interval for the positive rate and the corresponding inverted two-sided test. Discuss the zero-count boundary.
 
-Solution. For fixed $`\lambda>0`$, the CLT gives $`\sqrt n(\bar X-\lambda)\Rightarrow N(0,\lambda)`$ and the LLN gives $`\bar X\to_p\lambda`$. Hence
+Solution. For fixed $`\lambda\gt 0`$, the CLT gives $`\sqrt n(\bar X-\lambda)\Rightarrow N(0,\lambda)`$ and the LLN gives $`\bar X\to_p\lambda`$. Hence
 
 ```math
 C_n=\left[\bar X-z_{1-\alpha/2}\sqrt{\bar X/n},
 \bar X+z_{1-\alpha/2}\sqrt{\bar X/n}\right]
 ```
 
-has asymptotic coverage $`1-\alpha`$. Intersecting it with $`[0,\infty)`$ preserves coverage for positive $`\lambda`$. Reject $`H_0:\lambda=\lambda_0`$ when $`\lambda_0\notin C_n`$, equivalently when $`\sqrt n\vert \bar X-\lambda_0\vert /\sqrt{\bar X}>z_{1-\alpha/2}`$ for positive $`\bar X`$. The zero-count event requires an explicit convention; its probability $`e^{-n\lambda}`$ vanishes at fixed positive $`\lambda`$, but a small-sample exact Poisson interval handles it more effectively.
+has asymptotic coverage $`1-\alpha`$. Intersecting it with $`[0,\infty)`$ preserves coverage for positive $`\lambda`$. Reject $`H_0:\lambda=\lambda_0`$ when $`\lambda_0\notin C_n`$, equivalently when $`\sqrt n\vert \bar X-\lambda_0\vert /\sqrt{\bar X}\gt z_{1-\alpha/2}`$ for positive $`\bar X`$. The zero-count event requires an explicit convention; its probability $`e^{-n\lambda}`$ vanishes at fixed positive $`\lambda`$, but a small-sample exact Poisson interval handles it more effectively.
 
 ### 7.5 Additional solved problems
 
@@ -1101,9 +1107,9 @@ with $`0\log0`$ interpreted by continuity. The Wald statistic is $`W=n(\widehat 
 
 #### Problem PR-37: an exact binomial tail test
 
-Constructed problem. For $`H_0:p\le1/2`$ against $`p>1/2`$, explain an exact nonrandomized test using $`K\sim\mathop{\mathrm{Bin}}\nolimits(n,p)`$.
+Constructed problem. For $`H_0:p\le1/2`$ against $`p\gt 1/2`$, explain an exact nonrandomized test using $`K\sim\mathop{\mathrm{Bin}} (n,p)`$.
 
-Solution. Choose the smallest integer $`c`$ such that $`P_{1/2}(K\ge c)\le\alpha`$, and reject when $`K\ge c`$. Couple Bernoulli trials as $`\mathbf1_{\{U_i\le p\}}`$ using common independent uniforms. Their sum increases with $`p`$, so the upper-tail probability is largest within the null at $`p=1/2`$. Thus the test has level at most $`\alpha`$. The discrete tail may make the actual level strictly smaller.
+Solution. Choose the smallest integer $`c`$ such that $`P_{1/2}(K\ge c)\le\alpha`$, and reject when $`K\ge c`$. Couple Bernoulli trials as $`\mathbf1_{\lbrace U_i\le p\rbrace }`$ using common independent uniforms. Their sum increases with $`p`$, so the upper-tail probability is largest within the null at $`p=1/2`$. Thus the test has level at most $`\alpha`$. The discrete tail may make the actual level strictly smaller.
 
 #### Problem PR-38: a confidence interval after many comparisons
 
@@ -1125,7 +1131,7 @@ Solution. The model gives rejection probability $`0.8(0.1)+0.05(0.9)=0.125`$. Th
 
 #### Problem PR-40: equivalence requires a specified margin
 
-Constructed problem. Explain why failing to reject $`\mu=0`$ does not establish $`\vert \mu\vert <\delta`$.
+Constructed problem. Explain why failing to reject $`\mu=0`$ does not establish $`\vert \mu\vert \lt \delta`$.
 
 Solution. A low-precision sample can produce a wide interval containing zero and values well beyond $`\pm\delta`$. To establish equivalence at a chosen margin, test both $`H_{01}:\mu\le-\delta`$ and $`H_{02}:\mu\ge\delta`$ and reject both using the appropriate one-sided procedures. Equivalently, in a regular normal setting, an associated interval must lie wholly inside $`(-\delta,\delta)`$. The margin must be specified in the units of the outcome before interpreting practical closeness.
 
@@ -1149,7 +1155,7 @@ Conditional on the observed data, each bootstrap draw has mean $`\bar X`$ and va
 
 ```math
 E_*[\bar X^*]=\bar X,\qquad
-\mathop{\mathrm{Var}}\nolimits_*(\bar X^*)=\frac{v_n}{n}.
+\mathop{\mathrm{Var}} _*(\bar X^*)=\frac{v_n}{n}.
 ```
 
 For iid finite-variance observations, $`v_n\to_p\sigma^2`$, giving the correct first-order variance scale. For dependent observations, $`v_n`$ estimates only lag-zero variance, while the mean depends on covariances at all lags.
@@ -1159,7 +1165,7 @@ For iid finite-variance observations, $`v_n\to_p\sigma^2`$, giving the correct f
 For a weakly stationary series with autocovariance $`\gamma_k`$,
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(\bar X_n)
+\mathop{\mathrm{Var}} (\bar X_n)
 =\frac1{n^2}\sum_{t=1}^n\sum_{s=1}^n\gamma_{t-s}
 =\frac1n\left[\gamma_0+
 2\sum_{k=1}^{n-1}\left(1-\frac kn\right)\gamma_k\right].
@@ -1175,7 +1181,7 @@ For the resampled mean,
 
 ```math
 E_*[\bar X^*]=\bar x,\qquad
-\mathop{\mathrm{Var}}\nolimits_*(\bar X^*)=
+\mathop{\mathrm{Var}} _*(\bar X^*)=
 \frac1{n^2}\sum_{i=1}^n(x_i-\bar x)^2.
 ```
 
@@ -1240,22 +1246,22 @@ The difference arises because the bootstrap distribution is asymmetric around fo
 
 #### Problem PR-42: studentization
 
-Constructed problem. If bootstrap quantiles of $`T^*=(\widehat\theta^*-\widehat\theta)/\widehat{\mathop{\mathrm{se}}\nolimits}^*`$ are $`q_L,q_U`$, derive the interval.
+Constructed problem. If bootstrap quantiles of $`T^*=(\widehat\theta^*-\widehat\theta)/\widehat{\mathop{\mathrm{se}} }^*`$ are $`q_L,q_U`$, derive the interval.
 
-Solution. Approximate the event $`q_L\le(\widehat\theta-\theta)/\widehat{\mathop{\mathrm{se}}\nolimits}\le q_U`$. Solving for $`\theta`$ gives
+Solution. Approximate the event $`q_L\le(\widehat\theta-\theta)/\widehat{\mathop{\mathrm{se}} }\le q_U`$. Solving for $`\theta`$ gives
 
 ```math
-[\widehat\theta-q_U\widehat{\mathop{\mathrm{se}}\nolimits},
-\widehat\theta-q_L\widehat{\mathop{\mathrm{se}}\nolimits}].
+[\widehat\theta-q_U\widehat{\mathop{\mathrm{se}} },
+\widehat\theta-q_L\widehat{\mathop{\mathrm{se}} }].
 ```
 
 The order reverses when solving the two inequalities because the target is subtracted in the numerator. Every resample needs its own usable standard error. With the two-point sample from Example PR-E18, some resamples have zero sample variance, so ordinary studentization can be undefined.
 
 #### Problem PR-43: an effective sample size for a persistent mean
 
-Constructed problem. For a long stationary AR(1) sample, find $`n_{\mathrm{eff}}`$ such that $`\mathop{\mathrm{Var}}\nolimits(\bar X_n)\approx\gamma_0/n_{\mathrm{eff}}`$.
+Constructed problem. For a long stationary AR(1) sample, find $`n_{\mathrm{eff}}`$ such that $`\mathop{\mathrm{Var}} (\bar X_n)\approx\gamma_0/n_{\mathrm{eff}}`$.
 
-Solution. The long-run variance calculation gives $`\mathop{\mathrm{Var}}\nolimits(\bar X_n)\approx\gamma_0(1+\rho)/[n(1-\rho)]`$. Therefore $`n_{\mathrm{eff}}\approx n(1-\rho)/(1+\rho)`$. At $`\rho=0.8`$ this is $`n/9`$. Negative correlation can give an effective size above $`n`$ for estimating a mean; the quantity summarizes a variance comparison and is not an actual count of independent observations.
+Solution. The long-run variance calculation gives $`\mathop{\mathrm{Var}} (\bar X_n)\approx\gamma_0(1+\rho)/[n(1-\rho)]`$. Therefore $`n_{\mathrm{eff}}\approx n(1-\rho)/(1+\rho)`$. At $`\rho=0.8`$ this is $`n/9`$. Negative correlation can give an effective size above $`n`$ for estimating a mean; the quantity summarizes a variance comparison and is not an actual count of independent observations.
 
 #### Problem PR-44: a sample maximum and bootstrap failure
 
@@ -1447,9 +1453,9 @@ A monotone transformation can be handled by the CDF without guessing a density. 
 
 #### Problem PR-53: power of a uniform variable, case 1
 
-Let $`U\sim\mathop{\mathrm{Uniform}}\nolimits(0,1)`$ and $`Y=U^p`$ with $`p=2`$. Find the support, CDF, density, mean, variance, and median.
+Let $`U\sim\mathop{\mathrm{Uniform}} (0,1)`$ and $`Y=U^p`$ with $`p=2`$. Find the support, CDF, density, mean, variance, and median.
 
-Solution. Because $`p>0`$, the transformation is strictly increasing and maps the unit interval into itself. Thus $`Y`$ has support $`[0,1]`$. For $`0<y<1`$,
+Solution. Because $`p\gt 0`$, the transformation is strictly increasing and maps the unit interval into itself. Thus $`Y`$ has support $`[0,1]`$. For $`0\lt y\lt 1`$,
 
 ```math
 P(Y\le y)=P(U^p\le y)=P(U\le y^{1/p})=y^{1/p}.
@@ -1460,26 +1466,26 @@ The complete CDF is zero for $`y\le0`$, equals $`y^{1/p}`$ inside the interval, 
 Differentiating on the interior gives
 
 ```math
-f_Y(y)=\frac1p y^{1/p-1},\qquad 0<y<1.
+f_Y(y)=\frac1p y^{1/p-1},\qquad 0\lt y\lt 1.
 ```
 
 Its integral is $`[y^{1/p}]_0^1=1`$. A density can grow without bound near zero and still integrate to one; boundedness of a density is not a requirement.
 
-For any real $`k`$ with $`pk>-1`$, direct integration over $`U`$ gives
+For any real $`k`$ with $`pk\gt -1`$, direct integration over $`U`$ gives
 
 ```math
 E[Y^k]=E[U^{pk}]=\int_0^1u^{pk}\,du=\frac1{pk+1}.
 ```
 
-In particular, $`E[Y]=\frac{1}{3}`$ and $`E[Y^2]=\frac{1}{5}`$. Subtracting the square of the mean gives $`\mathop{\mathrm{Var}}\nolimits(Y)=\frac{4}{45}`$. The same values follow by integrating $`y f_Y(y)`$ and $`y^2f_Y(y)`$, which checks the Jacobian factor in the density.
+In particular, $`E[Y]=\frac{1}{3}`$ and $`E[Y^2]=\frac{1}{5}`$. Subtracting the square of the mean gives $`\mathop{\mathrm{Var}} (Y)=\frac{4}{45}`$. The same values follow by integrating $`y f_Y(y)`$ and $`y^2f_Y(y)`$, which checks the Jacobian factor in the density.
 
 The median $`m`$ satisfies $`m^{1/p}=1/2`$, so $`m=2^{-p}=2^{-2}`$. It generally differs from the mean. The transformation preserves the ordering of observations, but changes the distances between them and therefore changes averages and variances.
 
 #### Problem PR-54: power of a uniform variable, case 2
 
-Let $`U\sim\mathop{\mathrm{Uniform}}\nolimits(0,1)`$ and $`Y=U^p`$ with $`p=3`$. Find the support, CDF, density, mean, variance, and median.
+Let $`U\sim\mathop{\mathrm{Uniform}} (0,1)`$ and $`Y=U^p`$ with $`p=3`$. Find the support, CDF, density, mean, variance, and median.
 
-Solution. Because $`p>0`$, the transformation is strictly increasing and maps the unit interval into itself. Thus $`Y`$ has support $`[0,1]`$. For $`0<y<1`$,
+Solution. Because $`p\gt 0`$, the transformation is strictly increasing and maps the unit interval into itself. Thus $`Y`$ has support $`[0,1]`$. For $`0\lt y\lt 1`$,
 
 ```math
 P(Y\le y)=P(U^p\le y)=P(U\le y^{1/p})=y^{1/p}.
@@ -1490,26 +1496,26 @@ The complete CDF is zero for $`y\le0`$, equals $`y^{1/p}`$ inside the interval, 
 Differentiating on the interior gives
 
 ```math
-f_Y(y)=\frac1p y^{1/p-1},\qquad 0<y<1.
+f_Y(y)=\frac1p y^{1/p-1},\qquad 0\lt y\lt 1.
 ```
 
 Its integral is $`[y^{1/p}]_0^1=1`$. A density can grow without bound near zero and still integrate to one; boundedness of a density is not a requirement.
 
-For any real $`k`$ with $`pk>-1`$, direct integration over $`U`$ gives
+For any real $`k`$ with $`pk\gt -1`$, direct integration over $`U`$ gives
 
 ```math
 E[Y^k]=E[U^{pk}]=\int_0^1u^{pk}\,du=\frac1{pk+1}.
 ```
 
-In particular, $`E[Y]=\frac{1}{4}`$ and $`E[Y^2]=\frac{1}{7}`$. Subtracting the square of the mean gives $`\mathop{\mathrm{Var}}\nolimits(Y)=\frac{9}{112}`$. The same values follow by integrating $`y f_Y(y)`$ and $`y^2f_Y(y)`$, which checks the Jacobian factor in the density.
+In particular, $`E[Y]=\frac{1}{4}`$ and $`E[Y^2]=\frac{1}{7}`$. Subtracting the square of the mean gives $`\mathop{\mathrm{Var}} (Y)=\frac{9}{112}`$. The same values follow by integrating $`y f_Y(y)`$ and $`y^2f_Y(y)`$, which checks the Jacobian factor in the density.
 
 The median $`m`$ satisfies $`m^{1/p}=1/2`$, so $`m=2^{-p}=2^{-3}`$. It generally differs from the mean. The transformation preserves the ordering of observations, but changes the distances between them and therefore changes averages and variances.
 
 #### Problem PR-55: power of a uniform variable, case 3
 
-Let $`U\sim\mathop{\mathrm{Uniform}}\nolimits(0,1)`$ and $`Y=U^p`$ with $`p=\frac{1}{2}`$. Find the support, CDF, density, mean, variance, and median.
+Let $`U\sim\mathop{\mathrm{Uniform}} (0,1)`$ and $`Y=U^p`$ with $`p=\frac{1}{2}`$. Find the support, CDF, density, mean, variance, and median.
 
-Solution. Because $`p>0`$, the transformation is strictly increasing and maps the unit interval into itself. Thus $`Y`$ has support $`[0,1]`$. For $`0<y<1`$,
+Solution. Because $`p\gt 0`$, the transformation is strictly increasing and maps the unit interval into itself. Thus $`Y`$ has support $`[0,1]`$. For $`0\lt y\lt 1`$,
 
 ```math
 P(Y\le y)=P(U^p\le y)=P(U\le y^{1/p})=y^{1/p}.
@@ -1520,26 +1526,26 @@ The complete CDF is zero for $`y\le0`$, equals $`y^{1/p}`$ inside the interval, 
 Differentiating on the interior gives
 
 ```math
-f_Y(y)=\frac1p y^{1/p-1},\qquad 0<y<1.
+f_Y(y)=\frac1p y^{1/p-1},\qquad 0\lt y\lt 1.
 ```
 
 Its integral is $`[y^{1/p}]_0^1=1`$. A density can grow without bound near zero and still integrate to one; boundedness of a density is not a requirement.
 
-For any real $`k`$ with $`pk>-1`$, direct integration over $`U`$ gives
+For any real $`k`$ with $`pk\gt -1`$, direct integration over $`U`$ gives
 
 ```math
 E[Y^k]=E[U^{pk}]=\int_0^1u^{pk}\,du=\frac1{pk+1}.
 ```
 
-In particular, $`E[Y]=\frac{2}{3}`$ and $`E[Y^2]=\frac{1}{2}`$. Subtracting the square of the mean gives $`\mathop{\mathrm{Var}}\nolimits(Y)=\frac{1}{18}`$. The same values follow by integrating $`y f_Y(y)`$ and $`y^2f_Y(y)`$, which checks the Jacobian factor in the density.
+In particular, $`E[Y]=\frac{2}{3}`$ and $`E[Y^2]=\frac{1}{2}`$. Subtracting the square of the mean gives $`\mathop{\mathrm{Var}} (Y)=\frac{1}{18}`$. The same values follow by integrating $`y f_Y(y)`$ and $`y^2f_Y(y)`$, which checks the Jacobian factor in the density.
 
 The median $`m`$ satisfies $`m^{1/p}=1/2`$, so $`m=2^{-p}=2^{-\frac{1}{2}}`$. It generally differs from the mean. The transformation preserves the ordering of observations, but changes the distances between them and therefore changes averages and variances.
 
 #### Problem PR-56: power of a uniform variable, case 4
 
-Let $`U\sim\mathop{\mathrm{Uniform}}\nolimits(0,1)`$ and $`Y=U^p`$ with $`p=\frac{1}{3}`$. Find the support, CDF, density, mean, variance, and median.
+Let $`U\sim\mathop{\mathrm{Uniform}} (0,1)`$ and $`Y=U^p`$ with $`p=\frac{1}{3}`$. Find the support, CDF, density, mean, variance, and median.
 
-Solution. Because $`p>0`$, the transformation is strictly increasing and maps the unit interval into itself. Thus $`Y`$ has support $`[0,1]`$. For $`0<y<1`$,
+Solution. Because $`p\gt 0`$, the transformation is strictly increasing and maps the unit interval into itself. Thus $`Y`$ has support $`[0,1]`$. For $`0\lt y\lt 1`$,
 
 ```math
 P(Y\le y)=P(U^p\le y)=P(U\le y^{1/p})=y^{1/p}.
@@ -1550,18 +1556,18 @@ The complete CDF is zero for $`y\le0`$, equals $`y^{1/p}`$ inside the interval, 
 Differentiating on the interior gives
 
 ```math
-f_Y(y)=\frac1p y^{1/p-1},\qquad 0<y<1.
+f_Y(y)=\frac1p y^{1/p-1},\qquad 0\lt y\lt 1.
 ```
 
 Its integral is $`[y^{1/p}]_0^1=1`$. A density can grow without bound near zero and still integrate to one; boundedness of a density is not a requirement.
 
-For any real $`k`$ with $`pk>-1`$, direct integration over $`U`$ gives
+For any real $`k`$ with $`pk\gt -1`$, direct integration over $`U`$ gives
 
 ```math
 E[Y^k]=E[U^{pk}]=\int_0^1u^{pk}\,du=\frac1{pk+1}.
 ```
 
-In particular, $`E[Y]=\frac{3}{4}`$ and $`E[Y^2]=\frac{3}{5}`$. Subtracting the square of the mean gives $`\mathop{\mathrm{Var}}\nolimits(Y)=\frac{3}{80}`$. The same values follow by integrating $`y f_Y(y)`$ and $`y^2f_Y(y)`$, which checks the Jacobian factor in the density.
+In particular, $`E[Y]=\frac{3}{4}`$ and $`E[Y^2]=\frac{3}{5}`$. Subtracting the square of the mean gives $`\mathop{\mathrm{Var}} (Y)=\frac{3}{80}`$. The same values follow by integrating $`y f_Y(y)`$ and $`y^2f_Y(y)`$, which checks the Jacobian factor in the density.
 
 The median $`m`$ satisfies $`m^{1/p}=1/2`$, so $`m=2^{-p}=2^{-\frac{1}{3}}`$. It generally differs from the mean. The transformation preserves the ordering of observations, but changes the distances between them and therefore changes averages and variances.
 
@@ -1571,7 +1577,13 @@ For binary variables, a four-cell table determines every marginal and conditiona
 
 #### Problem PR-57: binary table and total variance, case 1
 
-The rows $`X=0,1`$ and columns $`Y=0,1`$ have joint probabilities $`\begin{pmatrix}\frac{2}{5}&\frac{1}{10}\\\frac{1}{5}&\frac{3}{10}\end{pmatrix}`$. Find $`E[Y\mid X]`$, covariance, and both parts of the law of total variance.
+The rows $`X=0,1`$ and columns $`Y=0,1`$ have joint probabilities
+
+```math
+\begin{pmatrix}\frac{2}{5}&\frac{1}{10}\\[0pt] \frac{1}{5}&\frac{3}{10}\end{pmatrix}
+```
+
+. Find $`E[Y\mid X]`$, covariance, and both parts of the law of total variance.
 
 Solution. Sum each row to obtain $`P(X=0)=\frac{1}{2}`$ and $`P(X=1)=\frac{1}{2}`$. Sum the second column to obtain $`P(Y=1)=\frac{2}{5}`$. All row probabilities are positive, so both conditional distributions are defined.
 
@@ -1587,26 +1599,32 @@ Thus the random variable $`E[Y\mid X]`$ equals the first number when $`X=0`$ and
 Also $`E[X]=\frac{1}{2}`$ and $`E[XY]=P(X=1,Y=1)=\frac{3}{10}`$. Therefore
 
 ```math
-\mathop{\mathrm{Cov}}\nolimits(X,Y)=E[XY]-E[X]E[Y]=\frac{1}{10}.
+\mathop{\mathrm{Cov}} (X,Y)=E[XY]-E[X]E[Y]=\frac{1}{10}.
 ```
 
 Within each row, $`Y`$ is Bernoulli with success probability $`m_x`$. Its conditional variance is $`m_x(1-m_x)`$. Averaging these two variances gives
 
 ```math
-E[\mathop{\mathrm{Var}}\nolimits(Y\mid X)]=\frac{1}{5}.
+E[\mathop{\mathrm{Var}} (Y\mid X)]=\frac{1}{5}.
 ```
 
 The variance of the conditional mean, computed around its mean $`E[Y]`$, is
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(E[Y\mid X])=\frac{1}{25}.
+\mathop{\mathrm{Var}} (E[Y\mid X])=\frac{1}{25}.
 ```
 
 Their sum is $`\frac{6}{25}`$, exactly $`P(Y=1)(1-P(Y=1))`$. The equality explains the decomposition: learning $`X`$ removes the between-group part of uncertainty on average, while the within-group part remains. Individual conditional variances need not all be smaller than the unconditional variance.
 
 #### Problem PR-58: binary table and total variance, case 2
 
-The rows $`X=0,1`$ and columns $`Y=0,1`$ have joint probabilities $`\begin{pmatrix}\frac{1}{10}&\frac{3}{10}\\\frac{1}{5}&\frac{2}{5}\end{pmatrix}`$. Find $`E[Y\mid X]`$, covariance, and both parts of the law of total variance.
+The rows $`X=0,1`$ and columns $`Y=0,1`$ have joint probabilities
+
+```math
+\begin{pmatrix}\frac{1}{10}&\frac{3}{10}\\[0pt] \frac{1}{5}&\frac{2}{5}\end{pmatrix}
+```
+
+. Find $`E[Y\mid X]`$, covariance, and both parts of the law of total variance.
 
 Solution. Sum each row to obtain $`P(X=0)=\frac{2}{5}`$ and $`P(X=1)=\frac{3}{5}`$. Sum the second column to obtain $`P(Y=1)=\frac{7}{10}`$. All row probabilities are positive, so both conditional distributions are defined.
 
@@ -1622,26 +1640,32 @@ Thus the random variable $`E[Y\mid X]`$ equals the first number when $`X=0`$ and
 Also $`E[X]=\frac{3}{5}`$ and $`E[XY]=P(X=1,Y=1)=\frac{2}{5}`$. Therefore
 
 ```math
-\mathop{\mathrm{Cov}}\nolimits(X,Y)=E[XY]-E[X]E[Y]=-\frac{1}{50}.
+\mathop{\mathrm{Cov}} (X,Y)=E[XY]-E[X]E[Y]=-\frac{1}{50}.
 ```
 
 Within each row, $`Y`$ is Bernoulli with success probability $`m_x`$. Its conditional variance is $`m_x(1-m_x)`$. Averaging these two variances gives
 
 ```math
-E[\mathop{\mathrm{Var}}\nolimits(Y\mid X)]=\frac{5}{24}.
+E[\mathop{\mathrm{Var}} (Y\mid X)]=\frac{5}{24}.
 ```
 
 The variance of the conditional mean, computed around its mean $`E[Y]`$, is
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(E[Y\mid X])=\frac{1}{600}.
+\mathop{\mathrm{Var}} (E[Y\mid X])=\frac{1}{600}.
 ```
 
 Their sum is $`\frac{21}{100}`$, exactly $`P(Y=1)(1-P(Y=1))`$. The equality explains the decomposition: learning $`X`$ removes the between-group part of uncertainty on average, while the within-group part remains. Individual conditional variances need not all be smaller than the unconditional variance.
 
 #### Problem PR-59: binary table and total variance, case 3
 
-The rows $`X=0,1`$ and columns $`Y=0,1`$ have joint probabilities $`\begin{pmatrix}\frac{1}{2}&\frac{1}{5}\\\frac{1}{10}&\frac{1}{5}\end{pmatrix}`$. Find $`E[Y\mid X]`$, covariance, and both parts of the law of total variance.
+The rows $`X=0,1`$ and columns $`Y=0,1`$ have joint probabilities
+
+```math
+\begin{pmatrix}\frac{1}{2}&\frac{1}{5}\\[0pt] \frac{1}{10}&\frac{1}{5}\end{pmatrix}
+```
+
+. Find $`E[Y\mid X]`$, covariance, and both parts of the law of total variance.
 
 Solution. Sum each row to obtain $`P(X=0)=\frac{7}{10}`$ and $`P(X=1)=\frac{3}{10}`$. Sum the second column to obtain $`P(Y=1)=\frac{2}{5}`$. All row probabilities are positive, so both conditional distributions are defined.
 
@@ -1657,26 +1681,32 @@ Thus the random variable $`E[Y\mid X]`$ equals the first number when $`X=0`$ and
 Also $`E[X]=\frac{3}{10}`$ and $`E[XY]=P(X=1,Y=1)=\frac{1}{5}`$. Therefore
 
 ```math
-\mathop{\mathrm{Cov}}\nolimits(X,Y)=E[XY]-E[X]E[Y]=\frac{2}{25}.
+\mathop{\mathrm{Cov}} (X,Y)=E[XY]-E[X]E[Y]=\frac{2}{25}.
 ```
 
 Within each row, $`Y`$ is Bernoulli with success probability $`m_x`$. Its conditional variance is $`m_x(1-m_x)`$. Averaging these two variances gives
 
 ```math
-E[\mathop{\mathrm{Var}}\nolimits(Y\mid X)]=\frac{22}{105}.
+E[\mathop{\mathrm{Var}} (Y\mid X)]=\frac{22}{105}.
 ```
 
 The variance of the conditional mean, computed around its mean $`E[Y]`$, is
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(E[Y\mid X])=\frac{16}{525}.
+\mathop{\mathrm{Var}} (E[Y\mid X])=\frac{16}{525}.
 ```
 
 Their sum is $`\frac{6}{25}`$, exactly $`P(Y=1)(1-P(Y=1))`$. The equality explains the decomposition: learning $`X`$ removes the between-group part of uncertainty on average, while the within-group part remains. Individual conditional variances need not all be smaller than the unconditional variance.
 
 #### Problem PR-60: binary table and total variance, case 4
 
-The rows $`X=0,1`$ and columns $`Y=0,1`$ have joint probabilities $`\begin{pmatrix}\frac{1}{5}&\frac{1}{5}\\\frac{1}{2}&\frac{1}{10}\end{pmatrix}`$. Find $`E[Y\mid X]`$, covariance, and both parts of the law of total variance.
+The rows $`X=0,1`$ and columns $`Y=0,1`$ have joint probabilities
+
+```math
+\begin{pmatrix}\frac{1}{5}&\frac{1}{5}\\[0pt] \frac{1}{2}&\frac{1}{10}\end{pmatrix}
+```
+
+. Find $`E[Y\mid X]`$, covariance, and both parts of the law of total variance.
 
 Solution. Sum each row to obtain $`P(X=0)=\frac{2}{5}`$ and $`P(X=1)=\frac{3}{5}`$. Sum the second column to obtain $`P(Y=1)=\frac{3}{10}`$. All row probabilities are positive, so both conditional distributions are defined.
 
@@ -1692,19 +1722,19 @@ Thus the random variable $`E[Y\mid X]`$ equals the first number when $`X=0`$ and
 Also $`E[X]=\frac{3}{5}`$ and $`E[XY]=P(X=1,Y=1)=\frac{1}{10}`$. Therefore
 
 ```math
-\mathop{\mathrm{Cov}}\nolimits(X,Y)=E[XY]-E[X]E[Y]=-\frac{2}{25}.
+\mathop{\mathrm{Cov}} (X,Y)=E[XY]-E[X]E[Y]=-\frac{2}{25}.
 ```
 
 Within each row, $`Y`$ is Bernoulli with success probability $`m_x`$. Its conditional variance is $`m_x(1-m_x)`$. Averaging these two variances gives
 
 ```math
-E[\mathop{\mathrm{Var}}\nolimits(Y\mid X)]=\frac{11}{60}.
+E[\mathop{\mathrm{Var}} (Y\mid X)]=\frac{11}{60}.
 ```
 
 The variance of the conditional mean, computed around its mean $`E[Y]`$, is
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(E[Y\mid X])=\frac{2}{75}.
+\mathop{\mathrm{Var}} (E[Y\mid X])=\frac{2}{75}.
 ```
 
 Their sum is $`\frac{21}{100}`$, exactly $`P(Y=1)(1-P(Y=1))`$. The equality explains the decomposition: learning $`X`$ removes the between-group part of uncertainty on average, while the within-group part remains. Individual conditional variances need not all be smaller than the unconditional variance.
@@ -1715,21 +1745,27 @@ For a jointly Gaussian pair, subtracting the linear prediction produces a Gaussi
 
 #### Problem PR-61: conditional Gaussian prediction, case 1
 
-Let $`(X,Y)`$ be jointly Gaussian with mean $`(1,2)`$ and covariance $`\begin{pmatrix}4&3\\3&9\end{pmatrix}`$. Find the law of $`Y\mid X=3`$ and the conditional probability that $`Y>2`$.
+Let $`(X,Y)`$ be jointly Gaussian with mean $`(1,2)`$ and covariance
 
-Solution. The covariance matrix is valid and nonsingular: its first diagonal entry is $`4>0`$ and its determinant is $`27>0`$. The correlation is $`0.500000`$, which lies strictly between minus one and one.
+```math
+\begin{pmatrix}4&3\\[0pt] 3&9\end{pmatrix}
+```
 
-Choose $`b=\mathop{\mathrm{Cov}}\nolimits(X,Y)/\mathop{\mathrm{Var}}\nolimits(X)=\frac{3}{4}`$ and define
+. Find the law of $`Y\mid X=3`$ and the conditional probability that $`Y\gt 2`$.
+
+Solution. The covariance matrix is valid and nonsingular: its first diagonal entry is $`4\gt 0`$ and its determinant is $`27\gt 0`$. The correlation is $`0.500000`$, which lies strictly between minus one and one.
+
+Choose $`b=\mathop{\mathrm{Cov}} (X,Y)/\mathop{\mathrm{Var}} (X)=\frac{3}{4}`$ and define
 
 ```math
 R=Y-\mu_Y-b(X-\mu_X).
 ```
 
-Then $`E[R]=0`$ and $`\mathop{\mathrm{Cov}}\nolimits(R,X)=\mathop{\mathrm{Cov}}\nolimits(Y,X)-b\mathop{\mathrm{Var}}\nolimits(X)=0`$. Because $`(R,X)`$ is jointly Gaussian, this zero covariance proves independence. Expanding its variance gives
+Then $`E[R]=0`$ and $`\mathop{\mathrm{Cov}} (R,X)=\mathop{\mathrm{Cov}} (Y,X)-b\mathop{\mathrm{Var}} (X)=0`$. Because $`(R,X)`$ is jointly Gaussian, this zero covariance proves independence. Expanding its variance gives
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(R)=\sigma_Y^2-\frac{\sigma_{XY}^2}{\sigma_X^2}
-=\frac{27}{4}>0.
+\mathop{\mathrm{Var}} (R)=\sigma_Y^2-\frac{\sigma_{XY}^2}{\sigma_X^2}
+=\frac{27}{4}\gt 0.
 ```
 
 Conditional on $`X=3`$, the linear term becomes a constant while $`R`$ keeps its unconditional Gaussian law. Therefore
@@ -1742,7 +1778,7 @@ N\left(\frac{7}{2},\frac{27}{4}\right).
 Standardizing the requested threshold gives
 
 ```math
-P(Y>2\mid X=3)
+P(Y\gt 2\mid X=3)
 =1-\Phi\left(\frac{2-(\frac{7}{2})}{\sqrt{\frac{27}{4}}}\right)
 \approx 0.718149.
 ```
@@ -1751,21 +1787,27 @@ The conditional variance does not depend on the observed value of $`X`$ in this 
 
 #### Problem PR-62: conditional Gaussian prediction, case 2
 
-Let $`(X,Y)`$ be jointly Gaussian with mean $`(0,-1)`$ and covariance $`\begin{pmatrix}1&-1\\-1&4\end{pmatrix}`$. Find the law of $`Y\mid X=2`$ and the conditional probability that $`Y>-1`$.
+Let $`(X,Y)`$ be jointly Gaussian with mean $`(0,-1)`$ and covariance
 
-Solution. The covariance matrix is valid and nonsingular: its first diagonal entry is $`1>0`$ and its determinant is $`3>0`$. The correlation is $`-0.500000`$, which lies strictly between minus one and one.
+```math
+\begin{pmatrix}1&-1\\[0pt] -1&4\end{pmatrix}
+```
 
-Choose $`b=\mathop{\mathrm{Cov}}\nolimits(X,Y)/\mathop{\mathrm{Var}}\nolimits(X)=-1`$ and define
+. Find the law of $`Y\mid X=2`$ and the conditional probability that $`Y\gt -1`$.
+
+Solution. The covariance matrix is valid and nonsingular: its first diagonal entry is $`1\gt 0`$ and its determinant is $`3\gt 0`$. The correlation is $`-0.500000`$, which lies strictly between minus one and one.
+
+Choose $`b=\mathop{\mathrm{Cov}} (X,Y)/\mathop{\mathrm{Var}} (X)=-1`$ and define
 
 ```math
 R=Y-\mu_Y-b(X-\mu_X).
 ```
 
-Then $`E[R]=0`$ and $`\mathop{\mathrm{Cov}}\nolimits(R,X)=\mathop{\mathrm{Cov}}\nolimits(Y,X)-b\mathop{\mathrm{Var}}\nolimits(X)=0`$. Because $`(R,X)`$ is jointly Gaussian, this zero covariance proves independence. Expanding its variance gives
+Then $`E[R]=0`$ and $`\mathop{\mathrm{Cov}} (R,X)=\mathop{\mathrm{Cov}} (Y,X)-b\mathop{\mathrm{Var}} (X)=0`$. Because $`(R,X)`$ is jointly Gaussian, this zero covariance proves independence. Expanding its variance gives
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(R)=\sigma_Y^2-\frac{\sigma_{XY}^2}{\sigma_X^2}
-=3>0.
+\mathop{\mathrm{Var}} (R)=\sigma_Y^2-\frac{\sigma_{XY}^2}{\sigma_X^2}
+=3\gt 0.
 ```
 
 Conditional on $`X=2`$, the linear term becomes a constant while $`R`$ keeps its unconditional Gaussian law. Therefore
@@ -1778,7 +1820,7 @@ N\left(-3,3\right).
 Standardizing the requested threshold gives
 
 ```math
-P(Y>-1\mid X=2)
+P(Y\gt -1\mid X=2)
 =1-\Phi\left(\frac{-1-(-3)}{\sqrt{3}}\right)
 \approx 0.124107.
 ```
@@ -1787,21 +1829,27 @@ The conditional variance does not depend on the observed value of $`X`$ in this 
 
 #### Problem PR-63: conditional Gaussian prediction, case 3
 
-Let $`(X,Y)`$ be jointly Gaussian with mean $`(-2,1)`$ and covariance $`\begin{pmatrix}9&3\\3&4\end{pmatrix}`$. Find the law of $`Y\mid X=1`$ and the conditional probability that $`Y>1`$.
+Let $`(X,Y)`$ be jointly Gaussian with mean $`(-2,1)`$ and covariance
 
-Solution. The covariance matrix is valid and nonsingular: its first diagonal entry is $`9>0`$ and its determinant is $`27>0`$. The correlation is $`0.500000`$, which lies strictly between minus one and one.
+```math
+\begin{pmatrix}9&3\\[0pt] 3&4\end{pmatrix}
+```
 
-Choose $`b=\mathop{\mathrm{Cov}}\nolimits(X,Y)/\mathop{\mathrm{Var}}\nolimits(X)=\frac{1}{3}`$ and define
+. Find the law of $`Y\mid X=1`$ and the conditional probability that $`Y\gt 1`$.
+
+Solution. The covariance matrix is valid and nonsingular: its first diagonal entry is $`9\gt 0`$ and its determinant is $`27\gt 0`$. The correlation is $`0.500000`$, which lies strictly between minus one and one.
+
+Choose $`b=\mathop{\mathrm{Cov}} (X,Y)/\mathop{\mathrm{Var}} (X)=\frac{1}{3}`$ and define
 
 ```math
 R=Y-\mu_Y-b(X-\mu_X).
 ```
 
-Then $`E[R]=0`$ and $`\mathop{\mathrm{Cov}}\nolimits(R,X)=\mathop{\mathrm{Cov}}\nolimits(Y,X)-b\mathop{\mathrm{Var}}\nolimits(X)=0`$. Because $`(R,X)`$ is jointly Gaussian, this zero covariance proves independence. Expanding its variance gives
+Then $`E[R]=0`$ and $`\mathop{\mathrm{Cov}} (R,X)=\mathop{\mathrm{Cov}} (Y,X)-b\mathop{\mathrm{Var}} (X)=0`$. Because $`(R,X)`$ is jointly Gaussian, this zero covariance proves independence. Expanding its variance gives
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(R)=\sigma_Y^2-\frac{\sigma_{XY}^2}{\sigma_X^2}
-=3>0.
+\mathop{\mathrm{Var}} (R)=\sigma_Y^2-\frac{\sigma_{XY}^2}{\sigma_X^2}
+=3\gt 0.
 ```
 
 Conditional on $`X=1`$, the linear term becomes a constant while $`R`$ keeps its unconditional Gaussian law. Therefore
@@ -1814,7 +1862,7 @@ N\left(2,3\right).
 Standardizing the requested threshold gives
 
 ```math
-P(Y>1\mid X=1)
+P(Y\gt 1\mid X=1)
 =1-\Phi\left(\frac{1-(2)}{\sqrt{3}}\right)
 \approx 0.718149.
 ```
@@ -1823,21 +1871,27 @@ The conditional variance does not depend on the observed value of $`X`$ in this 
 
 #### Problem PR-64: conditional Gaussian prediction, case 4
 
-Let $`(X,Y)`$ be jointly Gaussian with mean $`(3,0)`$ and covariance $`\begin{pmatrix}4&1\\1&1\end{pmatrix}`$. Find the law of $`Y\mid X=1`$ and the conditional probability that $`Y>0`$.
+Let $`(X,Y)`$ be jointly Gaussian with mean $`(3,0)`$ and covariance
 
-Solution. The covariance matrix is valid and nonsingular: its first diagonal entry is $`4>0`$ and its determinant is $`3>0`$. The correlation is $`0.500000`$, which lies strictly between minus one and one.
+```math
+\begin{pmatrix}4&1\\[0pt] 1&1\end{pmatrix}
+```
 
-Choose $`b=\mathop{\mathrm{Cov}}\nolimits(X,Y)/\mathop{\mathrm{Var}}\nolimits(X)=\frac{1}{4}`$ and define
+. Find the law of $`Y\mid X=1`$ and the conditional probability that $`Y\gt 0`$.
+
+Solution. The covariance matrix is valid and nonsingular: its first diagonal entry is $`4\gt 0`$ and its determinant is $`3\gt 0`$. The correlation is $`0.500000`$, which lies strictly between minus one and one.
+
+Choose $`b=\mathop{\mathrm{Cov}} (X,Y)/\mathop{\mathrm{Var}} (X)=\frac{1}{4}`$ and define
 
 ```math
 R=Y-\mu_Y-b(X-\mu_X).
 ```
 
-Then $`E[R]=0`$ and $`\mathop{\mathrm{Cov}}\nolimits(R,X)=\mathop{\mathrm{Cov}}\nolimits(Y,X)-b\mathop{\mathrm{Var}}\nolimits(X)=0`$. Because $`(R,X)`$ is jointly Gaussian, this zero covariance proves independence. Expanding its variance gives
+Then $`E[R]=0`$ and $`\mathop{\mathrm{Cov}} (R,X)=\mathop{\mathrm{Cov}} (Y,X)-b\mathop{\mathrm{Var}} (X)=0`$. Because $`(R,X)`$ is jointly Gaussian, this zero covariance proves independence. Expanding its variance gives
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(R)=\sigma_Y^2-\frac{\sigma_{XY}^2}{\sigma_X^2}
-=\frac{3}{4}>0.
+\mathop{\mathrm{Var}} (R)=\sigma_Y^2-\frac{\sigma_{XY}^2}{\sigma_X^2}
+=\frac{3}{4}\gt 0.
 ```
 
 Conditional on $`X=1`$, the linear term becomes a constant while $`R`$ keeps its unconditional Gaussian law. Therefore
@@ -1850,7 +1904,7 @@ N\left(-\frac{1}{2},\frac{3}{4}\right).
 Standardizing the requested threshold gives
 
 ```math
-P(Y>0\mid X=1)
+P(Y\gt 0\mid X=1)
 =1-\Phi\left(\frac{0-(-\frac{1}{2})}{\sqrt{\frac{3}{4}}}\right)
 \approx 0.281851.
 ```
@@ -1869,7 +1923,7 @@ Solution. Independence removes cross-covariances, so
 
 ```math
 E[\bar X]=p,\qquad
-\mathop{\mathrm{Var}}\nolimits(\bar X)=\frac{p(1-p)}n=\frac{1}{400}.
+\mathop{\mathrm{Var}} (\bar X)=\frac{p(1-p)}n=\frac{1}{400}.
 ```
 
 Chebyshev's inequality therefore gives
@@ -1884,7 +1938,7 @@ The minimum with one records the trivial probability bound when the variance ine
 
 The normal approximation standardizes by $`\sqrt{p(1-p)/n}`$. The threshold is $`z=2.000000`$ standard deviations, giving the uncorrected approximation $`2[1-\Phi(z)]\approx 0.045500`$.
 
-For an exact answer, let $`S=n\bar X`$. Then $`S\sim\mathop{\mathrm{Binomial}}\nolimits(n,p)`$, and the event is
+For an exact answer, let $`S=n\bar X`$. Then $`S\sim\mathop{\mathrm{Binomial}} (n,p)`$, and the event is
 
 ```math
 S\le 40\quad\text{or}\quad S\ge 60.
@@ -1902,7 +1956,7 @@ Solution. Independence removes cross-covariances, so
 
 ```math
 E[\bar X]=p,\qquad
-\mathop{\mathrm{Var}}\nolimits(\bar X)=\frac{p(1-p)}n=\frac{9}{20000}.
+\mathop{\mathrm{Var}} (\bar X)=\frac{p(1-p)}n=\frac{9}{20000}.
 ```
 
 Chebyshev's inequality therefore gives
@@ -1917,7 +1971,7 @@ The minimum with one records the trivial probability bound when the variance ine
 
 The normal approximation standardizes by $`\sqrt{p(1-p)/n}`$. The threshold is $`z=2.357023`$ standard deviations, giving the uncorrected approximation $`2[1-\Phi(z)]\approx 0.018422`$.
 
-For an exact answer, let $`S=n\bar X`$. Then $`S\sim\mathop{\mathrm{Binomial}}\nolimits(n,p)`$, and the event is
+For an exact answer, let $`S=n\bar X`$. Then $`S\sim\mathop{\mathrm{Binomial}} (n,p)`$, and the event is
 
 ```math
 S\le 10\quad\text{or}\quad S\ge 30.
@@ -1935,7 +1989,7 @@ Solution. Independence removes cross-covariances, so
 
 ```math
 E[\bar X]=p,\qquad
-\mathop{\mathrm{Var}}\nolimits(\bar X)=\frac{p(1-p)}n=\frac{3}{1280}.
+\mathop{\mathrm{Var}} (\bar X)=\frac{p(1-p)}n=\frac{3}{1280}.
 ```
 
 Chebyshev's inequality therefore gives
@@ -1950,7 +2004,7 @@ The minimum with one records the trivial probability bound when the variance ine
 
 The normal approximation standardizes by $`\sqrt{p(1-p)/n}`$. The threshold is $`z=2.581989`$ standard deviations, giving the uncorrected approximation $`2[1-\Phi(z)]\approx 0.009823`$.
 
-For an exact answer, let $`S=n\bar X`$. Then $`S\sim\mathop{\mathrm{Binomial}}\nolimits(n,p)`$, and the event is
+For an exact answer, let $`S=n\bar X`$. Then $`S\sim\mathop{\mathrm{Binomial}} (n,p)`$, and the event is
 
 ```math
 S\le 10\quad\text{or}\quad S\ge 30.
@@ -1968,7 +2022,7 @@ Solution. Independence removes cross-covariances, so
 
 ```math
 E[\bar X]=p,\qquad
-\mathop{\mathrm{Var}}\nolimits(\bar X)=\frac{p(1-p)}n=\frac{2}{1875}.
+\mathop{\mathrm{Var}} (\bar X)=\frac{p(1-p)}n=\frac{2}{1875}.
 ```
 
 Chebyshev's inequality therefore gives
@@ -1983,7 +2037,7 @@ The minimum with one records the trivial probability bound when the variance ine
 
 The normal approximation standardizes by $`\sqrt{p(1-p)/n}`$. The threshold is $`z=3.061862`$ standard deviations, giving the uncorrected approximation $`2[1-\Phi(z)]\approx 0.002200`$.
 
-For an exact answer, let $`S=n\bar X`$. Then $`S\sim\mathop{\mathrm{Binomial}}\nolimits(n,p)`$, and the event is
+For an exact answer, let $`S=n\bar X`$. Then $`S\sim\mathop{\mathrm{Binomial}} (n,p)`$, and the event is
 
 ```math
 S\le 105\quad\text{or}\quad S\ge 135.
@@ -1999,7 +2053,7 @@ An exponential rate is the reciprocal of a population mean. The maximum-likeliho
 
 #### Problem PR-69: rate estimation from positive observations, case 1
 
-The observations $`1, 2, 3, 2, 2`$ are modeled as independent exponential variables with density $`f(x;\lambda)=\lambda e^{-\lambda x}`$ for $`x>0`$ and $`\lambda>0`$. Find the MLE, estimated asymptotic standard error, and an exact 95% interval.
+The observations $`1, 2, 3, 2, 2`$ are modeled as independent exponential variables with density $`f(x;\lambda)=\lambda e^{-\lambda x}`$ for $`x\gt 0`$ and $`\lambda\gt 0`$. Find the MLE, estimated asymptotic standard error, and an exact 95% interval.
 
 Solution. Write $`S=\sum_i x_i=10`$ and $`n=5`$. Ignoring factors independent of the rate, the likelihood and log-likelihood are
 
@@ -2008,12 +2062,12 @@ L(\lambda)=\lambda^n e^{-\lambda S},\qquad
 \ell(\lambda)=n\log\lambda-\lambda S.
 ```
 
-The score equation is $`n/\lambda-S=0`$, giving $`\hat\lambda=n/S=\frac{1}{2}`$. Since $`\ell''(\lambda)=-n/\lambda^2<0`$, the log-likelihood is strictly concave. It tends to minus infinity at both ends of the positive parameter line for these data, proving that this is the unique global maximizer.
+The score equation is $`n/\lambda-S=0`$, giving $`\hat\lambda=n/S=\frac{1}{2}`$. Since $`\ell''(\lambda)=-n/\lambda^2\lt 0`$, the log-likelihood is strictly concave. It tends to minus infinity at both ends of the positive parameter line for these data, proving that this is the unique global maximizer.
 
 The Fisher information is $`I_n(\lambda)=n/\lambda^2`$. Substituting the estimate gives asymptotic standard error
 
 ```math
-\widehat{\mathop{\mathrm{se}}\nolimits}(\hat\lambda)
+\widehat{\mathop{\mathrm{se}} }(\hat\lambda)
 =\frac{\hat\lambda}{\sqrt n}\approx 0.223607.
 ```
 
@@ -2033,7 +2087,7 @@ The observed interval is approximately $`[0.162349,1.024159]`$. Its endpoints ar
 
 #### Problem PR-70: rate estimation from positive observations, case 2
 
-The observations $`\frac{1}{2}, 1, \frac{3}{2}, 2, 1, \frac{1}{2}`$ are modeled as independent exponential variables with density $`f(x;\lambda)=\lambda e^{-\lambda x}`$ for $`x>0`$ and $`\lambda>0`$. Find the MLE, estimated asymptotic standard error, and an exact 95% interval.
+The observations $`\frac{1}{2}, 1, \frac{3}{2}, 2, 1, \frac{1}{2}`$ are modeled as independent exponential variables with density $`f(x;\lambda)=\lambda e^{-\lambda x}`$ for $`x\gt 0`$ and $`\lambda\gt 0`$. Find the MLE, estimated asymptotic standard error, and an exact 95% interval.
 
 Solution. Write $`S=\sum_i x_i=\frac{13}{2}`$ and $`n=6`$. Ignoring factors independent of the rate, the likelihood and log-likelihood are
 
@@ -2042,12 +2096,12 @@ L(\lambda)=\lambda^n e^{-\lambda S},\qquad
 \ell(\lambda)=n\log\lambda-\lambda S.
 ```
 
-The score equation is $`n/\lambda-S=0`$, giving $`\hat\lambda=n/S=\frac{12}{13}`$. Since $`\ell''(\lambda)=-n/\lambda^2<0`$, the log-likelihood is strictly concave. It tends to minus infinity at both ends of the positive parameter line for these data, proving that this is the unique global maximizer.
+The score equation is $`n/\lambda-S=0`$, giving $`\hat\lambda=n/S=\frac{12}{13}`$. Since $`\ell''(\lambda)=-n/\lambda^2\lt 0`$, the log-likelihood is strictly concave. It tends to minus infinity at both ends of the positive parameter line for these data, proving that this is the unique global maximizer.
 
 The Fisher information is $`I_n(\lambda)=n/\lambda^2`$. Substituting the estimate gives asymptotic standard error
 
 ```math
-\widehat{\mathop{\mathrm{se}}\nolimits}(\hat\lambda)
+\widehat{\mathop{\mathrm{se}} }(\hat\lambda)
 =\frac{\hat\lambda}{\sqrt n}\approx 0.376845.
 ```
 
@@ -2067,7 +2121,7 @@ The observed interval is approximately $`[0.338753,1.795128]`$. Its endpoints ar
 
 #### Problem PR-71: rate estimation from positive observations, case 3
 
-The observations $`2, 4, 1, 3, 2, 5, 1, 2`$ are modeled as independent exponential variables with density $`f(x;\lambda)=\lambda e^{-\lambda x}`$ for $`x>0`$ and $`\lambda>0`$. Find the MLE, estimated asymptotic standard error, and an exact 95% interval.
+The observations $`2, 4, 1, 3, 2, 5, 1, 2`$ are modeled as independent exponential variables with density $`f(x;\lambda)=\lambda e^{-\lambda x}`$ for $`x\gt 0`$ and $`\lambda\gt 0`$. Find the MLE, estimated asymptotic standard error, and an exact 95% interval.
 
 Solution. Write $`S=\sum_i x_i=20`$ and $`n=8`$. Ignoring factors independent of the rate, the likelihood and log-likelihood are
 
@@ -2076,12 +2130,12 @@ L(\lambda)=\lambda^n e^{-\lambda S},\qquad
 \ell(\lambda)=n\log\lambda-\lambda S.
 ```
 
-The score equation is $`n/\lambda-S=0`$, giving $`\hat\lambda=n/S=\frac{2}{5}`$. Since $`\ell''(\lambda)=-n/\lambda^2<0`$, the log-likelihood is strictly concave. It tends to minus infinity at both ends of the positive parameter line for these data, proving that this is the unique global maximizer.
+The score equation is $`n/\lambda-S=0`$, giving $`\hat\lambda=n/S=\frac{2}{5}`$. Since $`\ell''(\lambda)=-n/\lambda^2\lt 0`$, the log-likelihood is strictly concave. It tends to minus infinity at both ends of the positive parameter line for these data, proving that this is the unique global maximizer.
 
 The Fisher information is $`I_n(\lambda)=n/\lambda^2`$. Substituting the estimate gives asymptotic standard error
 
 ```math
-\widehat{\mathop{\mathrm{se}}\nolimits}(\hat\lambda)
+\widehat{\mathop{\mathrm{se}} }(\hat\lambda)
 =\frac{\hat\lambda}{\sqrt n}\approx 0.141421.
 ```
 
@@ -2101,7 +2155,7 @@ The observed interval is approximately $`[0.172692,0.721134]`$. Its endpoints ar
 
 #### Problem PR-72: rate estimation from positive observations, case 4
 
-The observations $`\frac{1}{4}, \frac{3}{4}, 1, \frac{1}{2}, \frac{3}{2}`$ are modeled as independent exponential variables with density $`f(x;\lambda)=\lambda e^{-\lambda x}`$ for $`x>0`$ and $`\lambda>0`$. Find the MLE, estimated asymptotic standard error, and an exact 95% interval.
+The observations $`\frac{1}{4}, \frac{3}{4}, 1, \frac{1}{2}, \frac{3}{2}`$ are modeled as independent exponential variables with density $`f(x;\lambda)=\lambda e^{-\lambda x}`$ for $`x\gt 0`$ and $`\lambda\gt 0`$. Find the MLE, estimated asymptotic standard error, and an exact 95% interval.
 
 Solution. Write $`S=\sum_i x_i=4`$ and $`n=5`$. Ignoring factors independent of the rate, the likelihood and log-likelihood are
 
@@ -2110,12 +2164,12 @@ L(\lambda)=\lambda^n e^{-\lambda S},\qquad
 \ell(\lambda)=n\log\lambda-\lambda S.
 ```
 
-The score equation is $`n/\lambda-S=0`$, giving $`\hat\lambda=n/S=\frac{5}{4}`$. Since $`\ell''(\lambda)=-n/\lambda^2<0`$, the log-likelihood is strictly concave. It tends to minus infinity at both ends of the positive parameter line for these data, proving that this is the unique global maximizer.
+The score equation is $`n/\lambda-S=0`$, giving $`\hat\lambda=n/S=\frac{5}{4}`$. Since $`\ell''(\lambda)=-n/\lambda^2\lt 0`$, the log-likelihood is strictly concave. It tends to minus infinity at both ends of the positive parameter line for these data, proving that this is the unique global maximizer.
 
 The Fisher information is $`I_n(\lambda)=n/\lambda^2`$. Substituting the estimate gives asymptotic standard error
 
 ```math
-\widehat{\mathop{\mathrm{se}}\nolimits}(\hat\lambda)
+\widehat{\mathop{\mathrm{se}} }(\hat\lambda)
 =\frac{\hat\lambda}{\sqrt n}\approx 0.559017.
 ```
 
@@ -2151,7 +2205,7 @@ The sample variance and standard error of the sample mean are
 
 ```math
 s^2=\frac1{n-1}\sum_i(x_i-\bar x)^2=\frac{9}{2},\qquad
-\mathop{\mathrm{se}}\nolimits(\bar x)=\frac s{\sqrt n}\approx 0.948683.
+\mathop{\mathrm{se}} (\bar x)=\frac s{\sqrt n}\approx 0.948683.
 ```
 
 Under independent Gaussian sampling, $`\sqrt n(\bar X-\mu)/\sigma`$ is standard normal, $`(n-1)s^2/\sigma^2`$ is chi-squared with $`n-1`$ degrees of freedom, and the two quantities are independent. Dividing the first by the square root of the second divided by its degrees of freedom gives
@@ -2183,7 +2237,7 @@ The sample variance and standard error of the sample mean are
 
 ```math
 s^2=\frac1{n-1}\sum_i(x_i-\bar x)^2=2,\qquad
-\mathop{\mathrm{se}}\nolimits(\bar x)=\frac s{\sqrt n}\approx 0.577350.
+\mathop{\mathrm{se}} (\bar x)=\frac s{\sqrt n}\approx 0.577350.
 ```
 
 Under independent Gaussian sampling, $`\sqrt n(\bar X-\mu)/\sigma`$ is standard normal, $`(n-1)s^2/\sigma^2`$ is chi-squared with $`n-1`$ degrees of freedom, and the two quantities are independent. Dividing the first by the square root of the second divided by its degrees of freedom gives
@@ -2215,7 +2269,7 @@ The sample variance and standard error of the sample mean are
 
 ```math
 s^2=\frac1{n-1}\sum_i(x_i-\bar x)^2=\frac{22}{7},\qquad
-\mathop{\mathrm{se}}\nolimits(\bar x)=\frac s{\sqrt n}\approx 0.626783.
+\mathop{\mathrm{se}} (\bar x)=\frac s{\sqrt n}\approx 0.626783.
 ```
 
 Under independent Gaussian sampling, $`\sqrt n(\bar X-\mu)/\sigma`$ is standard normal, $`(n-1)s^2/\sigma^2`$ is chi-squared with $`n-1`$ degrees of freedom, and the two quantities are independent. Dividing the first by the square root of the second divided by its degrees of freedom gives
@@ -2247,7 +2301,7 @@ The sample variance and standard error of the sample mean are
 
 ```math
 s^2=\frac1{n-1}\sum_i(x_i-\bar x)^2=5,\qquad
-\mathop{\mathrm{se}}\nolimits(\bar x)=\frac s{\sqrt n}\approx 1.000000.
+\mathop{\mathrm{se}} (\bar x)=\frac s{\sqrt n}\approx 1.000000.
 ```
 
 Under independent Gaussian sampling, $`\sqrt n(\bar X-\mu)/\sigma`$ is standard normal, $`(n-1)s^2/\sigma^2`$ is chi-squared with $`n-1`$ degrees of freedom, and the two quantities are independent. Dividing the first by the square root of the second divided by its degrees of freedom gives
@@ -2271,20 +2325,20 @@ For a stationary process, a sample mean contains all pairwise covariances, not o
 
 #### Problem PR-77: AR covariance and effective sample size, case 1
 
-A stationary process has $`\mathop{\mathrm{Cov}}\nolimits(X_t,X_{t-k})=\gamma_0\rho^{\vert k\vert }`$ with $`\rho=\frac{4}{5}`$ and $`\gamma_0=1`$. For $`n=20`$, find the exact variance of its sample mean and compare it with the independent and long-run formulas.
+A stationary process has $`\mathop{\mathrm{Cov}} (X_t,X_{t-k})=\gamma_0\rho^{\vert k\vert }`$ with $`\rho=\frac{4}{5}`$ and $`\gamma_0=1`$. For $`n=20`$, find the exact variance of its sample mean and compare it with the independent and long-run formulas.
 
 Solution. Start from the variance of a sum:
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(\bar X_n)
+\mathop{\mathrm{Var}} (\bar X_n)
 =\frac1{n^2}\sum_{i=1}^n\sum_{j=1}^n
-\mathop{\mathrm{Cov}}\nolimits(X_i,X_j).
+\mathop{\mathrm{Cov}} (X_i,X_j).
 ```
 
 There are $`n`$ diagonal terms of size $`\gamma_0`$. For each lag $`k\ge1`$, there are $`n-k`$ pairs above the diagonal and the same number below it. Therefore
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(\bar X_n)
+\mathop{\mathrm{Var}} (\bar X_n)
 =\frac{\gamma_0}n
 \left[1+2\sum_{k=1}^{n-1}
 \left(1-\frac kn\right)\rho^k\right]
@@ -2293,7 +2347,7 @@ There are $`n`$ diagonal terms of size $`\gamma_0`$. For each lag $`k\ge1`$, the
 
 The bracket equals approximately $`7.023058`$. An independence calculation would give $`\gamma_0/n=0.05000000`$, omitting every off-diagonal covariance.
 
-Since $`\vert \rho\vert <1`$, the covariance series is absolutely summable. Its sum is the long-run variance
+Since $`\vert \rho\vert \lt 1`$, the covariance series is absolutely summable. Its sum is the long-run variance
 
 ```math
 \Omega=\gamma_0+2\sum_{k=1}^\infty\gamma_0\rho^k
@@ -2302,24 +2356,24 @@ Since $`\vert \rho\vert <1`$, the covariance series is absolutely summable. Its 
 
 The large-sample approximation to the variance of the mean is $`\Omega/n=0.45000000`$. Its difference from the exact finite-sample result comes from the weights $`1-k/n`$ and the truncation at lag $`n-1`$.
 
-One descriptive effective sample size solves $`\gamma_0/n_{\mathrm{eff}}=\mathop{\mathrm{Var}}\nolimits(\bar X_n)`$, giving $`n_{\mathrm{eff}}\approx 2.8478`$. This number concerns estimation of this mean under this covariance model. It is not a universal replacement for sample size in every statistic or test. A dependence-aware bootstrap or long-run variance estimator must preserve or estimate the covariance terms that the independent calculation discards.
+One descriptive effective sample size solves $`\gamma_0/n_{\mathrm{eff}}=\mathop{\mathrm{Var}} (\bar X_n)`$, giving $`n_{\mathrm{eff}}\approx 2.8478`$. This number concerns estimation of this mean under this covariance model. It is not a universal replacement for sample size in every statistic or test. A dependence-aware bootstrap or long-run variance estimator must preserve or estimate the covariance terms that the independent calculation discards.
 
 #### Problem PR-78: AR covariance and effective sample size, case 2
 
-A stationary process has $`\mathop{\mathrm{Cov}}\nolimits(X_t,X_{t-k})=\gamma_0\rho^{\vert k\vert }`$ with $`\rho=\frac{1}{2}`$ and $`\gamma_0=4`$. For $`n=50`$, find the exact variance of its sample mean and compare it with the independent and long-run formulas.
+A stationary process has $`\mathop{\mathrm{Cov}} (X_t,X_{t-k})=\gamma_0\rho^{\vert k\vert }`$ with $`\rho=\frac{1}{2}`$ and $`\gamma_0=4`$. For $`n=50`$, find the exact variance of its sample mean and compare it with the independent and long-run formulas.
 
 Solution. Start from the variance of a sum:
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(\bar X_n)
+\mathop{\mathrm{Var}} (\bar X_n)
 =\frac1{n^2}\sum_{i=1}^n\sum_{j=1}^n
-\mathop{\mathrm{Cov}}\nolimits(X_i,X_j).
+\mathop{\mathrm{Cov}} (X_i,X_j).
 ```
 
 There are $`n`$ diagonal terms of size $`\gamma_0`$. For each lag $`k\ge1`$, there are $`n-k`$ pairs above the diagonal and the same number below it. Therefore
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(\bar X_n)
+\mathop{\mathrm{Var}} (\bar X_n)
 =\frac{\gamma_0}n
 \left[1+2\sum_{k=1}^{n-1}
 \left(1-\frac kn\right)\rho^k\right]
@@ -2328,7 +2382,7 @@ There are $`n`$ diagonal terms of size $`\gamma_0`$. For each lag $`k\ge1`$, the
 
 The bracket equals approximately $`2.920000`$. An independence calculation would give $`\gamma_0/n=0.08000000`$, omitting every off-diagonal covariance.
 
-Since $`\vert \rho\vert <1`$, the covariance series is absolutely summable. Its sum is the long-run variance
+Since $`\vert \rho\vert \lt 1`$, the covariance series is absolutely summable. Its sum is the long-run variance
 
 ```math
 \Omega=\gamma_0+2\sum_{k=1}^\infty\gamma_0\rho^k
@@ -2337,24 +2391,24 @@ Since $`\vert \rho\vert <1`$, the covariance series is absolutely summable. Its 
 
 The large-sample approximation to the variance of the mean is $`\Omega/n=0.24000000`$. Its difference from the exact finite-sample result comes from the weights $`1-k/n`$ and the truncation at lag $`n-1`$.
 
-One descriptive effective sample size solves $`\gamma_0/n_{\mathrm{eff}}=\mathop{\mathrm{Var}}\nolimits(\bar X_n)`$, giving $`n_{\mathrm{eff}}\approx 17.1233`$. This number concerns estimation of this mean under this covariance model. It is not a universal replacement for sample size in every statistic or test. A dependence-aware bootstrap or long-run variance estimator must preserve or estimate the covariance terms that the independent calculation discards.
+One descriptive effective sample size solves $`\gamma_0/n_{\mathrm{eff}}=\mathop{\mathrm{Var}} (\bar X_n)`$, giving $`n_{\mathrm{eff}}\approx 17.1233`$. This number concerns estimation of this mean under this covariance model. It is not a universal replacement for sample size in every statistic or test. A dependence-aware bootstrap or long-run variance estimator must preserve or estimate the covariance terms that the independent calculation discards.
 
 #### Problem PR-79: AR covariance and effective sample size, case 3
 
-A stationary process has $`\mathop{\mathrm{Cov}}\nolimits(X_t,X_{t-k})=\gamma_0\rho^{\vert k\vert }`$ with $`\rho=-\frac{1}{2}`$ and $`\gamma_0=1`$. For $`n=20`$, find the exact variance of its sample mean and compare it with the independent and long-run formulas.
+A stationary process has $`\mathop{\mathrm{Cov}} (X_t,X_{t-k})=\gamma_0\rho^{\vert k\vert }`$ with $`\rho=-\frac{1}{2}`$ and $`\gamma_0=1`$. For $`n=20`$, find the exact variance of its sample mean and compare it with the independent and long-run formulas.
 
 Solution. Start from the variance of a sum:
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(\bar X_n)
+\mathop{\mathrm{Var}} (\bar X_n)
 =\frac1{n^2}\sum_{i=1}^n\sum_{j=1}^n
-\mathop{\mathrm{Cov}}\nolimits(X_i,X_j).
+\mathop{\mathrm{Cov}} (X_i,X_j).
 ```
 
 There are $`n`$ diagonal terms of size $`\gamma_0`$. For each lag $`k\ge1`$, there are $`n-k`$ pairs above the diagonal and the same number below it. Therefore
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(\bar X_n)
+\mathop{\mathrm{Var}} (\bar X_n)
 =\frac{\gamma_0}n
 \left[1+2\sum_{k=1}^{n-1}
 \left(1-\frac kn\right)\rho^k\right]
@@ -2363,7 +2417,7 @@ There are $`n`$ diagonal terms of size $`\gamma_0`$. For each lag $`k\ge1`$, the
 
 The bracket equals approximately $`0.355556`$. An independence calculation would give $`\gamma_0/n=0.05000000`$, omitting every off-diagonal covariance.
 
-Since $`\vert \rho\vert <1`$, the covariance series is absolutely summable. Its sum is the long-run variance
+Since $`\vert \rho\vert \lt 1`$, the covariance series is absolutely summable. Its sum is the long-run variance
 
 ```math
 \Omega=\gamma_0+2\sum_{k=1}^\infty\gamma_0\rho^k
@@ -2372,24 +2426,24 @@ Since $`\vert \rho\vert <1`$, the covariance series is absolutely summable. Its 
 
 The large-sample approximation to the variance of the mean is $`\Omega/n=0.01666667`$. Its difference from the exact finite-sample result comes from the weights $`1-k/n`$ and the truncation at lag $`n-1`$.
 
-One descriptive effective sample size solves $`\gamma_0/n_{\mathrm{eff}}=\mathop{\mathrm{Var}}\nolimits(\bar X_n)`$, giving $`n_{\mathrm{eff}}\approx 56.2500`$. This number concerns estimation of this mean under this covariance model. It is not a universal replacement for sample size in every statistic or test. A dependence-aware bootstrap or long-run variance estimator must preserve or estimate the covariance terms that the independent calculation discards.
+One descriptive effective sample size solves $`\gamma_0/n_{\mathrm{eff}}=\mathop{\mathrm{Var}} (\bar X_n)`$, giving $`n_{\mathrm{eff}}\approx 56.2500`$. This number concerns estimation of this mean under this covariance model. It is not a universal replacement for sample size in every statistic or test. A dependence-aware bootstrap or long-run variance estimator must preserve or estimate the covariance terms that the independent calculation discards.
 
 #### Problem PR-80: AR covariance and effective sample size, case 4
 
-A stationary process has $`\mathop{\mathrm{Cov}}\nolimits(X_t,X_{t-k})=\gamma_0\rho^{\vert k\vert }`$ with $`\rho=\frac{9}{10}`$ and $`\gamma_0=2`$. For $`n=100`$, find the exact variance of its sample mean and compare it with the independent and long-run formulas.
+A stationary process has $`\mathop{\mathrm{Cov}} (X_t,X_{t-k})=\gamma_0\rho^{\vert k\vert }`$ with $`\rho=\frac{9}{10}`$ and $`\gamma_0=2`$. For $`n=100`$, find the exact variance of its sample mean and compare it with the independent and long-run formulas.
 
 Solution. Start from the variance of a sum:
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(\bar X_n)
+\mathop{\mathrm{Var}} (\bar X_n)
 =\frac1{n^2}\sum_{i=1}^n\sum_{j=1}^n
-\mathop{\mathrm{Cov}}\nolimits(X_i,X_j).
+\mathop{\mathrm{Cov}} (X_i,X_j).
 ```
 
 There are $`n`$ diagonal terms of size $`\gamma_0`$. For each lag $`k\ge1`$, there are $`n-k`$ pairs above the diagonal and the same number below it. Therefore
 
 ```math
-\mathop{\mathrm{Var}}\nolimits(\bar X_n)
+\mathop{\mathrm{Var}} (\bar X_n)
 =\frac{\gamma_0}n
 \left[1+2\sum_{k=1}^{n-1}
 \left(1-\frac kn\right)\rho^k\right]
@@ -2398,7 +2452,7 @@ There are $`n`$ diagonal terms of size $`\gamma_0`$. For each lag $`k\ge1`$, the
 
 The bracket equals approximately $`17.200048`$. An independence calculation would give $`\gamma_0/n=0.02000000`$, omitting every off-diagonal covariance.
 
-Since $`\vert \rho\vert <1`$, the covariance series is absolutely summable. Its sum is the long-run variance
+Since $`\vert \rho\vert \lt 1`$, the covariance series is absolutely summable. Its sum is the long-run variance
 
 ```math
 \Omega=\gamma_0+2\sum_{k=1}^\infty\gamma_0\rho^k
@@ -2407,7 +2461,7 @@ Since $`\vert \rho\vert <1`$, the covariance series is absolutely summable. Its 
 
 The large-sample approximation to the variance of the mean is $`\Omega/n=0.38000000`$. Its difference from the exact finite-sample result comes from the weights $`1-k/n`$ and the truncation at lag $`n-1`$.
 
-One descriptive effective sample size solves $`\gamma_0/n_{\mathrm{eff}}=\mathop{\mathrm{Var}}\nolimits(\bar X_n)`$, giving $`n_{\mathrm{eff}}\approx 5.8139`$. This number concerns estimation of this mean under this covariance model. It is not a universal replacement for sample size in every statistic or test. A dependence-aware bootstrap or long-run variance estimator must preserve or estimate the covariance terms that the independent calculation discards.
+One descriptive effective sample size solves $`\gamma_0/n_{\mathrm{eff}}=\mathop{\mathrm{Var}} (\bar X_n)`$, giving $`n_{\mathrm{eff}}\approx 5.8139`$. This number concerns estimation of this mean under this covariance model. It is not a universal replacement for sample size in every statistic or test. A dependence-aware bootstrap or long-run variance estimator must preserve or estimate the covariance terms that the independent calculation discards.
 
 <!-- further-distinct-problems-PR -->
 
@@ -2417,7 +2471,7 @@ These additional problems are constructed for these notes.
 
 #### Problem PR-81: a Poisson model with a random intensity
 
-Let $`\Lambda`$ have gamma density $`b^k\lambda^{k-1}e^{-b\lambda}/\Gamma(k)`$ for $`\lambda>0`$, with $`k,b>0`$. Conditional on $`\Lambda`$, let $`N`$ be Poisson with mean $`\Lambda`$. Find the marginal mass function, mean, and variance of $`N`$.
+Let $`\Lambda`$ have gamma density $`b^k\lambda^{k-1}e^{-b\lambda}/\Gamma(k)`$ for $`\lambda\gt 0`$, with $`k,b\gt 0`$. Conditional on $`\Lambda`$, let $`N`$ be Poisson with mean $`\Lambda`$. Find the marginal mass function, mean, and variance of $`N`$.
 
 Solution. Multiply the conditional Poisson mass by the mixing density and integrate:
 
@@ -2434,7 +2488,7 @@ Conditional mean and variance both equal $`\Lambda`$. The tower property and tot
 
 ```math
 E[N]=E[\Lambda]=\frac kb,\qquad
-\mathop{\mathrm{Var}}\nolimits(N)=E[\Lambda]+\mathop{\mathrm{Var}}\nolimits(\Lambda)
+\mathop{\mathrm{Var}} (N)=E[\Lambda]+\mathop{\mathrm{Var}} (\Lambda)
 =\frac kb+\frac k{b^2}.
 ```
 
@@ -2449,7 +2503,7 @@ For $`n`$ independent categorical observations with positive category probabilit
 Solution. Represent one observation by the indicator vector $`I`$ with exactly one entry equal to one. Then $`E[I]=p`$, each diagonal second moment is $`p_i`$, and off-diagonal products vanish. Therefore
 
 ```math
-\Sigma=\mathop{\mathrm{Cov}}\nolimits(I)=\mathop{\mathrm{diag}}\nolimits(p)-pp^\top.
+\Sigma=\mathop{\mathrm{Cov}} (I)=\mathop{\mathrm{diag}} (p)-pp^\top.
 ```
 
 The multivariate CLT gives $`\sqrt n(\hat p-p)\Rightarrow N(0,\Sigma)`$. The covariance is singular because the proportions always sum to one. For any vector $`a`$, its quadratic form is the variance of a discrete variable taking values $`a_i`$ with positive probabilities $`p_i`$. It vanishes exactly when all $`a_i`$ are equal, so the rank is $`d-1`$.
@@ -2468,7 +2522,7 @@ Zero observed counts require separate treatment because the log and plug-in grad
 
 #### Problem PR-83: a variance-stabilizing transformation
 
-For a Bernoulli sample mean with fixed $`0<p<1`$, find a differentiable increasing transformation whose square-root-sample-size asymptotic variance is one. Construct the resulting approximate interval and state its boundary limitation.
+For a Bernoulli sample mean with fixed $`0\lt p\lt 1`$, find a differentiable increasing transformation whose square-root-sample-size asymptotic variance is one. Construct the resulting approximate interval and state its boundary limitation.
 
 Solution. The sample proportion has asymptotic variance $`p(1-p)`$. The delta method gives transformed variance $`g'(p)^2p(1-p)`$. Requiring it to equal one and choosing the increasing sign gives $`g'(p)=1/\sqrt{p(1-p)}`$.
 
@@ -2499,10 +2553,10 @@ The sum-of-squares decomposition gives $`v_0=\hat v+(\bar X-\mu_0)^2`$. At eithe
 t=\frac{\sqrt n(\bar X-\mu_0)}s.
 ```
 
-The statistic is strictly increasing in $`\vert t\vert `$. Since $`t\sim t_{n-1}`$ exactly under the Gaussian null, an exact size-$`\alpha`$ LR test rejects when
+The statistic is strictly increasing in $`\vert t\vert`$. Since $`t\sim t_{n-1}`$ exactly under the Gaussian null, an exact size-$`\alpha`$ LR test rejects when
 
 ```math
--2\log\Lambda>
+-2\log\Lambda\gt
 n\log\left(1+\frac{t_{n-1,1-\alpha/2}^2}{n-1}\right).
 ```
 
@@ -2516,7 +2570,7 @@ The relation was derived for positive fitted variance. An all-equal sample would
 
 For independent uniform observations on $`(0,\theta)`$, let $`M`$ be the maximum. Construct a finite-sample interval with coverage $`1-\alpha`$ using only $`M`$ and derive its endpoint factor.
 
-Solution. The pivot $`U=M/\theta`$ has CDF $`u^n`$ on $`[0,1]`$. Also $`M\le\theta`$ almost surely. Seek an interval $`[M,cM]`$ with $`c>1`$.
+Solution. The pivot $`U=M/\theta`$ has CDF $`u^n`$ on $`[0,1]`$. Also $`M\le\theta`$ almost surely. Seek an interval $`[M,cM]`$ with $`c\gt 1`$.
 
 Its coverage is
 
