@@ -1,0 +1,1138 @@
+# Probability and Statistics — Part 1
+
+Probability describes a model before observations arrive. Statistics uses observations to learn about an unknown feature of a model. These notes develop both, starting with events and ending with inference for dependent observations.
+
+Sources:
+
+- Joe Blitzstein and Jessica Hwang, [Harvard Stat 110 and its probability text](https://stat110.hsites.harvard.edu/). The [strategic practice collection](https://stat110.hsites.harvard.edu/strategic-practice-problems) has its own section numbering within each practice sheet.
+- Philippe Rigollet, [MIT 18.650, Statistics for Applications, Fall 2016](https://ocw.mit.edu/courses/18-650-statistics-for-applications-fall-2016/), especially Problem Sets 1–6 and 10.
+
+The source links identify the selected problems; their statements are paraphrased. Additional problems and worked examples are constructed for these notes. Throughout, iid means independent and identically distributed. The notation $`N(\mu,\sigma^2)`$ uses variance as its second argument, and $`\mathop{\mathrm{Exp}} (\lambda)`$ uses a rate, with mean $`1/\lambda`$.
+
+[Contents](README.md) · [Part 2](03-probability-and-statistics-part-2.md)
+
+Contents:
+
+- [1. Probability foundations](#1-probability-foundations)
+- [2. Random variables and distributions](#2-random-variables-and-distributions)
+- [3. Conditional expectation](#3-conditional-expectation)
+- [4. Multivariate probability](#4-multivariate-probability)
+- [5. Convergence and asymptotic theory](#5-convergence-and-asymptotic-theory)
+- [6. Statistical estimation](#6-statistical-estimation)
+- [7. Statistical inference](#7-statistical-inference)
+
+## 1. Probability foundations
+
+### 1.1 Theory
+
+A probability model is a triple $`(\Omega,\mathcal F,P)`$. The sample space $`\Omega`$ contains possible outcomes. The sigma-algebra $`\mathcal F`$ contains the events to which probabilities are assigned. It contains $`\Omega`$, is closed under complements, and is closed under countable unions. These rules also imply closure under countable intersections by De Morgan's law.
+
+The probability measure satisfies $`P(A)\ge0`$, $`P(\Omega)=1`$, and countable additivity: for pairwise disjoint events $`A_i`$, $`P(\bigcup_iA_i)=\sum_iP(A_i)`$. Disjointness means the events cannot occur together. Independence means learning one occurred does not change the other's probability. They are different properties: two disjoint events with positive probabilities cannot be independent.
+
+For $`P(B)\gt 0`$, conditional probability is
+
+```math
+P(A\mid B)=\frac{P(A\cap B)}{P(B)}.
+```
+
+The denominator restricts attention to outcomes in $`B`$ and rescales their total probability to one. For fixed $`B`$, the function $`A\mapsto P(A\mid B)`$ is itself a probability measure. If $`P(B)=0`$, this ratio is undefined. Conditional distributions given continuous random variables require a density or conditional-expectation construction instead.
+
+Events $`A,B`$ are independent when $`P(A\cap B)=P(A)P(B)`$. For several events, mutual independence requires the corresponding product equality for every subcollection. Pairwise equalities do not control triple intersections.
+
+### 1.2 Derivations and proofs
+
+#### Total probability and Bayes' theorem
+
+Let $`B_1,\ldots,B_k`$ partition $`\Omega`$, with positive probabilities. The sets $`A\cap B_i`$ are disjoint and their union is $`A`$, so
+
+```math
+P(A)=\sum_iP(A\mid B_i)P(B_i).
+```
+
+When $`P(A)\gt 0`$, substitute $`P(A\cap B_j)=P(A\mid B_j)P(B_j)`$ into the definition:
+
+```math
+P(B_j\mid A)=
+\frac{P(A\mid B_j)P(B_j)}
+{\sum_iP(A\mid B_i)P(B_i)}.
+```
+
+The likelihood $`P(A\mid B_j)`$ and prior weight $`P(B_j)`$ both affect the posterior probability. A high probability of observing evidence under a hypothesis does not by itself imply a high posterior probability for that hypothesis.
+
+#### Inclusion-exclusion
+
+Split $`A\cup B`$ into $`A`$ and $`B\setminus A`$. Since $`P(B)=P(B\setminus A)+P(A\cap B)`$,
+
+```math
+P(A\cup B)=P(A)+P(B)-P(A\cap B).
+```
+
+For three events, add their individual probabilities, subtract the three pairwise intersections, and add the triple intersection back. An outcome in all three events was first counted three times, then removed three times, and must finally be counted once.
+
+#### Events, random variables, and information
+
+A probability space consists of outcomes $`\Omega`$, a sigma-algebra $`\mathcal F`$ of events, and a probability measure $`P`$. A sigma-algebra contains the whole space, is closed under complements, and is closed under countable unions. Countability matters because limits of sequences of events can then be described as events.
+
+A random variable is a measurable map from outcomes to real values. Measurability means that events such as $`\lbrace X\le x\rbrace`$ belong to $`\mathcal F`$. The CDF assigns probabilities to these events. In a finite outcome space with every subset measurable, this condition is automatic; in continuous models it is part of the definition.
+
+Countable additivity concerns disjoint events. For arbitrary events, $`P(A\cup B)=P(A)+P(B)-P(A\cap B)`$. Omitting the intersection double-counts outcomes in both events. Independence instead says $`P(A\cap B)=P(A)P(B)`$ and is an extra property of the model.
+
+Conditional probability $`P(A\mid B)=P(A\cap B)/P(B)`$ needs $`P(B)\gt 0`$. Conditioning on the exact value of a continuous variable cannot usually use that ratio because $`P(X=x)=0`$. A conditional density or regular conditional distribution supplies the appropriate meaning. Its values on conditioning events of probability zero can be chosen in different versions without changing the probabilistic identities.
+
+#### Independence beyond a pair of events
+
+Mutual independence requires factorization for every finite subcollection, not only every pair. If $`X,Y`$ are independent fair bits and $`Z`$ is their parity, each pair is independent, but knowing any two determines the third. Pairwise checks therefore do not justify factoring a three-way probability.
+
+For independent random variables, measurable functions of separate variables remain independent. For example, $`X^2`$ and $`e^Y`$ are independent if $`X,Y`$ are independent. Functions of the same variable need not be independent merely because their covariance vanishes.
+
+#### Example PR-E21: repeated evidence needs a model
+
+Suppose a latent event has prior probability $`p`$, and two tests each have sensitivity $`s`$ and false-positive probability $`f`$. Find the posterior after two positives when the tests are conditionally independent given the latent event and its complement.
+
+Solution. Under the stated conditional independence, $`P(++\mid D)=s^2`$ and $`P(++\mid D^c)=f^2`$. Bayes gives
+
+```math
+P(D\mid++)=\frac{ps^2}{ps^2+(1-p)f^2}.
+```
+
+If the second test simply repeats the first result, these squared probabilities are wrong: the pair provides only one observation. Marginally identical sensitivities do not determine the joint test behavior. The conditional-independence assumption supplies the missing information.
+
+### 1.3 Worked examples
+
+#### Example PR-E01: verifying a finite model
+
+Take $`\Omega=\lbrace 1,2,3\rbrace`$, $`\mathcal F=2^\Omega`$, and assign masses $`1/2,1/3,1/6`$.
+
+Solution. Every subset is measurable. The masses are nonnegative and sum to one. Defining $`P(A)`$ as the sum of masses in $`A`$ gives additivity because disjoint events contain no outcome twice. Thus this is a probability model. The collection $`\lbrace \varnothing,\lbrace 1\rbrace ,\Omega\rbrace`$ would not be a sigma-algebra, since it omits the complement $`\lbrace 2,3\rbrace`$.
+
+#### Example PR-E02: a diagnostic calculation
+
+Suppose $`P(D)=0.01`$, $`P(+\mid D)=0.9`$, and $`P(+\mid D^c)=0.05`$.
+
+Solution. Total probability gives $`P(+)=0.9(0.01)+0.05(0.99)=0.0585`$. Hence $`P(D\mid+)=0.009/0.0585=2/13`$, about $`0.154`$. Among ten thousand modeled cases, the expected counts are ninety positive cases from $`D`$ and 495 from $`D^c`$. The posterior fraction is $`90/(90+495)`$, the same result expressed as counts.
+
+### 1.4 Selected exercises
+
+#### Problem PR-01: independence from itself
+
+Source: [Harvard Strategic Practice 2, Section 2, Problem 1](https://stat110.hsites.harvard.edu/sites/g/files/omnuum10111/files/stat110/files/strategic_practice_and_homework_2.pdf).
+
+Problem. Determine exactly when an event can be independent of itself.
+
+Solution. Independence would require $`P(A)=P(A\cap A)=P(A)^2`$. Writing $`p=P(A)`$ gives $`p(1-p)=0`$, so $`p=0`$ or $`p=1`$. Both values also satisfy the equality, so the condition is necessary and sufficient. Probability-zero events can be nonempty; the result concerns probability rather than set emptiness.
+
+#### Problem PR-02: complements of independent events
+
+Source: [Harvard Strategic Practice 2, Section 2, Problem 2](https://stat110.hsites.harvard.edu/sites/g/files/omnuum10111/files/stat110/files/strategic_practice_and_homework_2.pdf).
+
+Problem. Prove that complementing either or both of two independent events preserves independence.
+
+Solution. If $`P(A\cap B)=P(A)P(B)`$, inclusion-exclusion gives
+
+```math
+P(A^c\cap B^c)=1-P(A)-P(B)+P(A)P(B)
+=(1-P(A))(1-P(B)).
+```
+
+This equals $`P(A^c)P(B^c)`$, proving independence. Also $`P(A\cap B^c)=P(A)-P(A\cap B)=P(A)(1-P(B))`$, so complementing only one event preserves independence too.
+
+#### Problem PR-03: pairwise independence without mutual independence
+
+Source: [Harvard Strategic Practice 2, Section 2, Problem 3](https://stat110.hsites.harvard.edu/sites/g/files/omnuum10111/files/stat110/files/strategic_practice_and_homework_2.pdf).
+
+Problem. Construct three events that are pairwise independent but not mutually independent, verifying every required probability.
+
+Solution. Toss two fair independent coins. Let $`A`$ mean the first is heads, $`B`$ mean the second is heads, and $`C`$ mean they agree. Each has probability $`1/2`$. Each pairwise intersection consists of the single outcome HH, with probability $`1/4`$, so every pair is independent. Yet $`P(A\cap B\cap C)=1/4`$, whereas $`P(A)P(B)P(C)=1/8`$. Knowing the first two events determines whether the third occurs.
+
+#### Problem PR-04: a phrase-based spam probability
+
+Source: [Harvard Strategic Practice 2, Section 3, Problem 2](https://stat110.hsites.harvard.edu/sites/g/files/omnuum10111/files/stat110/files/strategic_practice_and_homework_2.pdf).
+
+Problem. Suppose 80% of messages are spam, a phrase occurs in 10% of spam messages and 1% of other messages. Find the probability of spam given the phrase and determine whether the phrase and spam events are independent.
+
+Solution. Let $`S`$ mean spam and $`F`$ the specified phrase. The data are $`P(S)=0.8`$, $`P(F\mid S)=0.1`$, and $`P(F\mid S^c)=0.01`$. Thus
+
+```math
+P(S\mid F)=\frac{0.1(0.8)}{0.1(0.8)+0.01(0.2)}
+=\frac{40}{41}.
+```
+
+The events are not independent, since $`P(F\mid S)=0.1`$ differs from $`P(F)=0.082`$. Both the phrase frequency and the high initial prevalence contribute to the posterior.
+
+### 1.5 Additional solved problems
+
+#### Problem PR-05: a coarse sigma-algebra
+
+Constructed problem. Let $`\Omega=\lbrace 1,2,3,4\rbrace`$ and $`\mathcal F=\lbrace \varnothing,\lbrace 1,2\rbrace ,\lbrace 3,4\rbrace ,\Omega\rbrace`$. Verify its sigma-algebra properties and describe its information.
+
+Solution. The complement of either two-point set is the other, and the complements of $`\Omega`$ and $`\varnothing`$ exchange them. Every union of sets from this collection is one of the four listed sets, including countable unions because only four distinct sets are available. It is a sigma-algebra. Observing an event in this collection can distinguish the pair $`\lbrace 1,2\rbrace`$ from $`\lbrace 3,4\rbrace`$ but cannot distinguish one from two. A random variable measurable with respect to it must be constant within each pair.
+
+#### Problem PR-06: two-stage updating
+
+Constructed problem. Show that conditioning first on $`B`$ and then on $`C`$ agrees with conditioning on $`B\cap C`$, when $`P(B\cap C)\gt 0`$.
+
+Solution. Define $`P_B(A)=P(A\mid B)`$. Then
+
+```math
+P_B(A\mid C)=\frac{P_B(A\cap C)}{P_B(C)}
+=\frac{P(A\cap B\cap C)/P(B)}{P(B\cap C)/P(B)}
+=P(A\mid B\cap C).
+```
+
+The second update must use the already-conditioned probability model in both numerator and denominator. Multiplying unrelated marginal likelihoods would not generally produce this identity.
+
+## 2. Random variables and distributions
+
+### 2.1 Theory
+
+A real random variable $`X`$ is a measurable function from outcomes to real numbers. Its cumulative distribution function is $`F_X(x)=P(X\le x)`$. Every CDF is nondecreasing, right-continuous, and has limits zero and one at the two infinities.
+
+A discrete variable has a probability mass function $`p(x)=P(X=x)`$, whose nonnegative values sum to one. An absolutely continuous variable has a density $`f`$, with $`F(x)=\int_{-\infty}^xf(t)\,dt`$. A density value is not a point probability: for a continuous variable, $`P(X=x)=0`$ even if $`f(x)\gt 0`$. Densities may exceed one, provided their area is one.
+
+For integrable $`X`$, expectation is a weighted average. In the discrete and continuous cases,
+
+```math
+E[g(X)]=\sum_xg(x)p(x),\qquad
+E[g(X)]=\int g(x)f(x)\,dx.
+```
+
+An expectation is finite when $`E\vert g(X)\vert \lt \infty`$. The variance is $`\mathop{\mathrm{Var}} (X)=E[(X-EX)^2]=E[X^2]-(EX)^2`$, provided $`E[X^2]\lt \infty`$.
+
+A joint density describes several variables at once. Marginalizing means integrating out unwanted coordinates. The integration region must respect the support; rectangular limits cannot be assumed for a triangular or curved support.
+
+### 2.2 Derivations and proofs
+
+#### Transforming a continuous variable
+
+For a strictly increasing differentiable map $`Y=g(X)`$ with inverse $`h`$,
+
+```math
+F_Y(y)=P(X\le h(y))=F_X(h(y)).
+```
+
+Differentiation gives $`f_Y(y)=f_X(h(y))\vert h'(y)\vert`$. The absolute value handles decreasing maps as well. For a non-one-to-one map, split the support into monotone branches and add their contributions. A transformation can produce atoms if it maps a positive-probability region to a single value.
+
+#### The tail integral formula
+
+For a nonnegative $`X`$, pointwise $`X=\int_0^\infty\mathbf1_{\lbrace X\gt t\rbrace }dt`$. Interchanging two nonnegative integrals gives
+
+```math
+EX=\int_0^\infty P(X\gt t)\,dt.
+```
+
+The interchange is valid even if the answer is infinite, by Tonelli's theorem. For an exponential variable, integrating $`e^{-\lambda t}`$ immediately gives $`EX=1/\lambda`$.
+
+#### Expectations and the order of integration
+
+For a discrete variable, expectation is a probability-weighted sum. For a variable with density, it is the corresponding integral. A finite real expectation requires integrability of the absolute value, $`E\vert X\vert \lt \infty`$. A cancellation between infinite positive and negative contributions does not define a finite expectation.
+
+For a nonnegative random variable, the tail formula is
+
+```math
+E[X]=\int_0^\infty P(X\gt t)\,dt.
+```
+
+To see this, write $`X(\omega)=\int_0^\infty1_{\lbrace X(\omega)\gt t\rbrace }dt`$ and interchange the two nonnegative integrals. Tonelli's theorem permits this even when the answer is infinite. For signed integrands, a Fubini interchange needs an integrability condition.
+
+Variance is $`E[(X-EX)^2]`$ and requires a finite second moment. Expanding gives $`E[X^2]-(EX)^2`$ when these terms are finite. The expression should not be used as an undefined subtraction of infinities.
+
+#### Nonmonotone transformations need every branch
+
+For $`Y=g(X)`$, a monotone differentiable branch gives density $`f_X(g^{-1}(y))\vert (g^{-1})'(y)\vert`$. If several distinct input points map to the same output, sum the contributions of all branches. A missing branch generally produces a density integrating to less than one.
+
+The CDF method avoids this bookkeeping when the event $`\lbrace g(X)\le y\rbrace`$ has a simple form. It also handles transformations with atoms, for which a density alone would be incomplete.
+
+#### Example PR-E22: squaring a standard normal
+
+Let $`Z\sim N(0,1)`$ and $`Y=Z^2`$. Find its density and expectation.
+
+Solution. For $`y\gt 0`$, the two inverse points are $`\sqrt y`$ and $`-\sqrt y`$. Each has inverse-derivative magnitude $`1/(2\sqrt y)`$. Symmetry gives
+
+```math
+f_Y(y)=\frac{\phi(\sqrt y)+\phi(-\sqrt y)}{2\sqrt y}
+=\frac{e^{-y/2}}{\sqrt{2\pi y}},\qquad y\gt 0.
+```
+
+It is zero for negative $`y`$ and has no atom at zero. This is the chi-squared density with one degree of freedom. Its mean is $`E[Z^2]=1`$. Its variance is $`E[Z^4]-1=3-1=2`$.
+
+Integrating only the positive inverse branch would yield total mass one half. The singular density near zero is integrable; the change of variables concentrates many small normal values into a short interval of squared values.
+
+### 2.3 Worked examples
+
+#### Example PR-E03: a monotone transformation
+
+Let $`U\sim\mathop{\mathrm{Unif}} (0,1)`$ and $`Y=-\log U`$.
+
+Solution. For $`y\ge0`$, $`P(Y\le y)=P(U\ge e^{-y})=1-e^{-y}`$. Thus $`f_Y(y)=e^{-y}`$ on $`y\gt 0`$: $`Y`$ is exponential with rate one. The decreasing transformation reverses the inequality before the probability is evaluated.
+
+#### Example PR-E04: squaring a symmetric variable
+
+Let $`X\sim\mathop{\mathrm{Unif}} (-1,1)`$ and $`Y=X^2`$.
+
+Solution. For $`0\le y\le1`$, $`P(Y\le y)=P(-\sqrt y\le X\le\sqrt y)=\sqrt y`$. Therefore $`f_Y(y)=1/(2\sqrt y)`$ on $`(0,1)`$. The density diverges near zero but integrates to one. Using only the positive inverse branch would lose half the probability.
+
+### 2.4 Selected exercises
+
+#### Problem PR-07: marginals inside a ball
+
+Source: [Harvard Strategic Practice 7, Section 1, Problem 1(a–c)](https://stat110.hsites.harvard.edu/sites/g/files/omnuum10111/files/stat110/files/strategic_practice_and_homework_7.pdf).
+
+Problem. Choose a point uniformly from the three-dimensional unit ball. Find its joint density, the density of its first two coordinates, and the marginal density of one coordinate.
+
+Solution. The unit ball in three dimensions has volume $`4\pi/3`$, so the joint density is $`3/(4\pi)`$ inside it and zero elsewhere. For fixed $`(x,y)`$ inside the unit disk, the allowed $`z`$ interval has length $`2\sqrt{1-x^2-y^2}`$. Hence
+
+```math
+f_{X,Y}(x,y)=\frac{3}{2\pi}\sqrt{1-x^2-y^2},
+\qquad x^2+y^2\lt 1.
+```
+
+For fixed $`x`$, integrate over $`-\sqrt{1-x^2}\lt y\lt \sqrt{1-x^2}`$. The integral of $`\sqrt{a^2-y^2}`$ over $`[-a,a]`$ is the area of a semicircle, $`\pi a^2/2`$. Therefore
+
+```math
+f_X(x)=\frac34(1-x^2),\qquad -1\lt x\lt 1.
+```
+
+Its integral is $`\tfrac34(2-2/3)=1`$. A coordinate of a point uniform in a ball is not uniform on its coordinate interval; central slices contain more volume.
+
+#### Problem PR-08: distance between two uniforms
+
+Source: [Harvard Strategic Practice 7, Section 1, Problem 2](https://stat110.hsites.harvard.edu/sites/g/files/omnuum10111/files/stat110/files/strategic_practice_and_homework_7.pdf).
+
+Problem. For independent uniform variables on $`[0,1]`$, find the mean and standard deviation of their absolute difference.
+
+Solution. For independent uniforms $`X,Y`$, symmetry across the diagonal of the unit square gives
+
+```math
+E\vert X-Y\vert =2\int_0^1\int_0^y(y-x)\,dx\,dy
+=2\int_0^1y^2/2\,dy=\frac13.
+```
+
+Also $`E\vert X-Y\vert ^2=E(X-Y)^2=\mathop{\mathrm{Var}} (X)+\mathop{\mathrm{Var}} (Y)=1/6`$, since their means agree and they are independent. The variance of the distance is $`1/6-1/9=1/18`$ and its standard deviation is $`1/(3\sqrt2)`$.
+
+#### Problem PR-09: the smallest and largest of three uniforms
+
+Source: [Harvard Strategic Practice 7, Section 1, Problem 3(a,b)](https://stat110.hsites.harvard.edu/sites/g/files/omnuum10111/files/stat110/files/strategic_practice_and_homework_7.pdf).
+
+Problem. For three independent uniforms on $`[0,1]`$, derive the maximum's distribution, the joint law of minimum and maximum, and the conditional density of the maximum given the minimum.
+
+Solution. For $`M=\max(U_1,U_2,U_3)`$, independence gives $`F_M(m)=m^3`$ on $`[0,1]`$, hence $`f_M(m)=3m^2`$. For $`0\le l\le m\le1`$,
+
+```math
+P(L\gt l,M\le m)=(m-l)^3,
+```
+
+so $`F_{L,M}(l,m)=m^3-(m-l)^3`$. Differentiating first in $`l`$, then in $`m`$, gives $`f_{L,M}(l,m)=6(m-l)`$ on $`0\lt l\lt m\lt 1`$. Outside this region the joint density is zero.
+
+The full CDF is zero for $`l\lt 0`$ or $`m\lt 0`$; equals $`m^3`$ when $`0\le m\le1`$ and $`l\ge m`$; and equals $`1-(1-l)^3`$ for $`0\le l\le1`$ and $`m\ge1`$. It equals one when both arguments are at least one.
+
+Since $`P(L\gt l)=(1-l)^3`$, $`f_L(l)=3(1-l)^2`$. Dividing gives
+
+```math
+f_{M\mid L}(m\mid l)=\frac{2(m-l)}{(1-l)^2},
+\qquad l\lt m\lt 1.
+```
+
+Its integral over $`m`$ equals one. Once the minimum is fixed at $`l`$, the two remaining observations occupy $`(l,1)`$, and their maximum has this conditional density.
+
+### 2.5 Additional solved problems
+
+#### Problem PR-10: a triangular joint density
+
+Constructed problem. Let $`f(x,y)=c`$ on $`0\lt x\lt y\lt 1`$. Normalize it and compute $`E[X\mid Y=y]`$.
+
+Solution. The triangle has area $`1/2`$, so $`c=2`$. Integrating $`x`$ from zero to $`y`$ gives $`f_Y(y)=2y`$. Consequently $`f_{X\mid Y}(x\mid y)=1/y`$ on $`(0,y)`$, a uniform distribution. Its mean is $`y/2`$. Integrating the other coordinate gives $`f_X(x)=2(1-x)`$ on $`(0,1)`$, so $`EX=\int_0^12x(1-x)dx=1/3`$. The tower property later gives the same answer from $`E(Y/2)=(1/2)(2/3)`$.
+
+#### Problem PR-11: a mixed distribution
+
+Constructed problem. Let $`U`$ be uniform on $`(-1,1)`$ and set $`Y=\max(U,0)`$.
+
+Solution. Half the original interval is mapped to zero, so $`P(Y=0)=1/2`$. For $`0\lt y\lt 1`$, $`F_Y(y)=P(U\le y)=(y+1)/2`$, giving a continuous density $`1/2`$ on that interval. The CDF jumps from zero to $`1/2`$ at zero. A description using only a density would omit the atom. The mean is $`\int_0^1y/2\,dy=1/4`$, with the atom contributing zero.
+
+## 3. Conditional expectation
+
+### 3.1 Theory
+
+For discrete $`Y`$, $`E[X\mid Y=y]`$ averages $`X`$ under its conditional distribution given that value. The result as a function of the observed $`Y`$ is the random variable $`E[X\mid Y]`$. Before observing $`Y`$ it is random; after observing $`Y=y`$ it becomes a number.
+
+More generally, for a sigma-algebra $`\mathcal G`$, conditional expectation $`m=E[X\mid\mathcal G]`$ is $`\mathcal G`$-measurable and satisfies $`E[m\mathbf1_A]=E[X\mathbf1_A]`$ for every $`A\in\mathcal G`$. This definition expresses exactly the information that $`\mathcal G`$ permits us to distinguish. It determines $`m`$ up to events of probability zero.
+
+The tower property says $`E[E[X\mid\mathcal G]]=EX`$. If $`\mathcal H\subseteq\mathcal G`$, then $`E[E[X\mid\mathcal G]\mid\mathcal H]=E[X\mid\mathcal H]`$. A known factor can be pulled out: $`E[ZX\mid\mathcal G]=ZE[X\mid\mathcal G]`$ for suitable $`\mathcal G`$-measurable $`Z`$ and integrable products.
+
+Independence of $`X`$ from $`\mathcal G`$ gives $`E[X\mid\mathcal G]=EX`$. Zero covariance gives much less: it controls only one linear average of joint behavior.
+
+### 3.2 Derivations and proofs
+
+#### Conditional expectation minimizes mean squared error
+
+Assume $`X\in L^2`$ and put $`m=E[X\mid\mathcal G]`$. For any square-integrable $`\mathcal G`$-measurable predictor $`g`$, write $`X-g=(X-m)+(m-g)`$. Expansion gives
+
+```math
+E[(X-g)^2]=E[(X-m)^2]+E[(m-g)^2]
++2E[(X-m)(m-g)].
+```
+
+Condition the cross term on $`\mathcal G`$. The factor $`m-g`$ is known there, and $`E[X-m\mid\mathcal G]=0`$, so the cross term vanishes. Thus
+
+```math
+E[(X-g)^2]=E[(X-m)^2]+E[(m-g)^2].
+```
+
+The second term is nonnegative and is zero only when $`g=m`$ almost surely. This proves both optimality and uniqueness in the probabilistic sense.
+
+#### Total variance
+
+Apply the same orthogonal decomposition with $`g=EX`$. The residual contribution is $`E[\mathop{\mathrm{Var}} (X\mid\mathcal G)]`$, while the predictor contribution is $`\mathop{\mathrm{Var}} (E[X\mid\mathcal G])`$. Therefore
+
+```math
+\mathop{\mathrm{Var}} (X)=E[\mathop{\mathrm{Var}} (X\mid\mathcal G)]
++\mathop{\mathrm{Var}} (E[X\mid\mathcal G]).
+```
+
+The first term is uncertainty left after observing the information. The second is variation in the conditional mean across the information states.
+
+#### Conditional expectation as an information-based variable
+
+For integrable $`Y`$ and information sigma-algebra $`\mathcal G`$, a conditional expectation $`m=E[Y\mid\mathcal G]`$ is a $`\mathcal G`$-measurable integrable variable satisfying
+
+```math
+E[m1_A]=E[Y1_A]\qquad(A\in\mathcal G).
+```
+
+The measurable variable summarizes what can be predicted using the available information. Its defining equalities identify it up to events of probability zero. For a finite partition, these equalities reduce to within-cell averages.
+
+If $`\mathcal H\subseteq\mathcal G`$, the tower property follows from the definition: for every $`A\in\mathcal H`$, integrating $`E[Y\mid\mathcal G]`$ over $`A`$ gives the same value as integrating $`Y`$. Therefore
+
+```math
+E[E[Y\mid\mathcal G]\mid\mathcal H]=E[Y\mid\mathcal H].
+```
+
+The nesting is necessary. Conditioning in an arbitrary order on two unrelated information sets does not generally return either of the original conditional expectations.
+
+For a bounded $`\mathcal G`$-measurable variable $`Z`$, one can take it outside the conditional expectation: $`E[ZY\mid\mathcal G]=ZE[Y\mid\mathcal G]`$. The identity extends under suitable integrability conditions. It does not apply to an unobserved future factor merely because its symbol is being treated as fixed in a calculation.
+
+#### More information and average prediction error
+
+Let $`Y\in L^2`$ and $`\mathcal H\subseteq\mathcal G`$. The projection identity gives
+
+```math
+E[(Y-E[Y\mid\mathcal H])^2]
+=E[(Y-E[Y\mid\mathcal G])^2]
++E[(E[Y\mid\mathcal G]-E[Y\mid\mathcal H])^2].
+```
+
+To derive it, split the first prediction error into the latter two terms. Their cross product has expectation zero after conditioning on $`\mathcal G`$. Thus more information cannot increase the minimum achievable mean squared prediction error. This is an average statement and does not compare every individual conditional variance.
+
+#### Example PR-E23: one observation explains nonlinear variation
+
+Let $`X`$ be uniform on $`[-1,1]`$ and $`Y=X^2`$. Find the best constant predictor and the best predictor based on $`X`$.
+
+Solution. The best constant is $`E[Y]=1/3`$. Its squared prediction error is $`\mathop{\mathrm{Var}} (Y)=E[X^4]-(E[X^2])^2=1/5-1/9=4/45`$. Knowing $`X`$ determines $`Y`$ exactly, so $`E[Y\mid X]=X^2`$ and its error is zero.
+
+Nevertheless $`\mathop{\mathrm{Cov}} (X,Y)=E[X^3]-E[X]E[X^2]=0`$. A linear regression on $`X`$ with an intercept gives the constant $`1/3`$ and misses the nonlinear relation. Conditional expectation ranges over all square-integrable functions of the information, while linear projection restricts the class of predictors.
+
+### 3.3 Worked examples
+
+#### Example PR-E05: a two-group mixture
+
+Let $`P(G=1)=1/4`$, $`E[X\mid G=1]=4`$, and $`E[X\mid G=0]=0`$, with conditional variance one in both groups.
+
+Solution. The mean is $`(1/4)4+(3/4)0=1`$. The average conditional variance is one. The conditional mean takes values four and zero, so its variance is $`(1/4)(4-1)^2+(3/4)(0-1)^2=3`$. Hence $`\mathop{\mathrm{Var}} (X)=4`$. Ignoring group differences would miss three quarters of the total variance.
+
+#### Example PR-E06: dependence with zero covariance
+
+Let $`X`$ be uniform on $`(-1,1)`$ and $`Y=X^2`$.
+
+Solution. Symmetry gives $`EX=EX^3=0`$, so $`\mathop{\mathrm{Cov}} (X,Y)=EX^3-EX\,EX^2=0`$. Yet $`Y`$ is completely determined by $`X`$. In particular $`E[Y\mid X]=X^2`$, whereas $`EY=1/3`$. Zero covariance has not made the conditional mean constant.
+
+### 3.4 Selected exercise and additional problems
+
+#### Problem PR-12: shared opponent strength
+
+Source: [Harvard Strategic Practice 2, Section 3, Problem 5(a–c)](https://stat110.hsites.harvard.edu/sites/g/files/omnuum10111/files/stat110/files/strategic_practice_and_homework_2.pdf).
+
+Problem. An opponent is equally likely to be one of three types with win probabilities $`0.9,0.5,0.3`$. Games are independent conditional on type. Find the first-game win probability, the probability of two wins, and the second-game win probability after a first win.
+
+Solution. Opponent types have equal probabilities and conditional win probabilities $`0.9,0.5,0.3`$. The first-game win probability is their average, $`17/30`$. Conditional on type, the games are independent, so the probability of two wins is $`(0.9^2+0.5^2+0.3^2)/3=23/60`$. Consequently
+
+```math
+P(W_2\mid W_1)=\frac{23/60}{17/30}=\frac{23}{34}.
+```
+
+This exceeds $`17/30`$. A first win shifts posterior weight toward easier opponents. Conditional independence allows this common hidden type to create unconditional dependence. Indeed $`P(W_1\cap W_2)=23/60\ne(17/30)^2`$.
+
+#### Problem PR-13: conditional Jensen inequality
+
+Constructed problem. Prove $`f(E[X\mid\mathcal G])\le E[f(X)\mid\mathcal G]`$ when $`X`$ has finite support and $`f`$ is convex.
+
+Solution. Let the possible values be $`x_1,\ldots,x_k`$ and put $`p_i=P(X=x_i\mid\mathcal G)`$. Almost surely the $`p_i`$ are nonnegative and sum to one. Then $`E[X\mid\mathcal G]=\sum_ip_ix_i`$ and $`E[f(X)\mid\mathcal G]=\sum_ip_if(x_i)`$. Apply the finite Jensen inequality pointwise to those weights. In particular $`E[X\mid\mathcal G]^2\le E[X^2\mid\mathcal G]`$, showing directly that conditional expectation does not increase the $`L^2`$ norm after taking expectations.
+
+#### Problem PR-14: prediction from a coarse observation
+
+Constructed problem. Let $`X`$ be uniform on $`(0,1)`$ and observe only $`B=\mathbf1_{\lbrace X\gt 1/2\rbrace }`$. Find the best squared-error predictor and its MSE.
+
+Solution. Given $`B=0`$, $`X`$ is uniform on $`(0,1/2)`$ with mean $`1/4`$. Given $`B=1`$, it is uniform on $`(1/2,1)`$ with mean $`3/4`$. The predictor is $`m=1/4+B/2`$. Each conditional variance is $`(1/2)^2/12=1/48`$, so the MSE is $`1/48`$. The unconditional variance is $`1/12`$. Observing the half-interval removes $`1/12-1/48=1/16`$ of variance, exactly the variance of the conditional mean.
+
+#### Problem PR-15: conditioning on more information
+
+Constructed problem. For $`\mathcal H\subseteq\mathcal G`$ and $`X\in L^2`$, compare the two optimal prediction errors.
+
+Solution. Every $`\mathcal H`$-measurable predictor is also $`\mathcal G`$-measurable. The minimum over the larger predictor class cannot be greater. More precisely, let $`m_H=E[X\mid\mathcal H]`$ and $`m_G=E[X\mid\mathcal G]`$. Orthogonality gives
+
+```math
+E[(X-m_H)^2]=E[(X-m_G)^2]+E[(m_G-m_H)^2].
+```
+
+The reduction in prediction error is exactly the squared distance between the two conditional means. Extra information gives no improvement precisely when the conditional means already agree almost surely.
+
+## 4. Multivariate probability
+
+### 4.1 Theory
+
+For a random vector $`X\in\mathbb R^p`$ with finite second moments, define $`\mu=EX`$ and
+
+```math
+\Sigma=E[(X-\mu)(X-\mu)^\top].
+```
+
+Its $`(i,j)`$ entry is $`\mathop{\mathrm{Cov}} (X_i,X_j)`$. The diagonal entries are variances. For a fixed matrix $`A`$ and vector $`b`$, $`E[AX+b]=A\mu+b`$ and $`\mathop{\mathrm{Cov}} (AX+b)=A\Sigma A^\top`$.
+
+A jointly Gaussian vector is one for which every scalar linear combination is normally distributed, permitting degenerate zero-variance normals. It is characterized by its mean and covariance. A collection of variables can each be marginally normal without being jointly normal. Zero covariance implies independence for jointly Gaussian coordinates; it does not do so for general variables.
+
+If $`\Sigma`$ is PD, the joint density is
+
+```math
+f(x)=\frac{\exp[-\tfrac12(x-\mu)^\top\Sigma^{-1}(x-\mu)]}
+{(2\pi)^{p/2}\det(\Sigma)^{1/2}}.
+```
+
+A singular Gaussian vector still exists, but is supported on a lower-dimensional affine subspace and has no full-dimensional density of this form.
+
+### 4.2 Derivations and proofs
+
+#### Conditional Gaussian distribution
+
+Partition $`X=(X_1^\top,X_2^\top)^\top`$ and its covariance into blocks $`\Sigma_{11},\Sigma_{12},\Sigma_{21},\Sigma_{22}`$, with $`\Sigma_{22}`$ invertible. Set $`B=\Sigma_{12}\Sigma_{22}^{-1}`$ and
+
+```math
+R=X_1-\mu_1-B(X_2-\mu_2).
+```
+
+Then $`\mathop{\mathrm{Cov}} (R,X_2)=\Sigma_{12}-B\Sigma_{22}=0`$. The pair $`(R,X_2)`$ is jointly Gaussian because it is a linear transformation of $`X`$, so zero cross-covariance makes the two blocks independent. Its residual covariance is $`\Sigma_{11}-\Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21}`$. Therefore
+
+```math
+X_1\mid X_2=x_2\sim
+N\left(\mu_1+B(x_2-\mu_2),
+\Sigma_{11}-\Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21}\right).
+```
+
+The covariance is PSD because it is the covariance of the explicitly constructed residual. The independence step is the place where Gaussianity is essential.
+
+#### Expected quadratic forms
+
+For symmetric $`A`$, write $`X=\mu+Z`$ with $`EZ=0`$. Expand $`X^\top AX`$. The cross term has expectation zero, and
+
+```math
+E[Z^\top AZ]=E[\mathop{\mathrm{tr}} (AZZ^\top)]
+=\mathop{\mathrm{tr}} (A\Sigma).
+```
+
+Hence $`E[X^\top AX]=\mu^\top A\mu+\mathop{\mathrm{tr}} (A\Sigma)`$. No Gaussian assumption is needed.
+
+#### Singular Gaussian distributions
+
+For a random vector $`X`$, a covariance matrix is always PSD because $`a^\top\Sigma a=\mathop{\mathrm{Var}} (a^\top X)\ge0`$. It is positive definite exactly when no nonzero linear combination of the centered coordinates is almost surely constant.
+
+A Gaussian vector can have singular covariance. For example, $`(Z,2Z)`$ is jointly Gaussian but lives on one line in the plane. It has no two-dimensional Lebesgue density. The familiar normal density involving $`\det\Sigma`$ and $`\Sigma^{-1}`$ applies only to positive-definite covariance.
+
+If $`X\sim N(\mu,\Sigma)`$ and $`A`$ is fixed, then $`AX+b`$ is Gaussian with mean $`A\mu+b`$ and covariance $`A\Sigma A^\top`$. This remains true in singular cases and is often safer than trying to manipulate a density that does not exist.
+
+#### Quadratic forms in independent normals
+
+Let $`Z\sim N(0,I_d)`$ and $`P`$ be an orthogonal projection of rank $`r`$. Its eigenvalues are $`r`$ ones and the remaining zeros. Orthogonal invariance of the standard normal and diagonalization give
+
+```math
+Z^\top PZ=\sum_{i=1}^r U_i^2\sim\chi_r^2.
+```
+
+If $`P,Q`$ are orthogonal projections with $`PQ=0`$, their projected Gaussian vectors have zero cross covariance and are independent. Their squared lengths are therefore independent too. Gaussianity is the assumption that converts geometric orthogonality into statistical independence.
+
+#### Example PR-E24: why the sample variance uses a chi-square law
+
+For independent $`X_i\sim N(\mu,\sigma^2)`$, write $`X=\mu\mathbf1+\sigma Z`$. Let $`P=\mathbf1\mathbf1^\top/n`$ and $`M=I-P`$. The sample mean depends on $`PZ`$, while centered residuals equal $`\sigma MZ`$.
+
+The ranks are one and $`n-1`$, and $`PM=0`$. Thus
+
+```math
+\frac{\sum_i(X_i-\bar X)^2}{\sigma^2}
+=Z^\top MZ\sim\chi_{n-1}^2,
+```
+
+independently of $`\bar X`$. Dividing by $`n-1`$ makes $`s^2`$ unbiased because a chi-square with that many degrees of freedom has that expectation.
+
+The t pivot combines the independent normal mean and chi-square variance estimate. These exact laws arise from the Gaussian vector's orthogonal decomposition. With non-Gaussian data, residual orthogonality still holds algebraically, but it does not in general give independence or an exact chi-square distribution.
+
+### 4.3 Worked examples
+
+#### Example PR-E07: a Gaussian spread
+
+Suppose $`(X,Y)`$ is jointly Gaussian with means $`1,2`$, variances $`4,9`$, and covariance $`3`$. Find the law of $`2X-Y`$.
+
+Solution. The mean is $`2(1)-2=0`$. Its variance is $`4(4)+9-4(3)=13`$, so $`2X-Y\sim N(0,13)`$. The covariance term has coefficient twice the product of the two linear coefficients, namely $`2(2)(-1)=-4`$.
+
+#### Example PR-E08: a conditional Gaussian calculation
+
+Using the same variables, $`E[X\mid Y=y]=1+(3/9)(y-2)`$ and $`\mathop{\mathrm{Var}} (X\mid Y)=4-9/9=3`$. At $`Y=5`$, the conditional mean is two. The variance falls from four to three; it does not fall to zero because knowing $`Y`$ leaves an independent residual component in $`X`$.
+
+### 4.4 Selected exercise and additional problems
+
+#### Problem PR-16: covariance positivity and linear transformations
+
+Source: [MIT 18.650, Problem Set 10, Problem 3, Questions 3–5](https://ocw.mit.edu/courses/18-650-statistics-for-applications-fall-2016/ff133adcf6955bcaefcec1ea49014008_MIT18_650F16_PSet10.pdf).
+
+Problem. Prove that population and sample covariance matrices are PSD, derive covariance under a linear transformation, and explain the rank obstruction when the output dimension exceeds the input dimension.
+
+Solution. For any fixed $`a`$, $`a^\top\Sigma a=E[(a^\top(X-\mu))^2]=\mathop{\mathrm{Var}} (a^\top X)\ge0`$, proving PSD. For a sample covariance, replace expectation by the average of centered outer products; the same sum-of-squares argument works with either positive denominator convention.
+
+For $`Y=AX`$, center it as $`Y-EY=A(X-\mu)`$ and take outer products, yielding $`\mathop{\mathrm{Cov}} (Y)=A\Sigma A^\top`$. If $`A`$ is $`q\times p`$ with $`q\gt p`$, its covariance has rank at most $`p\lt q`$ and cannot be invertible. Finally $`\mathop{\mathrm{Var}} (u^\top X)=u^\top\Sigma u`$ by the same transformation formula with a one-row matrix.
+
+#### Problem PR-17: normal marginals without a Gaussian pair
+
+Constructed problem. Let $`Z\sim N(0,1)`$ and let an independent sign $`S`$ equal $`\pm1`$ with equal probabilities. Put $`X=Z`$, $`Y=SZ`$.
+
+Solution. Both marginals are standard normal because changing the sign of a centered normal preserves its law. Also $`E[XY]=E[S]E[Z^2]=0`$. Nevertheless $`Y^2=X^2`$ with probability one, so the pair is dependent. Its support lies on two crossing lines, whereas a jointly Gaussian pair with identity covariance has a two-dimensional density. Thus the zero-covariance independence rule cannot be applied merely from normal marginal distributions.
+
+#### Problem PR-18: correlated normals from independent ones
+
+Constructed problem. For independent standard normals $`Z_1,Z_2`$, define $`X=Z_1`$ and $`Y=\rho Z_1+\sqrt{1-\rho^2}Z_2`$ for $`\vert \rho\vert \lt 1`$.
+
+Solution. The pair is jointly Gaussian as a linear transformation of independent normals. Both variances equal one and the covariance is $`\rho`$. Given $`X=x`$, the remaining $`Z_2`$ is independent and unchanged, so $`Y\mid X=x\sim N(\rho x,1-\rho^2)`$. This construction directly explains both the conditional mean and variance. At $`\vert \rho\vert =1`$ the residual disappears and the covariance matrix becomes singular.
+
+#### Problem PR-19: a chi-square quadratic
+
+Constructed problem. If $`X\sim N_p(\mu,\Sigma)`$ with $`\Sigma`$ PD, find the law of $`(X-\mu)^\top\Sigma^{-1}(X-\mu)`$.
+
+Solution. Let $`Z=\Sigma^{-1/2}(X-\mu)`$. This is jointly Gaussian with mean zero and covariance identity, so its coordinates are independent standard normals. The quadratic becomes $`Z^\top Z=\sum_{j=1}^pZ_j^2`$, which by definition has the $`\chi_p^2`$ distribution. Its mean is $`p`$ and variance $`2p`$. The invertibility assumption is necessary for this exact expression; a rank-$`r`$ singular covariance with its pseudoinverse yields $`\chi_r^2`$ on the supported subspace.
+
+## 5. Convergence and asymptotic theory
+
+### 5.1 Theory
+
+There are several ways for random variables to approach a limit. Convergence in probability, $`X_n\to_p X`$, means $`P(\vert X_n-X\vert \gt \varepsilon)\to0`$ for each fixed $`\varepsilon\gt 0`$. Convergence in $`L^2`$ means $`E[(X_n-X)^2]\to0`$. Almost-sure convergence means that the numerical sequence $`X_n(\omega)`$ converges for all outcomes outside a probability-zero set.
+
+Convergence in distribution, $`X_n\Rightarrow X`$, means $`F_{X_n}(x)\to F_X(x)`$ at every continuity point of $`F_X`$. It compares laws rather than requiring the variables to become close on a common probability space. Convergence in probability implies convergence in distribution; the converse generally fails. Convergence in $`L^2`$ implies convergence in probability by Markov's inequality applied to squared error.
+
+The weak law of large numbers says an iid sample mean approaches its expectation under suitable integrability assumptions. With finite variance the proof is short. The central limit theorem goes further: for iid observations with mean $`\mu`$ and finite positive variance $`\sigma^2`$,
+
+```math
+\sqrt n(\bar X_n-\mu)\Rightarrow N(0,\sigma^2).
+```
+
+The CLT describes the size and shape of the remaining error, at scale $`n^{-1/2}`$. The limiting normal approximation is to the standardized mean, not necessarily to an individual observation.
+
+The continuous mapping theorem preserves convergence under functions continuous at the relevant limits. Slutsky's theorem allows estimated quantities converging in probability to constants to be inserted into a distributional limit. It does not say that two separately converging marginal distributions may be combined without joint information.
+
+### 5.2 Derivations and proofs
+
+#### Chebyshev's inequality and the weak law
+
+For a finite-variance variable, apply Markov's inequality to $`(X-EX)^2`$:
+
+```math
+P(\vert X-EX\vert \ge a)\le\frac{\mathop{\mathrm{Var}} (X)}{a^2}.
+```
+
+For iid $`X_i`$ with variance $`\sigma^2`$, independence removes covariance terms and $`\mathop{\mathrm{Var}} (\bar X_n)=\sigma^2/n`$. Therefore
+
+```math
+P(\vert \bar X_n-\mu\vert \ge\varepsilon)\le\frac{\sigma^2}{n\varepsilon^2}\to0.
+```
+
+The same calculation gives $`E[(\bar X_n-\mu)^2]=\sigma^2/n`$, proving $`L^2`$ convergence. With serial dependence, the variance contains additional covariance terms and the iid proof must be changed.
+
+#### Delta method
+
+Suppose $`\sqrt n(\widehat\theta-\theta)\Rightarrow N(0,V)`$ and $`g`$ is differentiable at $`\theta`$. Taylor expansion gives
+
+```math
+g(\widehat\theta)-g(\theta)
+=g'(\theta)(\widehat\theta-\theta)+o_p(n^{-1/2}).
+```
+
+Hence $`\sqrt n[g(\widehat\theta)-g(\theta)]\Rightarrow N(0,[g'(\theta)]^2V)`$. In several dimensions, replace the derivative by the row gradient: the variance is $`\nabla g(\theta)^\top V\nabla g(\theta)`$ when gradients are columns. The remainder is negligible because the estimator is consistent and its scaled error stays bounded in probability.
+
+For a ratio $`g(a,b)=a/b`$, with $`b\ne0`$, the gradient is $`(1/b,-a/b^2)^\top`$. If the joint limit covariance of $`(\widehat a,\widehat b)`$ is $`V`$, both diagonal variance terms and their cross-covariance contribute to the ratio's variance.
+
+#### A short route to the iid CLT
+
+A full CLT proof is beyond the elementary inequalities above, but its finite-variance mechanism can be stated precisely. For centered variance-one $`Z`$, its characteristic function satisfies $`E[e^{itZ}]=1-t^2/2+o(t^2)`$ near zero. Independence makes the characteristic function of $`n^{-1/2}\sum_iZ_i`$ equal to $`[1-t^2/(2n)+o(1/n)]^n\to e^{-t^2/2}`$. The characteristic-function continuity theorem identifies the limit as standard normal. The expansion and that continuity theorem are the non-elementary ingredients invoked here.
+
+#### Comparing modes of convergence
+
+Almost-sure convergence controls paths except on a null event. Convergence in probability controls $`P(\vert X_n-X\vert \gt \epsilon)`$ for every fixed positive tolerance. Convergence in $`L^2`$ controls $`E\vert X_n-X\vert ^2`$. Convergence in distribution controls CDF limits at continuity points and may refer only to laws rather than variables on one common space.
+
+The implication $`L^2\Rightarrow`$ probability follows from Markov's inequality applied to the squared error. Almost-sure convergence implies convergence in probability by dominated convergence applied to the error-event indicators. Convergence in probability implies convergence in distribution, but the converse generally fails.
+
+For a rare-spike example, let $`X_n=\sqrt n`$ with probability $`1/n`$ and zero otherwise. Then $`P(\vert X_n\vert \gt \epsilon)\to0`$ for fixed $`\epsilon\gt 0`$ and $`E\vert X_n\vert =1/\sqrt n\to0`$. Yet $`E[X_n^2]=1`$ for every $`n`$, so there is no $`L^2`$ convergence to zero. Rare large errors can disappear in probability while retaining a nonvanishing second moment.
+
+For another example, let $`Z\sim N(0,1)`$ and $`X_n=(-1)^nZ`$. Every $`X_n`$ has the standard normal law, so the distributions converge to that law. The sequence does not converge in probability to $`Z`$: on odd indices, its difference from $`Z`$ is $`-2Z`$. A limiting marginal law does not determine a pathwise coupling.
+
+#### The multivariable delta method for a ratio
+
+Suppose $`\sqrt n((\hat a,\hat b)-(a,b))\Rightarrow N(0,\Sigma)`$ with $`b\ne0`$. For $`g(a,b)=a/b`$, the gradient is $`(1/b,-a/b^2)^\top`$. A first-order Taylor expansion and consistency give
+
+```math
+\sqrt n\left(\frac{\hat a}{\hat b}-\frac ab\right)
+\Rightarrow N(0,\nabla g^\top\Sigma\nabla g).
+```
+
+Writing $`R=a/b`$, the asymptotic variance is
+
+```math
+\frac{\Sigma_{11}-2R\Sigma_{12}+R^2\Sigma_{22}}{b^2}.
+```
+
+The covariance term is essential when the numerator and denominator use the same observations. Independence cannot be inferred from two separate marginal CLTs. If the population denominator is zero, this differentiable-map argument does not apply.
+
+#### Example PR-E25: a ratio with correlated estimation error
+
+Take $`a=2`$, $`b=1`$, and asymptotic covariance
+
+```math
+\Sigma=\begin{pmatrix}4&1\\[0pt] 1&1\end{pmatrix}
+```
+
+. The ratio is two and the delta variance is $`4-2(2)(1)+4(1)=4`$. Thus its large-sample standard error is approximately $`2/\sqrt n`$.
+
+Ignoring the covariance would give variance eight and a different interval. A denominator near zero would make the variance large and a symmetric normal interval unreliable. Consistency of the denominator away from zero is part of the approximation, rather than an arithmetic detail.
+
+### 5.3 Worked examples
+
+#### Example PR-E09: an average of exponentials
+
+For iid $`\mathop{\mathrm{Exp}} (2)`$ observations, estimate $`P(\bar X_{100}\gt 0.6)`$.
+
+Solution. The mean is $`1/2`$ and variance $`1/4`$, so the sample-mean standard deviation is $`0.05`$. The standardized threshold is $`(0.6-0.5)/0.05=2`$. The CLT approximation is $`1-\Phi(2)\approx0.0228`$. This is an approximation, not an exact identity; an exact answer could instead use the gamma distribution of the sum.
+
+#### Example PR-E10: estimating a logarithm
+
+If $`X_i`$ are iid Bernoulli with $`0\lt p\lt 1`$, then $`\sqrt n(\bar X-p)\Rightarrow N(0,p(1-p))`$. For $`g(p)=\log p`$, the derivative is $`1/p`$, so the asymptotic variance of $`\sqrt n(\log\bar X-\log p)`$ is $`(1-p)/p`$. The event $`\bar X=0`$ has probability $`(1-p)^n\to0`$; define the estimator on that event separately before making a finite-sample statement.
+
+#### Example PR-E11: a zero derivative changes the rate
+
+Suppose $`\sqrt n\widehat\theta\Rightarrow N(0,\sigma^2)`$ at true $`\theta=0`$, and estimate $`\theta^2`$ by $`\widehat\theta^2`$.
+
+Solution. The ordinary first-order delta variance is zero because $`g'(0)=0`$. At scale $`n`$, however, $`n\widehat\theta^2=(\sqrt n\widehat\theta)^2\Rightarrow\sigma^2\chi_1^2`$. The faster rate and nonnormal limit require a different confidence-interval calculation.
+
+### 5.4 Selected exercises
+
+#### Problem PR-20: rare large values
+
+Source: [MIT 18.650, Problem Set 1, Problem 1, Question 1](https://ocw.mit.edu/courses/18-650-statistics-for-applications-fall-2016/1aea12bd54eb19c821501f730cc247d9_MIT18_650F16_PSet1.pdf).
+
+Problem. Let $`X_n=1/n`$ with probability $`1-1/n^2`$ and $`X_n=n`$ with probability $`1/n^2`$. Compare convergence in probability and in $`L^2`$.
+
+Solution. Let $`P(X_n=1/n)=1-1/n^2`$ and $`P(X_n=n)=1/n^2`$. For any fixed $`\varepsilon\gt 0`$, once $`1/n\lt \varepsilon`$, the probability of exceeding $`\varepsilon`$ is at most $`1/n^2`$, so $`X_n\to_p0`$. But
+
+```math
+E[X_n^2]=(1-1/n^2)/n^2+n^2/n^2
+=1+1/n^2-1/n^4\to1.
+```
+
+Thus it does not converge to zero in $`L^2`$. It cannot have any different $`L^2`$ limit, because an $`L^2`$ limit would also be a probability limit, and probability limits are unique almost surely. Rare large values vanish in probability while retaining a nonvanishing second-moment contribution.
+
+#### Problem PR-21: Bernoulli sample means
+
+Source: [MIT 18.650, Problem Set 1, Problem 1, Question 2(a,b)](https://ocw.mit.edu/courses/18-650-statistics-for-applications-fall-2016/1aea12bd54eb19c821501f730cc247d9_MIT18_650F16_PSet1.pdf).
+
+Problem. For independent Bernoulli observations with success probability $`p`$, identify the law of the sample sum and prove $`L^2`$ convergence of the sample mean to $`p`$.
+
+Solution. The sum $`n\bar X_n`$ counts successes in $`n`$ independent Bernoulli trials, so it has the $`\mathop{\mathrm{Bin}} (n,p)`$ distribution. Its mean is $`np`$ and variance $`np(1-p)`$. Dividing by $`n`$ gives $`E\bar X_n=p`$ and $`\mathop{\mathrm{Var}} (\bar X_n)=p(1-p)/n`$. Therefore $`E[(\bar X_n-p)^2]\to0`$, proving $`L^2`$ convergence, including the degenerate endpoints $`p=0,1`$.
+
+#### Problem PR-22: marginal distributional limits do not determine a sum
+
+Source: [MIT 18.650, Problem Set 1, Problem 2, Question 3](https://ocw.mit.edu/courses/18-650-statistics-for-applications-fall-2016/1aea12bd54eb19c821501f730cc247d9_MIT18_650F16_PSet1.pdf).
+
+Problem. Determine whether separate convergence in distribution of $`X_n`$ and $`Y_n`$ implies convergence of their sum to the sum of specified limiting variables. Give a counterexample if not.
+
+Solution. Let $`Z\sim N(0,1)`$, $`X_n=Z`$, and $`Y_n=-Z`$ for every $`n`$. Choose limit variables $`X=Z`$ and $`Y=Z`$. Both marginal convergences $`X_n\Rightarrow X`$ and $`Y_n\Rightarrow Y`$ hold, since $`Z`$ and $`-Z`$ have identical laws. Yet $`X_n+Y_n=0`$ always, while $`X+Y=2Z`$ is nondegenerate. Thus the asserted sum convergence fails. Joint convergence to the specified pair would make continuous mapping applicable, but separate marginal convergence does not supply it.
+
+### 5.5 Additional solved problems
+
+#### Problem PR-23: a ratio of sample averages
+
+Constructed problem. Suppose iid pairs $`(X_i,Y_i)`$ have mean $`(a,b)`$, $`b\ne0`$, variances $`\sigma_X^2,\sigma_Y^2`$, and covariance $`\sigma_{XY}`$. Find the asymptotic variance of $`\bar X/\bar Y`$.
+
+Solution. The joint CLT and the ratio gradient give
+
+```math
+\sqrt n\left(\frac{\bar X}{\bar Y}-\frac ab\right)
+\Rightarrow N\left(0,\frac{\sigma_X^2}{b^2}
++\frac{a^2\sigma_Y^2}{b^4}
+-\frac{2a\sigma_{XY}}{b^3}\right).
+```
+
+The denominator stays away from zero with probability tending to one because $`\bar Y\to_p b\ne0`$. The covariance term cannot be discarded unless its coefficient vanishes or the pairs have zero cross-covariance. Separate independence across observations does not imply independence of the two components within each pair.
+
+#### Problem PR-24: a sample-size guarantee
+
+Constructed problem. With known bound $`\mathop{\mathrm{Var}} (X)\le4`$, find a sufficient iid sample size for $`P(\vert \bar X-\mu\vert \ge0.1)\le0.05`$.
+
+Solution. Chebyshev gives a bound $`4/(0.01n)=400/n`$. Requiring $`400/n\le0.05`$ gives $`n\ge8000`$. This is a finite-sample guarantee under only the variance bound and independence. A normal approximation can suggest a smaller size, but that approximation supplies different information and does not follow from Chebyshev alone.
+
+#### Problem PR-25: why finite variance matters for the mean CLT
+
+Constructed problem. For iid standard Cauchy variables, explain why the usual sample-mean LLN and finite-variance CLT do not apply.
+
+Solution. A standard Cauchy has neither an integrable absolute first moment nor a finite variance. Its characteristic function is $`e^{-\vert t\vert }`$. The sample mean has characteristic function $`\prod_{i=1}^ne^{-\vert t\vert /n}=e^{-\vert t\vert }`$, so its distribution is the same Cauchy law for every $`n`$. It does not concentrate around a constant. Increasing the sample size does not repair a theorem whose moment assumptions fail.
+
+## 6. Statistical estimation
+
+### 6.1 Theory
+
+A statistical model is a family $`\lbrace P_\theta:\theta\in\Theta\rbrace`$ of possible sampling distributions. Identification means different parameter values produce different observable distributions. An estimator $`\widehat\theta`$ is a function of the observed sample. Its sampling distribution describes how it varies under repeated samples with the same true parameter.
+
+Bias is $`E_\theta\widehat\theta-\theta`$. Mean squared error decomposes as
+
+```math
+E_\theta[(\widehat\theta-\theta)^2]
+=\mathop{\mathrm{Var}} _\theta(\widehat\theta)
++[\mathop{\mathrm{Bias}} _\theta(\widehat\theta)]^2.
+```
+
+Unbiasedness is a finite-sample mean statement. Consistency is convergence to the true parameter as sample size increases. Neither property alone establishes small error at a particular sample size.
+
+Method of moments equates sample moments with their model expectations. Maximum likelihood chooses a parameter making the observed sample density or mass largest. For iid data, the likelihood is $`\prod_i f_\theta(x_i)`$ and its log is $`\ell_n(\theta)=\sum_i\log f_\theta(x_i)`$. The observations are fixed when maximizing this expression; the parameter is varied.
+
+The score is $`s_\theta(X)=\partial_\theta\log f_\theta(X)`$. In a regular model, Fisher information per observation is $`I(\theta)=E_\theta[s_\theta(X)^2]=-E_\theta[\partial_\theta^2\log f_\theta(X)]`$. Interchanging derivatives and integrals, a common support, and the required integrability justify these equalities. Parameter-dependent support can invalidate them.
+
+### 6.2 Derivations and proofs
+
+#### The information lower bound
+
+For a regular scalar model and an unbiased estimator $`T`$ of $`\theta`$, differentiating $`E_\theta T=\theta`$ gives $`E_\theta[T S_n]=1`$, where $`S_n=\sum_i s_\theta(X_i)`$. Since $`ES_n=0`$, this is $`\mathop{\mathrm{Cov}} (T,S_n)=1`$. Cauchy-Schwarz gives
+
+```math
+1\le\mathop{\mathrm{Var}} (T)\mathop{\mathrm{Var}} (S_n)
+=\mathop{\mathrm{Var}} (T)\,nI(\theta).
+```
+
+Thus $`\mathop{\mathrm{Var}} (T)\ge1/[nI(\theta)]`$. The differentiation step is an assumption-dependent part of the argument. This bound is for unbiased estimators in the stated regular setting, not for every possible biased procedure.
+
+#### A regular MLE's asymptotic variance
+
+If an interior consistent MLE solves $`\ell_n'(\widehat\theta)=0`$, expand around the truth:
+
+```math
+0=\ell_n'(\theta)+\ell_n''(\widetilde\theta)(\widehat\theta-\theta).
+```
+
+A score CLT gives $`n^{-1/2}\ell_n'(\theta)\Rightarrow N(0,I(\theta))`$, and a uniform law of large numbers under regularity gives $`-n^{-1}\ell_n''(\widetilde\theta)\to_p I(\theta)`$. Rearrangement and Slutsky yield asymptotic variance $`I(\theta)^{-1}`$. Consistency, interiority, differentiability, and the laws of large numbers are requirements, not consequences of merely writing the likelihood.
+
+#### Information bounds require regularity
+
+For a regular scalar model with score $`S_\theta=\partial_\theta\log f_\theta(X)`$, differentiation under the integral gives $`E_\theta[S_\theta]=0`$. If $`T`$ is unbiased for $`\theta`$ and the same interchange is justified, differentiating $`E_\theta[T]=\theta`$ gives
+
+```math
+E_\theta[(T-\theta)S_\theta]=1.
+```
+
+Cauchy–Schwarz then yields $`\mathop{\mathrm{Var}} (T)I(\theta)\ge1`$. For independent observations, information adds, giving the Cramér–Rao lower bound $`1/(nI_1(\theta))`$ for regular unbiased estimators.
+
+The proof identifies the assumptions behind the bound. Parameter-dependent support can contribute boundary terms and invalidate the score identities. A smaller variance in such a model is not a contradiction.
+
+#### Example PR-E26: a nonregular uniform endpoint
+
+Let $`X_i`$ be independent uniform variables on $`(0,\theta)`$ with $`\theta\gt 0`$. Find the maximum-likelihood estimate and an unbiased correction.
+
+Solution. For positive observations, the likelihood is $`\theta^{-n}1_{\lbrace \theta\ge M\rbrace }`$ with $`M=\max_iX_i`$. It decreases for $`\theta\ge M`$, so the MLE is $`M`$. The support depends on the parameter, and the maximum occurs at its boundary.
+
+For $`0\lt m\lt \theta`$, $`P(M\le m)=(m/\theta)^n`$. Differentiation and integration give
+
+```math
+E[M]=\frac n{n+1}\theta,\qquad
+\mathop{\mathrm{Var}} (M)=
+\frac{n\theta^2}{(n+1)^2(n+2)}.
+```
+
+Thus $`T=(n+1)M/n`$ is unbiased, with variance $`\theta^2/[n(n+2)]`$. Its variance shrinks at order $`n^{-2}`$. The regular score calculation would wrongly omit the moving support boundary. It cannot be used to claim a usual $`n^{-1}`$ lower bound here.
+
+#### Bias, consistency, and efficiency
+
+Bias is a finite-sample expectation difference. Consistency is a limiting probability statement. An estimator can be biased for every finite sample and still be consistent, as the normal variance MLE illustrates. It can also be unbiased but inconsistent when its variance fails to shrink.
+
+Mean squared error decomposes as $`E[(T-\theta)^2]=\mathop{\mathrm{Var}} (T)+\mathop{\mathrm{Bias}} (T)^2`$ whenever the second moment exists. Comparing only unbiasedness can therefore select a less accurate estimator under squared error. “Efficient” must specify the comparison class and whether it concerns finite samples or an asymptotic covariance.
+
+A likelihood is a function of the parameter with the observations fixed. Its numerical value is not the probability that a continuous parameter equals a candidate. Maximum likelihood chooses the parameter that best supports the observed data under the specified model; it does not verify the model itself.
+
+### 6.3 Worked examples
+
+#### Example PR-E12: method of moments for an exponential rate
+
+For iid exponentials, $`EX=1/\lambda`$. Equating $`\bar X`$ to this mean gives $`\widehat\lambda=1/\bar X`$. The LLN and continuity of reciprocal at $`1/\lambda\gt 0`$ prove consistency. Applying the delta method with derivative $`-\lambda^2`$ gives asymptotic variance $`\lambda^2`$ for the $`\sqrt n`$ error.
+
+#### Example PR-E13: an unbiased estimator can be noisy
+
+For iid observations with mean $`\mu`$, both $`X_1`$ and $`\bar X_n`$ are unbiased estimators of $`\mu`$. If the variance is $`\sigma^2\gt 0`$, their variances are $`\sigma^2`$ and $`\sigma^2/n`$. The first ignores all new observations and is generally not consistent; the second uses the expanding sample. Unbiasedness alone does not choose between them.
+
+#### Example PR-E14: information lost by thresholding
+
+If $`Y\sim\mathop{\mathrm{Exp}} (\lambda)`$ but only $`X=\mathbf1_{\lbrace Y\gt z\rbrace }`$ is observed, then $`X`$ is Bernoulli with $`p=e^{-\lambda z}`$. Its information for $`\lambda`$ is
+
+```math
+I_X(\lambda)=\frac{(dp/d\lambda)^2}{p(1-p)}
+=\frac{z^2e^{-\lambda z}}{1-e^{-\lambda z}}.
+```
+
+The full observation has information $`1/\lambda^2`$. Thresholding keeps only whether the waiting time crossed one cutoff and discards its exact length.
+
+### 6.4 Selected exercises
+
+#### Problem PR-26: correcting a variance estimator's bias
+
+Source: [MIT 18.650, Problem Set 2, Problem 1, Questions 1–4](https://ocw.mit.edu/courses/18-650-statistics-for-applications-fall-2016/680f2b6e1bd22ea4ce020accf752cbe9_MIT18_650F16_PSet2.pdf).
+
+Problem. For a Bernoulli sample, examine $`\bar X(1-\bar X)`$ as an estimator of the population variance: establish consistency, compute bias, and construct an unbiased correction.
+
+Solution. Bernoulli $`X`$ satisfies $`X^2=X`$, so $`\mathop{\mathrm{Var}} (X)=p-p^2`$. Since $`\bar X\to_p p`$, the continuous mapping theorem makes $`\bar X(1-\bar X)`$ consistent for $`p(1-p)`$. Its expectation is
+
+```math
+E[\bar X-\bar X^2]
+=p-\left(p^2+\frac{p(1-p)}n\right)
+=\left(1-\frac1n\right)p(1-p).
+```
+
+The bias is $`-p(1-p)/n`$. For $`n\gt 1`$, multiplying by $`n/(n-1)`$ gives an unbiased estimator. For Bernoulli observations this equals the ordinary sample variance with denominator $`n-1`$.
+
+#### Problem PR-27: Bernoulli likelihood and information
+
+Source: [MIT 18.650, Problem Set 4, Problem 1, Question 1](https://ocw.mit.edu/courses/18-650-statistics-for-applications-fall-2016/b6bf22e01213547707d09e588819e94f_MIT18_650F16_PSet4.pdf).
+
+Problem. Derive the Bernoulli MLE, score, and Fisher information. Treat all-success and all-failure samples and distinguish open from closed parameter spaces.
+
+Solution. With $`k=\sum_i x_i`$, $`\ell(p)=k\log p+(n-k)\log(1-p)`$. For $`0\lt k\lt n`$, stationarity gives $`k/p=(n-k)/(1-p)`$, hence $`\widehat p=k/n`$. The second derivative is negative, proving the unique maximum.
+
+If $`k=0`$ or $`k=n`$ and the parameter space is strictly $`(0,1)`$, the likelihood has a supremum at the missing endpoint but no MLE inside the parameter space. On the closed model $`[0,1]`$, the endpoint estimate is allowed. This finite-sample boundary event must be distinguished from interior asymptotic regularity.
+
+For one observation, the score is $`(X-p)/[p(1-p)]`$. Its mean is zero and its second moment is $`I(p)=1/[p(1-p)]`$. The sample mean's variance $`p(1-p)/n`$ attains the unbiased information bound.
+
+#### Problem PR-28: exponential likelihood and information
+
+Source: [MIT 18.650, Problem Set 4, Problem 1, Question 3](https://ocw.mit.edu/courses/18-650-statistics-for-applications-fall-2016/b6bf22e01213547707d09e588819e94f_MIT18_650F16_PSet4.pdf).
+
+Problem. For an independent exponential sample parameterized by rate $`\lambda\gt 0`$, derive the MLE, score, Fisher information, and finite-sample expectation of the MLE.
+
+Solution. The log likelihood is $`n\log\lambda-\lambda\sum_i x_i`$, with derivative $`n/\lambda-\sum_i x_i`$. For a positive observed sum, the maximum is $`\widehat\lambda=n/\sum_i x_i=1/\bar X`$, and the negative second derivative proves uniqueness. The per-observation score is $`1/\lambda-X`$, with variance $`1/\lambda^2`$, so $`I(\lambda)=1/\lambda^2`$. The rate estimator is consistent but not exactly unbiased: for $`n\gt 1`$, the gamma law of the sum gives $`E\widehat\lambda=n\lambda/(n-1)`$.
+
+#### Problem PR-29: the normal mean and variance
+
+Source: [MIT 18.650, Problem Set 4, Problem 1, Question 4](https://ocw.mit.edu/courses/18-650-statistics-for-applications-fall-2016/b6bf22e01213547707d09e588819e94f_MIT18_650F16_PSet4.pdf).
+
+Problem. For a normal sample with both mean and strictly positive variance unknown, derive the MLEs and information matrix, and examine the all-equal observation case.
+
+Solution. Write $`v=\sigma^2\gt 0`$. The log likelihood is $`-\tfrac n2\log(2\pi v)-\sum_i(x_i-\mu)^2/(2v)`$. At fixed $`v`$, completing the square in $`\mu`$ gives $`\widehat\mu=\bar X`$. Then differentiating in $`v`$ gives $`\widehat v=n^{-1}\sum_i(X_i-\bar X)^2`$, assuming a nonzero residual sum.
+
+The score components for one observation are $`(X-\mu)/v`$ and $`-1/(2v)+(X-\mu)^2/(2v^2)`$. Centered Gaussian odd moments vanish, so their cross-information is zero. Using $`E(X-\mu)^4=3v^2`$ gives
+
+```math
+I(\mu,v)=\begin{pmatrix}1/v&0\\[0pt] 0&1/(2v^2)\end{pmatrix}.
+```
+
+For an all-equal sample, the likelihood increases without bound as $`v\downarrow0`$ and no MLE exists with strictly positive variance. With $`n\ge2`$ under a genuine continuous normal model, this event has probability zero.
+
+### 6.5 Additional solved problems
+
+#### Problem PR-30: identifying parameters after keeping only signs
+
+Constructed problem. If $`X\sim N(\mu,\sigma^2)`$ and only $`\mathbf1_{\lbrace X\gt 0\rbrace }`$ is observed, can both parameters be identified?
+
+Solution. The observable success probability is $`\Phi(\mu/\sigma)`$. Thus the sign distribution identifies the ratio $`\mu/\sigma`$ but not the pair. For any $`c\gt 0`$, $`(c\mu,c\sigma)`$ produces the same observations. No amount of sign-only sampling distinguishes these pairs. The issue is identification, so improving an estimation algorithm cannot resolve it.
+
+#### Problem PR-31: a uniform maximum
+
+Constructed problem. For iid $`U(0,\theta)`$ observations, find the mean, bias, and a correction for $`M_n=\max_iX_i`$.
+
+Solution. Its CDF is $`(m/\theta)^n`$ for $`0\le m\le\theta`$, so its density is $`nm^{n-1}/\theta^n`$. Integration gives $`EM_n=n\theta/(n+1)`$. Its bias is $`-\theta/(n+1)`$ and $`(n+1)M_n/n`$ is unbiased. Also $`P(M_n\le\theta-\varepsilon)=(1-\varepsilon/\theta)^n\to0`$ for $`0\lt \varepsilon\lt \theta`$, proving consistency. The parameter-dependent support places this model outside the usual regular score argument.
+
+#### Problem PR-32: bias-variance tradeoff for a normal mean
+
+Constructed problem. Let $`X_i\sim N(\mu,\sigma^2)`$ iid and estimate $`\mu`$ by $`a\bar X`$ for fixed $`a`$.
+
+Solution. The bias is $`(a-1)\mu`$ and variance is $`a^2\sigma^2/n`$. Thus $`\mathop{\mathrm{MSE}} =a^2\sigma^2/n+(a-1)^2\mu^2`$. Differentiating in $`a`$ gives the oracle choice $`a=\mu^2/(\mu^2+\sigma^2/n)`$. It depends on the unknown $`\mu`$, so it is not directly an available rule. The calculation nevertheless explains why some shrinkage can reduce MSE near zero while adding bias.
+
+#### Problem PR-33: information under reparameterization
+
+Constructed problem. For an exponential distribution, replace rate $`\lambda`$ by mean $`m=1/\lambda`$. Find information for $`m`$.
+
+Solution. The chain rule gives $`s_m=s_\lambda(d\lambda/dm)`$, so $`I_m(m)=I_\lambda(1/m)(-1/m^2)^2`$. Since $`I_\lambda(\lambda)=1/\lambda^2`$, this becomes $`m^2/m^4=1/m^2`$. The MLE for $`m`$ is $`\bar X`$, with variance $`m^2/n`$. Information has units tied to the chosen parameter; its numerical value changes when the parameter is rescaled.
+
+## 7. Statistical inference
+
+### 7.1 Theory
+
+A confidence interval is a random set $`C(X_1,\ldots,X_n)`$ whose repeated-sampling coverage is $`P_\theta(\theta\in C)\ge1-\alpha`$ or approaches that level asymptotically. In a frequentist model, $`\theta`$ is fixed and the interval is random before sampling. A realized interval either contains it or does not; a posterior probability statement requires a different model including a prior.
+
+A test rejects a null hypothesis on a rejection region. Its Type I error probability is rejection under the null. Its Type II error is failure to reject at an alternative. Power is one minus Type II error. For a composite null, level $`\alpha`$ means the rejection probability is at most $`\alpha`$ at every null parameter.
+
+A p-value is a null-calibrated measure of how extreme the observed statistic is in the specified direction. It is not the probability the null is true. Failing to reject does not establish equality or practical equivalence.
+
+A Wald test standardizes an estimator's distance from the null. A likelihood-ratio test compares the best fit under the null with the unrestricted best fit. Under regular interior null hypotheses, the log-likelihood ratio multiplied by two has an asymptotic chi-square law, with degrees of freedom equal to the number of restrictions. Boundary and unidentified-nuisance cases require separate limits.
+
+### 7.2 Derivations and proofs
+
+#### From an asymptotic pivot to an interval
+
+If $`\sqrt n(\widehat\theta-\theta)/\widehat s\Rightarrow N(0,1)`$ and $`\widehat s\to_p s\gt 0`$, then
+
+```math
+P_\theta\left(
+\widehat\theta-z_{1-\alpha/2}\widehat s/\sqrt n
+\le\theta\le
+\widehat\theta+z_{1-\alpha/2}\widehat s/\sqrt n
+\right)\to1-\alpha.
+```
+
+The event is obtained by solving $`-z\le\sqrt n(\widehat\theta-\theta)/\widehat s\le z`$ for $`\theta`$. The consistency of $`\widehat s`$ and positivity of $`s`$ justify studentization.
+
+For iid normal data with unknown variance, an exact pivot is $`\sqrt n(\bar X-\mu)/S\sim t_{n-1}`$, where $`S^2=\sum_i(X_i-\bar X)^2/(n-1)`$. Orthogonal Gaussian projections make the sample mean independent of the residual sum of squares, and the latter divided by $`\sigma^2`$ has $`\chi_{n-1}^2`$ law. The ratio defines the Student distribution.
+
+#### Error rates, power, and a rejection rule
+
+For a test function $`\varphi`$ equal to one on rejection, a level-$`\alpha`$ test satisfies $`\sup_{\theta\in H_0}E_\theta[\varphi]\le\alpha`$. Power at an alternative is $`E_\theta[\varphi]`$. Type II error at that alternative is one minus power. An observed p-value is not the probability that the null hypothesis is true.
+
+For independent Gaussian observations with known $`\sigma`$, test $`H_0:\mu\le\mu_0`$ against $`\mu\gt \mu_0`$ by rejecting when
+
+```math
+\bar X\gt \mu_0+z_{1-\alpha}\frac{\sigma}{\sqrt n}.
+```
+
+The largest rejection probability within the null occurs at the boundary $`\mu_0`$. At alternative $`\mu_1\gt \mu_0`$, power is
+
+```math
+1-\Phi\left(z_{1-\alpha}
+-\frac{\sqrt n(\mu_1-\mu_0)}{\sigma}\right).
+```
+
+Solving for target power $`1-\beta`$ gives the sufficient sample size $`n\ge[(z_{1-\alpha}+z_{1-\beta})\sigma/(\mu_1-\mu_0)]^2`$.
+
+#### Example PR-E27: planning a one-sided mean test
+
+Take $`\alpha=0.05`$, target power $`0.8`$, known $`\sigma=2`$, and an effect $`\mu_1-\mu_0=0.5`$. The normal quantiles are approximately $`1.644854`$ and $`0.841621`$. The required continuous sample size is about $`98.92`$, so use at least ninety-nine observations.
+
+This calculation assumes the supplied variance, effect, direction, and Gaussian sampling model. A two-sided test uses a different critical value and generally needs more observations for the same specified alternative. Estimating variance or accounting for dependence changes the design calculation.
+
+#### Three large-sample tests for a Bernoulli probability
+
+For an interior null $`p_0`$ and sample proportion $`\hat p`$, the likelihood-ratio statistic is
+
+```math
+2n\left[
+\hat p\log\frac{\hat p}{p_0}
++(1-\hat p)\log\frac{1-\hat p}{1-p_0}
+\right].
+```
+
+Use the continuous convention $`0\log0=0`$ at an endpoint estimate. A Wald statistic uses $`n(\hat p-p_0)^2/[\hat p(1-\hat p)]`$, while the score statistic uses the null variance $`n(\hat p-p_0)^2/[p_0(1-p_0)]`$. Under fixed interior $`p_0`$ and large samples, all have a chi-square limit with one degree of freedom.
+
+At a boundary estimate, the Wald denominator can vanish even though the exact binomial problem is well defined. Exact binomial tail probabilities avoid that asymptotic denominator. Discrete tests often have rejection probability below the nominal level because no integer cutoff gives exactly the desired tail mass.
+
+### 7.3 Worked examples
+
+#### Example PR-E15: a known-variance normal interval
+
+For $`n=100`$, observed mean $`3`$, and known $`\sigma=2`$, the exact normal 95% interval is $`3\pm1.96(2/10)`$, or $`[2.608,3.392]`$. Exactness uses normal sampling and known variance. With a general finite-variance population, the same form is asymptotic; with estimated variance, an additional consistency argument is needed.
+
+#### Example PR-E16: a Bernoulli Wald interval
+
+For $`n=100`$ and sixty successes, $`\widehat p=0.6`$ and estimated standard error is $`\sqrt{0.6(0.4)/100}\approx0.0490`$. The Wald interval is approximately $`[0.504,0.696]`$. Near zero or one, this approximation can have poor coverage and can extend outside $`[0,1]`$. Wilson or exact binomial inversion uses a different construction.
+
+#### Example PR-E17: power of a one-sided normal test
+
+With known $`\sigma`$, reject $`H_0:\mu\le\mu_0`$ if $`\sqrt n(\bar X-\mu_0)/\sigma\gt z_{1-\alpha}`$. At true $`\mu`$, power is
+
+```math
+1-\Phi\left(z_{1-\alpha}-\frac{\sqrt n(\mu-\mu_0)}{\sigma}\right).
+```
+
+At the boundary it equals $`\alpha`$; farther inside the null it is smaller. At a fixed alternative above the boundary it approaches one as $`n`$ grows.
+
+### 7.4 Selected exercises
+
+#### Problem PR-34: tests for an exponential rate
+
+Source: [MIT 18.650, Problem Set 6, Problem 1, Questions 1–3](https://ocw.mit.edu/courses/18-650-statistics-for-applications-fall-2016/99e0952a99c4d37c82f15f3728fdd7a8_MIT18_650F16_PSet6.pdf).
+
+Problem. Construct asymptotic two-sided and upper one-sided tests for an exponential rate. Evaluate the upper one-sided test of rate at most one for fifty observations with sample mean $`0.98`$.
+
+Solution. Since $`\widehat\lambda=1/\bar X`$ has $`\sqrt n`$ asymptotic variance $`\lambda^2`$, under $`\lambda=\lambda_0`$,
+
+```math
+Z_n=\frac{\sqrt n(\widehat\lambda-\lambda_0)}{\widehat\lambda}
+\Rightarrow N(0,1).
+```
+
+Reject equality against a two-sided alternative when $`\vert Z_n\vert \gt z_{1-\alpha/2}`$. For $`H_0:\lambda\le\lambda_0`$ against $`\lambda\gt \lambda_0`$, reject when $`Z_n\gt z_{1-\alpha}`$. At the boundary the limiting rejection probability is $`\alpha`$; for any fixed $`\lambda\lt \lambda_0`$, the statistic tends to $`-\infty`$, so the rejection probability tends to zero.
+
+For fifty interarrival observations with $`\bar X=0.98`$ and $`\lambda_0=1`$, $`\widehat\lambda=1/0.98`$ and $`Z_n=\sqrt{50}(1-0.98)\approx0.1414`$. The one-sided asymptotic p-value is $`1-\Phi(0.1414)\approx0.444`$. This does not reject at 5%. The calculation does not establish that the arrival rate is at most one; the observed difference is small relative to sampling uncertainty.
+
+#### Problem PR-35: a Poisson interval and its inverted test
+
+Source: [MIT 18.650, Problem Set 5, Problem 1, Questions 1–2](https://ocw.mit.edu/courses/18-650-statistics-for-applications-fall-2016/fc95ad9117580c46a8fddce6df5fb1ec_MIT18_650F16_PSet5.pdf).
+
+Problem. For independent Poisson observations, construct a plug-in asymptotic confidence interval for the positive rate and the corresponding inverted two-sided test. Discuss the zero-count boundary.
+
+Solution. For fixed $`\lambda\gt 0`$, the CLT gives $`\sqrt n(\bar X-\lambda)\Rightarrow N(0,\lambda)`$ and the LLN gives $`\bar X\to_p\lambda`$. Hence
+
+```math
+C_n=\left[\bar X-z_{1-\alpha/2}\sqrt{\bar X/n},
+\bar X+z_{1-\alpha/2}\sqrt{\bar X/n}\right]
+```
+
+has asymptotic coverage $`1-\alpha`$. Intersecting it with $`[0,\infty)`$ preserves coverage for positive $`\lambda`$. Reject $`H_0:\lambda=\lambda_0`$ when $`\lambda_0\notin C_n`$, equivalently when $`\sqrt n\vert \bar X-\lambda_0\vert /\sqrt{\bar X}\gt z_{1-\alpha/2}`$ for positive $`\bar X`$. The zero-count event requires an explicit convention; its probability $`e^{-n\lambda}`$ vanishes at fixed positive $`\lambda`$, but a small-sample exact Poisson interval handles it more effectively.
+
+### 7.5 Additional solved problems
+
+#### Problem PR-36: likelihood-ratio and Wald tests for a Bernoulli parameter
+
+Constructed problem. Test $`p=p_0\in(0,1)`$ with $`k`$ successes in $`n`$ trials.
+
+Solution. Put $`\widehat p=k/n`$. The likelihood-ratio statistic is
+
+```math
+LR=2\left[
+k\log\frac{\widehat p}{p_0}
++(n-k)\log\frac{1-\widehat p}{1-p_0}\right],
+```
+
+with $`0\log0`$ interpreted by continuity. The Wald statistic is $`W=n(\widehat p-p_0)^2/[\widehat p(1-\widehat p)]`$ when the estimate is interior. Both approach $`\chi_1^2`$ under a fixed interior null. A second-order Taylor expansion of the Bernoulli log likelihood around $`p_0`$ explains their asymptotic agreement. Their finite-sample values differ, and the Wald denominator is zero at endpoint estimates while the LR remains well-defined.
+
+#### Problem PR-37: an exact binomial tail test
+
+Constructed problem. For $`H_0:p\le1/2`$ against $`p\gt 1/2`$, explain an exact nonrandomized test using $`K\sim\mathop{\mathrm{Bin}} (n,p)`$.
+
+Solution. Choose the smallest integer $`c`$ such that $`P_{1/2}(K\ge c)\le\alpha`$, and reject when $`K\ge c`$. Couple Bernoulli trials as $`\mathbf1_{\lbrace U_i\le p\rbrace }`$ using common independent uniforms. Their sum increases with $`p`$, so the upper-tail probability is largest within the null at $`p=1/2`$. Thus the test has level at most $`\alpha`$. The discrete tail may make the actual level strictly smaller.
+
+#### Problem PR-38: a confidence interval after many comparisons
+
+Constructed problem. Construct simultaneous intervals for $`m`$ parameters from individually valid intervals.
+
+Solution. If each interval misses its parameter with probability at most $`\alpha/m`$, the union bound gives
+
+```math
+P(\text{at least one miss})\le\sum_{j=1}^m\alpha/m=\alpha.
+```
+
+Thus using individual level $`1-\alpha/m`$ yields joint coverage at least $`1-\alpha`$. Independence among intervals is unnecessary. This Bonferroni argument can be conservative, especially when the estimates are strongly correlated.
+
+#### Problem PR-39: size and power are different probabilities
+
+Constructed problem. Suppose a level-5% test has power 80% at a specified alternative. In a population of repeated studies, 10% use that alternative and 90% use the null. Find the fraction of rejections arising under the alternative.
+
+Solution. The model gives rejection probability $`0.8(0.1)+0.05(0.9)=0.125`$. The alternative-and-rejection probability is $`0.08`$. Their ratio is $`0.08/0.125=0.64`$. This calculation uses the extra mixture model for study types. The original test's 5% level alone is not a posterior error probability after rejection.
+
+#### Problem PR-40: equivalence requires a specified margin
+
+Constructed problem. Explain why failing to reject $`\mu=0`$ does not establish $`\vert \mu\vert \lt \delta`$.
+
+Solution. A low-precision sample can produce a wide interval containing zero and values well beyond $`\pm\delta`$. To establish equivalence at a chosen margin, test both $`H_{01}:\mu\le-\delta`$ and $`H_{02}:\mu\ge\delta`$ and reject both using the appropriate one-sided procedures. Equivalently, in a regular normal setting, an associated interval must lie wholly inside $`(-\delta,\delta)`$. The margin must be specified in the units of the outcome before interpreting practical closeness.
+
+[Contents](README.md) · [Part 2](03-probability-and-statistics-part-2.md)
